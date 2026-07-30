@@ -37,7 +37,7 @@ struct BeatsMonoid {
 - モノイドの型 `S`
 - 作用素の型 `F`
 - モノイドの二項演算 `S op(S a, S b)`
-- モノイドへの作用素の適用が失敗したかどうかを返す関数 `bool fail(S a)` 
+- モノイドへの作用素の適用が失敗したかどうかを返す関数 `bool fail(S a)`
 - モノイドの単位元 `e()`
 - 作用素をモノイドに適用する関数 `S mapping(S x, F f)`
 - 作用素の二項演算 `F composition(F f, F g)`
@@ -47,7 +47,7 @@ struct BeatsMonoid {
 
 ## LambdaBeatsMonoid について
 
-`LambdaBeatsMonoid` は、ラムダ式を受け取って、構造体 `BeatsMonoid` のようにふるまう構造体です 。`LambdaBeatsMonoid` の引数に `S op(S a, S b)`、`bool fail(S a)`、`e()`、`S mapping(S x, F f)`、`F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
+`LambdaBeatsMonoid` は、ラムダ式を受け取って、構造体 `BeatsMonoid` のようにふるまう構造体です。`LambdaBeatsMonoid` の引数に `S op(S a, S b)`、`bool fail(S a)`、`e()`、`S mapping(S x, F f)`、`F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
 
 ```cpp
 template< typename Op, typename Fail, typename E, typename Mapping, typename Composition, typename Id >
@@ -160,7 +160,7 @@ S all_prod() const
 ## 制約
 
 - $0 \leq k \lt n$
-- $0 \leq l \leq r \leq n$ 
+- $0 \leq l \leq r \leq n$
 
 ## 計算量
 

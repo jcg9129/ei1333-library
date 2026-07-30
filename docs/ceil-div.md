@@ -1,5 +1,5 @@
 ---
-title: Ceil Div(天井除算)
+title: Ceil Div (天井除算)
 documentation_of: //other/ceil-div.hpp
 ---
 
@@ -7,7 +7,7 @@ documentation_of: //other/ceil-div.hpp
 
 # ceil_div
 
-```
+```cpp
 T ceil_div(T n, T d)
 ```
 

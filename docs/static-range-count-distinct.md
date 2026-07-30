@@ -35,7 +35,7 @@ $vs[l, r)$ に現れる値の種類数を求めるクエリを追加します。
 
 - $O(1)$
 
-# calculate_queries
+# calclate_queries
 
 ```cpp
 vector< size_t > calclate_queries() const

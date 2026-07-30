@@ -1,16 +1,19 @@
 ---
+title: Topological Sort (トポロジカルソート)
 documentation_of: //graph/others/topological-sort.hpp
 ---
 
-## 概要
+DAG(閉路のない有向グラフ) が与えられたとき、トポロジカルソートする。
 
-DAG(閉路のない有向グラフ) が与えられたとき, トポロジカルソートする.
+入次数 $0$ の頂点から消すことを繰り返す。
 
-入次数 $0$ の頂点から消すことを繰り返す.
+# topological_sort
 
-## 使い方
+```cpp
+vector<int> topological_sort(const Graph<T>& g)
+```
 
-* `topological_sort(g)`: DAG `g` をトポロジカルソートして, その頂点の順序を返す.
+DAG `g` をトポロジカルソートして、その頂点の順序を返す。
 
 ## 計算量
 

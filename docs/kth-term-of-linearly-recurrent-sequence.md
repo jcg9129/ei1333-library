@@ -1,8 +1,7 @@
 ---
+title: Kth Term of Linearly Recurrent Sequence
 documentation_of: //math/fps/kth-term-of-linearly-recurrent-sequence.hpp
 ---
-
-## 概要
 
 線形線形漸化的数列の第 $N$ 項を求める。
 
@@ -16,8 +15,13 @@ $P(x) = Q(x)(a_0 + a_1x + a_2x^2 + \cdots + a^{k-1}x^{k-1}) \pmod {x^k}$
 
 とすればよい。$P(x)$ は $Q(x)$ と $a$ を畳み込むと求められる。
 
-従って、数列 $a$ の第 $N$ 項を求めるために、 $\frac {P(x)} {Q(x)}$ の $x^N$ の係数を求めればよくて、Bostan-Mori Algorithm を用いることで効率的に計算できる。
+従って、数列 $a$ の第 $N$ 項を求めるために、$\frac {P(x)} {Q(x)}$ の $x^N$ の係数を求めればよくて、Bostan-Mori Algorithm を用いることで効率的に計算できる。
 
+# kth_term_of_linearly_recurrent_sequence
+
+```cpp
+Mint kth_term_of_linearly_recurrent_sequence(const FPS<Mint>& a, FPS<Mint> c, int64_t k)
+```
 
 ## 計算量
 

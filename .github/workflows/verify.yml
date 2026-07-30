@@ -22,6 +22,23 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  markdown-style:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install Markdown tools
+        run: npm ci
+
+      - name: Check Markdown documentation
+        run: npm run docs:check
+
   setup:
     runs-on: ubuntu-latest
     steps:
@@ -113,7 +130,7 @@ jobs:
 
   docs-and-check:
     runs-on: ubuntu-latest
-    needs: [verify]
+    needs: [verify, markdown-style]
     outputs:
       upload-pages: ${{steps.upload-pages.outcome == 'success'}}
     steps:

@@ -1,19 +1,52 @@
 ---
+title: Tree Decomposition Width 2 (木幅2の木分解)
 documentation_of: //graph/others/tree-decomposition-width-2.hpp
 ---
 
-## 概要
-
-無向グラフが与えられたとき, 木幅が $2$ 以下か判定し, $2$ 以下の場合は木幅 $2$ 以下の木分解を構成する.
+無向グラフが与えられたとき、木幅が $2$ 以下か判定し、$2$ 以下の場合は木幅 $2$ 以下の木分解を構成する。
 
 非連結だとバグります！(適当にダミー辺を加えて連結にしてね)
 
-## 使い方
+# コンストラクタ
 
-* `add_edge(a, b)`: 頂点 `a`, `b` 間に辺を張る.
-* `build()`: 木幅が $2$ 以下か判定し, $2$ 以下の場合はノード `0` を根とする木幅 $2$ 以下の木分解を返す. `bag` はそのノードに対応する頂点, `child` にはそのノードの子が格納される. $2$ より大きい場合は空列を返す.
-* `to_nice(g, root)`: 木分解 `g` を Nice Tree-decomposition に変形する. これによりすべてのノードは, leaf(`bag` のサイズが $1$), introduce($1$ つの子を持ち, 子の `bag` に $1$ つの頂点を加えたもの), forget($1$ つの子を持ち,  子の`bag` から $1$ つの頂点を取り除いたもの), join($2$ つの子を持ち, 自身と $2$ つの子の `bag` はすべて同じ) のいずれかに属するようになる.
+```cpp
+explicit TreeDecompositionWidth2(int V)
+```
+
+頂点数 `V` のグラフで初期化します。
 
 ## 計算量
 
-$O(E + V)$
+- $O(V)$
+
+# add_edge
+
+```cpp
+void add_edge(int a, int b)
+```
+
+頂点 `a`、`b` 間に辺を張る。
+
+# build
+
+```cpp
+vector<DecompNode> build()
+```
+
+木幅が $2$ 以下か判定し、$2$ 以下の場合はノード `0` を根とする木幅 $2$ 以下の木分解を返す。`bag` はそのノードに対応する頂点、`child` にはそのノードの子が格納される。$2$ より大きい場合は空列を返す。
+
+## 計算量
+
+- $O(E + V)$
+
+# to_nice
+
+```cpp
+void to_nice(vector<DecompNode>& g, int root = 0)
+```
+
+木分解 `g` を Nice Tree-decomposition に変形する。これによりすべてのノードは、leaf(`bag` のサイズが $1$)、introduce($1$ つの子を持ち、子の `bag` に $1$ つの頂点を加えたもの)、forget($1$ つの子を持ち、子の`bag` から $1$ つの頂点を取り除いたもの)、join($2$ つの子を持ち、自身と $2$ つの子の `bag` はすべて同じ) のいずれかに属するようになる。
+
+## 計算量
+
+- $O(E + V)$

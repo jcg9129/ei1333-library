@@ -34,7 +34,7 @@ bool empty() const
 
 ## 計算量
 
-- $O(1)$ 
+- $O(1)$
 
 # clear
 

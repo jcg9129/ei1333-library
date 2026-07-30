@@ -1,11 +1,11 @@
 ---
-title: Is Prime(素数判定)
+title: Is Prime (素数判定)
 documentation_of: //math/number-theory/is-prime.hpp
 ---
 
 # is_prime
 
-```
+```cpp
 bool is_prime(int64_t x)
 ```
 

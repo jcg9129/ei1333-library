@@ -1,11 +1,11 @@
 ---
-title: Prime Factor(素因数分解)
+title: Prime Factor (素因数分解)
 documentation_of: //math/number-theory/prime-factor.hpp
 ---
 
 # prime_factor
 
-```
+```cpp
 map< int64_t, int > prime_factor(int64_t n)
 ```
 

@@ -15,7 +15,7 @@ SuffixArray(const T& vs, bool compress = false)
 
 列 `vs` から接尾辞配列を構築します。
 
-`compress = true` のとき、値を座標圧縮してから構築します。  
+`compress = true` のとき、値を座標圧縮してから構築します。<br>
 `compress = false` のとき、`vs` の最小値を基準に平行移動して構築します。
 
 ## 計算量

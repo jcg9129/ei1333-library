@@ -30,7 +30,7 @@ documentation_of: //structure/union-find/partially-persistent-union-find.hpp
 bool unite(int t, int x, int y)
 ```
 
-時刻 `t` で要素 `x`, `y` の属する集合を併合します。  
+時刻 `t` で要素 `x`、`y` の属する集合を併合します。<br>
 同じ集合なら `false`、異なる集合を併合したなら `true` を返します。
 
 ## 制約

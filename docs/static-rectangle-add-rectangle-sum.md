@@ -57,7 +57,7 @@ $\lbrace (x,y):l \leq x \lt r, d \leq y \lt u\rbrace$ で表される長方形�
 # calculate_queries
 
 ```cpp
-vector<C> calculate_queries() const
+vector<C> calculate_queries()
 ```
 
 それぞれのクエリの答えを返します。$i$ 番目の要素は $i$ 番目に追加したクエリの答えが格納されます。

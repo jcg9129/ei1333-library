@@ -1,7 +1,6 @@
 ---
 title: Static Point Add Rectangle Sum
 documentation_of: //other/static-point-add-rectangle-sum.hpp
-
 ---
 
 2 次元平面上に重み付きの点が与えられます。
@@ -51,7 +50,7 @@ $\lbrace (x,y):l \leq x \lt r, d \leq y \lt u\rbrace$ で表される長方形�
 # calculate_queries
 
 ```cpp
-vector<C> calculate_queries() const
+vector<C> calculate_queries()
 ```
 
 それぞれのクエリの答えを返します。$i$ 番目の要素は $i$ 番目に追加したクエリの答えが格納されます。

@@ -1,5 +1,5 @@
 ---
-title: Square Matrix(正方行列)
+title: Square Matrix (正方行列)
 documentation_of: //math/matrix/square-matrix.hpp
 ---
 

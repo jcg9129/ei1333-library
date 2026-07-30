@@ -33,7 +33,7 @@ $\lbrace (x,y):l \leq x \leq r, d \leq y \leq u\rbrace$ で表される長方形
 
 ## 計算量
 
-- $O(1)$ 
+- $O(1)$
 
 # calc
 

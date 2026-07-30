@@ -5,7 +5,7 @@ documentation_of: //math/number-theory/kth-root-integer.hpp
 
 # kth_root_integer
 
-```
+```cpp
 uint64_t kth_root_integer(uint64_t a, int k)
 ```
 

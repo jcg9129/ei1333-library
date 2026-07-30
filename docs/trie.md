@@ -22,7 +22,7 @@ Trie< char_size, margin >()
 (2) void add(const string& str)
 ```
 
-(1) 文字列 `str` を挿入し、終端ノードに `id` を登録します。  
+(1) 文字列 `str` を挿入し、終端ノードに `id` を登録します。<br>
 (2) 文字列 `str` を挿入し、自動採番された `id` を登録します。
 
 ## 制約
@@ -40,7 +40,7 @@ Trie< char_size, margin >()
 (2) void query(const string& str, const function<void(int)>& f)
 ```
 
-`str` を先頭から辿り、到達した各ノードに登録された `id` を `f` に渡します。  
+`str` を先頭から辿り、到達した各ノードに登録された `id` を `f` に渡します。<br>
 つまり、`str` の接頭辞と一致する挿入済み文字列の `id` を列挙します。
 
 (2) は `(str_index, node_index) = (0, 0)` から開始するラッパです。

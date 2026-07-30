@@ -37,7 +37,7 @@ struct Act {
 
 ## LambdaAct について
 
-`LambdaAct` は、ラムダ式を受け取って、構造体 `Act` のようにふるまう構造体です 。`LambdaAct` の引数に `F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
+`LambdaAct` は、ラムダ式を受け取って、構造体 `Act` のようにふるまう構造体です。`LambdaAct` の引数に `F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
 
 ```cpp
 template< typename Composition, typename Id >

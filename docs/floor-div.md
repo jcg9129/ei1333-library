@@ -1,5 +1,5 @@
 ---
-title: Floor Div(床除算)
+title: Floor Div (床除算)
 documentation_of: //other/floor-div.hpp
 ---
 
@@ -7,7 +7,7 @@ documentation_of: //other/floor-div.hpp
 
 # floor_div
 
-```
+```cpp
 T floor_div(T n, T d)
 ```
 

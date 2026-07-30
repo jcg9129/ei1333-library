@@ -5,8 +5,7 @@ documentation_of: //string/rolling-hash.hpp
 
 文字列に対応するハッシュを mod $2^{61}-1$ で計算します。文字列 $S$ のハッシュは以下の計算式で求めます。
 
-$\mathrm{hash}(S) = \displaystyle \sum_{i=0}^{N-1} S_i b^i \pmod {2^{61} - 1}$ 
-
+$\mathrm{hash}(S) = \displaystyle \sum_{i=0}^{N-1} S_i b^i \pmod {2^{61} - 1}$
 
 # コンストラクタ
 

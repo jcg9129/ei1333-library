@@ -1,5 +1,5 @@
 ---
-title: Convert Base(進数変換)
+title: Convert Base (進数変換)
 documentation_of: //math/number-theory/convert-base.hpp
 ---
 
@@ -7,7 +7,7 @@ documentation_of: //math/number-theory/convert-base.hpp
 
 # convert_base
 
-```
+```cpp
 vector< T > convert_base(T x, T b)
 ```
 

@@ -1,11 +1,11 @@
 ---
-title: Extgcd(拡張ユークリッドの互除法)
+title: Extgcd (拡張ユークリッドの互除法)
 documentation_of: //math/number-theory/extgcd.hpp
 ---
 
 # extgcd
 
-```
+```cpp
 T extgcd(T a, T b, T &x, T &y)
 ```
 

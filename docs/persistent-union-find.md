@@ -62,7 +62,7 @@ int size(int k)
 bool unite(int x, int y)
 ```
 
-要素 `x` と `y` の属する集合を併合します。  
+要素 `x` と `y` の属する集合を併合します。<br>
 同じ集合なら `false`、異なる集合を併合したなら `true` を返します。
 
 ## 制約

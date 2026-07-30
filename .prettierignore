@@ -1,0 +1,4 @@
+node_modules/
+.competitive-verifier/bundled/
+_jekyll/
+_site/

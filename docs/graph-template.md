@@ -1,5 +1,5 @@
 ---
-title: Graph Template(グラフテンプレート)
+title: Graph Template (グラフテンプレート)
 documentation_of: //graph/graph-template.hpp
 ---
 

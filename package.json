@@ -1,0 +1,20 @@
+{
+  "name": "luzhiled-library-docs",
+  "private": true,
+  "scripts": {
+    "docs:format": "prettier --write \"*.md\" \"docs/**/*.md\" \"templates/**/*.md\"",
+    "docs:format:check": "prettier --check \"*.md\" \"docs/**/*.md\" \"templates/**/*.md\"",
+    "docs:lint": "markdownlint-cli2 \"*.md\" \"docs/**/*.md\" \"templates/**/*.md\"",
+    "docs:lint:fix": "markdownlint-cli2 --fix \"*.md\" \"docs/**/*.md\" \"templates/**/*.md\"",
+    "docs:structure": "node scripts/check-docs.mjs",
+    "docs:check": "npm run docs:format:check && npm run docs:lint && npm run docs:structure",
+    "docs:template:check": "prettier --check \"templates/**/*.md\" && markdownlint-cli2 \"templates/**/*.md\""
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "0.23.2",
+    "prettier": "3.9.6"
+  },
+  "engines": {
+    "node": ">=22"
+  }
+}

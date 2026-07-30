@@ -7,7 +7,7 @@ documentation_of: //structure/union-find/union-find.hpp
 
 # コンストラクタ
 
-```
+```cpp
 UnionFind(size_t n)
 ```
 
@@ -23,7 +23,7 @@ UnionFind(size_t n)
 
 # unite
 
-```
+```cpp
 bool unite(int x, int y)
 ```
 
@@ -35,11 +35,11 @@ bool unite(int x, int y)
 
 ## 計算量
 
-- amortized $O(\alpha(n))$ 
+- amortized $O(\alpha(n))$
 
 # find
 
-```
+```cpp
 int find(int k)
 ```
 
@@ -55,7 +55,7 @@ int find(int k)
 
 # size
 
-```
+```cpp
 int size(int k)
 ```
 
@@ -71,7 +71,7 @@ int size(int k)
 
 # same
 
-```
+```cpp
 bool same(int x, int y)
 ```
 
@@ -87,12 +87,11 @@ bool same(int x, int y)
 
 # groups
 
-```
+```cpp
 vector< vector< int > > groups()
 ```
 
 それぞれの集合に含まれる要素を列挙し、それを返します。それぞれの集合内の要素は昇順に格納されますが、集合の順番は未定義です。
-
 
 ## 計算量
 

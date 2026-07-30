@@ -7,10 +7,9 @@ Link Cut Tree や Top Tree などの動的木を簡単に構築するための B
 
 辺に情報を乗せたい場合に使用します。動的木上では、辺も頂点とみなします。
 
-
 # コンストラクタ
 
-```
+```cpp
 DynamicTreeBuilderForEdge< DynamicTree, TreeDPInfo >(int n)
 ```
 
@@ -22,7 +21,7 @@ DynamicTreeBuilderForEdge< DynamicTree, TreeDPInfo >(int n)
 
 # set_vertex
 
-```
+```cpp
 void set_vertex(int u, const Info &info)
 ```
 
@@ -38,7 +37,7 @@ void set_vertex(int u, const Info &info)
 
 # add_edge
 
-```
+```cpp
 void add_edge(int u, int v, const Info &info, int id = -1)
 ```
 
@@ -54,7 +53,7 @@ void add_edge(int u, int v, const Info &info, int id = -1)
 
 ## build
 
-```
+```cpp
 void build(int r = 0)
 ```
 

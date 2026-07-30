@@ -1,5 +1,5 @@
 ---
-title: Connected Grid States(グリッドの連結性を持つDPの状態遷移)
+title: Connected Grid States (グリッドの連結性を持つDPの状態遷移)
 documentation_of: //other/connected-grid-states.hpp
 ---
 
@@ -9,24 +9,25 @@ documentation_of: //other/connected-grid-states.hpp
 
 # コンストラクタ
 
-```
-ConnectedGridStates(int n)
+```cpp
+explicit ConnectedGridStates(int width)
 ```
 
-横幅が `n` のグリッドの各連結状態について、状態遷移を前計算します。
+横幅が `width` のグリッドの各連結状態について、状態遷移を前計算します。
 
 ## 制約
 
-- $1 \leq n$
+- $1 \leq width$
 
 ## 計算量
 
-$n$ に対して指数オーダーです。状態数の合計を $s$ として $O(ns \log s)$ です。
- 
-$n \leq 11$ くらいが限度だと思います。
+`width` に対して指数オーダーです。状態数の合計を $s$ として $O(width \cdot s \log s)$ です。
+
+`width` が $11$ 以下での利用を想定しています。
 
 参考: 状態数の合計
-```
+
+```text
 1: 3
 2: 11
 3: 34
@@ -48,15 +49,15 @@ $n \leq 11$ くらいが限度だと思います。
 
 # set_wall
 
-```
-int set_wall(int k, int state)
+```cpp
+int set_wall(int k, int state) const
 ```
 
-$k$ 列目で状態 $state$ にいるときに、$k$ 列目のマスに壁を置いた場合の遷移先を返します。
+$k$ 列目で状態 $state$ にいるときに、$k$ 列目のマスを空きマスにした場合の遷移先を返します。
 
 ## 制約
 
-- $0 \leq k \lt n$
+- $0 \leq k \lt width$
 - $0 \leq state \lt states\[k\].size$
 
 ## 計算量
@@ -65,28 +66,32 @@ $k$ 列目で状態 $state$ にいるときに、$k$ 列目のマスに壁を置
 
 # set_ground
 
-```
-int set_ground(int k, int state)
+```cpp
+int set_ground(int k, int state) const
 ```
 
 $k$ 列目で状態 $state$ にいるときに、$k$ 列目のマスに壁を置いた場合の遷移先を返します。
 
 ## 制約
 
-- $0 \leq k \lt n$
+- $0 \leq k \lt width$
 - $0 \leq state \lt states\[k\].size$
 
 ## 計算量
 
 - $O(1)$
 
-# operator []
+# operator[]
 
-```
-operator [k]
+```cpp
+const vector<vector<int>> &operator[](int k) const
 ```
 
 $k$ 列目のすべての状態を返します。
+
+## 計算量
+
+- $O(1)$
 
 $\[k\]\[state\]$ とすることで、$k$ 列目の状態 $state$ の Union Find の状態を確認できます。
 

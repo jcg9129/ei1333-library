@@ -5,11 +5,11 @@ documentation_of: //structure/others/deque-operate-aggregation.hpp
 
 半群の要素列 $A$ に対して以下の操作を効率的に行います。
 
-* push_front: $A$ の先頭に要素を追加する
-* pop_front: $A$ の先頭の要素を削除する
-* push_back: $A$ の末尾に要素を追加する
-* pop_back: $A$ の末尾の要素を削除する
-* all_prod: $A$ 全体の集約値の取得する
+- push_front: $A$ の先頭に要素を追加する
+- pop_front: $A$ の先頭の要素を削除する
+- push_back: $A$ の末尾に要素を追加する
+- pop_back: $A$ の末尾の要素を削除する
+- all_prod: $A$ 全体の集約値の取得する
 
 # コンストラクタ
 
