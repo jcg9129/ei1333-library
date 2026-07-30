@@ -1,5 +1,5 @@
 ---
-title: Divisor(約数列挙)
+title: Divisor (約数列挙)
 documentation_of: //math/number-theory/divisor.hpp
 ---
 
@@ -7,7 +7,7 @@ documentation_of: //math/number-theory/divisor.hpp
 
 # divisor
 
-```
+```cpp
 vector< int64_t > divisor(int64_t n)
 ```
 

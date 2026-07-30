@@ -7,16 +7,16 @@ documentation_of: //structure/segment-tree/segment-tree.hpp
 
 モノイドは次の条件を満たす代数的構造です。
 
-* 結合律を満たします。つまり $S$ の各元 $a, b, c$ に対して、$(a \cdot b) \cdot c = a \cdot (b \cdot c)$ を満たします。
-* 単位元を持ちます。つまり $S$ の任意の元 $a$ をとってきたときに $a \cdot e = e \cdot a = a$ なる $e$ が存在します。
+- 結合律を満たします。つまり $S$ の各元 $a, b, c$ に対して、$(a \cdot b) \cdot c = a \cdot (b \cdot c)$ を満たします。
+- 単位元を持ちます。つまり $S$ の任意の元 $a$ をとってきたときに $a \cdot e = e \cdot a = a$ なる $e$ が存在します。
 
-以下の実装では木を 1-indexed の配列で表現しています。ノード $k$ について、親ノードは $\frac k 2$, 子ノードは $2k$, $2k+1$ です。
+以下の実装では木を 1-indexed の配列で表現しています。ノード $k$ について、親ノードは $\frac k 2$、子ノードは $2k$、$2k+1$ です。
 
 # コンストラクタ
 
 ```cpp
 (1) SegmentTree< Monoid >(Monoid m, int n)
-(2) SegmentTree< Monoid >(Monoid m, const vector<S> &v) 
+(2) SegmentTree< Monoid >(Monoid m, const vector<S> &v)
 ```
 
 1. モノイド `m`、サイズ `n` で初期化します。各要素には単位元 `m.e()` が格納されます。
@@ -92,7 +92,7 @@ void build(const vector<S> &v)
 ```cpp
 void set(int k, const S &x)
 ```
- 
+
 `k` 番目の要素を `x` に変更します。
 
 ## 制約
@@ -183,14 +183,16 @@ S all_prod() const
 
 ```cpp
 template <typename C>
-int find_first(int l, const C &check) const 
+optional<int> find_first(int l, const C &check) const
 ```
 
-$[a, x)$ が `check` を満たす最初の要素位置 $x$ を返します。存在しないとき $n$ を返します。
+$check(prod(l, x))$ が `true` となる最小の $x$ を返します。存在しない場合は `nullopt` を返します。
 
 ## 制約
 
 - $0 \leq l \leq n$
+- `check(m.e()) == false`
+- $x$ を増やしたとき、`check(prod(l, x))` は `false` から `true` へ高々1回だけ変化する
 
 ## 計算量
 
@@ -200,14 +202,16 @@ $[a, x)$ が `check` を満たす最初の要素位置 $x$ を返します。存
 
 ```cpp
 template <typename C>
-int find_last(int r, const C &check) const
+optional<int> find_last(int r, const C &check) const
 ```
 
-$[x, b)$ が `check` を満たす最後の要素位置 $x$ を返します。存在しないとき $-1$ を返します。
+$check(prod(x, r))$ が `true` となる最大の $x$ を返します。存在しない場合は `nullopt` を返します。
 
 ## 制約
 
 - $0 \leq r \leq n$
+- `check(m.e()) == false`
+- $x$ を減らしたとき、`check(prod(x, r))` は `false` から `true` へ高々1回だけ変化する
 
 ## 計算量
 

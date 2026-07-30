@@ -1,14 +1,18 @@
 ---
+title: Mod Pow (べき乗)
 documentation_of: //math/combinatorics/mod-pow.hpp
 ---
 
-## 概要
-ある値のべき乗を求める.
+ある値のべき乗を求める。
 
-## 使い方
+# mod_pow
 
-* `mod_pow(x, n, p)`: $x^n \bmod p$ を返す. 
+```cpp
+T mod_pow(T x, int64_t n, const T& p)
+```
+
+$x^n \bmod p$ を返す。
 
 ## 計算量
 
-* $O(\log n)$
+- $O(\log n)$

@@ -33,7 +33,7 @@ documentation_of: //structure/wavelet/wavelet-matrix-point-add-rectangle-sum.hpp
 (2) D rect_sum(int l, int r, T lower, T upper)
 ```
 
-(1) 区間 `[l, r)` で `v[i] < upper` を満たす要素の重み総和を返します。  
+(1) 区間 `[l, r)` で `v[i] < upper` を満たす要素の重み総和を返します。<br>
 (2) 区間 `[l, r)` で `lower <= v[i] < upper` を満たす要素の重み総和を返します。
 
 ## 制約
@@ -87,7 +87,7 @@ CompressedWaveletMatrixPointAddRectangleSum(const vector<T>& v, const vector<D>&
 (2) D rect_sum(int l, int r, T lower, T upper)
 ```
 
-(1) 区間 `[l, r)` で `v[i] < upper` を満たす要素の重み総和を返します。  
+(1) 区間 `[l, r)` で `v[i] < upper` を満たす要素の重み総和を返します。<br>
 (2) 区間 `[l, r)` で `lower <= v[i] < upper` を満たす要素の重み総和を返します。
 
 ## 制約

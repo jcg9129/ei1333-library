@@ -41,4 +41,3 @@ Edges<T> restore() const
 ## 計算量
 
 - $O(n)$
-

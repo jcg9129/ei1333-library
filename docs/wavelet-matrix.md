@@ -95,7 +95,7 @@ T kth_largest(int l, int r, int k)
 (2) int range_freq(int l, int r, T lower, T upper)
 ```
 
-(1) 区間 `[l, r)` で `v[i] < upper` を満たす個数を返します。  
+(1) 区間 `[l, r)` で `v[i] < upper` を満たす個数を返します。<br>
 (2) 区間 `[l, r)` で `lower <= v[i] < upper` を満たす個数を返します。
 
 ## 制約
@@ -227,7 +227,7 @@ T kth_largest(int l, int r, int k)
 (2) int range_freq(int l, int r, T lower, T upper)
 ```
 
-(1) 区間 `[l, r)` で `v[i] < upper` を満たす個数を返します。  
+(1) 区間 `[l, r)` で `v[i] < upper` を満たす個数を返します。<br>
 (2) 区間 `[l, r)` で `lower <= v[i] < upper` を満たす個数を返します。
 
 ## 制約

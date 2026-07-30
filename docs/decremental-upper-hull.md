@@ -15,7 +15,7 @@ documentation_of: //structure/others/decremental-upper-hull.hpp
 DecrementalUpperHull< T, T2 >(const vector<Point> &ps)
 ```
 
-`T` は 2 * 座標の最大値が収まる型、`T2` は (2 * 座標の最大値)^2 が収まる型を指定してください。
+`T` は $2 \times$ 座標の最大値が収まる型、`T2` は $(2 \times \text{座標の最大値})^2$ が収まる型を指定してください。
 
 ## 制約
 

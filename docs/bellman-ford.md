@@ -1,5 +1,5 @@
 ---
-title: Bellman-Ford (単一始点最短路)
+title: Bellman Ford (単一始点最短路)
 documentation_of: //graph/shortest-path/bellman-ford.hpp
 ---
 
@@ -12,7 +12,7 @@ template <typename T>
 vector<T> bellman_ford(const Edges<T> &edges, int n, int s)
 ```
 
-頂点数 $n$ 、辺集合が `edges` からなる有向グラフについて、始点 $s$ から各頂点への最短路の重みを求め、それを返します。
+頂点数 $n$、辺集合が `edges` からなる有向グラフについて、始点 $s$ から各頂点への最短路の重みを求め、それを返します。
 
 ただし、始点 $s$ からその頂点に到達できない場合は `T` の最大値、その頂点までの経路上に負閉路が存在する場合は `T` の最小値が格納されます。
 
@@ -22,4 +22,4 @@ vector<T> bellman_ford(const Edges<T> &edges, int n, int s)
 
 ## 計算量
 
-* $O(V E)$
+- $O(V E)$

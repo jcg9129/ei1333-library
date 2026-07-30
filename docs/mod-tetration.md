@@ -1,14 +1,18 @@
 ---
+title: Mod Tetration (テトレーション)
 documentation_of: //math/combinatorics/mod-tetration.hpp
 ---
 
-## 概要
-${a \uparrow \uparrow b} \bmod m$ を求める. $\uparrow \uparrow$ はテトレーション演算で $a^{a^{a^{a^{\ldots}}}}$ ($a$ が $b$ 個続く) を指す.
+${a \uparrow \uparrow b} \bmod m$ を求める。$\uparrow \uparrow$ はテトレーション演算で $a^{a^{a^{a^{\ldots}}}}$ ($a$ が $b$ 個続く) を指す。
 
-## 使い方
+# mod_tetration
 
-* `mod_tetration(a, b, m)`: ${a \uparrow \uparrow b} \bmod m$ を返す. 
+```cpp
+T mod_tetration(const T& a, const T& b, const T& m)
+```
+
+${a \uparrow \uparrow b} \bmod m$ を返す。
 
 ## 計算量
 
-* $O(\sqrt m)$
+- $O(\sqrt m)$

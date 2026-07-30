@@ -3,14 +3,13 @@ title: Link Cut Tree (for Subtree)
 documentation_of: //structure/dynamic-tree/link-cut-tree-for-subtree.hpp
 ---
 
-Link Cut Tree とは動的木の一つで, 辺の追加や削除などの木構造の動的な変化がある場合でも効率的にクエリを処理できます。
+Link Cut Tree とは動的木の一つで、辺の追加や削除などの木構造の動的な変化がある場合でも効率的にクエリを処理できます。
 
 Light edge に繋がる情報もマージできるため、通常の Link Cut Tree よりも強いクエリを処理できます。
 
-
 # コンストラクタ
 
-```
+```cpp
 LinkCutTreeForSubtree< TreeDPInfo >()
 ```
 
@@ -34,16 +33,16 @@ struct TreeDPInfo {
 };
 ```
 
-* `Point`: Light edge で繋がる頂点をまとめた結果 (Point cluster) を表す構造体
-  * `id()`: `Point` の単位元を返す関数
-  * `inv()`: `Point` の逆元を返す関数
-* `Path`: Heavy edge で繋がる頂点をまとめた結果 (Path cluster) を表す構造体
-* `Info`: 頂点を表す構造体
-* `vertex(u)`: 頂点 `u` のみからなる Path cluster を生成する関数
-* `add_vertex(d, u)`: Point cluster `d` の根に頂点 `u` を代入して Path cluster にする関数
-* `add_edge(d)`: Path cluster `d` に virtual な根を生やして Point cluster にする関数
-* `rake(l, r)`: Point cluster `l` と `r` をマージする関数
-* `compress(p, c)`: Path cluster `p` と `c` (`p` が根に近い側にある) をマージする関数
+- `Point`: Light edge で繋がる頂点をまとめた結果 (Point cluster) を表す構造体
+  - `id()`: `Point` の単位元を返す関数
+  - `inv()`: `Point` の逆元を返す関数
+- `Path`: Heavy edge で繋がる頂点をまとめた結果 (Path cluster) を表す構造体
+- `Info`: 頂点を表す構造体
+- `vertex(u)`: 頂点 `u` のみからなる Path cluster を生成する関数
+- `add_vertex(d, u)`: Point cluster `d` の根に頂点 `u` を代入して Path cluster にする関数
+- `add_edge(d)`: Path cluster `d` に virtual な根を生やして Point cluster にする関数
+- `rake(l, r)`: Point cluster `l` と `r` をマージする関数
+- `compress(p, c)`: Path cluster `p` と `c` (`p` が根に近い側にある) をマージする関数
 
 以下のコードを Splay Tree により高速化したデータ構造とみなすことができます。
 
@@ -85,7 +84,7 @@ Path calc_heavy(int r) {
 
 # expose
 
-```
+```cpp
 NP expose(NP t)
 ```
 
@@ -97,7 +96,7 @@ NP expose(NP t)
 
 # link
 
-```
+```cpp
 void link(NP child, NP parent)
 ```
 
@@ -114,7 +113,7 @@ void link(NP child, NP parent)
 
 # cut
 
-```
+```cpp
 void cut(NP child)
 ```
 
@@ -130,8 +129,8 @@ void cut(NP child)
 
 # evert
 
-```
-void evert(t)
+```cpp
+void evert(NP t)
 ```
 
 頂点 `t` を根に変更します。
@@ -142,7 +141,7 @@ void evert(t)
 
 # alloc
 
-```
+```cpp
 NP alloc(const Info &v)
 ```
 
@@ -154,7 +153,7 @@ Info が `v` の新しい頂点を作成します。
 
 # is_connected
 
-```
+```cpp
 bool is_connected(NP u, NP v)
 ```
 
@@ -168,12 +167,11 @@ bool is_connected(NP u, NP v)
 
 # build
 
-```
+```cpp
 vector<NP> build(vector<Info> &vs)
 ```
 
 各 Info の値が `vs[i]` の新しい頂点たちを作成します。
-
 
 ## 計算量
 
@@ -181,7 +179,7 @@ vector<NP> build(vector<Info> &vs)
 
 # lca
 
-```
+```cpp
 NP lca(NP u, NP v)
 ```
 
@@ -195,7 +193,7 @@ NP lca(NP u, NP v)
 
 # set_key
 
-```
+```cpp
 void set_key(NP t, const Info &v)
 ```
 
@@ -209,7 +207,7 @@ void set_key(NP t, const Info &v)
 
 # query_path
 
-```
+```cpp
 (1) const Path &query_path(NP u)
 (2) const Path &query_path(NP u, NP v)
 ```
@@ -223,7 +221,7 @@ void set_key(NP t, const Info &v)
 
 # query_subtree
 
-```
+```cpp
 (1) Path query_subtree(NP u)
 (2) Path query_subtree(NP r, NP u)
 ```

@@ -5,9 +5,9 @@ documentation_of: //structure/others/queue-operate-aggregation.hpp
 
 半群の要素列 $A$ に対して以下の操作を効率的に行います。
 
-* push: $A$ の末尾に要素を追加する
-* pop: $A$ の先頭の要素を削除する
-* all_prod: $A$ 全体の集約値の取得する
+- push: $A$ の末尾に要素を追加する
+- pop: $A$ の先頭の要素を削除する
+- all_prod: $A$ 全体の集約値の取得する
 
 # コンストラクタ
 

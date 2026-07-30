@@ -29,7 +29,7 @@ $\lbrace (x,y):l \leq x \lt r, d \leq y \lt u\rbrace$ で表される重み $w$ 
 - $l \lt r$
 - $d \lt u$
 
-# 計算量
+## 計算量
 
 - $O(1)$
 
@@ -41,7 +41,7 @@ void add_query(T x, T y)
 
 $(x, y)$ を含む長方形の重みの総和を求めるクエリを追加します。
 
-# 計算量
+## 計算量
 
 - $O(1)$
 

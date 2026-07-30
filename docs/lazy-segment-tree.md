@@ -45,10 +45,9 @@ struct ActedMonoid {
 
 作用素 `F` は、単位元 `id()` と比較するために `!=` 演算子が定義されている必要があります。
 
-
 ## LambdaActedMonoid について
 
-`LambdaActedMonoid` は、ラムダ式を受け取って、構造体 `ActedMonoid` のようにふるまう構造体です 。`LambdaActedMonoid` の引数に `S op(S a, S b)`、`e()`、`S mapping(S x, F f)`、`F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
+`LambdaActedMonoid` は、ラムダ式を受け取って、構造体 `ActedMonoid` のようにふるまう構造体です。`LambdaActedMonoid` の引数に `S op(S a, S b)`、`e()`、`S mapping(S x, F f)`、`F composition(F f, F g)`、`id()` の順で渡すことで初期化できます。
 
 ```cpp
 template< typename Op, typename E, typename Mapping, typename Composition, typename Id >
@@ -160,7 +159,7 @@ S all_prod() const
 ## 制約
 
 - $0 \leq k \lt n$
-- $0 \leq l \leq r \leq n$ 
+- $0 \leq l \leq r \leq n$
 
 ## 計算量
 
@@ -170,14 +169,16 @@ S all_prod() const
 
 ```cpp
 template <typename C>
-int find_first(int l, const C &check)
+optional<int> find_first(int l, const C &check)
 ```
 
-$[a, x)$ が `check` を満たす最初の要素位置 $x$ を返します。存在しないとき $n$ を返します。
+$check(prod(l, x))$ が `true` となる最小の $x$ を返します。存在しない場合は `nullopt` を返します。
 
 ## 制約
 
 - $0 \leq l \leq n$
+- `check(m.e()) == false`
+- $x$ を増やしたとき、`check(prod(l, x))` は `false` から `true` へ高々1回だけ変化する
 
 ## 計算量
 
@@ -187,14 +188,16 @@ $[a, x)$ が `check` を満たす最初の要素位置 $x$ を返します。存
 
 ```cpp
 template <typename C>
-int find_last(int r, const C &check)
+optional<int> find_last(int r, const C &check)
 ```
 
-$[x, b)$ が `check` を満たす最後の要素位置 $x$ を返します。存在しないとき $-1$ を返 します。
+$check(prod(x, r))$ が `true` となる最大の $x$ を返します。存在しない場合は `nullopt` を返します。
 
 ## 制約
 
 - $0 \leq r \leq n$
+- `check(m.e()) == false`
+- $x$ を減らしたとき、`check(prod(x, r))` は `false` から `true` へ高々1回だけ変化する
 
 ## 計算量
 

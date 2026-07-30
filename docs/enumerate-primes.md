@@ -1,14 +1,13 @@
 ---
-title: Enumerate Primes(素数列挙)
+title: Enumerate Primes (素数列挙)
 documentation_of: //math/number-theory/enumerate-primes.hpp
 ---
 
 エラトステネスの篩を用いて素数を列挙します。
 
-
 # enumerate_primes
 
-```
+```cpp
 vector< int > enumerate_primes(int n)
 ```
 

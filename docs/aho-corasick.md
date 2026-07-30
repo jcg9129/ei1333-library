@@ -35,7 +35,7 @@ void build(bool heavy = true)
 unordered_map<int, int> match(const string &str, int now = 0)
 ```
 
-現状態が `now` で, 文字列 `str` が現れた時に、新たに各パターン文字列にマッチした回数を返します。
+現状態が `now` で、文字列 `str` が現れた時に、新たに各パターン文字列にマッチした回数を返します。
 
 ## 計算量
 
@@ -49,7 +49,6 @@ unordered_map<int, int> match(const string &str, int now = 0)
 ```
 
 (1) 現状態が `now` で、文字 `c` が現れたときに、新たにパターン文字列にマッチした個数と、次状態を返します。
-
 
 (2) 現状態が `now` で、文字列 `str` が現れたときに、新たにパターン文字列にマッチした個数と、次状態を返します。
 

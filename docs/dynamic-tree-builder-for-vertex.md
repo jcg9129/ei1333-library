@@ -7,7 +7,7 @@ Link Cut Tree や Top Tree などの動的木を簡単に構築するための B
 
 # コンストラクタ
 
-```
+```cpp
 DynamicTreeBuilderForVertex< DynamicTree, TreeDPInfo >(int n)
 ```
 
@@ -19,7 +19,7 @@ DynamicTreeBuilderForVertex< DynamicTree, TreeDPInfo >(int n)
 
 # set_vertex
 
-```
+```cpp
 void set_vertex(int u, const Info &info)
 ```
 
@@ -35,7 +35,7 @@ void set_vertex(int u, const Info &info)
 
 # add_edge
 
-```
+```cpp
 void add_edge(int u, int v)
 ```
 
@@ -50,7 +50,7 @@ void add_edge(int u, int v)
 
 ## build
 
-```
+```cpp
 void build(int r = 0)
 ```
 

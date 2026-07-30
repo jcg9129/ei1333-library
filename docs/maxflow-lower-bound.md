@@ -7,7 +7,7 @@ documentation_of: //graph/flow/maxflow-lower-bound.hpp
 
 # コンストラクタ
 
-```
+```cpp
 MaxFlowLowerBound<flow_t, F>(int V)
 ```
 
@@ -24,7 +24,7 @@ MaxFlowLowerBound<flow_t, F>(int V)
 
 # add_edge
 
-```
+```cpp
 void add_edge(int from, int to, flow_t low, flow_t high)
 ```
 
@@ -42,13 +42,13 @@ void add_edge(int from, int to, flow_t low, flow_t high)
 
 # can_flow
 
-```
+```cpp
 bool can_flow()
 ```
 
 すべての辺の下限制約と上限制約、および各頂点での流量保存則を満たす実行可能流が存在する場合 `true`、存在しない場合 `false` を返します。
 
-```
+```cpp
 bool can_flow(int s, int t)
 ```
 
@@ -66,7 +66,7 @@ bool can_flow(int s, int t)
 
 # max_flow
 
-```
+```cpp
 optional<flow_t> max_flow(int s, int t)
 ```
 
@@ -84,7 +84,7 @@ optional<flow_t> max_flow(int s, int t)
 
 # min_flow
 
-```
+```cpp
 optional<flow_t> min_flow(int s, int t)
 ```
 
@@ -102,7 +102,7 @@ optional<flow_t> min_flow(int s, int t)
 
 # output
 
-```
+```cpp
 void output(int M)
 ```
 

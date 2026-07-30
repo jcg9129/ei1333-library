@@ -3,7 +3,7 @@ title: Binary Indexed Tree
 documentation_of: //structure/others/binary-indexed-tree.hpp
 ---
 
-Fenwick Tree とも呼ばれます。 数列に対し、ある要素に値を加える操作と、区間和を求める操作をそれぞれ対数時間で行うことが出来るデータ構造です。セグメント木や平衡二分探索木の機能を制限したものですが、実装が非常に単純で定数倍も軽いなどの利点があります。
+Fenwick Tree とも呼ばれます。数列に対し、ある要素に値を加える操作と、区間和を求める操作をそれぞれ対数時間で行うことが出来るデータ構造です。セグメント木や平衡二分探索木の機能を制限したものですが、実装が非常に単純で定数倍も軽いなどの利点があります。
 
 # コンストラクタ
 
@@ -54,7 +54,7 @@ void apply(int k, const T &x)
 # prod
 
 ```cpp
-(1) T prod(int r) const 
+(1) T prod(int r) const
 (2) T prod(int l, int r) const
 ```
 
@@ -63,7 +63,12 @@ void apply(int k, const T &x)
 
 ## 制約
 
-- $0 \leq l \leq r \leq n$
+- (1) $0 \leq r \leq n$
+- (2) $0 \leq l \leq r \leq n$
+
+## 計算量
+
+- $O(\log n)$
 
 # lower_bound
 
@@ -71,28 +76,28 @@ void apply(int k, const T &x)
 int lower_bound(T x) const
 ```
 
-数列の区間 $[0,k]$ の要素の総和が $x$ 以上となる最小の $k$ を返します。
+数列の区間 $[0,k]$ の要素の総和が $x$ 以上となる最小の $k$ を返します。該当する $k$ が存在しない場合は $n$ を返します。
 
 ## 制約
 
-- 数列は広義単調増加
+- 数列の各要素は非負
 
 ## 計算量
 
 - $O(\log n)$
 
-## upper_bound
+# upper_bound
 
 ```cpp
 int upper_bound(T x) const
 ```
 
-数列の区間 $[0,k]$ の要素の総和が $x$ を上回る最小の $k$ を返します。
+数列の区間 $[0,k]$ の要素の総和が $x$ を上回る最小の $k$ を返します。該当する $k$ が存在しない場合は $n$ を返します。
 
 ## 制約
 
-- 数列は広義単調増加
+- 数列の各要素は非負
 
 ## 計算量
 
-* $O(\log n)$
+- $O(\log n)$

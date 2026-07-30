@@ -3,7 +3,7 @@ title: Enumerate Quotients (商列挙)
 documentation_of: //math/number-theory/enumerate-quotients.hpp
 ---
 
-整数 $n$ が与えられたとき, $n$ の商 ($\lfloor \frac n i \rfloor$) ($1 \leq i \leq n$) の値と対応する区間を列挙します。
+整数 $n$ が与えられたとき、$n$ の商 ($\lfloor \frac n i \rfloor$) ($1 \leq i \leq n$) の値と対応する区間を列挙します。
 
 # enumerate_quotients
 

@@ -1,5 +1,5 @@
 ---
-title: Matrix(行列)
+title: Matrix (行列)
 documentation_of: //math/matrix/matrix.hpp
 ---
 

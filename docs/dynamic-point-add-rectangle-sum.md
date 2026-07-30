@@ -1,7 +1,6 @@
 ---
 title: Dynamic Point Add Rectangle Sum
 documentation_of: //other/dynamic-point-add-rectangle-sum.hpp
-
 ---
 
 2 次元平面上に重み付きの点を追加するクエリと、長方形内に含まれる点の重みの総和を求めるいくつかのクエリに答えます。
@@ -25,7 +24,7 @@ void add_point(T x, T y, C w)
 
 $(x, y)$ に重み $w$ の点を追加するクエリを追加します。
 
-# 計算量
+## 計算量
 
 - $O(1)$
 
@@ -42,14 +41,14 @@ $\lbrace (x,y):l \leq x \lt r, d \leq y \lt u\rbrace$ で表される長方形�
 - $l \lt r$
 - $d \lt u$
 
-# 計算量
+## 計算量
 
 - $O(1)$
 
 # calculate_queries
 
 ```cpp
-vector<C> calculate_queries() const
+vector<C> calculate_queries()
 ```
 
 それぞれのクエリの答えを返します。$i$ 番目の要素は $i$ 番目に追加したクエリの答えが格納されます。

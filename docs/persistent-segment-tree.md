@@ -7,8 +7,8 @@ documentation_of: //structure/segment-tree/persistent-segment-tree.hpp
 
 モノイドは次の条件を満たす代数的構造です。
 
-* 結合律を満たします。つまり $S$ の各元 $a, b, c$ に対して、$(a \cdot b) \cdot c = a \cdot (b \cdot c)$ を満たします。
-* 単位元を持ちます。つまり $S$ の任意の元 $a$ をとってきたときに $a \cdot e = e \cdot a = a$ なる $e$ が存在します。
+- 結合律を満たします。つまり $S$ の各元 $a, b, c$ に対して、$(a \cdot b) \cdot c = a \cdot (b \cdot c)$ を満たします。
+- 単位元を持ちます。つまり $S$ の任意の元 $a$ をとってきたときに $a \cdot e = e \cdot a = a$ なる $e$ が存在します。
 
 永続セグメント木は、セグメント木を永続にしたデータ構造です。
 
@@ -90,7 +90,7 @@ NP build(const vector<S> &v) const
 ```cpp
 NP set(NP t, int k, const S &x) const
 ```
- 
+
 セグメント木 `t` の `k` 番目の要素を `x` に変更して、新しいセグメント木へのポインタを返します。
 
 ## 制約
@@ -120,7 +120,7 @@ S get(NP t, int k) const
 # apply
 
 ```cpp
-NP apply(NP t, int k, const S &x)
+NP apply(NP t, int k, const S &x) const
 ```
 
 セグメント木 `t` の `k` 番目の要素を、その要素と `x` を二項演算した値に変更し、新しいセグメント木へのポインタを返します。

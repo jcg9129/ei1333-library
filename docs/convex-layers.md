@@ -18,7 +18,7 @@ vector<int> convex_layers(const vector<pair<T, T> >& ps)
 
 $ps$ の各点について Convex Layer を求めます。
 
-`T` は 2 * 座標の最大値が収まる型、`T2` は (2 * 座標の最大値)^2 が収まる型を指定してください。
+`T` は $2 \times$ 座標の最大値が収まる型、`T2` は $(2 \times \text{座標の最大値})^2$ が収まる型を指定してください。
 
 ## 制約
 

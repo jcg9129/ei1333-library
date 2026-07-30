@@ -73,7 +73,7 @@ void build()
 ```cpp
 void apply(K x, K y, S a)
 ```
- 
+
 点 `(x, y)` の要素を `a` で更新します。
 
 ## 制約

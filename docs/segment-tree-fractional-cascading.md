@@ -10,7 +10,7 @@ Fractional Cascading による高速化により、クエリあたり $O(\log n)
 # コンストラクタ
 
 ```cpp
-SegmentTreeFractionalCascading< T >(const vector<T> &v) 
+SegmentTreeFractionalCascading< T >(const vector<T> &v)
 ```
 
 1. 配列 `v` で初期化します。
@@ -22,7 +22,7 @@ SegmentTreeFractionalCascading< T >(const vector<T> &v)
 # prod
 
 ```cpp
-S prod(int a, int b, T l, T r) const
+int prod(int a, int b, T l, T r) const
 ```
 
 $a \leq k \lt b$ かつ $l \leq v_k \lt r$ を満たす $k$ の個数を返します。
