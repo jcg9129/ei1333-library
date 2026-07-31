@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../class/acted-monoid.hpp"
 
 template <typename ActedMonoid>
@@ -43,7 +45,7 @@ struct LazySegmentTree {
   }
 
   explicit LazySegmentTree(ActedMonoid m, const vector<S>& v)
-      : LazySegmentTree(m, v.size()) {
+      : LazySegmentTree(m, static_cast<int>(v.size())) {
     build(v);
   }
 

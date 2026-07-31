@@ -7,8 +7,6 @@ documentation_of: //structure/wavelet/wavelet-matrix.hpp
 
 値をそのまま扱う `WaveletMatrix< T, MAXLOG >` と、座標圧縮して扱う `CompressedWaveletMatrix< T, MAXLOG >` が提供されています。
 
-# WaveletMatrix
-
 # コンストラクタ
 
 ```cpp

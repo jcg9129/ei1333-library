@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T>
 struct RangeAddRangeMin {
   using S = T;

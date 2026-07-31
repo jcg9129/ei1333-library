@@ -7,8 +7,6 @@ documentation_of: //structure/wavelet/wavelet-matrix-point-add-rectangle-sum.hpp
 
 `WaveletMatrixPointAddRectangleSum< T, MAXLOG, D >` は値配列 `v` の位置は固定したまま、重み配列に対して一点加算と範囲和クエリを処理します。
 
-# WaveletMatrixPointAddRectangleSum
-
 # コンストラクタ
 
 ```cpp
