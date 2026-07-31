@@ -7,8 +7,6 @@ documentation_of: //structure/wavelet/wavelet-matrix-rectangle-sum.hpp
 
 `WaveletMatrixRectangleSum< T, MAXLOG, D >` は値配列 `v` と重み配列 `d` を受け取り、区間 `[l, r)` かつ値域 `[lower, upper)` の重み総和を返します。
 
-# WaveletMatrixRectangleSum
-
 # コンストラクタ
 
 ```cpp

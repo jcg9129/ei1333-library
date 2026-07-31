@@ -7,8 +7,6 @@ documentation_of: //structure/wavelet/wavelet-tree.hpp
 
 値をそのまま扱う `WaveletTree< T, MAXLOG >` と、座標圧縮して扱う `CompressedWaveletTree< T, MAXLOG >` が提供されています。
 
-# WaveletTree
-
 # コンストラクタ
 
 ```cpp
