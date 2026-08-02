@@ -7,8 +7,8 @@
  * @brief Count Bounded Increasing Sequences
  */
 template <typename Mint>
-Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
-                                        const vector<int> &upper_bounds) {
+Mint count_bounded_increasing_sequences(const vector<int>& lower_bounds,
+                                        const vector<int>& upper_bounds) {
   using NTT = NumberTheoreticTransformFriendlyModInt<Mint>;
 
   assert(lower_bounds.size() == upper_bounds.size());
@@ -68,8 +68,8 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
     return result;
   };
 
-  auto propagate_rectangle = [&](const vector<Mint> &left_edge,
-                                 const vector<Mint> &bottom_edge) {
+  auto propagate_rectangle = [&](const vector<Mint>& left_edge,
+                                 const vector<Mint>& bottom_edge) {
     const int height = static_cast<int>(left_edge.size());
     const int width = static_cast<int>(bottom_edge.size());
     assert(width > 0);
@@ -79,9 +79,9 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
 
     vector<Mint> top_edge(width), right_edge(height);
     const bool has_left = any_of(left_edge.begin(), left_edge.end(),
-                                 [](const Mint &x) { return x != Mint(0); });
+                                 [](const Mint& x) { return x != Mint(0); });
     const bool has_bottom = any_of(bottom_edge.begin(), bottom_edge.end(),
-                                   [](const Mint &x) { return x != Mint(0); });
+                                   [](const Mint& x) { return x != Mint(0); });
 
     // Left -> top and bottom -> right are middle products with the same
     // factorial kernel. A cyclic convolution of length >= height + width - 1
@@ -126,10 +126,10 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
 
         // Fold the inverse-transform normalization into the shared kernel.
         const Mint inv_size = Mint(1) / Mint(size);
-        for (auto &x : kernel) x *= inv_size;
+        for (auto& x : kernel) x *= inv_size;
 
-        auto apply_middle_product = [&](const vector<Mint> &input,
-                                        vector<Mint> &output) {
+        auto apply_middle_product = [&](const vector<Mint>& input,
+                                        vector<Mint>& output) {
           const int input_size = static_cast<int>(input.size());
           vector<Mint> f(size);
           f[0] = input[input_size - 1];
@@ -176,8 +176,8 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
 
   // Solve a one-sided staircase. `heights` must be nondecreasing, and
   // `start[i]` is an additive source at the i-th bottom-edge vertex.
-  auto solve_one_sided = [&](const vector<int> &heights,
-                             const vector<Mint> &start) -> vector<Mint> {
+  auto solve_one_sided = [&](const vector<int>& heights,
+                             const vector<Mint>& start) -> vector<Mint> {
     const int size = static_cast<int>(heights.size());
     assert(size > 0);
     assert(static_cast<int>(start.size()) == size);
@@ -189,8 +189,8 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
       bounds[i] = heights[i] + 1;
     }
 
-    auto rec = [&](auto &self, int l, int r, int bottom,
-                   const vector<Mint> &bottom_edge) -> vector<Mint> {
+    auto rec = [&](auto& self, int l, int r, int bottom,
+                   const vector<Mint>& bottom_edge) -> vector<Mint> {
       assert(static_cast<int>(bottom_edge.size()) == r - l);
       if (l + 1 == r) {
         return vector<Mint>(bounds[l] - bottom, bottom_edge[0]);
