@@ -6,8 +6,8 @@
  * @brief Count Bounded Increasing Sequences
  */
 template <template <typename> class FPS, typename Mint>
-Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
-                                        const vector<int> &upper_bounds) {
+Mint count_bounded_increasing_sequences(const vector<int>& lower_bounds,
+                                        const vector<int>& upper_bounds) {
   assert(lower_bounds.size() == upper_bounds.size());
   const int n = (int)upper_bounds.size();
   if (n == 0) return Mint(1);
@@ -51,17 +51,17 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
     return f;
   };
 
-  auto propagate_rectangle = [&](const FPS<Mint> &left_edge,
-                                 const FPS<Mint> &bottom_edge) {
+  auto propagate_rectangle = [&](const FPS<Mint>& left_edge,
+                                 const FPS<Mint>& bottom_edge) {
     const int height = (int)left_edge.size();
     const int width = (int)bottom_edge.size();
     if (height == 0) return make_pair(bottom_edge, FPS<Mint>());
 
     FPS<Mint> top_edge(width), right_edge(height);
     const bool has_left = any_of(left_edge.begin(), left_edge.end(),
-                                 [](const Mint &x) { return x != Mint(0); });
+                                 [](const Mint& x) { return x != Mint(0); });
     const bool has_bottom = any_of(bottom_edge.begin(), bottom_edge.end(),
-                                   [](const Mint &x) { return x != Mint(0); });
+                                   [](const Mint& x) { return x != Mint(0); });
 
     // Left to top.
     if (has_left) {
@@ -118,9 +118,9 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
     return make_pair(top_edge, right_edge);
   };
 
-  auto rec = [&](auto &self, int l, int r, int bottom,
-                 const FPS<Mint> &bottom_edge,
-                 const FPS<Mint> &input_left_edge) -> FPS<Mint> {
+  auto rec = [&](auto& self, int l, int r, int bottom,
+                 const FPS<Mint>& bottom_edge,
+                 const FPS<Mint>& input_left_edge) -> FPS<Mint> {
     if (l + 1 == r) {
       FPS<Mint> right_edge(bounds[l] - bottom, bottom_edge[0]);
       Mint prefix = 0;
@@ -179,6 +179,6 @@ Mint count_bounded_increasing_sequences(const vector<int> &lower_bounds,
   }
 
   Mint answer = 0;
-  for (auto &value : right_edge) answer += value;
+  for (auto& value : right_edge) answer += value;
   return answer;
 }
