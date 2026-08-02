@@ -47,8 +47,7 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
   vector<int> bit_reverse(size);
   const int lg = __builtin_ctz(size);
   for (int i = 1; i < size; i++) {
-    bit_reverse[i] =
-        (bit_reverse[i >> 1] >> 1) | ((i & 1) << (lg - 1));
+    bit_reverse[i] = (bit_reverse[i >> 1] >> 1) | ((i & 1) << (lg - 1));
   }
   const Mint dw = NTT::iroots[lg + 1];
   const Mint inverse_dw = NTT::roots[lg + 1];
@@ -120,15 +119,13 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
                            bool transpose) -> void {
       vector<Mint> buffer(2 * n);
       for (int y = left; y < right; y++) {
-        copy_n(values.begin() + (size_t)2 * n * y, 2 * n,
-               buffer.begin());
+        copy_n(values.begin() + (size_t)2 * n * y, 2 * n, buffer.begin());
         if (transpose) {
           NTT::transposed_ntt(buffer);
         } else {
           NTT::ntt(buffer);
         }
-        copy(buffer.begin(), buffer.end(),
-             values.begin() + (size_t)2 * n * y);
+        copy(buffer.begin(), buffer.end(), values.begin() + (size_t)2 * n * y);
       }
     };
 
