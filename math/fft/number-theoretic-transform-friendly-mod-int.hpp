@@ -54,7 +54,6 @@ struct NumberTheoreticTransformFriendlyModInt {
     Mint imag = roots[2];
     if (h & 1) {
       int p = 1 << (h - 1);
-      Mint rot = 1;
       for (int i = 0; i < p; i++) {
         auto r = a[i + p];
         a[i + p] = a[i] - r;
