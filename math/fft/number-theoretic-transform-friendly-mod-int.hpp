@@ -3,7 +3,7 @@
  */
 template <typename Mint>
 struct NumberTheoreticTransformFriendlyModInt {
-  static vector<Mint> roots, iroots, rate3, irate3;
+  static vector<Mint> roots, iroots, rate2, irate2, rate3, irate3;
   static int max_base;
 
   NumberTheoreticTransformFriendlyModInt() = default;
@@ -23,6 +23,8 @@ struct NumberTheoreticTransformFriendlyModInt {
 
       roots.resize(max_base + 1);
       iroots.resize(max_base + 1);
+      rate2.resize(max_base + 1);
+      irate2.resize(max_base + 1);
       rate3.resize(max_base + 1);
       irate3.resize(max_base + 1);
 
@@ -31,6 +33,15 @@ struct NumberTheoreticTransformFriendlyModInt {
       for (int i = max_base - 1; i >= 0; i--) {
         roots[i] = roots[i + 1] * roots[i + 1];
         iroots[i] = iroots[i + 1] * iroots[i + 1];
+      }
+      {
+        Mint prod = 1, iprod = 1;
+        for (int i = 0; i <= max_base - 2; i++) {
+          rate2[i] = roots[i + 2] * prod;
+          irate2[i] = iroots[i + 2] * iprod;
+          prod *= iroots[i + 2];
+          iprod *= roots[i + 2];
+        }
       }
       {
         Mint prod = 1, iprod = 1;
@@ -165,6 +176,115 @@ struct NumberTheoreticTransformFriendlyModInt {
     }
   }
 
+  /**
+   * @brief Transpose of ntt()
+   */
+  static void transposed_ntt(vector<Mint>& a) {
+    init();
+    const int n = (int)a.size();
+    assert((n & (n - 1)) == 0);
+    const int h = __builtin_ctz(n);
+    assert(h <= max_base);
+
+    int len = h;
+    const Mint imag = roots[2];
+    while (len > 0) {
+      if (len == 1) {
+        const int p = 1 << (h - len);
+        Mint rot = 1;
+        for (int s = 0; s < (1 << (len - 1)); s++) {
+          const int offset = s << (h - len + 1);
+          for (int i = 0; i < p; i++) {
+            const auto lhs = a[i + offset];
+            const auto rhs = a[i + offset + p];
+            a[i + offset] = lhs + rhs;
+            a[i + offset + p] = (lhs - rhs) * rot;
+          }
+          rot *= rate2[__builtin_ctz(~s)];
+        }
+        len--;
+      } else {
+        const int p = 1 << (h - len);
+        Mint rot = 1;
+        for (int s = 0; s < (1 << (len - 2)); s++) {
+          const int offset = s << (h - len + 2);
+          const Mint rot2 = rot * rot;
+          const Mint rot3 = rot2 * rot;
+          for (int i = 0; i < p; i++) {
+            const auto a0 = a[i + offset];
+            const auto a1 = a[i + offset + p];
+            const auto a2 = a[i + offset + 2 * p];
+            const auto a3 = a[i + offset + 3 * p];
+            const auto x = (a2 - a3) * imag;
+            a[i + offset] = a0 + a1 + a2 + a3;
+            a[i + offset + p] = (a0 - a1 + x) * rot;
+            a[i + offset + 2 * p] = (a0 + a1 - a2 - a3) * rot2;
+            a[i + offset + 3 * p] = (a0 - a1 - x) * rot3;
+          }
+          rot *= rate3[__builtin_ctz(~s)];
+        }
+        len -= 2;
+      }
+    }
+  }
+
+  /**
+   * @brief Transpose of intt()
+   */
+  static void transposed_intt(vector<Mint>& a, bool f = true) {
+    init();
+    const int n = (int)a.size();
+    assert((n & (n - 1)) == 0);
+    const int h = __builtin_ctz(n);
+    assert(h <= max_base);
+
+    if (f) {
+      const Mint inv_sz = Mint(1) / n;
+      for (auto& value : a) value *= inv_sz;
+    }
+
+    int len = 0;
+    const Mint iimag = iroots[2];
+    while (len < h) {
+      if (len == h - 1) {
+        const int p = 1 << (h - len - 1);
+        Mint irot = 1;
+        for (int s = 0; s < (1 << len); s++) {
+          const int offset = s << (h - len);
+          for (int i = 0; i < p; i++) {
+            const auto lhs = a[i + offset];
+            const auto rhs = a[i + offset + p] * irot;
+            a[i + offset] = lhs + rhs;
+            a[i + offset + p] = lhs - rhs;
+          }
+          irot *= irate2[__builtin_ctz(~s)];
+        }
+        len++;
+      } else {
+        const int p = 1 << (h - len - 2);
+        Mint irot = 1;
+        for (int s = 0; s < (1 << len); s++) {
+          const Mint irot2 = irot * irot;
+          const Mint irot3 = irot2 * irot;
+          const int offset = s << (h - len);
+          for (int i = 0; i < p; i++) {
+            const auto a0 = a[i + offset];
+            const auto a1 = a[i + offset + p] * irot;
+            const auto a2 = a[i + offset + 2 * p] * irot2;
+            const auto a3 = a[i + offset + 3 * p] * irot3;
+            const auto x = (a1 - a3) * iimag;
+            a[i + offset] = a0 + a2 + a1 + a3;
+            a[i + offset + p] = a0 + a2 - a1 - a3;
+            a[i + offset + 2 * p] = a0 - a2 + x;
+            a[i + offset + 3 * p] = a0 - a2 - x;
+          }
+          irot *= irate3[__builtin_ctz(~s)];
+        }
+        len += 2;
+      }
+    }
+  }
+
   static vector<Mint> multiply(vector<Mint> a, vector<Mint> b) {
     int need = a.size() + b.size() - 1;
     int nbase = 1;
@@ -187,6 +307,12 @@ vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::roots =
     vector<Mint>();
 template <typename Mint>
 vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::iroots =
+    vector<Mint>();
+template <typename Mint>
+vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate2 =
+    vector<Mint>();
+template <typename Mint>
+vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::irate2 =
     vector<Mint>();
 template <typename Mint>
 vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate3 =
