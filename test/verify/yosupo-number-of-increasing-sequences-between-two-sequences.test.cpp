@@ -1,5 +1,5 @@
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/number_of_increasing_sequences_between_two_sequences
-//
+
 #include "../../template/template.hpp"
 
 #include "../../math/combinatorics/count-bounded-increasing-sequences.hpp"
