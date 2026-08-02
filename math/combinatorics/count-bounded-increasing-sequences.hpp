@@ -221,8 +221,9 @@ Mint count_bounded_increasing_sequences(const vector<int>& lower_bounds,
 
   // Decompose the corridor into alternating horizontal and vertical
   // one-sided staircases. Vertical pieces are transposed.
-  const int distance = static_cast<int>(ranges::upper_bound(lower_boundary, 0) -
-                                        lower_boundary.begin());
+  const int distance = static_cast<int>(
+      upper_bound(lower_boundary.begin(), lower_boundary.end(), 0) -
+      lower_boundary.begin());
   int px = 0, py = 0;
   int qx = distance - 1, qy = 0;
   if (qx == 0) qy = upper_boundary[0];
