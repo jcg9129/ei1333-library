@@ -11,6 +11,7 @@ documentation_of: //structure/convex-hull-trick/li-chao-tree.hpp
 
 ## 記法
 
+- $m$: コンストラクタに渡した座標の個数
 - $n$: コンストラクタに渡した座標の重複を除いた個数
 
 # コンストラクタ
@@ -28,13 +29,13 @@ LiChaoTree(const vector<T>& x, T INF)
 
 ## 制約
 
-- $1 \leq |x|$
+- $1 \leq m$
 - `INF` はすべてのクエリ結果以上
 - 直線の値 $ax+b$ は `T` で表現できる
 
 ## 計算量
 
-- 時間計算量: $O(|x| \log |x|)$
+- 時間計算量: $O(m \log m)$
 - 空間計算量: $O(n)$
 
 # update

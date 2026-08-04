@@ -65,6 +65,9 @@ implementations. Keep each task focused on one feature or one coherent change.
 - Document the overview, API signature, behavior, constraints or
   preconditions, and time and space complexity. Include other sections from the
   template when applicable.
+- Do not write a literal `|` inside inline math because the documentation
+  renderer may interpret it as a Markdown table delimiter. Prefer a named
+  variable, or escape vertical bars in absolute values, such as `\|x\|`.
 - After changing Markdown documentation, run:
 
   ```console
