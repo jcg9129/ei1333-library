@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <cstddef>
+#include <vector>
+
 template <typename T, typename F>
 struct DequeOperateAggregation {
  private:
@@ -7,7 +13,7 @@ struct DequeOperateAggregation {
     Node(const T& val, const T& sum) : val(val), sum(sum) {}
   };
   const F f;
-  vector<Node> st[2];
+  std::vector<Node> st[2];
 
   void rebuild() {
     if (not st[0].empty()) {
@@ -31,7 +37,7 @@ struct DequeOperateAggregation {
 
   bool empty() const { return st[0].empty() and st[1].empty(); }
 
-  size_t size() const { return st[0].size() + st[1].size(); }
+  std::size_t size() const { return st[0].size() + st[1].size(); }
 
   T all_prod() const {
     assert(not empty());

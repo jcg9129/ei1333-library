@@ -54,7 +54,7 @@ T* mutable_get(const int& k)
 # build
 
 ```cpp
-void build(const vector<T>& v)
+void build(const std::vector<T>& v)
 ```
 
 配列 `v` から永続配列を構築します。

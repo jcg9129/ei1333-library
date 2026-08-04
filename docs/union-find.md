@@ -8,7 +8,7 @@ documentation_of: //structure/union-find/union-find.hpp
 # コンストラクタ
 
 ```cpp
-UnionFind(size_t n)
+UnionFind(std::size_t n)
 ```
 
 `n` 個の集合を作成します。集合 $i(0 \leq i \lt n)$ には要素 $i$ のみが属します。
@@ -88,7 +88,7 @@ bool same(int x, int y)
 # groups
 
 ```cpp
-vector< vector< int > > groups()
+std::vector<std::vector<int>> groups()
 ```
 
 それぞれの集合に含まれる要素を列挙し、それを返します。それぞれの集合内の要素は昇順に格納されますが、集合の順番は未定義です。

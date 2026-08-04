@@ -1,10 +1,13 @@
 #pragma once
 
 #include <cassert>
+#include <functional>
 #include <queue>
+#include <utility>
+#include <vector>
 
 template <typename T, class Container = std::vector<T>,
-          class Compare = std::less<typename Container::value_type> >
+          class Compare = std::less<typename Container::value_type>>
 class erasable_heap {
   std::priority_queue<T, Container, Compare> base, erased;
 

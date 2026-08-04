@@ -1,3 +1,8 @@
+#pragma once
+
+#include <cassert>
+#include <utility>
+
 /**
  * @brief Skew-Heap
  */
@@ -9,7 +14,7 @@ struct SkewHeap {
     int idx;
 
     explicit Node(const T& key, int idx)
-        : key(key), idx(idx), lazy(0), l(nullptr), r(nullptr) {}
+        : key(key), lazy(0), l(nullptr), r(nullptr), idx(idx) {}
   };
 
   SkewHeap() = default;
@@ -29,9 +34,9 @@ struct SkewHeap {
   Node* meld(Node* x, Node* y) {
     propagate(x), propagate(y);
     if (!x || !y) return x ? x : y;
-    if ((x->key < y->key) ^ isMin) swap(x, y);
+    if ((x->key < y->key) ^ isMin) std::swap(x, y);
     x->r = meld(y, x->r);
-    swap(x->l, x->r);
+    std::swap(x->l, x->r);
     return x;
   }
 

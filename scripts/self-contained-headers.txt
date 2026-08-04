@@ -1,0 +1,21 @@
+# Headers migrated to direct includes and explicit std:: qualification.
+structure/heap/erasable-heap.hpp
+structure/heap/leftist-heap.hpp
+structure/heap/persistent-leftist-heap.hpp
+structure/heap/skew-heap.hpp
+structure/others/abstract-binary-indexed-tree.hpp
+structure/others/binary-indexed-tree.hpp
+structure/others/deque-operate-aggregation.hpp
+structure/others/disjoint-sparse-table.hpp
+structure/others/linear-rmq.hpp
+structure/others/persistent-array.hpp
+structure/others/plus-minus-one-rmq.hpp
+structure/others/priority-sum-structure.hpp
+structure/others/queue-operate-aggregation.hpp
+structure/others/sparse-table.hpp
+structure/union-find/bipartite-graph.hpp
+structure/union-find/partially-persistent-union-find.hpp
+structure/union-find/persistent-union-find.hpp
+structure/union-find/union-find-undo.hpp
+structure/union-find/union-find.hpp
+structure/union-find/weighted-union-find.hpp

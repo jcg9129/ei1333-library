@@ -8,7 +8,7 @@ documentation_of: //structure/others/sparse-table.hpp
 # コンストラクタ
 
 ```cpp
-explicit SparseTable(const vector<T>& v, const F& f)
+explicit SparseTable(const std::vector<T>& v, const F& f)
 ```
 
 配列 `v`、演算 $f$ で初期化する。

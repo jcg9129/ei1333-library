@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <cstddef>
+#include <vector>
+
 template <typename T, typename F>
 struct QueueOperateAggregation {
  private:
@@ -7,7 +13,7 @@ struct QueueOperateAggregation {
     Node(const T& val, const T& sum) : val(val), sum(sum) {}
   };
   const F f;
-  vector<Node> st[2];
+  std::vector<Node> st[2];
 
  public:
   QueueOperateAggregation() = default;
@@ -16,7 +22,7 @@ struct QueueOperateAggregation {
 
   bool empty() const { return st[0].empty() and st[1].empty(); }
 
-  size_t size() const { return st[0].size() + st[1].size(); }
+  std::size_t size() const { return st[0].size() + st[1].size(); }
 
   T all_prod() const {
     assert(not empty());

@@ -1,3 +1,8 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 /**
  * @brief Abstract Binary Indexed Tree(抽象化BIT)
  */
@@ -5,7 +10,7 @@ template <typename T, typename F>
 struct AbstractBinaryIndexedTree {
  private:
   int n;
-  vector<T> data;
+  std::vector<T> data;
   const F f;
   const T e;
 
@@ -17,12 +22,13 @@ struct AbstractBinaryIndexedTree {
     data.assign(n + 1, e);
   }
 
-  explicit AbstractBinaryIndexedTree(const vector<T>& v, const F f, const T& e)
+  explicit AbstractBinaryIndexedTree(const std::vector<T>& v, const F f,
+                                     const T& e)
       : AbstractBinaryIndexedTree((int)v.size(), f, e) {
     build(v);
   }
 
-  void build(const vector<T>& v) {
+  void build(const std::vector<T>& v) {
     assert(n == (int)v.size());
     for (int i = 1; i <= n; i++) data[i] = v[i - 1];
     for (int i = 1; i <= n; i++) {
@@ -51,6 +57,6 @@ AbstractBinaryIndexedTree<T, F> get_abstract_binary_indexed_tree(int n,
 
 template <typename T, typename F>
 AbstractBinaryIndexedTree<T, F> get_abstract_binary_indexed_tree(
-    const vector<T>& v, const F& f, const T& e) {
+    const std::vector<T>& v, const F& f, const T& e) {
   return AbstractBinaryIndexedTree{v, f, e};
 }
