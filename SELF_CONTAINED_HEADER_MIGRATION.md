@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 10   |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 20   |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -94,18 +94,28 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 
 ## 移行履歴
 
-| 日付       | 対象                                                | 備考                         |
-| ---------- | --------------------------------------------------- | ---------------------------- |
-| 2026-08-04 | `structure/others/sparse-table.hpp`                 | 標準 include と `std::` 修飾 |
-| 2026-08-04 | `structure/others/disjoint-sparse-table.hpp`        | 標準 include と `std::` 修飾 |
-| 2026-08-04 | `structure/others/plus-minus-one-rmq.hpp`           | Sparse Table 依存を明示      |
-| 2026-08-04 | `structure/others/queue-operate-aggregation.hpp`    | 標準依存を明示               |
-| 2026-08-04 | `structure/others/deque-operate-aggregation.hpp`    | 標準依存を明示               |
-| 2026-08-04 | `structure/others/abstract-binary-indexed-tree.hpp` | 標準依存を明示               |
-| 2026-08-04 | `structure/others/binary-indexed-tree.hpp`          | 標準依存を明示               |
-| 2026-08-04 | `structure/others/persistent-array.hpp`             | 標準依存を明示               |
-| 2026-08-04 | `structure/others/priority-sum-structure.hpp`       | 標準依存を明示               |
-| 2026-08-04 | `structure/others/linear-rmq.hpp`                   | 標準依存を明示               |
+| 日付       | 対象                                                       | 備考                         |
+| ---------- | ---------------------------------------------------------- | ---------------------------- |
+| 2026-08-04 | `structure/others/sparse-table.hpp`                        | 標準 include と `std::` 修飾 |
+| 2026-08-04 | `structure/others/disjoint-sparse-table.hpp`               | 標準 include と `std::` 修飾 |
+| 2026-08-04 | `structure/others/plus-minus-one-rmq.hpp`                  | Sparse Table 依存を明示      |
+| 2026-08-04 | `structure/others/queue-operate-aggregation.hpp`           | 標準依存を明示               |
+| 2026-08-04 | `structure/others/deque-operate-aggregation.hpp`           | 標準依存を明示               |
+| 2026-08-04 | `structure/others/abstract-binary-indexed-tree.hpp`        | 標準依存を明示               |
+| 2026-08-04 | `structure/others/binary-indexed-tree.hpp`                 | 標準依存を明示               |
+| 2026-08-04 | `structure/others/persistent-array.hpp`                    | 標準依存を明示               |
+| 2026-08-04 | `structure/others/priority-sum-structure.hpp`              | 標準依存を明示               |
+| 2026-08-04 | `structure/others/linear-rmq.hpp`                          | 標準依存を明示               |
+| 2026-08-04 | `structure/union-find/union-find.hpp`                      | 標準依存を明示               |
+| 2026-08-04 | `structure/union-find/weighted-union-find.hpp`             | 標準依存を明示               |
+| 2026-08-04 | `structure/union-find/union-find-undo.hpp`                 | 標準依存を明示               |
+| 2026-08-04 | `structure/union-find/partially-persistent-union-find.hpp` | 標準依存を明示               |
+| 2026-08-04 | `structure/union-find/persistent-union-find.hpp`           | Persistent Array 依存を明示  |
+| 2026-08-04 | `structure/union-find/bipartite-graph.hpp`                 | Union Find 依存を明示        |
+| 2026-08-04 | `structure/heap/erasable-heap.hpp`                         | 標準依存を補完               |
+| 2026-08-04 | `structure/heap/leftist-heap.hpp`                          | 標準依存を明示               |
+| 2026-08-04 | `structure/heap/persistent-leftist-heap.hpp`               | Leftist Heap 依存を明示      |
+| 2026-08-04 | `structure/heap/skew-heap.hpp`                             | 標準依存を明示               |
 
 ## 次の候補
 

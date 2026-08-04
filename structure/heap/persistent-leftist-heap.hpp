@@ -1,3 +1,7 @@
+#pragma once
+
+#include "leftist-heap.hpp"
+
 /**
  * @brief Persistent-Leftist-Heap
  */

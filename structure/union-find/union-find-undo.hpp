@@ -1,6 +1,12 @@
+#pragma once
+
+#include <stack>
+#include <utility>
+#include <vector>
+
 struct UnionFindUndo {
-  vector<int> data;
-  stack<pair<int, int> > history;
+  std::vector<int> data;
+  std::stack<std::pair<int, int>> history;
 
   UnionFindUndo(int sz) { data.assign(sz, -1); }
 
@@ -9,7 +15,7 @@ struct UnionFindUndo {
     history.emplace(x, data[x]);
     history.emplace(y, data[y]);
     if (x == y) return (false);
-    if (data[x] > data[y]) swap(x, y);
+    if (data[x] > data[y]) std::swap(x, y);
     data[x] += data[y];
     data[y] = x;
     return (true);

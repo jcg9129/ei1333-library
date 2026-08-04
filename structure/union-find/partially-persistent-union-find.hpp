@@ -1,7 +1,14 @@
+#pragma once
+
+#include <algorithm>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 struct PartiallyPersistentUnionFind {
-  vector<int> data;
-  vector<int> last;
-  vector<vector<pair<int, int> > > add;
+  std::vector<int> data;
+  std::vector<int> last;
+  std::vector<std::vector<std::pair<int, int>>> add;
 
   PartiallyPersistentUnionFind() {}
 
@@ -13,7 +20,7 @@ struct PartiallyPersistentUnionFind {
     x = find(t, x);
     y = find(t, y);
     if (x == y) return false;
-    if (data[x] > data[y]) swap(x, y);
+    if (data[x] > data[y]) std::swap(x, y);
     data[x] += data[y];
     add[x].emplace_back(t, data[x]);
     data[y] = x;
@@ -28,7 +35,8 @@ struct PartiallyPersistentUnionFind {
 
   int size(int t, int x) {
     x = find(t, x);
-    return -prev(lower_bound(begin(add[x]), end(add[x]), make_pair(t, 0)))
+    return -std::prev(std::lower_bound(add[x].begin(), add[x].end(),
+                                       std::make_pair(t, 0)))
                 ->second;
   }
 };

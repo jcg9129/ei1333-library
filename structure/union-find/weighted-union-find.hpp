@@ -1,7 +1,12 @@
+#pragma once
+
+#include <utility>
+#include <vector>
+
 template <typename T>
 struct WeightedUnionFind {
-  vector<int> data;
-  vector<T> ws;
+  std::vector<int> data;
+  std::vector<T> ws;
 
   WeightedUnionFind() {}
 
@@ -25,7 +30,7 @@ struct WeightedUnionFind {
     x = find(x), y = find(y);
     if (x == y) return false;
     if (data[x] > data[y]) {
-      swap(x, y);
+      std::swap(x, y);
       w *= -1;
     }
     data[x] += data[y];

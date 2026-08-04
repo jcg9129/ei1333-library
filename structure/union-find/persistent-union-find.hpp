@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 #include "../others/persistent-array.hpp"
 
 /*
@@ -8,7 +12,7 @@ struct PersistentUnionFind {
 
   PersistentUnionFind() {}
 
-  PersistentUnionFind(int sz) { data.build(vector<int>(sz, -1)); }
+  PersistentUnionFind(int sz) { data.build(std::vector<int>(sz, -1)); }
 
   int find(int k) {
     int p = data.get(k);
