@@ -44,7 +44,8 @@ implementations. Keep each task focused on one feature or one coherent change.
   header; migrate other existing headers incrementally when the task scope
   permits. Register every new or migrated header in
   `scripts/self-contained-headers.txt` so CI continues compiling it in
-  isolation.
+  isolation. Update `SELF_CONTAINED_HEADER_MIGRATION.md` when a migration batch
+  changes the recorded progress or history.
 - Do not include `template/template.hpp` from new `test/verify/*.test.cpp`
   files. Include the required standard library headers and declare any aliases
   or helper functions used by the verification code explicitly. Existing
