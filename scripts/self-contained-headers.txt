@@ -1,4 +1,11 @@
 # Headers migrated to direct includes and explicit std:: qualification.
+structure/others/abstract-binary-indexed-tree.hpp
+structure/others/binary-indexed-tree.hpp
+structure/others/deque-operate-aggregation.hpp
 structure/others/disjoint-sparse-table.hpp
+structure/others/linear-rmq.hpp
+structure/others/persistent-array.hpp
 structure/others/plus-minus-one-rmq.hpp
+structure/others/priority-sum-structure.hpp
+structure/others/queue-operate-aggregation.hpp
 structure/others/sparse-table.hpp

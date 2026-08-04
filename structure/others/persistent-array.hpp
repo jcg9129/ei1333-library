@@ -1,3 +1,8 @@
+#pragma once
+
+#include <utility>
+#include <vector>
+
 template <typename T, int LOG>
 struct PersistentArray {
   struct Node {
@@ -20,7 +25,7 @@ struct PersistentArray {
 
   T get(const int& k) { return get(root, k); }
 
-  pair<Node*, T*> mutable_get(Node* t, int k) {
+  std::pair<Node*, T*> mutable_get(Node* t, int k) {
     t = t ? new Node(*t) : new Node();
     if (k == 0) return {t, &t->data};
     auto p = mutable_get(t->child[k & ((1 << LOG) - 1)], k >> LOG);
@@ -45,9 +50,9 @@ struct PersistentArray {
     return t;
   }
 
-  void build(const vector<T>& v) {
+  void build(const std::vector<T>& v) {
     root = nullptr;
-    for (int i = 0; i < v.size(); i++) {
+    for (int i = 0; i < (int)v.size(); i++) {
       root = build(root, v[i], i);
     }
   }

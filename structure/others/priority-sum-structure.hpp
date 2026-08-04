@@ -1,11 +1,19 @@
-template <typename T, typename Compare = less<T>,
-          typename RCompare = greater<T> >
+#pragma once
+
+#include <cassert>
+#include <cstddef>
+#include <functional>
+#include <queue>
+#include <vector>
+
+template <typename T, typename Compare = std::less<T>,
+          typename RCompare = std::greater<T>>
 struct PrioritySumStructure {
-  size_t k;
+  std::size_t k;
   T sum;
 
-  priority_queue<T, vector<T>, Compare> in, d_in;
-  priority_queue<T, vector<T>, RCompare> out, d_out;
+  std::priority_queue<T, std::vector<T>, Compare> in, d_in;
+  std::priority_queue<T, std::vector<T>, RCompare> out, d_out;
 
   PrioritySumStructure(int k) : k(k), sum(0) {}
 
@@ -64,20 +72,20 @@ struct PrioritySumStructure {
     modify();
   }
 
-  void set_k(size_t kk) {
+  void set_k(std::size_t kk) {
     k = kk;
     modify();
   }
 
-  size_t get_k() const { return k; }
+  std::size_t get_k() const { return k; }
 
-  size_t size() const {
+  std::size_t size() const {
     return in.size() + out.size() - d_in.size() - d_out.size();
   }
 };
 
 template <typename T>
-using MaximumSum = PrioritySumStructure<T, greater<T>, less<T> >;
+using MaximumSum = PrioritySumStructure<T, std::greater<T>, std::less<T>>;
 
 template <typename T>
-using MinimumSum = PrioritySumStructure<T, less<T>, greater<T> >;
+using MinimumSum = PrioritySumStructure<T, std::less<T>, std::greater<T>>;

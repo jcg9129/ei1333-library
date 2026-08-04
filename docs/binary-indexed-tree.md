@@ -9,7 +9,7 @@ Fenwick Tree とも呼ばれます。数列に対し、ある要素に値を加�
 
 ```cpp
 (1) BinaryIndexedTree(int n)
-(2) BinaryIndexedTree(const vector<T> &v)
+(2) BinaryIndexedTree(const std::vector<T> &v)
 ```
 
 1. 数列を長さ `n` で初期化します。各要素は $0$ です。
@@ -22,7 +22,7 @@ Fenwick Tree とも呼ばれます。数列に対し、ある要素に値を加�
 # build
 
 ```cpp
-void build(const vector<T> &v)
+void build(const std::vector<T> &v)
 ```
 
 数列の各要素を配列 `v` で初期化します。

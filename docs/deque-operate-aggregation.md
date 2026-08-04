@@ -38,7 +38,7 @@ $A$ が空のとき `true`、空でないとき `false` を返します。
 # size
 
 ```cpp
-size_t size() const
+std::size_t size() const
 ```
 
 $A$ の要素数を返します。

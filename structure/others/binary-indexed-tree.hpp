@@ -1,20 +1,25 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 template <typename T>
 struct BinaryIndexedTree {
  private:
   int n;
-  vector<T> data;
+  std::vector<T> data;
 
  public:
   BinaryIndexedTree() = default;
 
   explicit BinaryIndexedTree(int n) : n(n) { data.assign(n + 1, T()); }
 
-  explicit BinaryIndexedTree(const vector<T>& v)
+  explicit BinaryIndexedTree(const std::vector<T>& v)
       : BinaryIndexedTree((int)v.size()) {
     build(v);
   }
 
-  void build(const vector<T>& v) {
+  void build(const std::vector<T>& v) {
     assert(n == (int)v.size());
     for (int i = 1; i <= n; i++) data[i] = v[i - 1];
     for (int i = 1; i <= n; i++) {
@@ -37,7 +42,7 @@ struct BinaryIndexedTree {
 
   int lower_bound(T x) const {
     int i = 0;
-    for (int k = 1 << (__lg(n) + 1); k > 0; k >>= 1) {
+    for (int k = 1 << (32 - __builtin_clz(n)); k > 0; k >>= 1) {
       if (i + k <= n && data[i + k] < x) {
         x -= data[i + k];
         i += k;
@@ -48,7 +53,7 @@ struct BinaryIndexedTree {
 
   int upper_bound(T x) const {
     int i = 0;
-    for (int k = 1 << (__lg(n) + 1); k > 0; k >>= 1) {
+    for (int k = 1 << (32 - __builtin_clz(n)); k > 0; k >>= 1) {
       if (i + k <= n && data[i + k] <= x) {
         x -= data[i + k];
         i += k;

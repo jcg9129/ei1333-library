@@ -9,10 +9,10 @@ documentation_of: //structure/others/priority-sum-structure.hpp
 
 ```cpp
 template <typename T>
-using MaximumSum = PrioritySumStructure<T, greater<T>, less<T> >;
+using MaximumSum = PrioritySumStructure<T, std::greater<T>, std::less<T>>;
 
 template <typename T>
-using MinimumSum = PrioritySumStructure<T, less<T>, greater<T> >;
+using MinimumSum = PrioritySumStructure<T, std::less<T>, std::greater<T>>;
 ```
 
 # コンストラクタ
@@ -86,7 +86,7 @@ void erase(T x)
 # set_k
 
 ```cpp
-void set_k(size_t kk)
+void set_k(std::size_t kk)
 ```
 
 管理する要素の個数を `kk` に変更します。
@@ -98,7 +98,7 @@ void set_k(size_t kk)
 # get_k
 
 ```cpp
-size_t get_k() const
+std::size_t get_k() const
 ```
 
 現在の $k$ を返します。
@@ -110,7 +110,7 @@ size_t get_k() const
 # size
 
 ```cpp
-size_t size() const
+std::size_t size() const
 ```
 
 現在の要素数を返します。
