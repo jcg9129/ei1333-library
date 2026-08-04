@@ -80,7 +80,18 @@ struct LazyRedBlackTree {
   }
 
   Node* submerge(Node* l, Node* r) {
-    if (l->level < r->level) {
+    if (l->level == r->level) {
+      if (l->color != r->color) {
+        if (l->color == RED) {
+          l = propagate(l);
+          l->color = BLACK;
+        } else {
+          r = propagate(r);
+          r->color = BLACK;
+        }
+      }
+      return alloc(l, r);
+    } else if (l->level < r->level) {
       r = propagate(r);
       Node* c = (r->l = submerge(l, r->l));
       if (r->color == BLACK && c->color == RED && c->l && c->l->color == RED) {
@@ -90,8 +101,7 @@ struct LazyRedBlackTree {
         r->r->color = BLACK;
       }
       return update(r);
-    }
-    if (l->level > r->level) {
+    } else {
       l = propagate(l);
       Node* c = (l->r = submerge(l->r, r));
       if (l->color == BLACK && c->color == RED && c->r && c->r->color == RED) {
@@ -102,7 +112,6 @@ struct LazyRedBlackTree {
       }
       return update(l);
     }
-    return alloc(l, r);
   }
 
   Node* build(int l, int r, const vector<Monoid>& v) {
