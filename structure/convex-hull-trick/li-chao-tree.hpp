@@ -17,9 +17,11 @@ struct LiChaoTree {
   int sz;
 
   LiChaoTree(const vector<T>& x, T INF) : xs(x) {
+    sort(begin(xs), end(xs));
+    xs.erase(unique(begin(xs), end(xs)), end(xs));
     sz = 1;
-    while (sz < xs.size()) sz <<= 1;
-    while (xs.size() < sz) xs.push_back(xs.back() + 1);
+    while (sz < (int)xs.size()) sz <<= 1;
+    while ((int)xs.size() < sz) xs.push_back(xs.back());
     seg.assign(2 * sz - 1, Line(0, INF));
   }
 
