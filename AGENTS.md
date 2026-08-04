@@ -36,12 +36,20 @@ implementations. Keep each task focused on one feature or one coherent change.
   clang-format-22 -style=google --dry-run --Werror path/to/file.hpp
   ```
 
-- Do not include `template/template.hpp` from new or modified
-  `test/verify/*.test.cpp` files. Include the required standard library headers
-  and declare any aliases or helper functions used by the verification code
-  explicitly. Existing exceptions are tracked in
+- New `.hpp` files must be self-contained: directly include every standard and
+  project header they depend on, qualify standard library names with `std::`,
+  and compile when included first in an otherwise empty translation unit. Do
+  not write `using namespace std;` in a header or rely on an includer declaring
+  it first. Apply the same rules when deliberately migrating an existing
+  header; migrate other existing headers incrementally when the task scope
+  permits.
+- Do not include `template/template.hpp` from new `test/verify/*.test.cpp`
+  files. Include the required standard library headers and declare any aliases
+  or helper functions used by the verification code explicitly. Existing
+  exceptions are tracked in
   `scripts/verify-template-include-allowlist.txt`; remove a file from this list
-  when migrating it, and never add new exceptions.
+  after its dependencies are self-contained and the verification file is
+  migrated, and never add new exceptions.
 - Preserve the include order in verification code when a library header depends
   on declarations provided earlier in the file. Format such files with include
   sorting disabled, for example:

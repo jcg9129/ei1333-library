@@ -42,27 +42,20 @@ function findTemplateIncludes() {
   );
 }
 
-function optionValues(option) {
-  const values = [];
-  for (let index = 2; index < process.argv.length; index += 1) {
-    if (process.argv[index] !== option) continue;
-    if (index + 1 === process.argv.length) {
-      throw new Error(`${option} requires a value`);
-    }
-    values.push(process.argv[index + 1]);
-    index += 1;
+let baseAllowlistPath;
+for (let index = 2; index < process.argv.length; index += 1) {
+  const option = process.argv[index];
+  if (option !== "--base-allowlist") {
+    throw new Error(`unknown option: ${option}`);
   }
-  return values;
-}
-
-const changedVerifyFiles = new Set(
-  optionValues("--changed-file").filter((path) =>
-    path.match(/^test\/verify\/.*\.test\.cpp$/),
-  ),
-);
-const baseAllowlistPaths = optionValues("--base-allowlist");
-if (baseAllowlistPaths.length > 1) {
-  throw new Error("--base-allowlist may be specified at most once");
+  if (baseAllowlistPath !== undefined) {
+    throw new Error("--base-allowlist may be specified at most once");
+  }
+  if (index + 1 === process.argv.length) {
+    throw new Error("--base-allowlist requires a value");
+  }
+  baseAllowlistPath = process.argv[index + 1];
+  index += 1;
 }
 
 const allowlist = readAllowlist();
@@ -84,16 +77,9 @@ for (const path of allowlist) {
   }
 }
 
-for (const path of changedVerifyFiles) {
-  if (templateIncludes.has(path)) {
-    errors.push(
-      `${path}: a new or modified verification test must not include template/template.hpp`,
-    );
-  }
-}
-if (baseAllowlistPaths.length === 1) {
+if (baseAllowlistPath !== undefined) {
   const baseAllowlist = new Set(
-    readFileSync(baseAllowlistPaths[0], "utf8")
+    readFileSync(baseAllowlistPath, "utf8")
       .split(/\r?\n/)
       .filter((line) => line !== "" && !line.startsWith("#")),
   );

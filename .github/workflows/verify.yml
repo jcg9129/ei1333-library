@@ -22,7 +22,7 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
-  verify-policy:
+  source-policy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -41,10 +41,6 @@ jobs:
         run: |
           args=()
           if [[ -n "$VERIFY_BASE_SHA" && ! "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
-            while IFS= read -r -d '' path; do
-              args+=(--changed-file "$path")
-            done < <(git diff --name-only --diff-filter=ACMR -z "$VERIFY_BASE_SHA...HEAD" -- test/verify)
-
             if git cat-file -e "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" 2>/dev/null; then
               base_allowlist="$RUNNER_TEMP/verify-template-include-allowlist.txt"
               git show "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" > "$base_allowlist"
@@ -52,6 +48,22 @@ jobs:
             fi
           fi
           npm run verify:template-check -- "${args[@]}"
+
+      - name: Check new headers are self-contained
+        env:
+          VERIFY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+        run: |
+          if [[ -z "$VERIFY_BASE_SHA" || "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
+            exit 0
+          fi
+
+          while IFS= read -r -d '' path; do
+            if grep -nE -- '^[[:space:]]*using[[:space:]]+namespace[[:space:]]+std[[:space:]]*;' "$path"; then
+              echo "$path must not contain 'using namespace std;'"
+              exit 1
+            fi
+            g++ -std=c++17 -fsyntax-only -x c++ "./$path"
+          done < <(git diff --name-only --diff-filter=A -z "$VERIFY_BASE_SHA...HEAD" -- '*.hpp')
 
   markdown-style:
     runs-on: ubuntu-latest
@@ -72,7 +84,7 @@ jobs:
 
   setup:
     runs-on: ubuntu-latest
-    needs: [verify-policy]
+    needs: [source-policy]
     steps:
       - uses: actions/checkout@v4
 
