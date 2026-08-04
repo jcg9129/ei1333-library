@@ -36,6 +36,18 @@ implementations. Keep each task focused on one feature or one coherent change.
   clang-format-22 -style=google --dry-run --Werror path/to/file.hpp
   ```
 
+- Do not include `template/template.hpp` from new or modified
+  `test/verify/*.test.cpp` files. Include the required standard library headers
+  and declare any aliases or helper functions used by the verification code
+  explicitly.
+- Preserve the include order in verification code when a library header depends
+  on declarations provided earlier in the file. Format such files with include
+  sorting disabled, for example:
+
+  ```console
+  clang-format-22 -style=google --sort-includes=0 -i test/verify/example.test.cpp
+  ```
+
 ## Tests
 
 - Every code addition or change must add or update a focused standalone test in
