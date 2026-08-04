@@ -49,21 +49,39 @@ jobs:
           fi
           npm run verify:template-check -- "${args[@]}"
 
-      - name: Check new headers are self-contained
+      - name: Check self-contained headers
         env:
           VERIFY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          SELF_CONTAINED_HEADERS: scripts/self-contained-headers.txt
         run: |
-          if [[ -z "$VERIFY_BASE_SHA" || "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
-            exit 0
-          fi
+          check_header() {
+            local path="$1"
+            if [[ ! -f "$path" ]]; then
+              echo "$SELF_CONTAINED_HEADERS contains a missing header: $path"
+              return 1
+            fi
 
-          while IFS= read -r -d '' path; do
             if grep -nE -- '^[[:space:]]*using[[:space:]]+namespace[[:space:]]+std[[:space:]]*;' "$path"; then
               echo "$path must not contain 'using namespace std;'"
-              exit 1
+              return 1
             fi
-            g++ -std=c++17 -fsyntax-only -x c++ "./$path"
-          done < <(git diff --name-only --diff-filter=A -z "$VERIFY_BASE_SHA...HEAD" -- '*.hpp')
+            g++ -std=c++17 -fsyntax-only -x c++ -include "./$path" /dev/null
+          }
+
+          LC_ALL=C sort -c -u "$SELF_CONTAINED_HEADERS"
+          while IFS= read -r path; do
+            [[ -z "$path" || "$path" == \#* ]] && continue
+            check_header "$path"
+          done < "$SELF_CONTAINED_HEADERS"
+
+          if [[ -n "$VERIFY_BASE_SHA" && ! "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
+            while IFS= read -r -d '' path; do
+              if ! grep -Fqx -- "$path" "$SELF_CONTAINED_HEADERS"; then
+                echo "$path must be added to $SELF_CONTAINED_HEADERS"
+                exit 1
+              fi
+            done < <(git diff --name-only --diff-filter=A -z "$VERIFY_BASE_SHA...HEAD" -- '*.hpp')
+          fi
 
   markdown-style:
     runs-on: ubuntu-latest

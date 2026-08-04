@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 /**
  * @brief Sparse-Table(スパーステーブル)
  *
@@ -5,16 +9,16 @@
 template <typename T, typename F>
 struct SparseTable {
   F f;
-  vector<vector<T> > st;
-  vector<int> lookup;
+  std::vector<std::vector<T>> st;
+  std::vector<int> lookup;
 
   SparseTable() = default;
 
-  explicit SparseTable(const vector<T>& v, const F& f) : f(f) {
+  explicit SparseTable(const std::vector<T>& v, const F& f) : f(f) {
     const int n = (int)v.size();
     const int b = 32 - __builtin_clz(n);
-    st.assign(b, vector<T>(n));
-    for (int i = 0; i < v.size(); i++) {
+    st.assign(b, std::vector<T>(n));
+    for (int i = 0; i < n; i++) {
       st[0][i] = v[i];
     }
     for (int i = 1; i < b; i++) {
@@ -23,7 +27,7 @@ struct SparseTable {
       }
     }
     lookup.resize(v.size() + 1);
-    for (int i = 2; i < lookup.size(); i++) {
+    for (int i = 2; i <= n; i++) {
       lookup[i] = lookup[i >> 1] + 1;
     }
   }
@@ -35,6 +39,6 @@ struct SparseTable {
 };
 
 template <typename T, typename F>
-SparseTable<T, F> get_sparse_table(const vector<T>& v, const F& f) {
+SparseTable<T, F> get_sparse_table(const std::vector<T>& v, const F& f) {
   return SparseTable<T, F>(v, f);
 }

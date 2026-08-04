@@ -8,7 +8,7 @@ documentation_of: //structure/others/disjoint-sparse-table.hpp
 # コンストラクタ
 
 ```cpp
-DisjointSparseTable(const vector<Semigroup>& v, const F& f)
+DisjointSparseTable(const std::vector<Semigroup>& v, const F& f)
 ```
 
 配列 `v` で初期化する。`f` は半群をマージする二項演算である。
