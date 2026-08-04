@@ -8,7 +8,8 @@
     "docs:lint:fix": "markdownlint-cli2 --fix \"*.md\" \"docs/**/*.md\" \"templates/**/*.md\"",
     "docs:structure": "node scripts/check-docs.mjs",
     "docs:check": "npm run docs:format:check && npm run docs:lint && npm run docs:structure",
-    "docs:template:check": "prettier --check \"templates/**/*.md\" && markdownlint-cli2 \"templates/**/*.md\""
+    "docs:template:check": "prettier --check \"templates/**/*.md\" && markdownlint-cli2 \"templates/**/*.md\"",
+    "verify:template-check": "node scripts/check-verify-template-includes.mjs"
   },
   "devDependencies": {
     "markdownlint-cli2": "0.23.2",

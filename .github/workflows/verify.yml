@@ -22,6 +22,37 @@ concurrency:
   cancel-in-progress: true
 
 jobs:
+  verify-policy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Check verification template includes
+        env:
+          VERIFY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
+          VERIFY_ALLOWLIST: scripts/verify-template-include-allowlist.txt
+        run: |
+          args=()
+          if [[ -n "$VERIFY_BASE_SHA" && ! "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
+            while IFS= read -r -d '' path; do
+              args+=(--changed-file "$path")
+            done < <(git diff --name-only --diff-filter=ACMR -z "$VERIFY_BASE_SHA...HEAD" -- test/verify)
+
+            if git cat-file -e "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" 2>/dev/null; then
+              base_allowlist="$RUNNER_TEMP/verify-template-include-allowlist.txt"
+              git show "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" > "$base_allowlist"
+              args+=(--base-allowlist "$base_allowlist")
+            fi
+          fi
+          npm run verify:template-check -- "${args[@]}"
+
   markdown-style:
     runs-on: ubuntu-latest
     steps:
@@ -41,6 +72,7 @@ jobs:
 
   setup:
     runs-on: ubuntu-latest
+    needs: [verify-policy]
     steps:
       - uses: actions/checkout@v4
 

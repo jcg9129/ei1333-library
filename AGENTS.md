@@ -39,7 +39,9 @@ implementations. Keep each task focused on one feature or one coherent change.
 - Do not include `template/template.hpp` from new or modified
   `test/verify/*.test.cpp` files. Include the required standard library headers
   and declare any aliases or helper functions used by the verification code
-  explicitly.
+  explicitly. Existing exceptions are tracked in
+  `scripts/verify-template-include-allowlist.txt`; remove a file from this list
+  when migrating it, and never add new exceptions.
 - Preserve the include order in verification code when a library header depends
   on declarations provided earlier in the file. Format such files with include
   sorting disabled, for example:
