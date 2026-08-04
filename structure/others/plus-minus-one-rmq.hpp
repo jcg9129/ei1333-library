@@ -1,3 +1,10 @@
+#pragma once
+
+#include <algorithm>
+#include <functional>
+#include <utility>
+#include <vector>
+
 #include "sparse-table.hpp"
 
 /**
@@ -5,25 +12,25 @@
  **/
 template <typename T>
 struct PlusMinusOneRMQ {
-  using F = function<int(int, int)>;
+  using F = std::function<int(int, int)>;
 
   int backet;
-  vector<T> vs;
-  vector<int> bidx, bbit;
+  std::vector<T> vs;
+  std::vector<int> bidx, bbit;
   SparseTable<int, F> st;
-  vector<vector<vector<int> > > lookup;
+  std::vector<std::vector<std::vector<int>>> lookup;
 
   explicit PlusMinusOneRMQ() = default;
 
-  explicit PlusMinusOneRMQ(const vector<T>& vs) : vs(vs) {
+  explicit PlusMinusOneRMQ(const std::vector<T>& vs) : vs(vs) {
     int n = (int)vs.size();
-    backet = max(1, (31 - __builtin_clz(n)) / 2);
+    backet = std::max(1, (31 - __builtin_clz(n)) / 2);
     int sz = (n + backet - 1) / backet;
     bidx.assign(sz, -1);
     bbit.assign(sz, 0);
     for (int i = 0; i < sz; i++) {
       int l = i * backet;
-      int r = min(l + backet, n);
+      int r = std::min(l + backet, n);
       bidx[i] = l;
       for (int j = l + 1; j < r; j++) {
         if (vs[j] < vs[bidx[i]]) bidx[i] = j;
@@ -32,8 +39,8 @@ struct PlusMinusOneRMQ {
     }
     F f = [&](int a, int b) { return vs[a] < vs[b] ? a : b; };
     st = get_sparse_table(bidx, f);
-    lookup.assign(1 << (backet - 1),
-                  vector<vector<int> >(backet, vector<int>(backet + 1)));
+    lookup.assign(1 << (backet - 1), std::vector<std::vector<int>>(
+                                         backet, std::vector<int>(backet + 1)));
     for (int i = 0; i < (1 << (backet - 1)); i++) {
       for (int j = 0; j < backet; j++) {
         int sum = 0, ret = 0, pos = j;
@@ -52,7 +59,7 @@ struct PlusMinusOneRMQ {
     }
   }
 
-  pair<T, int> fold(int l, int r) const {
+  std::pair<T, int> fold(int l, int r) const {
     int lb = l / backet;
     int rb = r / backet;
     if (lb == rb) {

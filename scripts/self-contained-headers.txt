@@ -1,3 +1,4 @@
 # Headers migrated to direct includes and explicit std:: qualification.
 structure/others/disjoint-sparse-table.hpp
+structure/others/plus-minus-one-rmq.hpp
 structure/others/sparse-table.hpp

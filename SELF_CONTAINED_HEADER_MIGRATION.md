@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 2    |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 3    |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -98,9 +98,11 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | ---------- | -------------------------------------------- | ---------------------------- |
 | 2026-08-04 | `structure/others/sparse-table.hpp`          | 標準 include と `std::` 修飾 |
 | 2026-08-04 | `structure/others/disjoint-sparse-table.hpp` | 標準 include と `std::` 修飾 |
+| 2026-08-04 | `structure/others/plus-minus-one-rmq.hpp`    | Sparse Table 依存を明示      |
 
 ## 次の候補
 
-Sparse Table への依存を既に自己完結化できたため、次の候補として
-`structure/others/plus-minus-one-rmq.hpp` を検討する。その後も依存関係の葉に
-近いヘッダーから進め、1コミットの変更範囲を小さく保つ。
+次の候補として、プロジェクト内ヘッダーへの依存がない
+`structure/others/queue-operate-aggregation.hpp` と
+`structure/others/deque-operate-aggregation.hpp` を検討する。その後も依存関係の
+葉に近いヘッダーから進め、1コミットの変更範囲を小さく保つ。
