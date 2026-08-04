@@ -67,8 +67,7 @@ implementations. Keep each task focused on one feature or one coherent change.
   template when applicable.
 - Do not write a literal `|` inside inline math because the documentation
   renderer may interpret it as a Markdown table delimiter. Prefer a named
-  variable, or write absolute values with LaTeX commands such as
-  `\lvert x \rvert`.
+  variable, or escape vertical bars in absolute values, such as `\|x\|`.
 - After changing Markdown documentation, run:
 
   ```console
