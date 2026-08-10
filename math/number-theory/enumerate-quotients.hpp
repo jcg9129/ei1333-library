@@ -1,7 +1,13 @@
+#pragma once
+
+#include <algorithm>
+#include <tuple>
+#include <vector>
+
 template <typename T>
-vector<tuple<T, T, T> > enumerate_quotients(T n) {
+std::vector<std::tuple<T, T, T> > enumerate_quotients(T n) {
   T l = 1;
-  vector<tuple<T, T, T> > quotients;
+  std::vector<std::tuple<T, T, T> > quotients;
   while (l <= n) {
     T q = n / l;
     T r = n / q + 1;

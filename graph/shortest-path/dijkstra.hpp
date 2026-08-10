@@ -1,5 +1,12 @@
 #pragma once
 
+#include <functional>
+#include <limits>
+#include <queue>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -8,23 +15,23 @@
  */
 template <typename T>
 struct ShortestPath {
-  vector<T> dist;
-  vector<int> from, id;
+  std::vector<T> dist;
+  std::vector<int> from, id;
 };
 
 template <typename T>
 ShortestPath<T> dijkstra(const Graph<T>& g, int s) {
-  const auto INF = numeric_limits<T>::max();
-  vector<T> dist(g.size(), INF);
-  vector<int> from(g.size(), -1), id(g.size(), -1);
-  using Pi = pair<T, int>;
-  priority_queue<Pi, vector<Pi>, greater<> > que;
+  const auto INF = std::numeric_limits<T>::max();
+  std::vector<T> dist(g.size(), INF);
+  std::vector<int> from(g.size(), -1), id(g.size(), -1);
+  using Pi = std::pair<T, int>;
+  std::priority_queue<Pi, std::vector<Pi>, std::greater<> > que;
   dist[s] = 0;
   que.emplace(dist[s], s);
   while (!que.empty()) {
     T cost;
     int idx;
-    tie(cost, idx) = que.top();
+    std::tie(cost, idx) = que.top();
     que.pop();
     if (dist[idx] < cost) continue;
     for (auto& e : g[idx]) {

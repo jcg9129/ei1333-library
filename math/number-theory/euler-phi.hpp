@@ -2,6 +2,8 @@
  * @brief Euler's Phi(オイラーのφ関数)
  *
  */
+#pragma once
+
 template <typename T>
 T euler_phi(T n) {
   T ret = n;

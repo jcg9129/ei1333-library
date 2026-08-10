@@ -1,13 +1,18 @@
+#pragma once
+
+#include <functional>
+#include <vector>
+
 #include "monotone-minima.hpp"
 
-template <typename T, typename Compare = less<T> >
-vector<vector<T> > divide_and_conquer_optimization(
-    int H, int W, T INF, const function<T(int, int)>& f,
+template <typename T, typename Compare = std::less<T> >
+std::vector<std::vector<T> > divide_and_conquer_optimization(
+    int H, int W, T INF, const std::function<T(int, int)>& f,
     const Compare& comp = Compare()) {
-  vector<vector<T> > dp(H + 1, vector<T>(W + 1, INF));
+  std::vector<std::vector<T> > dp(H + 1, std::vector<T>(W + 1, INF));
   dp[0][0] = 0;
   for (int i = 1; i <= H; i++) {
-    function<T(int, int)> get_cost = [&](int y, int x) {
+    std::function<T(int, int)> get_cost = [&](int y, int x) {
       if (x >= y) return INF;
       return dp[i - 1][x] + f(x, y);
     };

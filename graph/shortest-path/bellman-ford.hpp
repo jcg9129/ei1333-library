@@ -1,18 +1,24 @@
+#pragma once
+
+#include <algorithm>
+#include <limits>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 template <typename T>
-vector<T> bellman_ford(const Edges<T>& edges, int n, int s) {
-  const auto INF = numeric_limits<T>::max();
-  const auto M_INF = numeric_limits<T>::min();
-  vector<T> dist(n, INF);
+std::vector<T> bellman_ford(const Edges<T>& edges, int n, int s) {
+  const auto INF = std::numeric_limits<T>::max();
+  const auto M_INF = std::numeric_limits<T>::min();
+  std::vector<T> dist(n, INF);
   dist[s] = 0;
   for (int i = 0; i < n - 1; i++) {
     for (auto& e : edges) {
       if (dist[e.from] == INF) continue;
-      dist[e.to] = min(dist[e.to], dist[e.from] + e.cost);
+      dist[e.to] = std::min(dist[e.to], dist[e.from] + e.cost);
     }
   }
-  vector<bool> negative(n);
+  std::vector<bool> negative(n);
   for (int i = 0; i < n; i++) {
     for (auto& e : edges) {
       if (dist[e.from] == INF) continue;

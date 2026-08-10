@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Sum of Arithmetic Sequence(等差数列の和)
  */

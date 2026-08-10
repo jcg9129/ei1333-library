@@ -1,8 +1,14 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <vector>
+
 /**
  * @brief Manacher(最長回文)
  */
 template <typename S>
-vector<int> manacher(S s, bool calc_even = true) {
+std::vector<int> manacher(S s, bool calc_even = true) {
   if (calc_even) {
     int n = (int)s.size();
     assert(n > 0);
@@ -16,7 +22,7 @@ vector<int> manacher(S s, bool calc_even = true) {
     }
   }
   int n = (int)s.size();
-  vector<int> rad(n);
+  std::vector<int> rad(n);
   {
     int i = 0, j = 0;
     while (i < n) {

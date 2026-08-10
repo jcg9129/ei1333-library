@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 struct Dice {
   // int x, y;
   int l, r, f, b, d, u;
@@ -58,8 +62,8 @@ struct Dice {
     l = buff;
   }
 
-  vector<Dice> makeDice() {
-    vector<Dice> ret;
+  std::vector<Dice> makeDice() {
+    std::vector<Dice> ret;
     for (int i = 0; i < 6; i++) {
       Dice d(*this);
       if (i == 1) d.RollN();

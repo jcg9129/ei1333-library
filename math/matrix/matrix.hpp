@@ -1,37 +1,44 @@
+#pragma once
+
+#include <cassert>
+#include <cstddef>
+#include <iostream>
+#include <vector>
+
 template <class T>
 struct Matrix {
-  vector<vector<T> > A;
+  std::vector<std::vector<T> > A;
 
   Matrix() {}
 
-  Matrix(const vector<vector<T> >& A) : A(A) {}
+  Matrix(const std::vector<std::vector<T> >& A) : A(A) {}
 
-  Matrix(size_t n, size_t m) : A(n, vector<T>(m, 0)) {}
+  Matrix(std::size_t n, std::size_t m) : A(n, std::vector<T>(m, 0)) {}
 
-  Matrix(size_t n) : A(n, vector<T>(n, 0)) {};
+  Matrix(std::size_t n) : A(n, std::vector<T>(n, 0)) {};
 
-  size_t size() const {
+  std::size_t size() const {
     if (A.empty()) return 0;
     assert(A.size() == A[0].size());
     return A.size();
   }
 
-  size_t height() const { return (A.size()); }
+  std::size_t height() const { return (A.size()); }
 
-  size_t width() const { return (A[0].size()); }
+  std::size_t width() const { return (A[0].size()); }
 
-  inline const vector<T>& operator[](int k) const { return (A.at(k)); }
+  inline const std::vector<T>& operator[](int k) const { return (A.at(k)); }
 
-  inline vector<T>& operator[](int k) { return (A.at(k)); }
+  inline std::vector<T>& operator[](int k) { return (A.at(k)); }
 
-  static Matrix I(size_t n) {
+  static Matrix I(std::size_t n) {
     Matrix mat(n);
     for (int i = 0; i < n; i++) mat[i][i] = 1;
     return (mat);
   }
 
   Matrix& operator+=(const Matrix& B) {
-    size_t n = height(), m = width();
+    std::size_t n = height(), m = width();
     assert(n == B.height() && m == B.width());
     for (int i = 0; i < n; i++)
       for (int j = 0; j < m; j++) (*this)[i][j] += B[i][j];
@@ -39,7 +46,7 @@ struct Matrix {
   }
 
   Matrix& operator-=(const Matrix& B) {
-    size_t n = height(), m = width();
+    std::size_t n = height(), m = width();
     assert(n == B.height() && m == B.width());
     for (int i = 0; i < n; i++)
       for (int j = 0; j < m; j++) (*this)[i][j] -= B[i][j];
@@ -47,9 +54,9 @@ struct Matrix {
   }
 
   Matrix& operator*=(const Matrix& B) {
-    size_t n = height(), m = B.width(), p = width();
+    std::size_t n = height(), m = B.width(), p = width();
     assert(p == B.height());
-    vector<vector<T> > C(n, vector<T>(m, 0));
+    std::vector<std::vector<T> > C(n, std::vector<T>(m, 0));
     for (int i = 0; i < n; i++)
       for (int j = 0; j < m; j++)
         for (int k = 0; k < p; k++)
@@ -77,8 +84,8 @@ struct Matrix {
 
   Matrix operator^(const long long k) const { return (Matrix(*this) ^= k); }
 
-  friend ostream& operator<<(ostream& os, Matrix& p) {
-    size_t n = p.height(), m = p.width();
+  friend std::ostream& operator<<(std::ostream& os, Matrix& p) {
+    std::size_t n = p.height(), m = p.width();
     for (int i = 0; i < n; i++) {
       os << "[";
       for (int j = 0; j < m; j++) {
@@ -100,7 +107,7 @@ struct Matrix {
       if (idx == -1) return (0);
       if (i != idx) {
         ret *= -1;
-        swap(B[i], B[idx]);
+        std::swap(B[i], B[idx]);
       }
       ret *= B[i][i];
       T vv = B[i][i];

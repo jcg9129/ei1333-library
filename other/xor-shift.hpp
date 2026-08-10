@@ -1,3 +1,7 @@
+#pragma once
+
+#include <cstdint>
+
 /**
  * @brief Xor-Shift
  *
