@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Partition(分割数)
  */
@@ -13,3 +15,4 @@ FPS<Mint> partition(int N) {
   }
   return poly.inv();
 }
+#pragma once

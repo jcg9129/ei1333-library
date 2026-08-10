@@ -1,10 +1,14 @@
+#pragma once
+
+#include <cmath>
+#include <vector>
 /**
  * @brief Count Subset Sum
  */
 template <template <typename> class FPS, typename Mint>
-FPS<Mint> count_subset_sum(vector<Mint>& c) {
+FPS<Mint> count_subset_sum(std::vector<Mint>& c) {
   const int n = (int)c.size();
-  vector<Mint> inv(n);
+  std::vector<Mint> inv(n);
   inv[0] = Mint(0);
   inv[1] = Mint(1);
   auto mod = Mint::mod();
@@ -22,3 +26,4 @@ FPS<Mint> count_subset_sum(vector<Mint>& c) {
   }
   return f.exp();
 }
+#pragma once

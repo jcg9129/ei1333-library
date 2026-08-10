@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <set>
+#include <vector>
+
 #include "../class/monoid.hpp"
 
 template <typename Monoid>
@@ -15,7 +21,7 @@ struct PersistentSegmentTree {
 
   NP merge(NP l, NP r) const { return new Node{m.op(l->d, r->d), l, r}; }
 
-  NP build(int l, int r, const vector<S>& v) const {
+  NP build(int l, int r, const std::vector<S>& v) const {
     if (l + 1 == r) return new Node{v[l], nullptr, nullptr};
     NP lp = build(l, (l + r) / 2, v);
     NP rp = build((l + r) / 2, r, v);
@@ -60,7 +66,7 @@ struct PersistentSegmentTree {
 
   explicit PersistentSegmentTree(Monoid m, int n) : m(m), n(n) {}
 
-  NP build(const vector<S>& v) const {
+  NP build(const std::vector<S>& v) const {
     assert(n == (int)v.size());
     return build(0, n, v);
   }
@@ -88,3 +94,4 @@ struct PersistentSegmentTree {
 
   S all_prod(NP t) const { return t->d; }
 };
+#pragma once

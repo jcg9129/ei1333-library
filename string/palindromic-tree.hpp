@@ -1,3 +1,8 @@
+#pragma once
+
+#include <map>
+#include <string>
+#include <vector>
 /**
  * @brief Palindromic Tree(回文木)
  * @see https://math314.hateblo.jp/entry/2016/12/19/005919
@@ -7,20 +12,20 @@ template <typename T = char>
 struct PalindromicTree {
  public:
   struct Node {
-    map<T, int> link;  // 子のidx
-    int suffix_link;   // 最長回文接尾辞のidx
-    int len;           // 対応する回文の長さ
-    vector<int> idx;   // 対応する回文を最長回文接尾辞とするidx
-    int delta_link;    // 差分が異なる最長回文接尾辞のidx
+    std::map<T, int> link;  // 子のidx
+    int suffix_link;        // 最長回文接尾辞のidx
+    int len;                // 対応する回文の長さ
+    std::vector<int> idx;   // 対応する回文を最長回文接尾辞とするidx
+    int delta_link;         // 差分が異なる最長回文接尾辞のidx
 
     Node() = default;
 
     Node(int suf, int len) : suffix_link(suf), len(len), delta_link(-1) {}
   };
 
-  vector<Node> ns;
+  std::vector<Node> ns;
   int ptr;
-  vector<T> vs;
+  std::vector<T> vs;
 
  private:
   int find_prev_palindrome(int cur) const {
@@ -33,7 +38,7 @@ struct PalindromicTree {
     return cur;
   }
 
-  bool output_dfs(int v, int id, vector<T>& ret) const {
+  bool output_dfs(int v, int id, std::vector<T>& ret) const {
     if (v == id) return true;
     for (auto& nxt : ns[v].link) {
       if (output_dfs(nxt.second, id, ret)) {
@@ -50,7 +55,7 @@ struct PalindromicTree {
     ns.emplace_back(0, 0);   // 長さ 0
   }
 
-  PalindromicTree(const string& S) : PalindromicTree() { add(S); }
+  PalindromicTree(const std::string& S) : PalindromicTree() { add(S); }
 
   int diff(int t) const {
     if (ns[t].suffix_link <= 0) return -1;
@@ -87,10 +92,10 @@ struct PalindromicTree {
   // * apply(node_idx, pre_idx): 頂点 node_idx に 頂点 pre_idx の結果を加える
   // * update: S[i]を末尾とする回文の頂点番号の集合
   template <typename I, typename U>
-  vector<int> update_dp(const I& init, const U& apply) {
+  std::vector<int> update_dp(const I& init, const U& apply) {
     int i = (int)vs.size() - 1;
     int id = ptr;
-    vector<int> update;
+    std::vector<int> update;
     while (ns[id].len > 0) {
       init(id, i + 1 - ns[ns[id].delta_link].len - diff(id));
       if (ns[id].suffix_link != ns[id].delta_link) {
@@ -102,12 +107,12 @@ struct PalindromicTree {
     return update;
   }
 
-  void add(const string& s) {
+  void add(const std::string& s) {
     for (auto& x : s) add(x);
   }
 
-  vector<int> build_frequency() const {
-    vector<int> ret(ns.size());
+  std::vector<int> build_frequency() const {
+    std::vector<int> ret(ns.size());
     for (int i = (int)ns.size() - 1; i > 0; i--) {
       ret[i] += (int)ns[i].idx.size();
       ret[ns[i].suffix_link] += ret[i];
@@ -115,10 +120,10 @@ struct PalindromicTree {
     return ret;
   }
 
-  vector<T> output(int idx) const {
+  std::vector<T> output(int idx) const {
     if (idx == 0) return {-1};
     if (idx == 1) return {0};
-    vector<T> ret;
+    std::vector<T> ret;
     output_dfs(0, idx, ret);
     output_dfs(1, idx, ret);
     int start = (int)ret.size() - 1;
@@ -133,3 +138,4 @@ struct PalindromicTree {
 
   Node& operator[](int idx) { return ns[idx]; }
 };
+#pragma once

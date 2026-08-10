@@ -1,23 +1,30 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <utility>
+#include <vector>
 template <typename K, typename Monoid2D>
 struct RangeTree {
   using S = typename Monoid2D::S;
   using D = typename Monoid2D::D;
 
  private:
-  vector<vector<K> > ys;
-  vector<pair<K, K> > ps;
-  vector<K> xs;
-  vector<D> ds;
+  std::vector<std::vector<K> > ys;
+  std::vector<std::pair<K, K> > ps;
+  std::vector<K> xs;
+  std::vector<D> ds;
   int n;
 
   Monoid2D m;
 
   int id(K x) const {
-    return lower_bound(xs.begin(), xs.end(), x) - xs.begin();
+    return std::lower_bound(xs.begin(), xs.end(), x) - xs.begin();
   }
 
   int id(int k, K y) const {
-    return lower_bound(ys[k].begin(), ys[k].end(), y) - ys[k].begin();
+    return std::lower_bound(ys[k].begin(), ys[k].end(), y) - ys[k].begin();
   }
 
  public:
@@ -28,7 +35,7 @@ struct RangeTree {
   void add_point(K x, K y) { ps.emplace_back(x, y); }
 
   void build() {
-    sort(ps.begin(), ps.end());
+    std::sort(ps.begin(), ps.end());
     ps.erase(unique(ps.begin(), ps.end()), ps.end());
     n = (int)ps.size();
     xs.reserve(n);
@@ -51,7 +58,8 @@ struct RangeTree {
   }
 
   void apply(K x, K y, S a) {
-    int k = lower_bound(ps.begin(), ps.end(), make_pair(x, y)) - ps.begin();
+    int k = std::lower_bound(ps.begin(), ps.end(), std::make_pair(x, y)) -
+            ps.begin();
     assert(ps[k] == make_pair(x, y));
     k += n;
     while (k > 0) {
@@ -80,3 +88,4 @@ struct RangeTree {
     return m.op(L, R);
   }
 };
+#pragma once

@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 #include "../class/act.hpp"
 
 template <typename Act>
@@ -6,7 +10,7 @@ struct DualSegmentTree {
 
  private:
   int sz, height;
-  vector<F> lazy;
+  std::vector<F> lazy;
   Act m;
 
   inline void propagate(int k) {
@@ -45,3 +49,4 @@ struct DualSegmentTree {
     }
   }
 };
+#pragma once

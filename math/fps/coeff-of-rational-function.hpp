@@ -1,9 +1,12 @@
+#pragma once
+
+#include <cstdint>
 /**
  * @brief Coeff of Rational Function
  *
  */
 template <template <typename> class FPS, typename Mint>
-Mint coeff_of_rational_function(FPS<Mint> P, FPS<Mint> Q, int64_t k) {
+Mint coeff_of_rational_function(FPS<Mint> P, FPS<Mint> Q, std::int64_t k) {
   // compute the coefficient [x^k] P/Q of rational power series
   Mint ret = 0;
   if (P.size() >= Q.size()) {
@@ -28,3 +31,4 @@ Mint coeff_of_rational_function(FPS<Mint> P, FPS<Mint> Q, int64_t k) {
   }
   return ret + P[0];
 }
+#pragma once

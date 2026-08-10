@@ -1,3 +1,13 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <queue>
+#include <string>
+#include <unordered_map>
+#include <utility>
+#include <vector>
+
 #include "../structure/trie/trie.hpp"
 
 template <int char_size, int margin>
@@ -5,14 +15,14 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
   using Trie<char_size + 1, margin>::Trie;
 
   const int FAIL = char_size;
-  vector<int> correct;
+  std::vector<int> correct;
 
   void build(bool heavy = true) {
     correct.resize(this->size());
     for (int i = 0; i < this->size(); i++) {
       correct[i] = (int)this->nodes[i].accept.size();
     }
-    queue<int> que;
+    std::queue<int> que;
     for (int i = 0; i <= char_size; i++) {
       if (~this->nodes[0].nxt[i]) {
         this->nodes[this->nodes[0].nxt[i]].nxt[FAIL] = 0;
@@ -32,8 +42,8 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
           if (heavy) {
             auto& u = this->nodes[now.nxt[i]].accept;
             auto& v = this->nodes[this->nodes[fail].nxt[i]].accept;
-            vector<int> accept;
-            set_union(begin(u), end(u), begin(v), end(v),
+            std::vector<int> accept;
+            set_union(std::begin(u), std::end(u), std::begin(v), std::end(v),
                       back_inserter(accept));
             u = accept;
           }
@@ -45,8 +55,8 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
     }
   }
 
-  unordered_map<int, int> match(const string& str, int now = 0) {
-    unordered_map<int, int> result, visit_cnt;
+  std::unordered_map<int, int> match(const std::string& str, int now = 0) {
+    std::unordered_map<int, int> result, visit_cnt;
     for (auto& c : str) {
       now = this->nodes[now].nxt[c - margin];
       visit_cnt[now]++;
@@ -57,12 +67,12 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
     return result;
   }
 
-  pair<int64_t, int> move(const char& c, int now = 0) {
+  std::pair<int64_t, int> move(const char& c, int now = 0) {
     now = this->nodes[now].nxt[c - margin];
     return {correct[now], now};
   }
 
-  pair<int64_t, int> move(const string& str, int now = 0) {
+  std::pair<int64_t, int> move(const std::string& str, int now = 0) {
     int64_t sum = 0;
     for (auto& c : str) {
       auto nxt = move(c, now);

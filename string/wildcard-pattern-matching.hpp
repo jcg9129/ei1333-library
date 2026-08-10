@@ -1,3 +1,8 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 #include "../math/fft/number-theoretic-transform-friendly-mod-int.hpp"
 
 template <class mint, class S, class T>
@@ -5,7 +10,7 @@ std::vector<int> wildcard_pattern_matching(S a, S b, T wildcard) {
   int n = (int)a.size(), m = (int)b.size();
   assert(m <= n);
 
-  vector<mint> as(n), bs(n), cs(n), ss(m), ts(m), us(m);
+  std::vector<mint> as(n), bs(n), cs(n), ss(m), ts(m), us(m);
   for (int i = 0; i < n; i++) {
     mint x(a[i] == wildcard ? 0 : a[i]);
     mint y(a[i] == wildcard ? 0 : 1);
@@ -27,7 +32,7 @@ std::vector<int> wildcard_pattern_matching(S a, S b, T wildcard) {
   auto g = ntt.multiply(bs, ts);
   auto h = ntt.multiply(cs, us);
 
-  vector<int> result(n - m + 1);
+  std::vector<int> result(n - m + 1);
   for (int i = 0; i < (int)result.size(); i++) {
     int j = i + m - 1;
     mint x(f[j] + g[j] + h[j]);
@@ -36,3 +41,4 @@ std::vector<int> wildcard_pattern_matching(S a, S b, T wildcard) {
 
   return result;
 }
+#pragma once

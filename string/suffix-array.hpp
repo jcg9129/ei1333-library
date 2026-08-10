@@ -1,39 +1,49 @@
+#pragma once
+
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <iterator>
+#include <numeric>
+#include <string>
+#include <utility>
+#include <vector>
 /**
  * @brief Suffix Array(接尾辞配列)
  */
 template <typename T>
-struct SuffixArray : vector<int> {
+struct SuffixArray : std::vector<int> {
  private:
-  vector<int> sa_is(const vector<int>& s) const {
+  std::vector<int> sa_is(const std::vector<int>& s) const {
     const int n = (int)s.size();
-    vector<int> ret(n);
+    std::vector<int> ret(n);
 
-    vector<int> is_s(n), is_lms(n);
+    std::vector<int> is_s(n), is_lms(n);
     int m = 0;
     for (int i = n - 2; i >= 0; i--) {
       is_s[i] = (s[i] > s[i + 1]) or (s[i] == s[i + 1] and is_s[i + 1]);
       m += (is_lms[i + 1] = is_s[i] and not is_s[i + 1]);
     }
 
-    auto induced_sort = [&](const vector<int>& lms) {
+    auto induced_sort = [&](const std::vector<int>& lms) {
       int upper = *max_element(s.begin(), s.end());
-      vector<int> l(upper + 2), r(upper + 2);
+      std::vector<int> l(upper + 2), r(upper + 2);
       for (auto&& v : s) {
         ++l[v + 1];
         ++r[v];
       }
-      partial_sum(l.begin(), l.end(), l.begin());
-      partial_sum(r.begin(), r.end(), r.begin());
-      fill(ret.begin(), ret.end(), -1);
+      std::partial_sum(l.begin(), l.end(), l.begin());
+      std::partial_sum(r.begin(), r.end(), r.begin());
+      std::fill(ret.begin(), ret.end(), -1);
       for (int i = (int)lms.size() - 1; i >= 0; i--) {
         ret[--r[s[lms[i]]]] = lms[i];
       }
       for (auto&& v : ret) {
         if (v >= 1 and is_s[v - 1]) ret[l[s[v - 1]]++] = v - 1;
       }
-      fill(r.begin(), r.end(), 0);
+      std::fill(r.begin(), r.end(), 0);
       for (auto&& v : s) ++r[v];
-      partial_sum(r.begin(), r.end(), r.begin());
+      std::partial_sum(r.begin(), r.end(), r.begin());
       for (int k = (int)ret.size() - 1, i = ret[k]; k >= 1; i = ret[--k]) {
         if (i >= 1 and not is_s[i - 1]) {
           ret[--r[s[i - 1]]] = i - 1;
@@ -41,7 +51,7 @@ struct SuffixArray : vector<int> {
       }
     };
 
-    vector<int> lms;
+    std::vector<int> lms;
     lms.reserve(m);
     for (int i = 1; i < n; i++) {
       if (is_lms[i]) lms.push_back(i);
@@ -49,7 +59,7 @@ struct SuffixArray : vector<int> {
 
     induced_sort(lms);
 
-    vector<int> new_lms;
+    std::vector<int> new_lms;
     new_lms.reserve(m);
     for (int i = 0; i < n; i++) {
       if (not is_s[ret[i]] and ret[i] > 0 and is_s[ret[i] - 1]) {
@@ -73,7 +83,7 @@ struct SuffixArray : vector<int> {
     }
 
     if (rank + 1 < m) {
-      vector<int> new_s(m);
+      std::vector<int> new_s(m);
       for (int i = 0; i < m; i++) {
         new_s[i] = ret[lms[i]];
       }
@@ -92,10 +102,10 @@ struct SuffixArray : vector<int> {
   T vs;
 
   explicit SuffixArray(const T& vs, bool compress = false) : vs(vs) {
-    vector<int> new_vs(vs.size() + 1);
+    std::vector<int> new_vs(vs.size() + 1);
     if (compress) {
       T xs = vs;
-      sort(xs.begin(), xs.end());
+      std::sort(xs.begin(), xs.end());
       xs.erase(unique(xs.begin(), xs.end()), xs.end());
       for (int i = 0; i < (int)vs.size(); i++) {
         new_vs[i] =
@@ -113,13 +123,14 @@ struct SuffixArray : vector<int> {
 
   void output() const {
     for (int i = 0; i < size(); i++) {
-      cout << i << ":[" << (*this)[i] << "]";
-      for (int j = (*this)[i]; j < (int)vs.size(); j++) cout << " " << vs[j];
-      cout << "\n";
+      std::cout << i << ":[" << (*this)[i] << "]";
+      for (int j = (*this)[i]; j < (int)vs.size(); j++)
+        std::cout << " " << vs[j];
+      std::cout << "\n";
     }
   }
 
-  bool lt_substr(const string& t, int si = 0, int ti = 0) {
+  bool lt_substr(const std::string& t, int si = 0, int ti = 0) {
     int sn = (int)vs.size(), tn = (int)t.size();
     while (si < sn && ti < tn) {
       if (vs[si] < t[ti]) return true;
@@ -129,7 +140,7 @@ struct SuffixArray : vector<int> {
     return si >= sn && ti < tn;
   }
 
-  // t <= s[i,N) なる最小の i を返す O(|t| log |s|)
+  // t <= s[i,N) なる最小の i を返す O(|t| std::log |s|)
   int lower_bound(const T& t) {
     int ng = 0, ok = (int)size();
     while (ok - ng > 1) {
@@ -142,8 +153,8 @@ struct SuffixArray : vector<int> {
     return ok;
   }
 
-  // O(|t| log |s|)
-  pair<int, int> equal_range(T& t) {
+  // O(|t| std::log |s|)
+  std::pair<int, int> equal_range(T& t) {
     int low = lower_bound(t);
     int ng = low - 1, ok = (int)size();
     t.back()++;
@@ -160,8 +171,10 @@ struct SuffixArray : vector<int> {
 };
 
 template <>
-void SuffixArray<string>::output() const {
+void SuffixArray<std::string>::output() const {
   for (int i = 0; i < (int)size(); i++) {
-    cout << i << ":[" << (*this)[i] << "] " << vs.substr((*this)[i]) << "\n";
+    std::cout << i << ":[" << (*this)[i] << "] " << vs.substr((*this)[i])
+              << "\n";
   }
 }
+#pragma once

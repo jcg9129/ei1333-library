@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Bernoulli(ベルヌーイ数)
  */
@@ -16,3 +18,4 @@ FPS<Mint> bernoulli(int N) {
   }
   return poly;
 }
+#pragma once

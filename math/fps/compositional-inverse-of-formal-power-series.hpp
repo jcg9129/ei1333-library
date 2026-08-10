@@ -1,5 +1,10 @@
 #pragma once
 
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <vector>
+
 #include "enumerate-coefficients-of-powers.hpp"
 
 /**
@@ -9,7 +14,7 @@
  * Requires f(0) = 0 and f'(0) != 0.
  *
  * @note This implementation requires an NTT-friendly modulus.
- * @complexity O(deg log^2 deg)
+ * @complexity O(deg std::log^2 deg)
  */
 template <typename Mint>
 FormalPowerSeriesFriendlyNTT<Mint> compositional_inverse_of_formal_power_series(
@@ -27,12 +32,12 @@ FormalPowerSeriesFriendlyNTT<Mint> compositional_inverse_of_formal_power_series(
   if (deg == 1) return Poly(1, Mint(0));
 
   const int n = deg - 1;
-  assert((uint64_t)n < Mint::mod());
+  assert((std::uint64_t)n < Mint::mod());
 
   Poly h = enumerate_coefficients_of_powers<Mint>(f);
   h *= Mint(n);
 
-  vector<Mint> inverse(n + 1);
+  std::vector<Mint> inverse(n + 1);
   inverse[1] = Mint(1);
   for (int i = 2; i <= n; i++) {
     inverse[i] = -inverse[Mint::mod() % i] * Mint(Mint::mod() / i);

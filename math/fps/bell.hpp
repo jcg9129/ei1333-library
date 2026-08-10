@@ -1,3 +1,6 @@
+#pragma once
+
+#include <cmath>
 /**
  * @brief Bell(ベル数)
  *
@@ -16,3 +19,4 @@ FPS<Mint> bell(int N) {
   }
   return ret;
 }
+#pragma once

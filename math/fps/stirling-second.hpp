@@ -1,3 +1,6 @@
+#pragma once
+
+#include <cmath>
 /**
  * @brief Stirling Second(第二種スターリング数)
  */
@@ -14,3 +17,4 @@ FPS<Mint> stirling_second(int N) {
   }
   return (A * B).pre(N + 1);
 }
+#pragma once

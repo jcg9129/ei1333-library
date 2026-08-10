@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <set>
+#include <vector>
+
 #include "../class/beats-monoid.hpp"
 
 template <typename BeatsMonoid>
@@ -10,9 +16,9 @@ struct SegmentTreeBeats {
 
   int n{}, sz{}, height{};
 
-  vector<S> data;
+  std::vector<S> data;
 
-  vector<F> lazy;
+  std::vector<F> lazy;
 
   inline void update(int k) {
     data[k] = m.op(data[2 * k + 0], data[2 * k + 1]);
@@ -48,12 +54,12 @@ struct SegmentTreeBeats {
     lazy.assign(2 * sz, m.id());
   }
 
-  explicit SegmentTreeBeats(BeatsMonoid m, const vector<S>& v)
+  explicit SegmentTreeBeats(BeatsMonoid m, const std::vector<S>& v)
       : SegmentTreeBeats(m, v.size()) {
     build(v);
   }
 
-  void build(const vector<S>& v) {
+  void build(const std::vector<S>& v) {
     assert(n == (int)v.size());
     for (int k = 0; k < n; k++) data[k + sz] = v[k];
     for (int k = sz - 1; k > 0; k--) update(k);
@@ -121,3 +127,4 @@ struct SegmentTreeBeats {
     }
   }
 };
+#pragma once

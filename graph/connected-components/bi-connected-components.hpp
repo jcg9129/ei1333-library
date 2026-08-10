@@ -1,3 +1,7 @@
+#pragma once
+
+#include <vector>
+
 #include "../graph-template.hpp"
 #include "../others/low-link.hpp"
 
@@ -9,7 +13,7 @@ struct BiConnectedComponents : LowLink<T> {
   using LowLink<T>::ord;
   using LowLink<T>::low;
 
-  vector<vector<Edge<T> > > bc;
+  std::vector<std::vector<Edge<T> > > bc;
 
   void build() override {
     LowLink<T>::build();
@@ -22,14 +26,14 @@ struct BiConnectedComponents : LowLink<T> {
   explicit BiConnectedComponents(const Graph<T>& g) : Graph<T>(g) {}
 
  private:
-  vector<int> used;
-  vector<Edge<T> > tmp;
+  std::vector<int> used;
+  std::vector<Edge<T> > tmp;
 
   void dfs(int idx, int par) {
     used[idx] = true;
     bool beet = false;
     for (auto& to : g[idx]) {
-      if (to == par && !exchange(beet, true)) continue;
+      if (to == par && !std::exchange(beet, true)) continue;
       if (!used[to] || ord[to] < ord[idx]) {
         tmp.emplace_back(to);
       }
@@ -48,3 +52,4 @@ struct BiConnectedComponents : LowLink<T> {
     }
   }
 };
+#pragma once

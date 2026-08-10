@@ -1,7 +1,13 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <utility>
+#include <vector>
 template <typename T, typename T2, typename T3>
 struct RangeLinearAddRangeMinSegmentTree {
  private:
-  using Point = pair<int, T>;
+  using Point = std::pair<int, T>;
 
   struct Node {
     Point lbr, rbr;
@@ -20,10 +26,10 @@ struct RangeLinearAddRangeMinSegmentTree {
     return T2(b.y - a.y) * (c.x - a.x) - T2(c.y - a.y) * (b.x - a.x);
   }
 
-  size_t n, sz, height;
+  std::size_t n, sz, height;
   const T ti;
-  vector<int> mid;
-  vector<Node> seg;
+  std::vector<int> mid;
+  std::vector<Node> seg;
 
   void update(int k) {
     int l = 2 * k, r = 2 * k + 1;
@@ -102,7 +108,8 @@ struct RangeLinearAddRangeMinSegmentTree {
   }
 
  public:
-  explicit RangeLinearAddRangeMinSegmentTree(const vector<T>& vs, const T& ti)
+  explicit RangeLinearAddRangeMinSegmentTree(const std::vector<T>& vs,
+                                             const T& ti)
       : n(vs.size()), ti(ti) {
     sz = 1;
     height = 0;
@@ -129,8 +136,8 @@ struct RangeLinearAddRangeMinSegmentTree {
     }
     T res = ti;
     while (l < r) {
-      if (l & 1) res = min(res, min_subtree(l++));
-      if (r & 1) res = min(res, min_subtree(--r));
+      if (l & 1) res = std::min(res, min_subtree(l++));
+      if (r & 1) res = std::min(res, min_subtree(--r));
       l >>= 1;
       r >>= 1;
     }
@@ -162,3 +169,4 @@ struct RangeLinearAddRangeMinSegmentTree {
 #undef x
 #undef y
 };
+#pragma once
