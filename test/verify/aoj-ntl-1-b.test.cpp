@@ -1,11 +1,15 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=NTL_1_B
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
 #include "../../math/combinatorics/mod-pow.hpp"
 
+using namespace std;
+
 int main() {
-  int64 M, N;
+  long long M, N;
   cin >> M >> N;
-  cout << mod_pow(M, N, (int64)(1e9 + 7)) << endl;
+  cout << mod_pow(M, N, 1000000007LL) << endl;
 }
