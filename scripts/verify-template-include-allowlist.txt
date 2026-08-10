@@ -33,12 +33,6 @@ test/verify/aoj-2821.test.cpp
 test/verify/aoj-3022.test.cpp
 test/verify/aoj-3139.test.cpp
 test/verify/aoj-3198.test.cpp
-test/verify/yosupo-enumerate-triangles.test.cpp
-test/verify/yosupo-frequency-table-of-tree-distance.test.cpp
-test/verify/yosupo-global-minimum-cut-of-dynamic-star-augmented-graph.test.cpp
-test/verify/yosupo-k-shortest-walk.test.cpp
-test/verify/yosupo-range-chmin-chmax-add-range-sum.test.cpp
-test/verify/yosupo-tree-decomposition-width-2.test.cpp
 test/verify/yukicoder-1002.test.cpp
 test/verify/yukicoder-1069.test.cpp
 test/verify/yukicoder-1236.test.cpp

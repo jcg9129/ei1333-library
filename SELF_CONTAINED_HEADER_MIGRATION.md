@@ -175,6 +175,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | Library Checker の直線・区間最小値 verify 4件                                                                                                                                                                                                                              | テンプレート依存を削除              |
 | 2026-08-10 | Library Checker の動的木 verify 6件                                                                                                                                                                                                                                        | テンプレート依存を削除              |
 
+| 2026-08-10 | Library Checker の残り verify 6件 | テンプレート依存を削除 |
+
 ## 次の候補
 
 ヘッダーの自己完結化は `template/template.hpp` を除いて完了している。
