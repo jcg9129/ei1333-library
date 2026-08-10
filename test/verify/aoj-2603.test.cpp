@@ -3,7 +3,6 @@
 
 #include <algorithm>
 #include <iostream>
-#include <limits>
 #include <vector>
 
 #include "../../dp/divide-and-conquer-optimization.hpp"
@@ -28,7 +27,7 @@ int main() {
       mat[left][right] = mat[left + 1][right] + T[right] - T[left];
     }
   }
-  const int infinity = numeric_limits<int>::max();
+  const int infinity = (1 << 30) - 1;
   auto val = divide_and_conquer_optimization<int>(
       M, N, infinity, [&](int a, int b) { return mat[a][b - 1]; });
   int ret = infinity;
