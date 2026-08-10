@@ -46,7 +46,7 @@ struct MoTree : Graph<T> {
     lr.reserve(qs.size());
     auto lca = offline_lca(*this, qs);
     for (auto& [l, r] : qs) {
-      lr.emplace_back(minmax(in[l] + 1, in[r] + 1));
+      lr.emplace_back(std::minmax(in[l] + 1, in[r] + 1));
     }
     int q = (int)lr.size();
     int bs = n / std::min<int>(n, std::sqrt(q));

@@ -430,6 +430,12 @@ int main() {
   Dinic<int> dinic(2);
   dinic.add_edge(0, 1, 3);
   assert(dinic.max_flow(0, 1) == 3);
+  MoTree<> mo_tree(2);
+  mo_tree.add_edge(0, 1);
+  mo_tree.add(0, 1);
+  int mo_tree_adds = 0;
+  mo_tree.build([&](int) { mo_tree_adds++; }, [](int) {}, [](int) {});
+  assert(mo_tree_adds == 3);
   BipartiteMatching matching(2);
   matching.add_edge(0, 1);
   assert(matching.bipartite_matching() == 1);
