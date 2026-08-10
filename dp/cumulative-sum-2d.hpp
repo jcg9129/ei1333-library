@@ -1,8 +1,12 @@
+#pragma once
+
+#include <vector>
+
 template <class T>
 struct CumulativeSum2D {
-  vector<vector<T> > data;
+  std::vector<std::vector<T> > data;
 
-  CumulativeSum2D(int W, int H) : data(W + 1, vector<T>(H + 1, 0)) {}
+  CumulativeSum2D(int W, int H) : data(W + 1, std::vector<T>(H + 1, 0)) {}
 
   void add(int x, int y, T z) {
     ++x, ++y;

@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma once
+
 template <typename S2, typename Op, typename Fail, typename E, typename F2,
           typename Mapping, typename Composition, typename Id>
 struct LambdaBeatsMonoid {
@@ -55,3 +57,4 @@ struct BeatsMonoid {
   static constexpr F id() {}
 };
 */
+#pragma once

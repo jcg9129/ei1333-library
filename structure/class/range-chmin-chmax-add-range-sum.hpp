@@ -1,6 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <limits>
+
 template <typename T>
 struct RangeChminChmaxAddRangeSum {
-  static constexpr T infty = numeric_limits<T>::max() / 2 - 1;
+  static constexpr T infty = std::numeric_limits<T>::max() / 2 - 1;
 
   struct MinMaxSum {
     T min, max, sum, minc, maxc, min2, max2, cnt;
@@ -23,8 +29,8 @@ struct RangeChminChmaxAddRangeSum {
     if (b.min > b.max) return a;
 
     S c;
-    c.min = min(a.min, b.min);
-    c.max = max(a.max, b.max);
+    c.min = std::min(a.min, b.min);
+    c.max = std::max(a.max, b.max);
     c.sum = a.sum + b.sum;
 
     c.minc = 0;
@@ -69,8 +75,8 @@ struct RangeChminChmaxAddRangeSum {
     if (f.chmin == infty && f.chmax == -infty) return x;
 
     T before_min = x.min, before_max = x.max;
-    x.min = min(x.min, f.chmin), x.min = max(x.min, f.chmax);
-    x.max = min(x.max, f.chmin), x.max = max(x.max, f.chmax);
+    x.min = std::min(x.min, f.chmin), x.min = std::max(x.min, f.chmax);
+    x.max = std::min(x.max, f.chmin), x.max = std::max(x.max, f.chmax);
 
     if (x.min == x.max) {
       x.sum = x.max * x.cnt;
@@ -92,9 +98,9 @@ struct RangeChminChmaxAddRangeSum {
 
   static constexpr F composition(F f, const F& g) {
     f.add += g.add, f.chmax += g.add, f.chmin += g.add;
-    f.chmin = min(f.chmin, g.chmin);
-    f.chmax = min(f.chmax, g.chmin);
-    f.chmax = max(f.chmax, g.chmax);
+    f.chmin = std::min(f.chmin, g.chmin);
+    f.chmax = std::min(f.chmax, g.chmin);
+    f.chmax = std::max(f.chmax, g.chmax);
     return f;
   }
 
@@ -105,3 +111,8 @@ struct RangeChminChmaxAddRangeSum {
   static constexpr F chmax(T x) { return {0, infty, x}; }
   static constexpr F add(T x) { return {x, infty, -infty}; }
 };
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <limits>

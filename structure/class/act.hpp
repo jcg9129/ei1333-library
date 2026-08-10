@@ -1,5 +1,7 @@
 #pragma once
 
+#pragma once
+
 template <typename F2, typename Composition, typename Id>
 struct LambdaAct {
   using F = F2;
@@ -27,3 +29,4 @@ struct Act {
   static constexpr F id() const {}
 };
 */
+#pragma once

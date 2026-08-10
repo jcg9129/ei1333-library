@@ -1,4 +1,21 @@
 # Headers migrated to direct includes and explicit std:: qualification.
+dp/cumulative-sum-2d.hpp
+dp/cumulative-sum.hpp
+dp/edit-distance.hpp
+dp/knapsack-01-2.hpp
+dp/knapsack-01.hpp
+dp/knapsack-limitations.hpp
+dp/knapsack.hpp
+dp/largest-rectangle.hpp
+dp/longest-increasing-subsequence.hpp
+dp/monotone-minima.hpp
+structure/class/act.hpp
+structure/class/acted-monoid.hpp
+structure/class/affine.hpp
+structure/class/beats-monoid.hpp
+structure/class/monoid.hpp
+structure/class/range-add-range-min.hpp
+structure/class/range-chmin-chmax-add-range-sum.hpp
 structure/heap/erasable-heap.hpp
 structure/heap/leftist-heap.hpp
 structure/heap/persistent-leftist-heap.hpp
@@ -12,7 +29,10 @@ structure/others/persistent-array.hpp
 structure/others/plus-minus-one-rmq.hpp
 structure/others/priority-sum-structure.hpp
 structure/others/queue-operate-aggregation.hpp
+structure/others/slope-trick.hpp
 structure/others/sparse-table.hpp
+structure/others/sqrt-decomposition.hpp
+structure/others/union-rectangle.hpp
 structure/union-find/bipartite-graph.hpp
 structure/union-find/partially-persistent-union-find.hpp
 structure/union-find/persistent-union-find.hpp

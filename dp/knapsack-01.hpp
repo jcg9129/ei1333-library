@@ -1,8 +1,14 @@
-template <typename T, typename Compare = greater<T> >
-vector<T> knapsack_01(const vector<int>& w, const vector<T>& v, const int& W,
-                      const T& NG, const Compare& comp = Compare()) {
+#pragma once
+
+#include <functional>
+#include <vector>
+
+template <typename T, typename Compare = std::greater<T> >
+std::vector<T> knapsack_01(const std::vector<int>& w, const std::vector<T>& v,
+                           const int& W, const T& NG,
+                           const Compare& comp = Compare()) {
   const int N = (int)w.size();
-  vector<T> dp(W + 1, NG);
+  std::vector<T> dp(W + 1, NG);
   dp[0] = T();
   for (int i = 0; i < N; i++) {
     for (int j = W; j >= w[i]; j--) {

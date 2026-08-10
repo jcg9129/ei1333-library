@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T>
 struct Affine {
   T a, b;  // ax+b
@@ -14,3 +16,4 @@ struct Affine {
     return a != p.a or b != p.b;
   }
 };
+#pragma once
