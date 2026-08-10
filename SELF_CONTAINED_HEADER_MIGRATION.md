@@ -179,6 +179,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 
 | 2026-08-10 | AOJ の verify 7件 | テンプレート依存を削除 |
 
+| 2026-08-10 | AOJ の verify 7件（第2バッチ） | テンプレート依存を削除 |
+
 ## 次の候補
 
 ヘッダーの自己完結化は `template/template.hpp` を除いて完了している。
