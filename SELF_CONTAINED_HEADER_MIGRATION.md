@@ -27,7 +27,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
 | 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
-| `template/template.hpp` に依存する verify | 移行待ち | 132  |
+| `template/template.hpp` に依存する verify | 移行待ち | 127  |
 
 移行済みヘッダーの正本は
 [`scripts/self-contained-headers.txt`](scripts/self-contained-headers.txt)、
@@ -163,6 +163,7 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | Library Checker Point Set Range Composite の verify 3件                                                                                                                                                                                                                    | テンプレート依存を削除              |
 | 2026-08-10 | Library Checker の文字列・閉路 verify 5件                                                                                                                                                                                                                                  | テンプレート依存を削除              |
 | 2026-08-10 | Library Checker の数論 verify 7件                                                                                                                                                                                                                                          | テンプレート依存を削除              |
+| 2026-08-10 | Library Checker の組合せ列 verify 5件                                                                                                                                                                                                                                      | テンプレート依存を削除              |
 
 ## 次の候補
 

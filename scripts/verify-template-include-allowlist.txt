@@ -35,7 +35,6 @@ test/verify/aoj-3139.test.cpp
 test/verify/aoj-3198.test.cpp
 test/verify/yosupo-area-of-union-of-rectangles.test.cpp
 test/verify/yosupo-assignment.test.cpp
-test/verify/yosupo-bernoulli-number.test.cpp
 test/verify/yosupo-bipartite-edge-coloring.test.cpp
 test/verify/yosupo-bipartitematching.test.cpp
 test/verify/yosupo-bitwise-and-convolution-2.test.cpp
@@ -73,10 +72,8 @@ test/verify/yosupo-manhattanmst.test.cpp
 test/verify/yosupo-matrix-det.test.cpp
 test/verify/yosupo-maximum-independent-set-2.test.cpp
 test/verify/yosupo-maximum-independent-set.test.cpp
-test/verify/yosupo-montmort-number-mod.test.cpp
 test/verify/yosupo-multipoint-evaluation.test.cpp
 test/verify/yosupo-number-of-increasing-sequences-between-two-sequences.test.cpp
-test/verify/yosupo-partition-function.test.cpp
 test/verify/yosupo-point-add-rectangle-sum-2.test.cpp
 test/verify/yosupo-point-add-rectangle-sum-3.test.cpp
 test/verify/yosupo-point-add-rectangle-sum-4.test.cpp
@@ -103,8 +100,6 @@ test/verify/yosupo-shortest-path.test.cpp
 test/verify/yosupo-sparse-matrix-det.test.cpp
 test/verify/yosupo-sqrt-of-formal-power-series.test.cpp
 test/verify/yosupo-static-rectangle-add-rectangle-sum.test.cpp
-test/verify/yosupo-stirling-number-of-the-first-kind.test.cpp
-test/verify/yosupo-stirling-number-of-the-second-kind.test.cpp
 test/verify/yosupo-subset-convolution.test.cpp
 test/verify/yosupo-three-edge-connected-components.test.cpp
 test/verify/yosupo-tree-decomposition-width-2.test.cpp
