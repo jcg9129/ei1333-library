@@ -49,7 +49,6 @@ test/verify/yosupo-convex-layers.test.cpp
 test/verify/yosupo-convolution-mod-2.test.cpp
 test/verify/yosupo-convolution-mod.test.cpp
 test/verify/yosupo-counting-primes.test.cpp
-test/verify/yosupo-cycle-detection.test.cpp
 test/verify/yosupo-deque-operate-all-composite.test.cpp
 test/verify/yosupo-directedmst.test.cpp
 test/verify/yosupo-discrete-logarithm-mod.test.cpp
@@ -60,7 +59,6 @@ test/verify/yosupo-dynamic-tree-vertex-add-path-sum-4.test.cpp
 test/verify/yosupo-dynamic-tree-vertex-add-subtree-sum-3.test.cpp
 test/verify/yosupo-dynamic-tree-vertex-set-path-composite-4.test.cpp
 test/verify/yosupo-eertree.test.cpp
-test/verify/yosupo-enumerate-palindromes.test.cpp
 test/verify/yosupo-enumerate-quotients.test.cpp
 test/verify/yosupo-enumerate-triangles.test.cpp
 test/verify/yosupo-exp-of-formal-power-series.test.cpp
@@ -75,7 +73,6 @@ test/verify/yosupo-kth-term-of-linearly-recurrent-sequence.test.cpp
 test/verify/yosupo-line-add-get-min-2.test.cpp
 test/verify/yosupo-line-add-get-min.test.cpp
 test/verify/yosupo-log-of-formal-power-series.test.cpp
-test/verify/yosupo-longest-common-substring.test.cpp
 test/verify/yosupo-manhattanmst.test.cpp
 test/verify/yosupo-matrix-det.test.cpp
 test/verify/yosupo-maximum-independent-set-2.test.cpp
@@ -83,7 +80,6 @@ test/verify/yosupo-maximum-independent-set.test.cpp
 test/verify/yosupo-montmort-number-mod.test.cpp
 test/verify/yosupo-multipoint-evaluation.test.cpp
 test/verify/yosupo-number-of-increasing-sequences-between-two-sequences.test.cpp
-test/verify/yosupo-number-of-substrings.test.cpp
 test/verify/yosupo-partition-function.test.cpp
 test/verify/yosupo-point-add-rectangle-sum-2.test.cpp
 test/verify/yosupo-point-add-rectangle-sum-3.test.cpp
@@ -122,7 +118,6 @@ test/verify/yosupo-tree-decomposition-width-2.test.cpp
 test/verify/yosupo-two-edge-connected-components-2.test.cpp
 test/verify/yosupo-two-edge-connected-components.test.cpp
 test/verify/yosupo-two-sat.test.cpp
-test/verify/yosupo-wildcard-pattern-matching.test.cpp
 test/verify/yukicoder-1002.test.cpp
 test/verify/yukicoder-1069.test.cpp
 test/verify/yukicoder-1236.test.cpp
