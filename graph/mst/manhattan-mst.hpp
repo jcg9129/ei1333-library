@@ -41,7 +41,7 @@ Edges<T> manhattan_mst(std::vector<T> xs, std::vector<T> ys) {
         }
         idx[-ys[i]] = i;
       }
-      swap(xs, ys);
+      std::swap(xs, ys);
     }
     for (int i = 0; i < n; i++) xs[i] *= -1;
   }

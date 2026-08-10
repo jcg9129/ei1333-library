@@ -66,7 +66,7 @@ struct PalindromicTree {
     int idx = (int)vs.size();
     vs.emplace_back(x);
     int cur = find_prev_palindrome(ptr);
-    auto res = ns[cur].link.insert(make_pair(x, (int)ns.size()));
+    auto res = ns[cur].link.insert(std::make_pair(x, (int)ns.size()));
     ptr = res.first->second;
     if (res.second) {
       ns.emplace_back(-1, ns[cur].len + 2);

@@ -61,7 +61,7 @@ struct ConnectedGridStates {
       que.pop();
       int j = i + 1 == width ? 0 : i + 1;
       auto& state = states[i][id];
-      int mx = *max_element(state.begin(), state.end());
+      int mx = *std::max_element(state.begin(), state.end());
       {  // '.'
         if (state[i] == -1) {
           nxt_ground[i][id] = push(j, state);

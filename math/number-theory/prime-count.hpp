@@ -51,8 +51,8 @@ struct PrimeCount {
 
   std::int64_t pi(std::int64_t n) {
     if (n <= sq) return prime_sum[n];
-    int64_t m = kth_root_integer(n, 3);
-    int64_t a = pi(m);
+    std::int64_t m = kth_root_integer(n, 3);
+    std::int64_t a = pi(m);
     return phi(n, a) + a - 1 - p2(n, m);
   }
 };

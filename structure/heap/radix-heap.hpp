@@ -1,11 +1,13 @@
 #pragma once
 
+#include <algorithm>
 #include <array>
 #include <cstddef>
 #include <cstdint>
 #include <iterator>
 #include <utility>
 #include <vector>
+
 template <typename key_t, typename val_t>
 struct RadixHeap {
   static constexpr int bit = sizeof(key_t) * 8;
@@ -35,7 +37,7 @@ struct RadixHeap {
     if (vs[0].empty()) {
       int idx = 1;
       while (vs[idx].empty()) idx++;
-      last = min_element(vs[idx].begin(), vs[idx].end())->first;
+      last = std::min_element(vs[idx].begin(), vs[idx].end())->first;
       for (auto& p : vs[idx]) vs[getbit(p.first ^ last)].emplace_back(p);
       vs[idx].clear();
     }

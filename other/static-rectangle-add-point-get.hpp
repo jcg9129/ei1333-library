@@ -57,7 +57,7 @@ struct StaticRectangleAddPointGet {
       ys.emplace_back(queries[i].y);
     }
     std::sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
 
     struct R {
       T x;
@@ -69,8 +69,8 @@ struct StaticRectangleAddPointGet {
     rs.reserve(n + n);
     for (int i = 0; i < n; i++) {
       auto& rect = rectangles[i];
-      int d = lower_bound(ys.begin(), ys.end(), rect.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), rect.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), rect.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), rect.u) - ys.begin();
       rs.emplace_back(R{rect.l, d, u, false, rect.w});
       rs.emplace_back(R{rect.r, d, u, true, rect.w});
     }
@@ -95,7 +95,7 @@ struct StaticRectangleAddPointGet {
         }
         ++j;
       }
-      int y = lower_bound(ys.begin(), ys.end(), queries[i].y) - ys.begin();
+      int y = std::lower_bound(ys.begin(), ys.end(), queries[i].y) - ys.begin();
       ans[i] = bit.prod(y + 1);
     }
     return ans;

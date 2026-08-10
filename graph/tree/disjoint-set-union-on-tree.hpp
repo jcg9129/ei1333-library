@@ -18,9 +18,9 @@ struct DisjointSetUnionOnTree : Graph<T> {
 
   explicit DisjointSetUnionOnTree(int n, F expand, F shrink, F query)
       : Graph<T>(n),
-        expand(move(expand)),
-        shrink(move(shrink)),
-        query(move(query)) {}
+        expand(std::move(expand)),
+        shrink(std::move(shrink)),
+        query(std::move(query)) {}
 
  private:
   std::queue<int> que;

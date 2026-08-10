@@ -26,7 +26,7 @@ struct SuffixArray : std::vector<int> {
     }
 
     auto induced_sort = [&](const std::vector<int>& lms) {
-      int upper = *max_element(s.begin(), s.end());
+      int upper = *std::max_element(s.begin(), s.end());
       std::vector<int> l(upper + 2), r(upper + 2);
       for (auto&& v : s) {
         ++l[v + 1];
@@ -106,13 +106,13 @@ struct SuffixArray : std::vector<int> {
     if (compress) {
       T xs = vs;
       std::sort(xs.begin(), xs.end());
-      xs.erase(unique(xs.begin(), xs.end()), xs.end());
+      xs.erase(std::unique(xs.begin(), xs.end()), xs.end());
       for (int i = 0; i < (int)vs.size(); i++) {
         new_vs[i] =
             std::lower_bound(xs.begin(), xs.end(), vs[i]) - xs.begin() + 1;
       }
     } else {
-      auto d = *min_element(vs.begin(), vs.end());
+      auto d = *std::min_element(vs.begin(), vs.end());
       for (int i = 0; i < (int)vs.size(); i++) {
         new_vs[i] = vs[i] - d + 1;
       }

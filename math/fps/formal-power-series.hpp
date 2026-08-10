@@ -88,7 +88,7 @@ struct FormalPowerSeries : std::vector<T> {
   // https://judge.yosupo.jp/problem/division_of_polynomials
   std::pair<P, P> div_mod(const P& r) {
     P q = *this / r;
-    return make_pair(q, *this - q * r);
+    return std::make_pair(q, *this - q * r);
   }
 
   P operator-() const {

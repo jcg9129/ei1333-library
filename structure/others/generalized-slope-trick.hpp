@@ -124,7 +124,7 @@ struct LazySplayTree {
     splay(t);
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   std::pair<Node*, Node*> split_lower_bound(Node* t, const T& key) {

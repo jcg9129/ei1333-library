@@ -36,7 +36,7 @@ struct RangeTree {
 
   void build() {
     std::sort(ps.begin(), ps.end());
-    ps.erase(unique(ps.begin(), ps.end()), ps.end());
+    ps.erase(std::unique(ps.begin(), ps.end()), ps.end());
     n = (int)ps.size();
     xs.reserve(n);
     for (auto& [x, _] : ps) {
@@ -50,9 +50,9 @@ struct RangeTree {
     }
     for (int i = n - 1; i > 0; i--) {
       ys[i].resize(ys[i << 1].size() + ys[(i << 1) | 1].size());
-      merge(ys[i << 1].begin(), ys[i << 1].end(), ys[(i << 1) | 1].begin(),
-            ys[(i << 1) | 1].end(), ys[i].begin());
-      ys[i].erase(unique(ys[i].begin(), ys[i].end()), ys[i].end());
+      std::merge(ys[i << 1].begin(), ys[i << 1].end(), ys[(i << 1) | 1].begin(),
+                 ys[(i << 1) | 1].end(), ys[i].begin());
+      ys[i].erase(std::unique(ys[i].begin(), ys[i].end()), ys[i].end());
       ds[i] = m.init((int)ys[i].size());
     }
   }
@@ -60,7 +60,7 @@ struct RangeTree {
   void apply(K x, K y, S a) {
     int k = std::lower_bound(ps.begin(), ps.end(), std::make_pair(x, y)) -
             ps.begin();
-    assert(ps[k] == make_pair(x, y));
+    assert(ps[k] == std::make_pair(x, y));
     k += n;
     while (k > 0) {
       m.apply(ds[k], id(k, y), a);

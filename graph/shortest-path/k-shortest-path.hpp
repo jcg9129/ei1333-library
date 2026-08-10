@@ -122,7 +122,7 @@ std::vector<std::pair<T, std::vector<int> > > k_shortest_path(const Graph<T>& g,
       from[malta[last_path[j]]] = latte[last_path[j]];
       id[malta[last_path[j]]] = last_path[j];
       cur = malta[last_path[j]];
-      candidate = move(accept);
+      candidate = std::move(accept);
     }
     if (B.size()) {
       A.emplace_back(*B.begin());

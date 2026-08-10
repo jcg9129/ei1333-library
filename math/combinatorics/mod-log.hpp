@@ -11,7 +11,7 @@
 std::int64_t mod_log(std::int64_t a, std::int64_t b, std::int64_t p) {
   std::int64_t g = 1;
 
-  for (int64_t i = p; i; i /= 2) (g *= a) %= p;
+  for (std::int64_t i = p; i; i /= 2) (g *= a) %= p;
   g = std::gcd(g, p);
 
   std::int64_t t = 1, c = 0;

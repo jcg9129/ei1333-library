@@ -82,13 +82,15 @@ struct HeavyLightDecomposition : Graph<T> {
   /* {parent, child} */
   std::vector<std::pair<int, int> > compress(std::vector<int>& remark) {
     auto cmp = [&](int a, int b) { return in[a] < in[b]; };
-    sort(begin(remark), end(remark), cmp);
-    remark.erase(unique(begin(remark), end(remark)), end(remark));
+    std::sort(std::begin(remark), std::end(remark), cmp);
+    remark.erase(std::unique(std::begin(remark), std::end(remark)),
+                 std::end(remark));
     int K = (int)remark.size();
     for (int k = 1; k < K; k++)
       remark.emplace_back(lca(remark[k - 1], remark[k]));
-    sort(begin(remark), end(remark), cmp);
-    remark.erase(unique(begin(remark), end(remark)), end(remark));
+    std::sort(std::begin(remark), std::end(remark), cmp);
+    remark.erase(std::unique(std::begin(remark), std::end(remark)),
+                 std::end(remark));
     std::vector<std::pair<int, int> > es;
     std::stack<int> st;
     for (auto& k : remark) {

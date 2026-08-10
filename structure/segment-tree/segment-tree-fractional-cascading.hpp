@@ -38,8 +38,8 @@ struct SegmentTreeFractionalCascading {
       seg[k].resize(seg[2 * k + 1].size() + seg[2 * k + 2].size());
       LL[k].resize(seg[k].size() + 1);
       RR[k].resize(seg[k].size() + 1);
-      merge(seg[2 * k + 1].begin(), seg[2 * k + 1].end(),
-            seg[2 * k + 2].begin(), seg[2 * k + 2].end(), seg[k].begin());
+      std::merge(seg[2 * k + 1].begin(), seg[2 * k + 1].end(),
+                 seg[2 * k + 2].begin(), seg[2 * k + 2].end(), seg[k].begin());
       int tail1 = 0, tail2 = 0;
       for (int i = 0; i < seg[k].size(); i++) {
         while (tail1 < seg[2 * k + 1].size() and

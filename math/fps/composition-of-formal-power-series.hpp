@@ -160,8 +160,8 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
         reduced_row[x] = row[2 * x] * row[2 * x + 1];
       }
       NTT::intt(reduced_row);
-      copy_n(reduced_row.begin(), n / 2,
-             next_denominator.begin() + (std::size_t)n * y);
+      std::copy_n(reduced_row.begin(), n / 2,
+                  next_denominator.begin() + (std::size_t)n * y);
     }
     for (int y = 0; y < 4 * k; y++) {
       next_denominator[(std::size_t)n * y] = Mint(0);

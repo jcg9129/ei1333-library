@@ -81,7 +81,7 @@ struct ComplementShortestPath : Graph<T> {
           que.emplace(to);
         }
       }
-      not_visited = move(nxt_visited);
+      not_visited = std::move(nxt_visited);
     }
     return dist;
   }

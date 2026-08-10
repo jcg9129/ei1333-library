@@ -16,7 +16,7 @@ std::vector<int> manacher(S s, bool calc_even = true) {
     for (int i = n - 1; i >= 0; i--) {
       s[2 * i] = s[i];
     }
-    auto d = *min_element(begin(s), end(s));
+    auto d = *std::min_element(std::begin(s), std::end(s));
     for (int i = 0; i < n - 1; i++) {
       s[2 * i + 1] = d;
     }

@@ -388,7 +388,7 @@ struct LazyTopTree {
 
   void set_key(NP t, const Info& v) {
     expose(t);
-    t->info = move(v);
+    t->info = std::move(v);
     update(t);
   }
 

@@ -271,6 +271,7 @@
 #include "../../math/number-theory/prime-count.hpp"
 #include "../../math/number-theory/prime-table.hpp"
 #include "../../math/number-theory/sum-of-floor-of-linear.hpp"
+#include "../../math/number-theory/sum-of-floor-of-linear.hpp"
 #include "../../math/rational/rational.hpp"
 #include "../../other/ceil-div.hpp"
 #include "../../other/chrono-timer.hpp"

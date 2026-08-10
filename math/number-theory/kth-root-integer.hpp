@@ -4,7 +4,7 @@
 
 std::uint64_t kth_root_integer(std::uint64_t a, int k) {
   if (k == 1) return a;
-  auto check = [&](uint32_t x) {
+  auto check = [&](std::uint32_t x) {
     std::uint64_t mul = 1;
     for (int j = 0; j < k; j++) {
       if (__builtin_mul_overflow(mul, x, &mul)) return false;

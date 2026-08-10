@@ -192,7 +192,7 @@ struct LazyRedBlackTree {
   std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   template <typename... Args>

@@ -68,8 +68,8 @@ struct StaticPointAddRectangleSum {
     qs.reserve(q + q);
     for (int i = 0; i < q; i++) {
       auto& query = queries[i];
-      int d = lower_bound(ys.begin(), ys.end(), query.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), query.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), query.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), query.u) - ys.begin();
       qs.emplace_back(Q{query.l, d, u, false, i});
       qs.emplace_back(Q{query.r, d, u, true, i});
     }

@@ -14,6 +14,6 @@ std::vector<std::tuple<T, T, T> > enumerate_quotients(T n) {
     quotients.emplace_back(q, l, r);
     l = r;
   }
-  reverse(quotients.begin(), quotients.end());
+  std::reverse(quotients.begin(), quotients.end());
   return quotients;
 }

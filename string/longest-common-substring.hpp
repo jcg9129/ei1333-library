@@ -11,8 +11,8 @@ template <typename S>
 std::tuple<int, int, int, int> longest_common_substring(const S& s, const S& t,
                                                         bool compress = false) {
   int n = (int)s.size(), m = (int)t.size();
-  auto dummy = std::max(*max_element(s.begin(), s.end()),
-                        *max_element(t.begin(), t.end()));
+  auto dummy = std::max(*std::max_element(s.begin(), s.end()),
+                        *std::max_element(t.begin(), t.end()));
   S st;
   st.reserve(n + 1 + m);
   for (auto& x : s) st.push_back(x);

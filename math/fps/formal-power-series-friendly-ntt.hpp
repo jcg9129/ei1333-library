@@ -91,7 +91,7 @@ struct FormalPowerSeriesFriendlyNTT : std::vector<T> {
     P q = *this / r;
     P x = *this - q * r;
     x.shrink();
-    return make_pair(q, x);
+    return std::make_pair(q, x);
   }
 
   P operator-() const {

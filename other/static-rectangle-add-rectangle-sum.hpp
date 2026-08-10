@@ -67,7 +67,7 @@ struct StaticRectangleAddRectangleSum {
       ys.emplace_back(p.u);
     }
     std::sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
 
     struct Q {
       T x;
@@ -80,15 +80,15 @@ struct StaticRectangleAddRectangleSum {
     qs.reserve(q + q);
     for (int i = 0; i < n; i++) {
       auto& p = rectangles[i];
-      int d = lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
       rs.emplace_back(Q{p.l, d, u, false, i});
       rs.emplace_back(Q{p.r, d, u, true, i});
     }
     for (int i = 0; i < q; i++) {
       auto& p = queries[i];
-      int d = lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
       qs.emplace_back(Q{p.l, d, u, false, i});
       qs.emplace_back(Q{p.r, d, u, true, i});
     }

@@ -140,16 +140,18 @@ void to_nice(std::vector<DecompNode>& g, int root = 0) {
       int& ch = g[idx].child[0];
 
       std::vector<int> latte, malta;
-      set_difference(g[idx].bag.begin(), g[idx].bag.end(), g[ch].bag.begin(),
-                     g[ch].bag.end(), back_inserter(latte));
-      set_difference(g[ch].bag.begin(), g[ch].bag.end(), g[idx].bag.begin(),
-                     g[idx].bag.end(), back_inserter(malta));
+      std::set_difference(g[idx].bag.begin(), g[idx].bag.end(),
+                          g[ch].bag.begin(), g[ch].bag.end(),
+                          std::back_inserter(latte));
+      std::set_difference(g[ch].bag.begin(), g[ch].bag.end(),
+                          g[idx].bag.begin(), g[idx].bag.end(),
+                          std::back_inserter(malta));
       if (latte.size() + malta.size() > 1) {
         DecompNode r;
         r.child = {ch};
         r.bag = g[idx].bag;
         if (!latte.empty()) {
-          r.bag.erase(find(r.bag.begin(), r.bag.end(), latte.back()));
+          r.bag.erase(std::find(r.bag.begin(), r.bag.end(), latte.back()));
         } else {
           r.bag.emplace_back(malta.back());
         }

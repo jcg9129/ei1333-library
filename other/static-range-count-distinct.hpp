@@ -22,10 +22,10 @@ struct StaticRangeCountDistinct {
   explicit StaticRangeCountDistinct(const std::vector<T>& vs) : xs(vs.size()) {
     std::vector<T> ys = vs;
     std::sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
     m = ys.size();
     for (int i = 0; i < vs.size(); i++) {
-      int p = lower_bound(ys.begin(), ys.end(), vs[i]) - ys.begin();
+      int p = std::lower_bound(ys.begin(), ys.end(), vs[i]) - ys.begin();
       xs[i] = p;
     }
   }

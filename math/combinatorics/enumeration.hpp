@@ -12,7 +12,7 @@ struct Enumeration {
  private:
   static std::vector<T> _fact, _finv, _inv;
 
-  inline static void expand(size_t sz) {
+  inline static void expand(std::size_t sz) {
     if (_fact.size() < sz + 1) {
       int pre_sz = std::max(1, (int)_fact.size());
       _fact.resize(sz + 1, T(1));
@@ -32,7 +32,7 @@ struct Enumeration {
   }
 
  public:
-  explicit Enumeration(size_t sz = 0) { expand(sz); }
+  explicit Enumeration(std::size_t sz = 0) { expand(sz); }
 
   static inline T fact(int k) {
     expand(k);

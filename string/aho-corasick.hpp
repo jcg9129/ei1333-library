@@ -44,7 +44,7 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
             auto& v = this->nodes[this->nodes[fail].nxt[i]].accept;
             std::vector<int> accept;
             set_union(std::begin(u), std::end(u), std::begin(v), std::end(v),
-                      back_inserter(accept));
+                      std::back_inserter(accept));
             u = accept;
           }
           que.emplace(now.nxt[i]);
@@ -67,13 +67,13 @@ struct AhoCorasick : Trie<char_size + 1, margin> {
     return result;
   }
 
-  std::pair<int64_t, int> move(const char& c, int now = 0) {
+  std::pair<std::int64_t, int> move(const char& c, int now = 0) {
     now = this->nodes[now].nxt[c - margin];
     return {correct[now], now};
   }
 
-  std::pair<int64_t, int> move(const std::string& str, int now = 0) {
-    int64_t sum = 0;
+  std::pair<std::int64_t, int> move(const std::string& str, int now = 0) {
+    std::int64_t sum = 0;
     for (auto& c : str) {
       auto nxt = move(c, now);
       sum += nxt.first;

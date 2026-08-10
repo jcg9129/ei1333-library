@@ -176,7 +176,7 @@ struct LazyReversibleSplayTree {
     splay(t);
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   template <typename... Args>
