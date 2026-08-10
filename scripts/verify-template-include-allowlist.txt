@@ -75,10 +75,6 @@ test/verify/yosupo-inv-of-formal-power-series.test.cpp
 test/verify/yosupo-k-shortest-walk.test.cpp
 test/verify/yosupo-kth-root-integer.test.cpp
 test/verify/yosupo-kth-term-of-linearly-recurrent-sequence.test.cpp
-test/verify/yosupo-lca-2.test.cpp
-test/verify/yosupo-lca-3.test.cpp
-test/verify/yosupo-lca-4.test.cpp
-test/verify/yosupo-lca.test.cpp
 test/verify/yosupo-line-add-get-min-2.test.cpp
 test/verify/yosupo-line-add-get-min.test.cpp
 test/verify/yosupo-log-of-formal-power-series.test.cpp
