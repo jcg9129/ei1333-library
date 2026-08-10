@@ -8,6 +8,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Suffix Array(接尾辞配列)
  */

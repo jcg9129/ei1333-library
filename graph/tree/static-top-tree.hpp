@@ -5,6 +5,7 @@
 #include <utility>
 #include <variant>
 #include <vector>
+
 template <typename G>
 struct StaticTopTree {
   enum OpType { Vertex, AddVertex, AddEdge, Rake, Compress };

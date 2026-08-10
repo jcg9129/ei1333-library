@@ -7,6 +7,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Shortest Nonzero Path(群ラベル制約付き単一始点最短路)
  */

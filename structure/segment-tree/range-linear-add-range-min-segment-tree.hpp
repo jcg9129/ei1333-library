@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <utility>
 #include <vector>
+
 template <typename T, typename T2, typename T3>
 struct RangeLinearAddRangeMinSegmentTree {
  private:

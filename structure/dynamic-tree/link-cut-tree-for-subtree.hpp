@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <utility>
 #include <vector>
+
 template <typename TreeDPInfo>
 struct LinkCutTreeForSubtree {
   using Point = typename TreeDPInfo::Point;

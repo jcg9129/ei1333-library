@@ -7,6 +7,7 @@
 #include <vector>
 
 #include "formal-power-series.hpp"
+
 template <typename T>
 using FPSGraph = std::vector<std::vector<std::pair<int, T> > >;
 

@@ -6,6 +6,7 @@
 #include <queue>
 #include <type_traits>
 #include <vector>
+
 /**
  * @brief Dinic Capacity Scaling(最大流)
  *

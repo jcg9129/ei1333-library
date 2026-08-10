@@ -5,6 +5,7 @@
 #include <iterator>
 #include <utility>
 #include <vector>
+
 template <typename K, typename Monoid2D>
 struct RangeTree {
   using S = typename Monoid2D::S;

@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <utility>
+
 template <typename T, T x_low, T x_high, T id>
 struct PersistentDynamicLiChaoTree {
   struct Line {

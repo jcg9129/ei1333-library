@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../other/vector-pool.hpp"
+
 /**
  * @brief Red-Black-Tree(赤黒木)
  *

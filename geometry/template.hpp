@@ -10,6 +10,7 @@
 #include <ostream>
 #include <utility>
 #include <vector>
+
 using Real = double;
 using Point = std::complex<Real>;
 const Real EPS = 1e-8, PI = std::acos(-1);

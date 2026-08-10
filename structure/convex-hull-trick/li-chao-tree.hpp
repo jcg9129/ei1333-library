@@ -4,6 +4,7 @@
 #include <iterator>
 #include <utility>
 #include <vector>
+
 template <typename T>
 struct LiChaoTree {
   struct Line {
