@@ -27,7 +27,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
 | 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
-| `template/template.hpp` に依存する verify | 移行待ち | 243  |
+| `template/template.hpp` に依存する verify | 移行待ち | 236  |
 
 移行済みヘッダーの正本は
 [`scripts/self-contained-headers.txt`](scripts/self-contained-headers.txt)、
@@ -55,7 +55,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 ### 3. 対応する verify を移行する
 
-状態: 未着手
+状態: 進行中
 
 依存先ヘッダーが自己完結した後、対応する verify から
 `template/template.hpp` を削除する。必要な標準ヘッダー、型別名、入出力処理、
@@ -143,6 +143,7 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `geometry/template.hpp`、`graph/flow/` の10ヘッダー、`graph/mst/` の1ヘッダー、`graph/others/` の2ヘッダー                                                                                                                                                                 | 標準 include と `std::` 修飾        |
 | 2026-08-10 | `structure/bbst/` の10ヘッダー、`structure/dynamic-tree/` の13ヘッダー、`structure/wavelet/` の2ヘッダー                                                                                                                                                                   | 標準 include と `std::` 修飾        |
 | 2026-08-10 | 移行済みヘッダー34件                                                                                                                                                                                                                                                       | 未修飾標準名と include guard を修正 |
+| 2026-08-10 | AOJ DPL の verify 7件                                                                                                                                                                                                                                                      | テンプレート依存を削除              |
 
 ## 次の候補
 
