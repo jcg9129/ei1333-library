@@ -55,12 +55,6 @@ test/verify/aoj-cgl-4-c.test.cpp
 test/verify/aoj-cgl-7-d.test.cpp
 test/verify/aoj-cgl-7-e.test.cpp
 test/verify/aoj-cgl-7-h.test.cpp
-test/verify/aoj-grl-1-a-2.test.cpp
-test/verify/aoj-grl-1-a-3.test.cpp
-test/verify/aoj-grl-1-a.test.cpp
-test/verify/aoj-grl-1-b-2.test.cpp
-test/verify/aoj-grl-1-b.test.cpp
-test/verify/aoj-grl-1-c.test.cpp
 test/verify/aoj-grl-2-a-2.test.cpp
 test/verify/aoj-grl-2-a-3.test.cpp
 test/verify/aoj-grl-2-a-4.test.cpp
