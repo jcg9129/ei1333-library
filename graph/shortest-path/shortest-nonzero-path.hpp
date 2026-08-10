@@ -13,7 +13,7 @@
 template <typename T, typename S, typename F>
 struct ShortestNonzeroPath {
  private:
-  constexpr static T INF = std::numeric_limits<T>::std::max();
+  constexpr static T INF = std::numeric_limits<T>::max();
   struct edge {
     int to;
     T cost;

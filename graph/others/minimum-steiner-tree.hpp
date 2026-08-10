@@ -14,7 +14,7 @@ template <typename T>
 struct MinimumSteinerTree {
   using pi = std::pair<int, int>;
 
-  const T infty = std::numeric_limits<T>::std::max();
+  const T infty = std::numeric_limits<T>::max();
 
   std::vector<std::vector<T> > dp;
   T cost;

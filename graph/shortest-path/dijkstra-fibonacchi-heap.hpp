@@ -14,7 +14,7 @@
  */
 template <typename T>
 std::vector<T> dijkstra_fibonacchi_heap(Graph<T>& g, int s) {
-  const auto INF = std::numeric_limits<T>::std::max();
+  const auto INF = std::numeric_limits<T>::max();
   using Heap = FibonacchiHeap<T, int>;
   using Node = typename Heap::Node;
 

@@ -16,7 +16,7 @@
  */
 template <typename T>
 struct FormalPowerSeries : std::vector<T> {
-  using std::vector<T>::std::vector;
+  using std::vector<T>::vector;
   using P = FormalPowerSeries;
   using Conv = ArbitraryModConvolution<T>;
 

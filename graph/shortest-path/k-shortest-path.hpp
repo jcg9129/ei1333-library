@@ -36,7 +36,7 @@ std::vector<std::pair<T, std::vector<int> > > k_shortest_path(const Graph<T>& g,
       cost[e.idx] = e.cost;
     }
   }
-  const auto INF = std::numeric_limits<T>::std::max();
+  const auto INF = std::numeric_limits<T>::max();
   std::vector<int> dame(M, -1);
   int timestamp = 0;
   auto shortest_path = [&](std::vector<T>& dist, std::vector<int>& from,

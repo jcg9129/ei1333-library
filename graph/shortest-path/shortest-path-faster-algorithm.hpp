@@ -12,7 +12,7 @@
  */
 template <typename T>
 std::vector<T> shortest_path_faster_algorithm(const Graph<T>& g, int s) {
-  const auto INF = std::numeric_limits<T>::std::max();
+  const auto INF = std::numeric_limits<T>::max();
   std::vector<T> dist(g.size(), INF);
   std::vector<int> pending(g.size(), 0), times(g.size(), 0);
   std::queue<int> que;

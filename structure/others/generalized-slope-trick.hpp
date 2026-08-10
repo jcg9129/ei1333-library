@@ -233,7 +233,7 @@ struct LazySplayTree {
 
 template <typename T>
 struct GeneralizedSlopeTrick {
-  const T INF = std::numeric_limits<T>::std::max() / 3;
+  const T INF = std::numeric_limits<T>::max() / 3;
 
   T min_f;
   LazySplayTree<T> st;
