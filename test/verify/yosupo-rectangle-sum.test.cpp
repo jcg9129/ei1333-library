@@ -1,28 +1,38 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/rectangle_sum
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <cstdio>
+#include <iostream>
+#include <limits>
+#include <tuple>
+#include <utility>
+#include <vector>
 
 #include "../../structure/wavelet/wavelet-matrix-rectangle-sum.hpp"
+
+using namespace std;
 
 int main() {
   int N, Q;
   cin >> N >> Q;
-  vector< int > x(N), y(N), w(N);
-  vector< pair< int, int > > xs(N);
-  for(int i = 0; i < N; i++) {
+  vector<int> x(N), y(N), w(N);
+  vector<pair<int, int> > xs(N);
+  for (int i = 0; i < N; i++) {
     cin >> x[i] >> y[i] >> w[i];
     xs[i] = {x[i], i};
   }
   sort(begin(xs), end(xs));
-  vector< int > ys(N);
-  vector< int64 > ws(N);
-  for(int i = 0; i < N; i++) {
+  vector<int> ys(N);
+  vector<long long> ws(N);
+  for (int i = 0; i < N; i++) {
     x[i] = lower_bound(begin(xs), end(xs), make_pair(x[i], i)) - begin(xs);
     ys[x[i]] = y[i];
     ws[x[i]] = w[i];
   }
-  CompressedWaveletMatrixRectangleSum< int, 18, int64 > mat(ys, ws);
-  while(Q--) {
+  CompressedWaveletMatrixRectangleSum<int, 18, long long> mat(ys, ws);
+  while (Q--) {
     int l, r, d, u;
     cin >> l >> d >> r >> u;
     l = lower_bound(begin(xs), end(xs), make_pair(l, -1)) - begin(xs);
@@ -30,4 +40,3 @@ int main() {
     cout << mat.rect_sum(l, r, d, u) << "\n";
   }
 }
-
