@@ -108,9 +108,6 @@ test/verify/yosupo-range-affine-range-sum-2.test.cpp
 test/verify/yosupo-range-affine-range-sum-3.test.cpp
 test/verify/yosupo-range-affine-range-sum.test.cpp
 test/verify/yosupo-range-chmin-chmax-add-range-sum.test.cpp
-test/verify/yosupo-range-kth-smallest-2.test.cpp
-test/verify/yosupo-range-kth-smallest-3.test.cpp
-test/verify/yosupo-range-kth-smallest.test.cpp
 test/verify/yosupo-range-linear-add-range-min.test.cpp
 test/verify/yosupo-rectangle-add-point-get.test.cpp
 test/verify/yosupo-rectangle-sum-2.test.cpp
