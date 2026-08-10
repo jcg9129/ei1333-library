@@ -28,7 +28,7 @@ struct GlobalMinimumCutofDynamicStarAugmentedGraph {
         cur(n),
         seg(RangeAddRangeMin<T>(), 2 * n - 1) {
     hld.build((int)hld.size() - 1);
-    std::vector<std::int64_t> vs(2 * n - 1);
+    std::vector<T> vs(2 * n - 1);
     for (int i = 0; i < 2 * n - 1; i++) {
       for (auto& e : hld[i]) {
         vs[hld.in[e.to]] = e.cost;
