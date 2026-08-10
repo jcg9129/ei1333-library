@@ -42,24 +42,13 @@ implementations. Keep each task focused on one feature or one coherent change.
   not write `using namespace std;` in a header or rely on an includer declaring
   it first. Apply the same rules when deliberately migrating an existing
   header; migrate other existing headers incrementally when the task scope
-  permits. Register every new or migrated header in
-  `scripts/self-contained-headers.txt` so CI continues compiling it in
-  isolation. Update `SELF_CONTAINED_HEADER_MIGRATION.md` when a migration batch
-  changes the recorded progress or history.
+  permits. CI automatically compiles every tracked `.hpp` except
+  `template/template.hpp` in isolation.
 - Do not include `template/template.hpp` from new `test/verify/*.test.cpp`
   files. Include the required standard library headers and declare any aliases
-  or helper functions used by the verification code explicitly. Existing
-  exceptions are tracked in
-  `scripts/verify-template-include-allowlist.txt`; remove a file from this list
-  after its dependencies are self-contained and the verification file is
-  migrated, and never add new exceptions.
-- Preserve the include order in verification code when a library header depends
-  on declarations provided earlier in the file. Format such files with include
-  sorting disabled, for example:
-
-  ```console
-  clang-format-22 -style=google --sort-includes=0 -i test/verify/example.test.cpp
-  ```
+  or helper functions used by the verification code explicitly. CI does not
+  permit exceptions to this rule. Format verification code with normal include
+  sorting enabled.
 
 ## Tests
 

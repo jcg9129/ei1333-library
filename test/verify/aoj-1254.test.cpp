@@ -7,9 +7,9 @@
 #include <map>
 #include <string>
 #include <vector>
-#include "../../math/matrix/square-matrix.hpp"
 
 #include "../../graph/others/chromatic-number.hpp"
+#include "../../math/matrix/square-matrix.hpp"
 
 using namespace std;
 

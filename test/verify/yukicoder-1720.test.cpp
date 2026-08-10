@@ -4,9 +4,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../../structure/others/permutation-tree.hpp"
-
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
+#include "../../structure/others/permutation-tree.hpp"
 
 using namespace std;
 

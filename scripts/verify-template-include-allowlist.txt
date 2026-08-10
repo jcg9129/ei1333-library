@@ -1,2 +1,0 @@
-# Existing verification tests that still include template/template.hpp.
-# Remove entries as tests are migrated; do not add new entries.

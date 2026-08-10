@@ -3,9 +3,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/combinatorics/factorial.hpp"
-
+#include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/fft/arbitrary-mod-convolution.hpp"
 
 using namespace std;

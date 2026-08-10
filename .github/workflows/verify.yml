@@ -35,29 +35,14 @@ jobs:
           node-version: 22
 
       - name: Check verification template includes
-        env:
-          VERIFY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          VERIFY_ALLOWLIST: scripts/verify-template-include-allowlist.txt
-        run: |
-          args=()
-          if [[ -n "$VERIFY_BASE_SHA" && ! "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
-            if git cat-file -e "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" 2>/dev/null; then
-              base_allowlist="$RUNNER_TEMP/verify-template-include-allowlist.txt"
-              git show "$VERIFY_BASE_SHA:$VERIFY_ALLOWLIST" > "$base_allowlist"
-              args+=(--base-allowlist "$base_allowlist")
-            fi
-          fi
-          npm run verify:template-check -- "${args[@]}"
+        run: npm run verify:template-check
 
       - name: Check self-contained headers
-        env:
-          VERIFY_BASE_SHA: ${{ github.event.pull_request.base.sha || github.event.before }}
-          SELF_CONTAINED_HEADERS: scripts/self-contained-headers.txt
         run: |
           check_header() {
             local path="$1"
             if [[ ! -f "$path" ]]; then
-              echo "$SELF_CONTAINED_HEADERS contains a missing header: $path"
+              echo "Missing header: $path"
               return 1
             fi
 
@@ -68,20 +53,12 @@ jobs:
             g++ -std=c++17 -fsyntax-only -x c++ -include "./$path" /dev/null
           }
 
-          LC_ALL=C sort -c -u "$SELF_CONTAINED_HEADERS"
-          while IFS= read -r path; do
-            [[ -z "$path" || "$path" == \#* ]] && continue
+          while IFS= read -r -d '' path; do
             check_header "$path"
-          done < "$SELF_CONTAINED_HEADERS"
-
-          if [[ -n "$VERIFY_BASE_SHA" && ! "$VERIFY_BASE_SHA" =~ ^0+$ ]]; then
-            while IFS= read -r -d '' path; do
-              if ! grep -Fqx -- "$path" "$SELF_CONTAINED_HEADERS"; then
-                echo "$path must be added to $SELF_CONTAINED_HEADERS"
-                exit 1
-              fi
-            done < <(git diff --name-only --diff-filter=A -z "$VERIFY_BASE_SHA...HEAD" -- '*.hpp')
-          fi
+          done < <(git ls-files -z '*.hpp' \
+            | while IFS= read -r -d '' path; do
+                [[ "$path" == 'template/template.hpp' ]] || printf '%s\0' "$path"
+              done)
 
   markdown-style:
     runs-on: ubuntu-latest

@@ -4,8 +4,8 @@
 #include <algorithm>
 #include <iostream>
 
-#include "../../math/matrix/square-matrix.hpp"
 #include "../../graph/others/enumerate-cliques.hpp"
+#include "../../math/matrix/square-matrix.hpp"
 
 using namespace std;
 

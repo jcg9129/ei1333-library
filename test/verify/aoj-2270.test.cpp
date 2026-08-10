@@ -7,7 +7,6 @@
 #include <vector>
 
 #include "../../other/mo-tree.hpp"
-
 #include "../../structure/others/binary-indexed-tree.hpp"
 
 using namespace std;

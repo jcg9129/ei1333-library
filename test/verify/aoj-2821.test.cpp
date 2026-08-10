@@ -4,9 +4,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../../structure/union-find/union-find.hpp"
-
 #include "../../graph/tree/tree-isomorphism.hpp"
+#include "../../structure/union-find/union-find.hpp"
 
 using namespace std;
 

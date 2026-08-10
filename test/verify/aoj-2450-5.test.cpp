@@ -5,8 +5,8 @@
 #include <iostream>
 #include <limits>
 
-#include "../../structure/dynamic-tree/lazy-link-cut-tree.hpp"
 #include "../../structure/dynamic-tree/dynamic-tree-builder-for-vertex.hpp"
+#include "../../structure/dynamic-tree/lazy-link-cut-tree.hpp"
 
 using namespace std;
 
