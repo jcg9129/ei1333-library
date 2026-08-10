@@ -1,18 +1,24 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_tree_path_composite_sum
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <vector>
 
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
-#include "../../structure/dynamic-tree/vertex-set-tree-path-composite-sum.hpp"
 #include "../../structure/dynamic-tree/dynamic-tree-builder-for-edge.hpp"
+#include "../../structure/dynamic-tree/vertex-set-tree-path-composite-sum.hpp"
+
+using namespace std;
 
 using mint = modint998244353;
 
 int main() {
   int N, Q;
   cin >> N >> Q;
-  DynamicTreeBuilderForEdge< LinkCutTreeForSubtree,
-      VertexSetTreePathCompositeSum< mint > > g(N);
+  DynamicTreeBuilderForEdge<LinkCutTreeForSubtree,
+                            VertexSetTreePathCompositeSum<mint> >
+      g(N);
   for (int i = 0; i < N; i++) {
     int a;
     cin >> a;

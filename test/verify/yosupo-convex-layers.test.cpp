@@ -1,8 +1,14 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/convex_layers
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <utility>
+#include <vector>
 
 #include "../../geometry/convex-layers.hpp"
+
+using namespace std;
 
 int main() {
   int n;
@@ -13,5 +19,10 @@ int main() {
     cin >> x >> y;
     ps[i] = {x, y};
   }
-  cout << convex_layers< int, int64 >(ps) << "\n";
+  auto layers = convex_layers<int, long long>(ps);
+  for (int i = 0; i < static_cast<int>(layers.size()); i++) {
+    if (i > 0) cout << " ";
+    cout << layers[i];
+  }
+  cout << "\n";
 }

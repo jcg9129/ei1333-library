@@ -1,11 +1,20 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/eertree
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <cstddef>
+#include <cstdio>
+#include <iostream>
+#include <string>
+#include <utility>
+#include <vector>
 
+#include "../../other/printer.hpp"
+#include "../../other/scanner.hpp"
 #include "../../string/palindromic-tree.hpp"
 
-#include "../../other/scanner.hpp"
-#include "../../other/printer.hpp"
+using namespace std;
 
 int main() {
   Scanner in(stdin);
@@ -13,15 +22,15 @@ int main() {
   string S;
   in.read(S);
   PalindromicTree g;
-  vector< int > vs;
+  vector<int> vs;
   vs.reserve(S.size());
-  for (auto &c: S) {
+  for (auto& c : S) {
     vs.emplace_back(g.add(c) - 1);
   }
   int n = g.size();
-  vector< int > p(n), s(n);
+  vector<int> p(n), s(n);
   for (int i = 0; i < n; i++) {
-    for (auto &e: g[i].link) {
+    for (auto& e : g[i].link) {
       if (e.second >= 0) p[e.second] = i - 1;
     }
     s[i] = g[i].suffix_link - 1;

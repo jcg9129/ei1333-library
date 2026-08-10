@@ -1,24 +1,28 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/point_set_range_composite
+// clang-format on
 
-#include "../../template/template.hpp"
-
-#include "../../structure/segment-tree/segment-tree.hpp"
-#include "../../structure/class/point-set-range-composite.hpp"
+#include <iostream>
+#include <vector>
 
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
+#include "../../structure/class/point-set-range-composite.hpp"
+#include "../../structure/segment-tree/segment-tree.hpp"
+
+using namespace std;
 
 using mint = modint998244353;
 
 int main() {
   int N, Q;
   cin >> N >> Q;
-  vector< Affine< mint > > data(N);
-  for(auto& d : data) {
+  vector<Affine<mint> > data(N);
+  for (auto& d : data) {
     mint x, y;
     cin >> x >> y;
     d = {x, y};
   }
-  auto seg = SegmentTree(PointSetRangeComposite< mint >(), data);
+  auto seg = SegmentTree(PointSetRangeComposite<mint>(), data);
   for (int i = 0; i < Q; i++) {
     int t;
     cin >> t;

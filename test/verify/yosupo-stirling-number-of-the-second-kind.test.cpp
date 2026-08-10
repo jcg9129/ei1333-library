@@ -1,15 +1,24 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/stirling_number_of_the_second_kind
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/fps/formal-power-series-friendly-ntt.hpp"
 #include "../../math/fps/stirling-second.hpp"
+
+using namespace std;
 
 using mint = modint998244353;
 
 int main() {
   int N;
   cin >> N;
-  cout << stirling_second< FPS, mint >(N) << endl;
+  auto ans = stirling_second<FPS, mint>(N);
+  for (int i = 0; i < static_cast<int>(ans.size()); i++) {
+    if (i > 0) cout << " ";
+    cout << ans[i];
+  }
+  cout << endl;
 }
