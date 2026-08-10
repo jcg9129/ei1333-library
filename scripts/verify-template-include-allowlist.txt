@@ -48,10 +48,8 @@ test/verify/yosupo-compositional-inverse-of-formal-power-series-large.test.cpp
 test/verify/yosupo-convex-layers.test.cpp
 test/verify/yosupo-convolution-mod-2.test.cpp
 test/verify/yosupo-convolution-mod.test.cpp
-test/verify/yosupo-counting-primes.test.cpp
 test/verify/yosupo-deque-operate-all-composite.test.cpp
 test/verify/yosupo-directedmst.test.cpp
-test/verify/yosupo-discrete-logarithm-mod.test.cpp
 test/verify/yosupo-division-of-polynomials.test.cpp
 test/verify/yosupo-dominatortree.test.cpp
 test/verify/yosupo-dynamic-tree-subtree-add-subtree-sum-2.test.cpp
@@ -59,7 +57,6 @@ test/verify/yosupo-dynamic-tree-vertex-add-path-sum-4.test.cpp
 test/verify/yosupo-dynamic-tree-vertex-add-subtree-sum-3.test.cpp
 test/verify/yosupo-dynamic-tree-vertex-set-path-composite-4.test.cpp
 test/verify/yosupo-eertree.test.cpp
-test/verify/yosupo-enumerate-quotients.test.cpp
 test/verify/yosupo-enumerate-triangles.test.cpp
 test/verify/yosupo-exp-of-formal-power-series.test.cpp
 test/verify/yosupo-find-linear-recurrence.test.cpp
@@ -68,7 +65,6 @@ test/verify/yosupo-general-matching.test.cpp
 test/verify/yosupo-global-minimum-cut-of-dynamic-star-augmented-graph.test.cpp
 test/verify/yosupo-inv-of-formal-power-series.test.cpp
 test/verify/yosupo-k-shortest-walk.test.cpp
-test/verify/yosupo-kth-root-integer.test.cpp
 test/verify/yosupo-kth-term-of-linearly-recurrent-sequence.test.cpp
 test/verify/yosupo-line-add-get-min-2.test.cpp
 test/verify/yosupo-line-add-get-min.test.cpp
@@ -105,14 +101,11 @@ test/verify/yosupo-sharp-p-subset-sum.test.cpp
 test/verify/yosupo-shift-of-sampling-points-of-polynomial.test.cpp
 test/verify/yosupo-shortest-path.test.cpp
 test/verify/yosupo-sparse-matrix-det.test.cpp
-test/verify/yosupo-sqrt-mod.test.cpp
 test/verify/yosupo-sqrt-of-formal-power-series.test.cpp
 test/verify/yosupo-static-rectangle-add-rectangle-sum.test.cpp
 test/verify/yosupo-stirling-number-of-the-first-kind.test.cpp
 test/verify/yosupo-stirling-number-of-the-second-kind.test.cpp
 test/verify/yosupo-subset-convolution.test.cpp
-test/verify/yosupo-sum-of-floor-of-linear.test.cpp
-test/verify/yosupo-tetration-mod.test.cpp
 test/verify/yosupo-three-edge-connected-components.test.cpp
 test/verify/yosupo-tree-decomposition-width-2.test.cpp
 test/verify/yosupo-two-edge-connected-components-2.test.cpp
