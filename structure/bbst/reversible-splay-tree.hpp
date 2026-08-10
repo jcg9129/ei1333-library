@@ -1,17 +1,24 @@
+#pragma once
+
+#include <cstddef>
+#include <functional>
+#include <tuple>
+#include <utility>
+#include <vector>
 /**
  * @brief Reversible-Splay-Tree(反転可能Splay木)
  */
 template <typename Monoid = int, typename OperatorMonoid = void>
 struct ReversibleSplayTree {
  public:
-  using F = function<Monoid(Monoid, Monoid)>;
-  using S = function<Monoid(Monoid)>;
+  using F = std::function<Monoid(Monoid, Monoid)>;
+  using S = std::function<Monoid(Monoid)>;
 
   struct Node {
     Node *l, *r, *p;
     Monoid key, sum;
     bool rev;
-    size_t sz;
+    std::size_t sz;
 
     bool is_root() const { return !p || (p->l != this && p->r != this); }
 
@@ -31,7 +38,7 @@ struct ReversibleSplayTree {
   ReversibleSplayTree(const F& f, const S& s, const Monoid& M1)
       : f(f), s(s), M1(M1) {}
 
-  inline size_t count(const Node* t) { return t ? t->sz : 0; }
+  inline std::size_t count(const Node* t) { return t ? t->sz : 0; }
 
   inline const Monoid& sum(const Node* t) { return t ? t->sum : M1; }
 
@@ -125,7 +132,7 @@ struct ReversibleSplayTree {
     return t;
   }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {nullptr, nullptr};
     push(t);
     if (k <= count(t->l)) {
@@ -183,10 +190,12 @@ struct ReversibleSplayTree {
     return ret;
   }
 
-  Node* build(const vector<Monoid>& v) { return build(0, (int)v.size(), v); }
+  Node* build(const std::vector<Monoid>& v) {
+    return build(0, (int)v.size(), v);
+  }
 
   void toggle(Node* t) {
-    swap(t->l, t->r);
+    std::swap(t->l, t->r);
     t->sum = s(t->sum);
     t->rev ^= true;
   }
@@ -199,11 +208,11 @@ struct ReversibleSplayTree {
     return t;
   }
 
-  tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
+  std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     splay(t);
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   void push(Node* t) {
@@ -224,7 +233,7 @@ struct ReversibleSplayTree {
   const F f;
   const S s;
 
-  Node* build(int l, int r, const vector<Monoid>& v) {
+  Node* build(int l, int r, const std::vector<Monoid>& v) {
     if (l + 1 >= r) return alloc(v[l]);
     return merge(build(l, (l + r) >> 1, v), build((l + r) >> 1, r, v));
   }
@@ -268,3 +277,4 @@ struct ReversibleSplayTree {
 
   Node* merge(Node* l) { return l; }
 };
+#pragma once

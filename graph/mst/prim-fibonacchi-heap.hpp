@@ -1,5 +1,8 @@
 #pragma once
 
+#include <tuple>
+#include <vector>
+
 #include "../../structure/heap/fibonacchi-heap.hpp"
 #include "../graph-template.hpp"
 
@@ -19,16 +22,16 @@ MinimumSpanningTree<T> prim_fibonacchi_heap(Graph<T>& g) {
   using Node = typename Heap::Node;
 
   T total = 0;
-  vector<Edge<T>*> dist(g.size());
-  vector<int> used(g.size());
+  std::vector<Edge<T>*> dist(g.size());
+  std::vector<int> used(g.size());
   Heap heap;
-  vector<Node*> keep(g.size(), nullptr);
+  std::vector<Node*> keep(g.size(), nullptr);
   keep[0] = heap.push(0, 0);
   Edges<T> es;
   while (!heap.empty()) {
     T cost;
     int idx;
-    tie(cost, idx) = heap.pop();
+    std::tie(cost, idx) = heap.pop();
     if (used[idx]) continue;
     used[idx] = true;
     total += cost;

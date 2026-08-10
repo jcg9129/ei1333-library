@@ -1,3 +1,10 @@
+#pragma once
+
+#include <algorithm>
+#include <limits>
+#include <utility>
+#include <vector>
+
 #include "../../math/matrix/matrix.hpp"
 
 /**
@@ -5,13 +12,13 @@
  *
  */
 template <typename T>
-pair<T, vector<int> > hungarian(Matrix<T>& A) {
-  const T infty = numeric_limits<T>::max();
+std::pair<T, std::vector<int> > hungarian(Matrix<T>& A) {
+  const T infty = std::numeric_limits<T>::max();
   const int N = (int)A.height();
   const int M = (int)A.width();
-  vector<int> P(M), way(M);
-  vector<T> U(N, 0), V(M, 0), minV;
-  vector<bool> used;
+  std::vector<int> P(M), way(M);
+  std::vector<T> U(N, 0), V(M, 0), minV;
+  std::vector<bool> used;
 
   for (int i = 1; i < N; i++) {
     P[0] = i;
@@ -43,3 +50,4 @@ pair<T, vector<int> > hungarian(Matrix<T>& A) {
   }
   return {-V[0], P};
 }
+#pragma once

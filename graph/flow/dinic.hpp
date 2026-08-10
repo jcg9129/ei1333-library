@@ -24,8 +24,7 @@ struct Dinic {
   std::vector<std::vector<edge> > graph;
   std::vector<int> min_cost, iter;
 
-  explicit Dinic(int V)
-      : INF(std::numeric_limits<flow_t>::std::max()), graph(V) {}
+  explicit Dinic(int V) : INF(std::numeric_limits<flow_t>::max()), graph(V) {}
 
   void add_edge(int from, int to, flow_t cap, int idx = -1) {
     graph[from].emplace_back(

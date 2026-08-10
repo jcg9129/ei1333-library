@@ -1,3 +1,13 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
+#include <set>
+#include <vector>
+
+#include "succinct-indexable-dictionary.hpp"
 /*
  * @brief Wavelet Tree(ウェーブレット木)
  *
@@ -10,12 +20,12 @@ struct WaveletTree {
 
     Node() = default;
 
-    Node(size_t length) : sid(length + 1), ch{nullptr} {}
+    Node(std::size_t length) : sid(length + 1), ch{nullptr} {}
   };
 
   Node* root;
 
-  Node* build(vector<T>& v, vector<T>& rbuff, int bit, int l, int r) {
+  Node* build(std::vector<T>& v, std::vector<T>& rbuff, int bit, int l, int r) {
     if (l >= r || bit == -1) return nullptr;
     Node* node = new Node(r - l);
     int left = 0, right = 0;
@@ -38,8 +48,8 @@ struct WaveletTree {
 
   WaveletTree() = default;
 
-  WaveletTree(vector<T> v) {
-    vector<T> rbuff(v.size());
+  WaveletTree(std::vector<T> v) {
+    std::vector<T> rbuff(v.size());
     root = build(v, rbuff, MAXLOG - 1, 0, v.size());
   }
 
@@ -94,13 +104,13 @@ struct WaveletTree {
     return range_freq(l, r, upper) - range_freq(l, r, lower);
   }
 
-  // max v[i] s.t. (l <= i < r) && (v[i] < upper)
+  // std::max v[i] s.t. (l <= i < r) && (v[i] < upper)
   T prev_value(int l, int r, T upper) {
     int cnt = range_freq(l, r, upper);
     return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1);
   }
 
-  // min v[i] s.t. (l <= i < r) && (lower <= v[i])
+  // std::min v[i] s.t. (l <= i < r) && (lower <= v[i])
   T next_value(int l, int r, T lower) {
     int cnt = range_freq(l, r, lower);
     return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);
@@ -110,18 +120,18 @@ struct WaveletTree {
 template <typename T, int MAXLOG>
 struct CompressedWaveletTree {
   WaveletTree<int, MAXLOG> mat;
-  vector<T> ys;
+  std::vector<T> ys;
 
-  CompressedWaveletTree(const vector<T>& v) : ys(v) {
-    sort(begin(ys), end(ys));
-    ys.erase(unique(begin(ys), end(ys)), end(ys));
-    vector<int> t(v.size());
+  CompressedWaveletTree(const std::vector<T>& v) : ys(v) {
+    std::sort(std::begin(ys), std::end(ys));
+    ys.erase(std::unique(std::begin(ys), std::end(ys)), std::end(ys));
+    std::vector<int> t(v.size());
     for (int i = 0; i < v.size(); i++) t[i] = get(v[i]);
     mat = WaveletTree<int, MAXLOG>(t);
   }
 
   inline int get(const T& x) {
-    return lower_bound(begin(ys), end(ys), x) - begin(ys);
+    return std::lower_bound(std::begin(ys), std::end(ys), x) - std::begin(ys);
   }
 
   int rank(const T& x, int r) {
@@ -152,3 +162,4 @@ struct CompressedWaveletTree {
     return ret == -1 ? T(-1) : ys[ret];
   }
 };
+#pragma once

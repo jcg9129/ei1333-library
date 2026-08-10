@@ -1,3 +1,5 @@
+#pragma once
+
 #include "link-cut-tree.hpp"
 
 template <typename T>
@@ -14,3 +16,4 @@ struct VertexSetPathComposite {
     return {p.a * c.a, p.b * c.a + c.b};
   }
 };
+#pragma once

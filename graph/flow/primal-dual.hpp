@@ -1,3 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <functional>
+#include <iostream>
+#include <limits>
+#include <queue>
+#include <utility>
+#include <vector>
 /**
  * @brief Primal Dual(最小費用流)
  *
@@ -12,12 +21,12 @@ struct PrimalDual {
     bool isrev;
   };
 
-  vector<vector<edge> > graph;
-  vector<cost_t> potential, min_cost;
-  vector<int> prevv, preve;
+  std::vector<std::vector<edge> > graph;
+  std::vector<cost_t> potential, min_cost;
+  std::vector<int> prevv, preve;
   const cost_t INF;
 
-  PrimalDual(int V) : graph(V), INF(numeric_limits<cost_t>::max()) {}
+  PrimalDual(int V) : graph(V), INF(std::numeric_limits<cost_t>::max()) {}
 
   void add_edge(int from, int to, flow_t cap, cost_t cost) {
     graph[from].emplace_back(
@@ -29,8 +38,8 @@ struct PrimalDual {
   cost_t min_cost_flow(int s, int t, flow_t f) {
     int V = (int)graph.size();
     cost_t ret = 0;
-    using Pi = pair<cost_t, int>;
-    priority_queue<Pi, vector<Pi>, greater<Pi> > que;
+    using Pi = std::pair<cost_t, int>;
+    std::priority_queue<Pi, std::vector<Pi>, std::greater<Pi> > que;
     potential.assign(V, 0);
     preve.assign(V, -1);
     prevv.assign(V, -1);
@@ -58,7 +67,7 @@ struct PrimalDual {
       for (int v = 0; v < V; v++) potential[v] += min_cost[v];
       flow_t addflow = f;
       for (int v = t; v != s; v = prevv[v]) {
-        addflow = min(addflow, graph[prevv[v]][preve[v]].cap);
+        addflow = std::min(addflow, graph[prevv[v]][preve[v]].cap);
       }
       f -= addflow;
       ret += addflow * potential[t];
@@ -76,9 +85,10 @@ struct PrimalDual {
       for (auto& e : graph[i]) {
         if (e.isrev) continue;
         auto& rev_e = graph[e.to][e.rev];
-        cout << i << "->" << e.to << " (flow: " << rev_e.cap << "/"
-             << rev_e.cap + e.cap << ")" << endl;
+        std::cout << i << "->" << e.to << " (flow: " << rev_e.cap << "/"
+                  << rev_e.cap + e.cap << ")" << std::endl;
       }
     }
   }
 };
+#pragma once

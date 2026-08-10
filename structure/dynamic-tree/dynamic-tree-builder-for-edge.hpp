@@ -1,3 +1,8 @@
+#pragma once
+
+#include <cassert>
+#include <utility>
+#include <vector>
 template <template <typename> typename DynamicTree, typename TreeDPInfo>
 struct DynamicTreeBuilderForEdge : DynamicTree<TreeDPInfo> {
  private:
@@ -5,13 +10,13 @@ struct DynamicTreeBuilderForEdge : DynamicTree<TreeDPInfo> {
   using Info = typename TreeDPInfo::Info;
 
   int n, e_sz;
-  vector<vector<pair<int, int> > > g;
+  std::vector<std::vector<std::pair<int, int> > > g;
 
  public:
   using DT::alloc;
   using DT::link;
 
-  vector<typename DT::NP> vs, es;
+  std::vector<typename DT::NP> vs, es;
 
   explicit DynamicTreeBuilderForEdge(int n)
       : n(n), g(n), vs(n), es(n), e_sz(0) {}
@@ -33,7 +38,7 @@ struct DynamicTreeBuilderForEdge : DynamicTree<TreeDPInfo> {
   }
 
   void build(int r = 0) {
-    vector<pair<int, int> > que;
+    std::vector<std::pair<int, int> > que;
     que.reserve(n);
     que.emplace_back(r, -1);
     while (not que.empty()) {
@@ -48,3 +53,4 @@ struct DynamicTreeBuilderForEdge : DynamicTree<TreeDPInfo> {
     }
   }
 };
+#pragma once

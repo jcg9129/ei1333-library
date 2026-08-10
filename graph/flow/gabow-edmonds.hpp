@@ -1,3 +1,8 @@
+#pragma once
+
+#include <queue>
+#include <utility>
+#include <vector>
 // https://qiita.com/Kutimoti_T/items/5b579773e0a24d650bdf
 
 /**
@@ -9,10 +14,10 @@ struct GabowEdmonds {
     int to, idx;
   };
 
-  vector<vector<edge> > g;
-  vector<pair<int, int> > edges;
-  vector<int> mate, label, first;
-  queue<int> que;
+  std::vector<std::vector<edge> > g;
+  std::vector<std::pair<int, int> > edges;
+  std::vector<int> mate, label, first;
+  std::queue<int> que;
 
   GabowEdmonds(int n) : g(n + 1), mate(n + 1), label(n + 1, -1), first(n + 1) {}
 
@@ -52,7 +57,7 @@ struct GabowEdmonds {
     label[r] = -num;
     label[s] = -num;
     while (true) {
-      if (s != 0) swap(r, s);
+      if (s != 0) std::swap(r, s);
       r = find(label[mate[r]]);
       if (label[r] == -num) {
         join = r;
@@ -77,7 +82,7 @@ struct GabowEdmonds {
   }
 
   bool augment_check(int u) {
-    que = queue<int>();
+    que = std::queue<int>();
     first[u] = 0;
     label[u] = 0;
     que.push(u);
@@ -102,15 +107,16 @@ struct GabowEdmonds {
     return false;
   }
 
-  vector<pair<int, int> > max_matching() {
+  std::vector<std::pair<int, int> > max_matching() {
     for (int i = 1; i < (int)g.size(); i++) {
       if (mate[i] != 0) continue;
       if (augment_check(i)) label.assign(g.size(), -1);
     }
-    vector<pair<int, int> > ret;
+    std::vector<std::pair<int, int> > ret;
     for (int i = 1; i < (int)g.size(); i++) {
       if (i < mate[i]) ret.emplace_back(i - 1, mate[i] - 1);
     }
     return ret;
   }
 };
+#pragma once

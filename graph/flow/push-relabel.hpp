@@ -1,7 +1,14 @@
+#pragma once
+
+#include <algorithm>
+#include <iterator>
+#include <numeric>
+#include <queue>
+#include <vector>
 class Stack {
  private:
   const int N, H;
-  vector<int> node;
+  std::vector<int> node;
 
  public:
   Stack(const int N, const int H) : N(N), H(H), node(N + H) { clear(); }
@@ -16,7 +23,7 @@ class Stack {
     node[u] = node[N + h], node[N + h] = u;
   }
 
-  inline void clear() { iota(node.begin() + N, node.end(), N); }
+  inline void clear() { std::iota(node.begin() + N, node.end(), N); }
 };
 
 class List {
@@ -25,7 +32,7 @@ class List {
     int prev, next;
   };
   const int N, H;
-  vector<node> dat;
+  std::vector<node> dat;
 
   List(const int N, const int H) : N(N), H(H), dat(N + H) { clear(); }
 
@@ -60,11 +67,11 @@ struct PushRelabel {
   };
 
   int V, height, relabels;
-  vector<flow_t> ex;
-  vector<int> potential, cur_edge;
+  std::vector<flow_t> ex;
+  std::vector<int> potential, cur_edge;
   List all_ver;
   Stack act_ver;
-  vector<vector<edge> > graph;
+  std::vector<std::vector<edge> > graph;
 
   PushRelabel(int V)
       : V(V),
@@ -89,7 +96,7 @@ struct PushRelabel {
     for (int i = 0; i < V; i++) {
       if (potential[i] < V) {
         cur_edge[i] = 0;
-        height = max(height, potential[i]);
+        height = std::max(height, potential[i]);
         all_ver.insert(potential[i], i);
         if (ex[i] > 0 && i != t) act_ver.push(potential[i], i);
       } else {
@@ -101,10 +108,10 @@ struct PushRelabel {
 
   void bfs(int t) {
     for (int i = 0; i < V; i++) {
-      potential[i] = max(potential[i], V);
+      potential[i] = std::max(potential[i], V);
     }
     potential[t] = 0;
-    queue<int> que;
+    std::queue<int> que;
     que.emplace(t);
     while (!que.empty()) {
       int p = que.front();
@@ -133,7 +140,7 @@ struct PushRelabel {
   }
 
   bool push(int u, int t, edge& e) {
-    flow_t f = min(e.cap, ex[u]);
+    flow_t f = std::min(e.cap, ex[u]);
     int v = e.to;
     e.cap -= f, ex[u] -= f;
     graph[v][e.rev].cap += f, ex[v] += f;
@@ -182,7 +189,7 @@ struct PushRelabel {
       if ((potential[u] = cur) == V) return potential[u] = V + 1, prv;
       act_ver.push(cur, u);
       all_ver.insert(cur, u);
-      height = max(height, cur);
+      height = std::max(height, cur);
     } else {
       gap_relabel(u);
       return height = prv - 1;
@@ -208,3 +215,4 @@ struct PushRelabel {
     return ex[t];
   }
 };
+#pragma once

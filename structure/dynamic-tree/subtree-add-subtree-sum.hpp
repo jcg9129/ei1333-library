@@ -1,3 +1,5 @@
+#pragma once
+
 #include "lazy-top-tree.hpp"
 
 template <typename T>
@@ -35,3 +37,4 @@ struct SubtreeAddSubtreeSum {
     return {p.sum + c.sum, p.sz + c.sz};
   }
 };
+#pragma once

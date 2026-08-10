@@ -1,8 +1,13 @@
+#pragma once
+
+#include <cstddef>
+
+#include "lazy-weight-balanced-tree.hpp"
 /**
  * @brief Persistent-Lazy-Weight-Balanced-Tree(永続遅延伝搬重み平衡木)
  */
 template <typename Monoid, typename OperatorMonoid, typename F, typename G,
-          typename H, size_t FULL = 1000>
+          typename H, std::size_t FULL = 1000>
 struct PersistentLazyWeightBalancedTree
     : LazyWeightBalancedTree<Monoid, OperatorMonoid, F, G, H> {
   using LWBT = LazyWeightBalancedTree<Monoid, OperatorMonoid, F, G, H>;
@@ -21,3 +26,4 @@ struct PersistentLazyWeightBalancedTree
 
   bool almost_full() const { return this->pool.ptr < FULL; }
 };
+#pragma once

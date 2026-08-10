@@ -1,10 +1,14 @@
+#pragma once
+
+#include <iostream>
+#include <vector>
 /**
  * @brief Bipartite-Matching(二部グラフの最大マッチング)
  *
  */
 struct BipartiteMatching {
-  vector<vector<int> > graph;
-  vector<int> alive, used, match;
+  std::vector<std::vector<int> > graph;
+  std::vector<int> alive, used, match;
   int timestamp;
 
   explicit BipartiteMatching(int n)
@@ -63,8 +67,9 @@ struct BipartiteMatching {
   void output() const {
     for (int i = 0; i < (int)graph.size(); i++) {
       if (i < match[i]) {
-        cout << i << "-" << match[i] << endl;
+        std::cout << i << "-" << match[i] << std::endl;
       }
     }
   }
 };
+#pragma once

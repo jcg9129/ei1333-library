@@ -1,15 +1,24 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
+#include <queue>
+#include <utility>
+#include <vector>
 /**
  * @brief Bipartite Flow(二部グラフのフロー)
  *
  */
 struct BipartiteFlow {
-  size_t n, m, time_stamp;
-  vector<vector<int> > g, rg;
-  vector<int> match_l, match_r, dist, used, alive;
+  std::size_t n, m, time_stamp;
+  std::vector<std::vector<int> > g, rg;
+  std::vector<int> match_l, match_r, dist, used, alive;
   bool matched;
 
  public:
-  explicit BipartiteFlow(size_t n, size_t m)
+  explicit BipartiteFlow(std::size_t n, std::size_t m)
       : n(n),
         m(m),
         time_stamp(0),
@@ -26,7 +35,7 @@ struct BipartiteFlow {
     rg[v].emplace_back(u);
   }
 
-  vector<pair<int, int> > max_matching() {
+  std::vector<std::pair<int, int> > max_matching() {
     matched = true;
     for (;;) {
       build_augment_path();
@@ -37,7 +46,7 @@ struct BipartiteFlow {
       }
       if (flow == 0) break;
     }
-    vector<pair<int, int> > ret;
+    std::vector<std::pair<int, int> > ret;
     for (int i = 0; i < (int)n; i++) {
       if (match_l[i] >= 0) ret.emplace_back(i, match_l[i]);
     }
@@ -50,12 +59,12 @@ struct BipartiteFlow {
       match_l[a] = -1;
       match_r[b] = -1;
     }
-    g[a].erase(find(begin(g[a]), end(g[a]), b));
-    rg[b].erase(find(begin(rg[b]), end(rg[b]), a));
+    g[a].erase(find(std::begin(g[a]), std::end(g[a]), b));
+    rg[b].erase(find(std::begin(rg[b]), std::end(rg[b]), a));
   }
 
   /* http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0334 */
-  vector<pair<int, int> > lex_max_matching() {
+  std::vector<std::pair<int, int> > lex_max_matching() {
     int matching_size = (int)max_matching().size();
     int dummy_size = (int)n - matching_size;
     BipartiteFlow aux(n, m + dummy_size);
@@ -64,16 +73,16 @@ struct BipartiteFlow {
       for (int j = 0; j < dummy_size; j++) aux.add_edge(i, m + j);
     }
     auto es = aux.lex_left_perfect_matching();
-    vector<pair<int, int> > ret;
+    std::vector<std::pair<int, int> > ret;
     for (auto& [a, b] : es) {
       if (b < (int)m) ret.emplace_back(a, b);
     }
     return ret;
   }
 
-  vector<int> min_vertex_cover() {
+  std::vector<int> min_vertex_cover() {
     auto visited = find_residual_path();
-    vector<int> ret;
+    std::vector<int> ret;
     for (int i = 0; i < (int)(n + m); i++) {
       if (visited[i] ^ (i < (int)n)) {
         ret.emplace_back(i);
@@ -83,15 +92,15 @@ struct BipartiteFlow {
   }
 
   /* https://atcoder.jp/contests/utpc2013/tasks/utpc2013_11 */
-  vector<int> lex_min_vertex_cover(const vector<int>& ord) {
+  std::vector<int> lex_min_vertex_cover(const std::vector<int>& ord) {
     assert(ord.size() == n + m);
     auto res = build_risidual_graph();
-    vector<vector<int> > r_res(n + m + 2);
+    std::vector<std::vector<int> > r_res(n + m + 2);
     for (int i = 0; i < (int)(n + m + 2); i++) {
       for (auto& j : res[i]) r_res[j].emplace_back(i);
     }
-    queue<int> que;
-    vector<int> visited(n + m + 2, -1);
+    std::queue<int> que;
+    std::vector<int> visited(n + m + 2, -1);
     auto expand_left = [&](int t) {
       if (visited[t] != -1) return;
       que.emplace(t);
@@ -122,7 +131,7 @@ struct BipartiteFlow {
     };
     expand_right(n + m);
     expand_left(n + m + 1);
-    vector<int> ret;
+    std::vector<int> ret;
     for (auto& t : ord) {
       if (t < (int)n) {
         expand_left(t);
@@ -135,9 +144,9 @@ struct BipartiteFlow {
     return ret;
   }
 
-  vector<int> max_independent_set() {
+  std::vector<int> max_independent_set() {
     auto visited = find_residual_path();
-    vector<int> ret;
+    std::vector<int> ret;
     for (int i = 0; i < (int)(n + m); i++) {
       if (visited[i] ^ (i >= (int)n)) {
         ret.emplace_back(i);
@@ -146,7 +155,7 @@ struct BipartiteFlow {
     return ret;
   }
 
-  vector<pair<int, int> > min_edge_cover() {
+  std::vector<std::pair<int, int> > min_edge_cover() {
     auto es = max_matching();
     for (int i = 0; i < (int)n; i++) {
       if (match_l[i] >= 0) {
@@ -170,11 +179,11 @@ struct BipartiteFlow {
   }
 
   // left: [0,n), right: [n,n+m), S: n+m, T: n+m+1
-  vector<vector<int> > build_risidual_graph() {
+  std::vector<std::vector<int> > build_risidual_graph() {
     if (!matched) max_matching();
-    const size_t S = n + m;
-    const size_t T = n + m + 1;
-    vector<vector<int> > ris(n + m + 2);
+    const std::size_t S = n + m;
+    const std::size_t T = n + m + 1;
+    std::vector<std::vector<int> > ris(n + m + 2);
     for (int i = 0; i < (int)n; i++) {
       if (match_l[i] == -1)
         ris[S].emplace_back(i);
@@ -199,10 +208,10 @@ struct BipartiteFlow {
   }
 
  private:
-  vector<pair<int, int> > lex_left_perfect_matching() {
+  std::vector<std::pair<int, int> > lex_left_perfect_matching() {
     auto es = max_matching();
     assert(es.size() == n);
-    for (auto& vs : g) sort(begin(vs), end(vs));
+    for (auto& vs : g) std::sort(std::begin(vs), std::end(vs));
     es.clear();
     for (int i = 0; i < (int)n; i++) {
       match_r[match_l[i]] = -1;
@@ -215,10 +224,10 @@ struct BipartiteFlow {
     return es;
   }
 
-  vector<int> find_residual_path() {
+  std::vector<int> find_residual_path() {
     auto res = build_risidual_graph();
-    queue<int> que;
-    vector<int> visited(n + m + 2);
+    std::queue<int> que;
+    std::vector<int> visited(n + m + 2);
     que.emplace(n + m);
     visited[n + m] = true;
     while (!que.empty()) {
@@ -234,7 +243,7 @@ struct BipartiteFlow {
   }
 
   void build_augment_path() {
-    queue<int> que;
+    std::queue<int> que;
     dist.assign(g.size(), -1);
     for (int i = 0; i < (int)n; i++) {
       if (match_l[i] == -1) {
@@ -283,3 +292,4 @@ struct BipartiteFlow {
     return false;
   }
 };
+#pragma once

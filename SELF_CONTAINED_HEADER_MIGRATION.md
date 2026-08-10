@@ -15,14 +15,18 @@
 - `test/verify/*.test.cpp` が `template/template.hpp` に依存しない
 - verify に通常の clang-format include sorting を適用できる
 
+`template/template.hpp` は競技用テンプレートとして標準ライブラリの一括
+import と別名を意図的に提供する集約ヘッダーのため、自己完結ヘッダーの一覧から
+除外している。
+
 ## 現在の進捗
 
-2026-08-04 時点の進捗は次のとおり。
+2026-08-10 時点の進捗は次のとおり。
 
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 280  |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -136,6 +140,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `string/` の7ヘッダー、`structure/segment-tree/` の6ヘッダー、`structure/trie/trie.hpp`                                                                                                                                                                                    | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `graph/flow/` の2ヘッダー、`graph/shortest-path/` の7ヘッダー、`graph/tree/` の9ヘッダー                                                                                                                                                                                   | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `structure/` の20ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                                                            | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `geometry/template.hpp`、`graph/flow/` の10ヘッダー、`graph/mst/` の1ヘッダー、`graph/others/` の2ヘッダー                                                                                                                                                                 | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `structure/bbst/` の10ヘッダー、`structure/dynamic-tree/` の13ヘッダー、`structure/wavelet/` の2ヘッダー                                                                                                                                                                   | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 

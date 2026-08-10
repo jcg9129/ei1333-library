@@ -1,7 +1,12 @@
+#pragma once
+
+#include <cstddef>
+
+#include "weight-balanced-tree.hpp"
 /**
  * @brief Persistent-Weight-Balanced-Tree(永続重み平衡木)
  */
-template <typename Monoid, typename F, size_t FULL = 1000>
+template <typename Monoid, typename F, std::size_t FULL = 1000>
 struct PersistentWeightBalancedTree : WeightBalancedTree<Monoid, F> {
   using WBT = WeightBalancedTree<Monoid, F>;
   using WBT::WeightBalancedTree;
@@ -19,3 +24,4 @@ struct PersistentWeightBalancedTree : WeightBalancedTree<Monoid, F> {
 
   bool almost_full() const { return this->pool.ptr < FULL; }
 };
+#pragma once

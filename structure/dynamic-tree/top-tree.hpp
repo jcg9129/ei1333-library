@@ -1,3 +1,8 @@
+#pragma once
+
+#include <stdexcept>
+#include <utility>
+#include <vector>
 template <typename TreeDPInfo>
 struct SplayTreeForDashedEdge {
   using Point = typename TreeDPInfo::Point;
@@ -145,8 +150,8 @@ struct TopTree {
 
  private:
   void toggle(NP t) {
-    swap(t->l, t->r);
-    swap(t->sum, t->mus);
+    std::swap(t->l, t->r);
+    std::swap(t->sum, t->mus);
     t->rev ^= true;
   }
 
@@ -265,11 +270,11 @@ struct TopTree {
 
   void link(NP child, NP parent) {
     if (is_connected(child, parent)) {
-      throw runtime_error(
+      throw std::runtime_error(
           "child and parent must be different connected components");
     }
     if (child->l) {
-      throw runtime_error("child must be root");
+      throw std::runtime_error("child must be root");
     }
     child->p = parent;
     parent->r = child;
@@ -280,7 +285,7 @@ struct TopTree {
     expose(child);
     NP parent = child->l;
     if (not parent) {
-      throw runtime_error("child must not be root");
+      throw std::runtime_error("child must not be root");
     }
     child->l = nullptr;
     parent->p = nullptr;
@@ -304,8 +309,8 @@ struct TopTree {
     return u == v or u->p;
   }
 
-  vector<NP> build(vector<Info>& vs) {
-    vector<NP> nodes(vs.size());
+  std::vector<NP> build(std::vector<Info>& vs) {
+    std::vector<NP> nodes(vs.size());
     for (int i = 0; i < (int)vs.size(); i++) {
       nodes[i] = alloc(vs[i]);
     }
@@ -368,3 +373,4 @@ struct TreeDPInfo {
   static Path compress(const Path& p, const Path& c) {}
 };
 */
+#pragma once

@@ -1,9 +1,17 @@
+#pragma once
+
+#include <cstddef>
+#include <functional>
+#include <iterator>
+#include <string>
+#include <utility>
+#include <vector>
 template <class Monoid, class OperatorMonoid = Monoid>
 struct RandomizedBinarySearchTree {
-  using F = function<Monoid(Monoid, Monoid)>;
-  using G = function<Monoid(Monoid, OperatorMonoid)>;
-  using H = function<OperatorMonoid(OperatorMonoid, OperatorMonoid)>;
-  using P = function<OperatorMonoid(OperatorMonoid, int)>;
+  using F = std::function<Monoid(Monoid, Monoid)>;
+  using G = std::function<Monoid(Monoid, OperatorMonoid)>;
+  using H = std::function<OperatorMonoid(OperatorMonoid, OperatorMonoid)>;
+  using P = std::function<OperatorMonoid(OperatorMonoid, int)>;
 
   inline int xor128() {
     static int x = 123456789;
@@ -31,7 +39,7 @@ struct RandomizedBinarySearchTree {
         : cnt(1), key(k), sum(k), lazy(p), l(nullptr), r(nullptr) {}
   };
 
-  vector<Node> pool;
+  std::vector<Node> pool;
   int ptr;
 
   const Monoid M1;
@@ -104,7 +112,7 @@ struct RandomizedBinarySearchTree {
     }
   }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {t, t};
     t = propagate(t);
     if (k <= count(t->l)) {
@@ -118,17 +126,17 @@ struct RandomizedBinarySearchTree {
     }
   }
 
-  Node* build(int l, int r, const vector<Monoid>& v) {
+  Node* build(int l, int r, const std::vector<Monoid>& v) {
     if (l + 1 >= r) return alloc(v[l]);
     return merge(build(l, (l + r) >> 1, v), build((l + r) >> 1, r, v));
   }
 
-  Node* build(const vector<Monoid>& v) {
+  Node* build(const std::vector<Monoid>& v) {
     ptr = 0;
     return build(0, (int)v.size(), v);
   }
 
-  void dump(Node* r, typename vector<Monoid>::iterator& it) {
+  void dump(Node* r, typename std::vector<Monoid>::iterator& it) {
     if (!r) return;
     r = propagate(r);
     dump(r->l, it);
@@ -136,16 +144,16 @@ struct RandomizedBinarySearchTree {
     dump(r->r, ++it);
   }
 
-  vector<Monoid> dump(Node* r) {
-    vector<Monoid> v((size_t)count(r));
-    auto it = begin(v);
+  std::vector<Monoid> dump(Node* r) {
+    std::vector<Monoid> v((std::size_t)count(r));
+    auto it = std::begin(v);
     dump(r, it);
     return v;
   }
 
-  string to_string(Node* r) {
+  std::string to_string(Node* r) {
     auto s = dump(r);
-    string ret;
+    std::string ret;
     for (int i = 0; i < s.size(); i++) ret += ", ";
     return (ret);
   }
@@ -192,3 +200,4 @@ struct RandomizedBinarySearchTree {
 
   Node* makeset() { return nullptr; }
 };
+#pragma once

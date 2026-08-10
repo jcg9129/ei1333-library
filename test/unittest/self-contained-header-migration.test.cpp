@@ -7,6 +7,19 @@
 #include <vector>
 
 #include "../../graph/flow/dinic.hpp"
+#include "../../graph/flow/bipartite-flow.hpp"
+#include "../../graph/flow/bipartite-matching.hpp"
+#include "../../graph/flow/burn-bury.hpp"
+#include "../../graph/flow/dinic-capacity-scaling.hpp"
+#include "../../graph/flow/gabow-edmonds.hpp"
+#include "../../graph/flow/global-minimum-cut-of-dynamic-star-augmented-graph.hpp"
+#include "../../graph/flow/hungarian.hpp"
+#include "../../graph/flow/maxflow-lower-bound.hpp"
+#include "../../graph/flow/primal-dual.hpp"
+#include "../../graph/flow/push-relabel.hpp"
+#include "../../graph/mst/prim-fibonacchi-heap.hpp"
+#include "../../graph/others/bipartite-graph-edge-coloring.hpp"
+#include "../../graph/others/two-satisfiability.hpp"
 #include "../../graph/flow/ford-fulkerson.hpp"
 #include "../../graph/shortest-path/complement-shotest-path.hpp"
 #include "../../graph/shortest-path/dijkstra-fibonacchi-heap.hpp"
@@ -29,6 +42,15 @@
 #include "../../structure/bbst/lazy-red-black-tree.hpp"
 #include "../../structure/bbst/lazy-reversible-splay-tree.hpp"
 #include "../../structure/bbst/lazy-weight-balanced-tree.hpp"
+#include "../../structure/bbst/persistent-lazy-red-black-tree.hpp"
+#include "../../structure/bbst/persistent-lazy-weight-balanced-tree.hpp"
+#include "../../structure/bbst/persistent-red-black-tree.hpp"
+#include "../../structure/bbst/persistent-weight-balanced-tree.hpp"
+#include "../../structure/bbst/randomized-binary-search-tree-set.hpp"
+#include "../../structure/bbst/randomized-binary-search-tree.hpp"
+#include "../../structure/bbst/red-black-tree.hpp"
+#include "../../structure/bbst/reversible-splay-tree.hpp"
+#include "../../structure/bbst/weight-balanced-tree.hpp"
 #include "../../structure/convex-hull-trick/convex-hull-trick-add-monotone.hpp"
 #include "../../structure/convex-hull-trick/dynamic-li-chao-tree.hpp"
 #include "../../structure/convex-hull-trick/li-chao-tree.hpp"
@@ -43,9 +65,24 @@
 #include "../../structure/segment-tree/segment-tree.hpp"
 #include "../../structure/trie/binary-trie.hpp"
 #include "../../structure/trie/persistent-binary-trie.hpp"
+#include "../../structure/dynamic-tree/diameter.hpp"
+#include "../../structure/dynamic-tree/dynamic-tree-builder-for-edge.hpp"
+#include "../../structure/dynamic-tree/dynamic-tree-builder-for-vertex.hpp"
+#include "../../structure/dynamic-tree/lazy-link-cut-tree.hpp"
+#include "../../structure/dynamic-tree/lazy-top-tree.hpp"
+#include "../../structure/dynamic-tree/link-cut-tree-for-subtree.hpp"
+#include "../../structure/dynamic-tree/link-cut-tree.hpp"
+#include "../../structure/dynamic-tree/subtree-add-subtree-sum.hpp"
+#include "../../structure/dynamic-tree/top-tree.hpp"
+#include "../../structure/dynamic-tree/vertex-set-path-composite.hpp"
+#include "../../structure/dynamic-tree/vertex-set-path-sum.hpp"
+#include "../../structure/dynamic-tree/vertex-set-subtree-sum.hpp"
+#include "../../structure/dynamic-tree/vertex-set-tree-path-composite-sum.hpp"
 #include "../../structure/wavelet/succinct-indexable-dictionary.hpp"
 #include "../../structure/wavelet/wavelet-matrix-point-add-rectangle-sum.hpp"
 #include "../../structure/wavelet/wavelet-matrix-rectangle-sum.hpp"
+#include "../../structure/wavelet/wavelet-matrix.hpp"
+#include "../../structure/wavelet/wavelet-tree.hpp"
 #include "../../graph/connected-components/bi-connected-components.hpp"
 #include "../../graph/connected-components/incremental-bridge-connectivity.hpp"
 #include "../../graph/connected-components/strongly-connected-components.hpp"
@@ -389,6 +426,12 @@ int main() {
   BinaryTrie<int, 3> binary_trie;
   binary_trie.add(3), binary_trie.add(5);
   assert(binary_trie.count(3) == 1 && binary_trie.min_element().first == 3);
+  Dinic<int> dinic(2);
+  dinic.add_edge(0, 1, 3);
+  assert(dinic.max_flow(0, 1) == 3);
+  BipartiteMatching matching(2);
+  matching.add_edge(0, 1);
+  assert(matching.bipartite_matching() == 1);
 
   using geometry::Circle;
   using geometry::Line;
