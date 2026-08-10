@@ -64,7 +64,18 @@ struct RedBlackTree {
   }
 
   Node* submerge(Node* l, Node* r) {
-    if (l->level < r->level) {
+    if (l->level == r->level) {
+      if (l->color != r->color) {
+        if (l->color == RED) {
+          l = clone(l);
+          l->color = BLACK;
+        } else {
+          r = clone(r);
+          r->color = BLACK;
+        }
+      }
+      return alloc(l, r);
+    } else if (l->level < r->level) {
       r = clone(r);
       Node* c = (r->l = submerge(l, r->l));
       if (r->color == BLACK && c->color == RED && c->l && c->l->color == RED) {
@@ -74,8 +85,7 @@ struct RedBlackTree {
         r->r->color = BLACK;
       }
       return update(r);
-    }
-    if (l->level > r->level) {
+    } else {
       l = clone(l);
       Node* c = (l->r = submerge(l->r, r));
       if (l->color == BLACK && c->color == RED && c->r && c->r->color == RED) {
@@ -86,7 +96,6 @@ struct RedBlackTree {
       }
       return update(l);
     }
-    return alloc(l, r);
   }
 
   Node* build(int l, int r, const std::vector<Monoid>& v) {
