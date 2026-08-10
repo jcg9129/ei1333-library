@@ -177,4 +177,3 @@ void SuffixArray<std::string>::output() const {
               << "\n";
   }
 }
-#pragma once

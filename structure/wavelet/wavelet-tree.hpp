@@ -162,4 +162,3 @@ struct CompressedWaveletTree {
     return ret == -1 ? T(-1) : ys[ret];
   }
 };
-#pragma once

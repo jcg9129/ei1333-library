@@ -111,8 +111,3 @@ struct RangeChminChmaxAddRangeSum {
   static constexpr F chmax(T x) { return {0, infty, x}; }
   static constexpr F add(T x) { return {x, infty, -infty}; }
 };
-#pragma once
-
-#include <algorithm>
-#include <cassert>
-#include <limits>

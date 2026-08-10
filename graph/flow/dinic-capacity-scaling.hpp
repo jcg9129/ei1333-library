@@ -101,4 +101,3 @@ struct DinicCapacityScaling {
     }
   }
 };
-#pragma once

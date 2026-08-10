@@ -119,4 +119,3 @@ struct CompressedWaveletMatrixPointAddRectangleSum {
 
   void point_add(int k, const D& x) { mat.point_add(k, x); }
 };
-#pragma once

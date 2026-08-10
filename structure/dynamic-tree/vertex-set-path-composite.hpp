@@ -16,4 +16,3 @@ struct VertexSetPathComposite {
     return {p.a * c.a, p.b * c.a + c.b};
   }
 };
-#pragma once

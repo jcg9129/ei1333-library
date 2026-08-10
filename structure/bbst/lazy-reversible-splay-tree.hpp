@@ -313,4 +313,3 @@ struct LazyReversibleSplayTree {
     }
   }
 };
-#pragma once

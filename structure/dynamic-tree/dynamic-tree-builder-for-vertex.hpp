@@ -48,4 +48,3 @@ struct DynamicTreeBuilderForVertex : DynamicTree<TreeDPInfo> {
     }
   }
 };
-#pragma once

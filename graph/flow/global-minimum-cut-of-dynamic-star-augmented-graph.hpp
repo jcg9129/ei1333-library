@@ -45,4 +45,3 @@ struct GlobalMinimumCutofDynamicStarAugmentedGraph {
     return seg.all_prod();
   }
 };
-#pragma once

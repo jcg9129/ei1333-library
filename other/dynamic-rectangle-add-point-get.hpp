@@ -80,4 +80,3 @@ struct DynamicRectangleAddPointGet {
     return ans;
   }
 };
-#pragma once

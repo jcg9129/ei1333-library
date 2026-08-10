@@ -5,13 +5,6 @@
 #include <cmath>
 #include <vector>
 
-#pragma once
-
-#include <algorithm>
-#include <cassert>
-#include <cmath>
-#include <vector>
-
 template <typename T, typename E = int>
 struct SqrtDecomposition {
   std::vector<E> block_add, elem_add;

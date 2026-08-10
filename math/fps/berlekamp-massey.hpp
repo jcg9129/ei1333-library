@@ -29,4 +29,3 @@ FPS<Mint> berlekamp_massey(const FPS<Mint>& s) {
   }
   return c;
 }
-#pragma once

@@ -76,4 +76,3 @@ struct OfflineDynamicConnectivity {
     comp += add;
   }
 };
-#pragma once

@@ -16,4 +16,3 @@ FPS<Mint> multipoint_evaluation(const FPS<Mint>& f, const FPS<Mint>& xs) {
     ys[i] = (g[k + i].empty() ? Mint(0) : g[k + i][0]);
   return ys;
 }
-#pragma once

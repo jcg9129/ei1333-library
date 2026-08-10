@@ -60,4 +60,3 @@ struct MoRollBack {
     }
   }
 };
-#pragma once

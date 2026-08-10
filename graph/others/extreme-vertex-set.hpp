@@ -78,4 +78,3 @@ Graph<T> extreme_vertex_set(int n, const Edges<T>& es) {
   }
   return res;
 }
-#pragma once

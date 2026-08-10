@@ -242,4 +242,3 @@ struct RedBlackTree {
     return ret.second->key;
   }
 };
-#pragma once

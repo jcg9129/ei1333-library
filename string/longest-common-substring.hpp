@@ -33,4 +33,3 @@ std::tuple<int, int, int, int> longest_common_substring(const S& s, const S& t,
   }
   return res;
 }
-#pragma once

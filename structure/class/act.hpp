@@ -27,4 +27,3 @@ struct Act {
   static constexpr F id() const {}
 };
 */
-#pragma once

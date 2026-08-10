@@ -13,4 +13,3 @@ struct PersistentBinaryTrie : BinaryTrie<T, MAX_LOG, D> {
  private:
   Node* clone(Node* t) { return new Node(*t); }
 };
-#pragma once

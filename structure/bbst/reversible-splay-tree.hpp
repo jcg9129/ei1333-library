@@ -277,4 +277,3 @@ struct ReversibleSplayTree {
 
   Node* merge(Node* l) { return l; }
 };
-#pragma once

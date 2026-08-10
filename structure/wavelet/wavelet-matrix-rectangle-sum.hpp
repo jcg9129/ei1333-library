@@ -102,4 +102,3 @@ struct CompressedWaveletMatrixRectangleSum {
     return mat.rect_sum(l, r, get(lower), get(upper));
   }
 };
-#pragma once

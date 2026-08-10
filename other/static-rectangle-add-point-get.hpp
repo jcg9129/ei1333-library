@@ -101,4 +101,3 @@ struct StaticRectangleAddPointGet {
     return ans;
   }
 };
-#pragma once

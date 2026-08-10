@@ -52,4 +52,3 @@ struct BiConnectedComponents : LowLink<T> {
     }
   }
 };
-#pragma once

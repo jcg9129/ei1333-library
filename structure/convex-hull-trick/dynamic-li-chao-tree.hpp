@@ -103,4 +103,3 @@ struct DynamicLiChaoTree {
 
   T query(const T& x) const { return query(root, x_low, x_high, x); }
 };
-#pragma once

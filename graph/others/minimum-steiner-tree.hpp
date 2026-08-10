@@ -96,4 +96,3 @@ struct MinimumSteinerTree {
   const std::vector<int>& terminal;
   std::vector<std::vector<pi> > pre;
 };
-#pragma once

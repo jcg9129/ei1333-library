@@ -127,4 +127,3 @@ struct SegmentTreeBeats {
     }
   }
 };
-#pragma once

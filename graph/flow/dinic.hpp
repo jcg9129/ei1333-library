@@ -106,4 +106,3 @@ struct Dinic {
     return used;
   }
 };
-#pragma once

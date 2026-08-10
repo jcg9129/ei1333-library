@@ -21,4 +21,3 @@ FPS<Mint> polynomial_interpolation(const FPS<Mint>& xs, const FPS<Mint>& ys) {
     g[i] = g[i << 1] * mul[i << 1 | 1] + g[i << 1 | 1] * mul[i << 1];
   return g[1];
 }
-#pragma once

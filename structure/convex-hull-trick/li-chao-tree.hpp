@@ -59,4 +59,3 @@ struct LiChaoTree {
     return ret;
   }
 };
-#pragma once

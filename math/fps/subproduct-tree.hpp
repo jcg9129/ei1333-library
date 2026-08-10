@@ -14,4 +14,3 @@ std::vector<FPS<Mint> > subproduct_tree(const FPS<Mint>& xs) {
   for (int i = k; i-- > 1;) g[i] = g[i << 1] * g[i << 1 | 1];
   return g;
 }
-#pragma once

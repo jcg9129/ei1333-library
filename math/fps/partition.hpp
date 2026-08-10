@@ -15,4 +15,3 @@ FPS<Mint> partition(int N) {
   }
   return poly.inv();
 }
-#pragma once

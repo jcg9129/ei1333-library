@@ -14,4 +14,3 @@ struct VertexSetPathSum {
   static Path vertex(const Info& u) { return {u.v}; }
   static Path compress(const Path& p, const Path& c) { return {p.sum + c.sum}; }
 };
-#pragma once

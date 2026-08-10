@@ -31,4 +31,3 @@ Mint coeff_of_rational_function(FPS<Mint> P, FPS<Mint> Q, std::int64_t k) {
   }
   return ret + P[0];
 }
-#pragma once

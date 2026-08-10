@@ -71,4 +71,3 @@ struct BinaryBasis {
 
   std::size_t size() const { return basis.size(); }
 };
-#pragma once

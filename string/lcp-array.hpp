@@ -27,4 +27,3 @@ std::vector<int> lcp_array(const SuffixArray<T>& sa) {
   }
   return lcp;
 }
-#pragma once

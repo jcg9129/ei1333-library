@@ -23,4 +23,3 @@ struct VertexSetSubtreeSum {
   static Point rake(const Point& l, const Point& r) { return {l.sum + r.sum}; }
   static Path compress(const Path& p, const Path& c) { return {p.sum + c.sum}; }
 };
-#pragma once

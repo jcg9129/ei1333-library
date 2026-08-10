@@ -169,4 +169,3 @@ template <typename T>
 std::vector<ModInt_2_61m1> RollingHash<T>::bases = {ModInt_2_61m1(1)};
 template <typename T>
 std::vector<ModInt_2_61m1> RollingHash<T>::base_invs = {ModInt_2_61m1(1)};
-#pragma once

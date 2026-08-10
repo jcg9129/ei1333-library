@@ -292,4 +292,3 @@ struct BipartiteFlow {
     return false;
   }
 };
-#pragma once

@@ -169,4 +169,3 @@ struct RangeLinearAddRangeMinSegmentTree {
 #undef x
 #undef y
 };
-#pragma once

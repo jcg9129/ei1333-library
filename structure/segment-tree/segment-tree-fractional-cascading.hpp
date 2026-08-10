@@ -61,4 +61,3 @@ struct SegmentTreeFractionalCascading {
     return prod(a, b, l, r, 0, 0, sz);
   }
 };
-#pragma once

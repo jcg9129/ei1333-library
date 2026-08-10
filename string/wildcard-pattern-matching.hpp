@@ -41,4 +41,3 @@ std::vector<int> wildcard_pattern_matching(S a, S b, T wildcard) {
 
   return result;
 }
-#pragma once

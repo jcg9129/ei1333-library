@@ -88,4 +88,3 @@ struct RangeTree {
     return m.op(L, R);
   }
 };
-#pragma once

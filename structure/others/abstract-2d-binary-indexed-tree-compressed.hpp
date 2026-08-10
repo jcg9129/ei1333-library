@@ -68,4 +68,3 @@ get_abstract_2d_binary_indexed_tree_compressed(const std::vector<int>& hs,
                                                const F& f, const T& e) {
   return Abstract2DBinaryIndexedTreeCompressed{hs, f, e};
 }
-#pragma once

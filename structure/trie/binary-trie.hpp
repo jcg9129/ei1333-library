@@ -116,4 +116,3 @@ struct BinaryTrie {
     return ret;
   }
 };
-#pragma once

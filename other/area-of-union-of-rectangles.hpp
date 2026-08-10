@@ -80,4 +80,3 @@ struct AreaOfUnionOfRectangles {
     return ret;
   }
 };
-#pragma once

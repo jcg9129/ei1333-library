@@ -16,4 +16,3 @@ struct Affine {
     return a != p.a or b != p.b;
   }
 };
-#pragma once

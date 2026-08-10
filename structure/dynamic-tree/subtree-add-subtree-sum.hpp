@@ -37,4 +37,3 @@ struct SubtreeAddSubtreeSum {
     return {p.sum + c.sum, p.sz + c.sz};
   }
 };
-#pragma once

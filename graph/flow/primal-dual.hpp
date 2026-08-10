@@ -91,4 +91,3 @@ struct PrimalDual {
     }
   }
 };
-#pragma once

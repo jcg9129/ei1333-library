@@ -170,4 +170,3 @@ struct FibonacchiHeap {
     update_min(t);
   }
 };
-#pragma once

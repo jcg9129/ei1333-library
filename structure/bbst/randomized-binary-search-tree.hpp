@@ -171,4 +171,3 @@ class RandomizedBinarySearchTree {
 
   bool empty(Node* t) const { return !t; }
 };
-#pragma once

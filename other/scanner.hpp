@@ -84,4 +84,3 @@ struct Scanner {
     for (auto& d : s) read(d);
   }
 };
-#pragma once

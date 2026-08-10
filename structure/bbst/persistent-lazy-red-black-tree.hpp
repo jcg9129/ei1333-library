@@ -23,4 +23,3 @@ struct PersistentLazyRedBlackTree
 
   bool almost_full() const { return this->pool.ptr < FULL; }
 };
-#pragma once

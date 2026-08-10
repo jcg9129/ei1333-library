@@ -96,4 +96,3 @@ struct ConvexHullTrickAddMonotone {
 #undef F
 #undef S
 };
-#pragma once

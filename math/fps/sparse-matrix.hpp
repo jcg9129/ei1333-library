@@ -71,4 +71,3 @@ T sparse_determinant(FPSGraph<T> g) {
   for (int i = 0; i < N; i++) cdet *= C[i];
   return acdet / cdet;
 }
-#pragma once

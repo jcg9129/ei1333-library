@@ -130,4 +130,3 @@ struct ConnectedGridStates {
     return states[k >= width ? k - width : k];
   }
 };
-#pragma once

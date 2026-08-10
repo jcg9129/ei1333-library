@@ -36,4 +36,3 @@ struct SuccinctIndexableDictionary {
 
   int rank(bool val, int k) { return (val ? rank(k) : k - rank(k)); }
 };
-#pragma once

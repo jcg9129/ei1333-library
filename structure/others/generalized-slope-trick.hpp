@@ -361,4 +361,3 @@ struct GeneralizedSlopeTrick {
     min_f += g.min_f;
   }
 };
-#pragma once

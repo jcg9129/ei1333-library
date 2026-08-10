@@ -58,4 +58,3 @@ std::vector<int> offline_lca(const Graph<T>& g,
   }
   return ans;
 }
-#pragma once

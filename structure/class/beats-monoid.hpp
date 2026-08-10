@@ -55,4 +55,3 @@ struct BeatsMonoid {
   static constexpr F id() {}
 };
 */
-#pragma once

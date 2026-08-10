@@ -66,4 +66,3 @@ struct PoyoPoyoPudding {
     return os;
   }
 };
-#pragma once

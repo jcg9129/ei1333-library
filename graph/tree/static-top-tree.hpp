@@ -144,4 +144,3 @@ struct StaticTopTree {
     return merge_forCompress(chs);
   }
 };
-#pragma once

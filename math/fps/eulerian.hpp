@@ -20,4 +20,3 @@ FPS<Mint> eulerian(int N) {
   }
   return (A * B).pre(N + 1);
 }
-#pragma once

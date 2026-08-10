@@ -139,4 +139,3 @@ template <typename T, typename S, typename F>
 ShortestNonzeroPath<T, S, F> get_shortest_nonzero_path(int N, const F& f) {
   return ShortestNonzeroPath<T, S, F>{N, f};
 }
-#pragma once

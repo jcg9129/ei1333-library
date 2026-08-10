@@ -228,4 +228,3 @@ struct WeightBalancedTree {
     return ret.second->key;
   }
 };
-#pragma once

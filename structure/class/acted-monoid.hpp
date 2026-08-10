@@ -54,4 +54,3 @@ struct ActedMonoid {
   static constexpr F id() {}
 };
 */
-#pragma once

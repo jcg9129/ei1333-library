@@ -29,4 +29,3 @@ struct VertexSetTreePathCompositeSum {
     return {p.a * c.a, p.a * c.b + p.b, p.s + p.a * c.s + p.b * c.x, p.x + c.x};
   }
 };
-#pragma once

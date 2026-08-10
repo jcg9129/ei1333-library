@@ -52,4 +52,3 @@ std::vector<int> maximum_independent_set(const Matrix& g, int trial = 1000000) {
   }
   return ans;
 }
-#pragma once

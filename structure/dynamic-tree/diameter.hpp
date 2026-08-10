@@ -67,4 +67,3 @@ struct Diameter {
     return t;
   }
 };
-#pragma once

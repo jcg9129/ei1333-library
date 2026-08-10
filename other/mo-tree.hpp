@@ -78,4 +78,3 @@ struct MoTree : Graph<T> {
     }
   }
 };
-#pragma once

@@ -16,4 +16,3 @@ Mint kth_term_of_linearly_recurrent_sequence(const FPS<Mint>& a, FPS<Mint> c,
   c = FPS<Mint>{1} - (c << 1);
   return coeff_of_rational_function((a * c).pre(a.size()), c, k);
 }
-#pragma once

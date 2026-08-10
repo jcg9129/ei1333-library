@@ -200,4 +200,3 @@ struct RandomizedBinarySearchTree {
 
   Node* makeset() { return nullptr; }
 };
-#pragma once

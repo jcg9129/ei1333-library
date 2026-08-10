@@ -79,4 +79,3 @@ struct DynamicPointAddRectangleSum {
     return ans;
   }
 };
-#pragma once

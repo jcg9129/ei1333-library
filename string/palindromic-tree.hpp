@@ -138,4 +138,3 @@ struct PalindromicTree {
 
   Node& operator[](int idx) { return ns[idx]; }
 };
-#pragma once

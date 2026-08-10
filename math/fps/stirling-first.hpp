@@ -11,4 +11,3 @@ FPS<Mint> stirling_first(int N) {
   if (N & 1) f = (f << 1) - f * (N - 1);
   return f;
 }
-#pragma once

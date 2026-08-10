@@ -248,4 +248,3 @@ struct LazyWeightBalancedTree {
     return ret.second->key;
   }
 };
-#pragma once

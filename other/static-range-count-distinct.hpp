@@ -59,4 +59,3 @@ struct StaticRangeCountDistinct {
     return ans;
   }
 };
-#pragma once

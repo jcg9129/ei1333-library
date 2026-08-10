@@ -63,4 +63,3 @@ struct Mo {
     calclate_queries(add, add, erase, erase, query);
   }
 };
-#pragma once

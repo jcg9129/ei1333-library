@@ -118,4 +118,3 @@ struct SegmentTree {
     return std::nullopt;
   }
 };
-#pragma once

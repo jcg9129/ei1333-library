@@ -540,4 +540,3 @@ Real closest_pair(Points ps) {
   };
   return rec(0, (int)ps.size());
 }
-#pragma once

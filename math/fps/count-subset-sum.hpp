@@ -26,4 +26,3 @@ FPS<Mint> count_subset_sum(std::vector<Mint>& c) {
   }
   return f.exp();
 }
-#pragma once

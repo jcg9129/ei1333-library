@@ -92,4 +92,3 @@ struct StaticPointAddRectangleSum {
     return ans;
   }
 };
-#pragma once

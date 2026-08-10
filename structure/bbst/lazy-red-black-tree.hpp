@@ -283,4 +283,3 @@ struct LazyRedBlackTree {
     return ret.second->key;
   }
 };
-#pragma once

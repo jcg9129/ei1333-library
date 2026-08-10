@@ -50,4 +50,3 @@ std::pair<T, std::vector<int> > hungarian(Matrix<T>& A) {
   }
   return {-V[0], P};
 }
-#pragma once

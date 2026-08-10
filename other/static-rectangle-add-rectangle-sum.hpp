@@ -126,4 +126,3 @@ struct StaticRectangleAddRectangleSum {
     return ans;
   }
 };
-#pragma once

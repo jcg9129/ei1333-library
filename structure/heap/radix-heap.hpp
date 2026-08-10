@@ -45,4 +45,3 @@ struct RadixHeap {
     return res;
   }
 };
-#pragma once

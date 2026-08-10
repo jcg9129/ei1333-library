@@ -19,4 +19,3 @@ FPS<Mint> bell(int N) {
   }
   return ret;
 }
-#pragma once

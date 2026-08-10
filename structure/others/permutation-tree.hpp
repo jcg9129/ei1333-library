@@ -100,4 +100,3 @@ struct PermutationTree {
     return st[0];
   }
 };
-#pragma once

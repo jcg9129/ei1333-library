@@ -22,4 +22,3 @@ struct Timer {
     return (((std::uint64_t)low) | ((std::uint64_t)high << 32ull)) - start;
   }
 };
-#pragma once

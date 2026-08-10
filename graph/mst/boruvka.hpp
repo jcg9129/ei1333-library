@@ -43,4 +43,3 @@ struct Boruvka {
     return ret;
   }
 };
-#pragma once

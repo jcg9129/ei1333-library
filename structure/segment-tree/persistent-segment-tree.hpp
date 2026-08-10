@@ -94,4 +94,3 @@ struct PersistentSegmentTree {
 
   S all_prod(NP t) const { return t->d; }
 };
-#pragma once

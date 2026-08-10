@@ -87,4 +87,3 @@ std::vector<std::vector<int> > enumerate_cliques(Matrix& g) {
   add_clique(rem, false);
   return cliques;
 }
-#pragma once

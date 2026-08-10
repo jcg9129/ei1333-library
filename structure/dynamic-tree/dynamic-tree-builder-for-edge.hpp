@@ -53,4 +53,3 @@ struct DynamicTreeBuilderForEdge : DynamicTree<TreeDPInfo> {
     }
   }
 };
-#pragma once

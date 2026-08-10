@@ -119,4 +119,3 @@ struct GabowEdmonds {
     return ret;
   }
 };
-#pragma once

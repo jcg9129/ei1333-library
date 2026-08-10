@@ -54,4 +54,3 @@ struct OrderedSet : OrderedMultiSet<T> {
     RBST::insert(t, SET::lower_bound(t, x), x);
   }
 };
-#pragma once
