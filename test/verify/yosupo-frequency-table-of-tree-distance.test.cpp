@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// https://judge.yosupo.jp/problem/frequency_table_of_tree_distance
+// clang-format off
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/frequency_table_of_tree_distance
+// clang-format on
 
 #include <cstdint>
 #include <functional>

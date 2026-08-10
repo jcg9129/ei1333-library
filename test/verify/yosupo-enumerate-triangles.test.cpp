@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// https://judge.yosupo.jp/problem/enumerate_triangles
+// clang-format off
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/enumerate_triangles
+// clang-format on
 
 #include <iostream>
 #include <tuple>

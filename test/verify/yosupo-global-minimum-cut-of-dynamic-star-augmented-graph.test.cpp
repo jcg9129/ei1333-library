@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// https://judge.yosupo.jp/problem/global_minimum_cut_of_dynamic_star_augmented_graph
+// clang-format off
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/global_minimum_cut_of_dynamic_star_augmented_graph
+// clang-format on
 
 #include <cstdint>
 #include <iostream>
