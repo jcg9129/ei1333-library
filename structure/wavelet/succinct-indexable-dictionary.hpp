@@ -2,6 +2,7 @@
 
 #include <cstddef>
 #include <vector>
+
 /**
  * @brief Succinct Indexable Dictionary(完備辞書)
  */

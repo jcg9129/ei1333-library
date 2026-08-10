@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iterator>
+
 /**
  * @brief Berlekamp Massey
  */

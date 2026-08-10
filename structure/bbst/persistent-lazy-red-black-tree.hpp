@@ -3,6 +3,7 @@
 #include <cstddef>
 
 #include "lazy-red-black-tree.hpp"
+
 template <typename Monoid, typename OperatorMonoid, typename F, typename G,
           typename H, std::size_t FULL = 1000>
 struct PersistentLazyRedBlackTree

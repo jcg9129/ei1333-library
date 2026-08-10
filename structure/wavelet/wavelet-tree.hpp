@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "succinct-indexable-dictionary.hpp"
+
 /*
  * @brief Wavelet Tree(ウェーブレット木)
  *

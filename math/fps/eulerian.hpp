@@ -2,6 +2,7 @@
 
 #include <cmath>
 #include <vector>
+
 /**
  * @brief Eulerian(オイラー数)
  */

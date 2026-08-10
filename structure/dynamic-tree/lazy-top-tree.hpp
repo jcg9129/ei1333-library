@@ -3,6 +3,7 @@
 #include <stdexcept>
 #include <utility>
 #include <vector>
+
 template <typename TreeDPInfo>
 struct LazySplayTreeForDashedEdge {
   using Lazy = typename TreeDPInfo::Lazy;

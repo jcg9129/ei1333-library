@@ -4,6 +4,7 @@
 #include <cstddef>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Fibonacchi-Heap(フィボナッチヒープ)
  * @see https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.pdf

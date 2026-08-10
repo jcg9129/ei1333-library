@@ -3,6 +3,7 @@
 #include <cstddef>
 
 #include "lazy-weight-balanced-tree.hpp"
+
 /**
  * @brief Persistent-Lazy-Weight-Balanced-Tree(永続遅延伝搬重み平衡木)
  */

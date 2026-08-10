@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cstdint>
+
 /**
  * @brief Coeff of Rational Function
  *

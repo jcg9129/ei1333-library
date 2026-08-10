@@ -3,6 +3,7 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+
 template <template <typename> typename DynamicTree, typename TreeDPInfo>
 struct DynamicTreeBuilderForVertex : DynamicTree<TreeDPInfo> {
  private:

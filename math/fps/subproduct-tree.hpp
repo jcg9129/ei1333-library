@@ -1,6 +1,7 @@
 #pragma once
 
 #include <vector>
+
 /**
  * @brief Subproduct Tree
  */

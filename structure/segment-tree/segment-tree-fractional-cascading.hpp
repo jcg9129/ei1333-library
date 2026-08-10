@@ -3,6 +3,7 @@
 #include <algorithm>
 #include <iterator>
 #include <vector>
+
 template <typename T>
 struct SegmentTreeFractionalCascading {
  private:
