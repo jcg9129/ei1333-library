@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0294
+// clang-format off
+// competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0294
+// clang-format on
 
 #include <iostream>
 
