@@ -4,7 +4,6 @@
 #include <algorithm>
 #include <cstdint>
 #include <iostream>
-#include <limits>
 #include <tuple>
 #include <vector>
 
@@ -12,7 +11,7 @@
 
 using namespace std;
 
-constexpr int64_t kInfinity = numeric_limits<int64_t>::max();
+constexpr int64_t kInfinity = int64_t{1} << 60;
 
 int main() {
   int N, T;
