@@ -1,5 +1,8 @@
 #pragma once
 
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -11,7 +14,7 @@ struct TreeDiameter : Graph<T> {
  public:
   using Graph<T>::Graph;
   using Graph<T>::g;
-  vector<Edge<T> > path;
+  std::vector<Edge<T> > path;
 
   T build() {
     to.assign(g.size(), -1);
@@ -33,10 +36,10 @@ struct TreeDiameter : Graph<T> {
   explicit TreeDiameter(const Graph<T>& g) : Graph<T>(g) {}
 
  private:
-  vector<int> to;
+  std::vector<int> to;
 
-  pair<T, int> dfs(int idx, int par) {
-    pair<T, int> ret(0, idx);
+  std::pair<T, int> dfs(int idx, int par) {
+    std::pair<T, int> ret(0, idx);
     for (auto& e : g[idx]) {
       if (e.to == par) continue;
       auto cost = dfs(e.to, idx);

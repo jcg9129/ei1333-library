@@ -1,5 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <cstdint>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 #include "topological-sort.hpp"
 
@@ -9,17 +14,17 @@
  */
 
 template <typename T>
-vector<int> offline_dag_reachability(const Graph<T>& g,
-                                     vector<pair<int, int> >& qs) {
+std::vector<int> offline_dag_reachability(
+    const Graph<T>& g, std::vector<std::pair<int, int> >& qs) {
   const int N = (int)g.size();
   const int Q = (int)qs.size();
   auto ord = topological_sort(g);
-  vector<int> ans(Q);
+  std::vector<int> ans(Q);
   for (int l = 0; l < Q; l += 64) {
-    int r = min(Q, l + 64);
-    vector<int64_t> dp(N);
+    int r = std::min(Q, l + 64);
+    std::vector<std::int64_t> dp(N);
     for (int k = l; k < r; k++) {
-      dp[qs[k].first] |= int64_t(1) << (k - l);
+      dp[qs[k].first] |= std::int64_t(1) << (k - l);
     }
     for (auto& idx : ord) {
       for (auto& to : g[idx]) dp[to] |= dp[idx];

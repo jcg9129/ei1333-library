@@ -1,3 +1,13 @@
+#pragma once
+
+#include <cassert>
+#include <functional>
+#include <iterator>
+#include <numeric>
+#include <queue>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 template <typename T>
@@ -8,20 +18,20 @@ Graph<T> extreme_vertex_set(int n, const Edges<T>& es) {
     assert(e.from != e.to);
     assert(0 <= e.cost);
   }
-  using pi = pair<int, T>;
+  using pi = std::pair<int, T>;
   Graph<T> res(2 * n - 1);
-  vector<int> uf(n);
-  vector<T> cur(2 * n - 1);
-  iota(uf.begin(), uf.end(), 0);
-  vector<bool> leaf(2 * n - 1);
+  std::vector<int> uf(n);
+  std::vector<T> cur(2 * n - 1);
+  std::iota(uf.begin(), uf.end(), 0);
+  std::vector<bool> leaf(2 * n - 1);
   for (int i = 0; i < n; i++) {
     leaf[i] = true;
   }
-  using qi = pair<T, int>;
-  priority_queue<qi, vector<qi>, greater<> > que;
+  using qi = std::pair<T, int>;
+  std::priority_queue<qi, std::vector<qi>, std::greater<> > que;
   for (int phase = 0; phase < n - 1; phase++) {
     Graph<T> g(2 * n - 1);
-    vector<T> cost(2 * n - 1);
+    std::vector<T> cost(2 * n - 1);
     for (auto e : es) {
       e.from = uf[e.from];
       e.to = uf[e.to];
@@ -68,3 +78,4 @@ Graph<T> extreme_vertex_set(int n, const Edges<T>& es) {
   }
   return res;
 }
+#pragma once

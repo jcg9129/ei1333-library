@@ -1,5 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <queue>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -12,7 +16,7 @@ struct NamoriGraph : Graph<T> {
   using Graph<T>::Graph;
   using Graph<T>::g;
 
-  vector<Graph<T> > forest;
+  std::vector<Graph<T> > forest;
   Edges<T> loop_edges;
 
   struct Info {
@@ -25,8 +29,8 @@ struct NamoriGraph : Graph<T> {
 
   void build() {
     int n = (int)g.size();
-    vector<int> deg(n), used(n);
-    queue<int> que;
+    std::vector<int> deg(n), used(n);
+    std::queue<int> que;
     for (int i = 0; i < n; i++) {
       deg[i] = (int)g[i].size();
       if (deg[i] == 1) {
@@ -50,10 +54,10 @@ struct NamoriGraph : Graph<T> {
     }
     int mx = 0;
     for (auto& edges : g) {
-      for (auto& e : edges) mx = max(mx, e.idx);
+      for (auto& e : edges) mx = std::max(mx, e.idx);
     }
-    vector<int> edge_used(mx + 1);
-    vector<int> loop;
+    std::vector<int> edge_used(mx + 1);
+    std::vector<int> loop;
     for (int v = 0; v < n; v++) {
       if (!used[v]) {
         for (bool update = true; update;) {
@@ -103,8 +107,8 @@ struct NamoriGraph : Graph<T> {
   }
 
  private:
-  vector<vector<int> > iv;
-  vector<int> mark_id, id;
+  std::vector<std::vector<int> > iv;
+  std::vector<int> mark_id, id;
 
   void mark_dfs(int idx, int par, int k, int& l) {
     mark_id[idx] = k;

@@ -1,5 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <stack>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -11,7 +16,7 @@ struct HeavyLightDecomposition : Graph<T> {
  public:
   using Graph<T>::Graph;
   using Graph<T>::g;
-  vector<int> sz, in, out, head, rev, par, dep;
+  std::vector<int> sz, in, out, head, rev, par, dep;
 
   void build(int root = 0) {
     sz.assign(g.size(), 0);
@@ -39,7 +44,7 @@ struct HeavyLightDecomposition : Graph<T> {
 
   int lca(int u, int v) const {
     for (;; v = par[head[v]]) {
-      if (in[u] > in[v]) swap(u, v);
+      if (in[u] > in[v]) std::swap(u, v);
       if (head[u] == head[v]) return u;
     }
   }
@@ -51,7 +56,7 @@ struct HeavyLightDecomposition : Graph<T> {
           bool edge = false) {
     E l = ti, r = ti;
     for (;; v = par[head[v]]) {
-      if (in[u] > in[v]) swap(u, v), swap(l, r);
+      if (in[u] > in[v]) std::swap(u, v), std::swap(l, r);
       if (head[u] == head[v]) break;
       l = f(q(in[head[v]], in[v] + 1), l);
     }
@@ -67,7 +72,7 @@ struct HeavyLightDecomposition : Graph<T> {
   template <typename Q>
   void add(int u, int v, const Q& q, bool edge = false) {
     for (;; v = par[head[v]]) {
-      if (in[u] > in[v]) swap(u, v);
+      if (in[u] > in[v]) std::swap(u, v);
       if (head[u] == head[v]) break;
       q(in[head[v]], in[v] + 1);
     }
@@ -75,7 +80,7 @@ struct HeavyLightDecomposition : Graph<T> {
   }
 
   /* {parent, child} */
-  vector<pair<int, int> > compress(vector<int>& remark) {
+  std::vector<std::pair<int, int> > compress(std::vector<int>& remark) {
     auto cmp = [&](int a, int b) { return in[a] < in[b]; };
     sort(begin(remark), end(remark), cmp);
     remark.erase(unique(begin(remark), end(remark)), end(remark));
@@ -84,8 +89,8 @@ struct HeavyLightDecomposition : Graph<T> {
       remark.emplace_back(lca(remark[k - 1], remark[k]));
     sort(begin(remark), end(remark), cmp);
     remark.erase(unique(begin(remark), end(remark)), end(remark));
-    vector<pair<int, int> > es;
-    stack<int> st;
+    std::vector<std::pair<int, int> > es;
+    std::stack<int> st;
     for (auto& k : remark) {
       while (!st.empty() && out[st.top()] <= in[k]) st.pop();
       if (!st.empty()) es.emplace_back(st.top(), k);
@@ -101,12 +106,12 @@ struct HeavyLightDecomposition : Graph<T> {
     dep[idx] = d;
     par[idx] = p;
     sz[idx] = 1;
-    if (g[idx].size() && g[idx][0] == p) swap(g[idx][0], g[idx].back());
+    if (g[idx].size() && g[idx][0] == p) std::swap(g[idx][0], g[idx].back());
     for (auto& to : g[idx]) {
       if (to == p) continue;
       dfs_sz(to, idx, d + 1);
       sz[idx] += sz[to];
-      if (sz[g[idx][0]] < sz[to]) swap(g[idx][0], to);
+      if (sz[g[idx][0]] < sz[to]) std::swap(g[idx][0], to);
     }
   }
 

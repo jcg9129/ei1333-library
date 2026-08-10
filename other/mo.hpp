@@ -1,13 +1,23 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <iterator>
+#include <numeric>
+#include <utility>
+#include <vector>
+
 struct Mo {
  private:
   int n, w;
-  vector<int> ord;
-  vector<pair<int, int> > lr;
+  std::vector<int> ord;
+  std::vector<std::pair<int, int> > lr;
 
  public:
   Mo(int n, int q) : n(n), ord(q) {
-    w = max<int>(1, n / max(1.0, sqrt(q * 2.0 / 3.0)));
-    iota(ord.begin(), ord.end(), 0);
+    w = std::max<int>(1, n / std::max(1.0, std::sqrt(q * 2.0 / 3.0)));
+    std::iota(ord.begin(), ord.end(), 0);
     lr.reserve(q);
   }
 
@@ -21,7 +31,7 @@ struct Mo {
                         const EL& erase_left, const ER& erase_right,
                         const Q& query) {
     assert(lr.size() == ord.size());
-    vector<int> bs(n);
+    std::vector<int> bs(n);
     for (int i = 0, cnt = 0, b = 0; i < n; i++) {
       bs[i] = b;
       if (++cnt == w) {
@@ -29,7 +39,7 @@ struct Mo {
         cnt = 0;
       }
     }
-    sort(ord.begin(), ord.end(), [&](int a, int b) {
+    std::sort(ord.begin(), ord.end(), [&](int a, int b) {
       int a_block = bs[lr[a].first];
       int b_block = bs[lr[b].first];
       if (a_block != b_block) return a_block < b_block;
@@ -53,3 +63,4 @@ struct Mo {
     calclate_queries(add, add, erase, erase, query);
   }
 };
+#pragma once

@@ -1,5 +1,10 @@
 #pragma once
 
+#include <functional>
+#include <queue>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -15,10 +20,10 @@ struct MinimumSpanningTree {
 template <typename T>
 MinimumSpanningTree<T> prim(const Graph<T>& g) {
   T total = T();
-  vector<int> used(g.size());
-  vector<Edge<T>*> dist(g.size());
-  using pi = pair<T, int>;
-  priority_queue<pi, vector<pi>, greater<> > que;
+  std::vector<int> used(g.size());
+  std::vector<Edge<T>*> dist(g.size());
+  using pi = std::pair<T, int>;
+  std::priority_queue<pi, std::vector<pi>, std::greater<> > que;
   que.emplace(T(), 0);
   Edges<T> edges;
   while (!que.empty()) {

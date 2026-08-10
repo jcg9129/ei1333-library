@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 160  |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 200  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -130,6 +130,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `geometry/integer/point.hpp`、`geometry/convex-layers.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                  | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `math/combinatorics/` の18ヘッダー、`math/fft/` の13ヘッダー                                                                                                                                                                                                               | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `math/number-theory/` の4ヘッダー、`structure/class/` の3ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                    | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `graph/others/` の16ヘッダー、`graph/mst/` の5ヘッダー、`graph/tree/` の6ヘッダー                                                                                                                                                                                          | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `other/` の14ヘッダー、`math/matrix/binary-basis.hpp`                                                                                                                                                                                                                      | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 

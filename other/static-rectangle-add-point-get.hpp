@@ -1,3 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <numeric>
+#include <type_traits>
+#include <vector>
+
 #include "../structure/others/binary-indexed-tree.hpp"
 
 template <typename T, typename C>
@@ -5,7 +14,7 @@ struct StaticRectangleAddPointGet {
  private:
   using BIT = BinaryIndexedTree<C>;
 
-  static_assert(is_integral<T>::value,
+  static_assert(std::is_integral<T>::value,
                 "template parameter T must be integral type");
 
   struct Rectangle {
@@ -17,8 +26,8 @@ struct StaticRectangleAddPointGet {
     T x, y;
   };
 
-  vector<Rectangle> rectangles;
-  vector<Query> queries;
+  std::vector<Rectangle> rectangles;
+  std::vector<Query> queries;
 
  public:
   StaticRectangleAddPointGet() = default;
@@ -34,20 +43,20 @@ struct StaticRectangleAddPointGet {
 
   void add_query(T x, T y) { queries.emplace_back(Query{x, y}); }
 
-  vector<C> calculate_queries() const {
+  std::vector<C> calculate_queries() const {
     int n = (int)rectangles.size();
     int q = (int)queries.size();
-    vector<C> ans(q);
+    std::vector<C> ans(q);
     if (rectangles.empty() or queries.empty()) {
       return ans;
     }
 
-    vector<T> ys;
+    std::vector<T> ys;
     ys.reserve(q);
     for (int i = 0; i < q; i++) {
       ys.emplace_back(queries[i].y);
     }
-    sort(ys.begin(), ys.end());
+    std::sort(ys.begin(), ys.end());
     ys.erase(unique(ys.begin(), ys.end()), ys.end());
 
     struct R {
@@ -56,7 +65,7 @@ struct StaticRectangleAddPointGet {
       bool type;
       C w;
     };
-    vector<R> rs;
+    std::vector<R> rs;
     rs.reserve(n + n);
     for (int i = 0; i < n; i++) {
       auto& rect = rectangles[i];
@@ -65,13 +74,13 @@ struct StaticRectangleAddPointGet {
       rs.emplace_back(R{rect.l, d, u, false, rect.w});
       rs.emplace_back(R{rect.r, d, u, true, rect.w});
     }
-    sort(rs.begin(), rs.end(),
-         [](const R& a, const R& b) { return a.x < b.x; });
+    std::sort(rs.begin(), rs.end(),
+              [](const R& a, const R& b) { return a.x < b.x; });
 
-    vector<int> qs(q);
-    iota(qs.begin(), qs.end(), 0);
-    sort(qs.begin(), qs.end(),
-         [&](int a, int b) { return queries[a].x < queries[b].x; });
+    std::vector<int> qs(q);
+    std::iota(qs.begin(), qs.end(), 0);
+    std::sort(qs.begin(), qs.end(),
+              [&](int a, int b) { return queries[a].x < queries[b].x; });
 
     int j = 0;
     BIT bit(ys.size());
@@ -92,3 +101,4 @@ struct StaticRectangleAddPointGet {
     return ans;
   }
 };
+#pragma once

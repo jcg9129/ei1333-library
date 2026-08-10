@@ -1,5 +1,8 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
+
 #include "../../structure/union-find/union-find.hpp"
 #include "../graph-template.hpp"
 
@@ -15,8 +18,8 @@ struct MinimumSpanningTree {
 
 template <typename T>
 MinimumSpanningTree<T> kruskal(Edges<T>& edges, int V) {
-  sort(begin(edges), end(edges),
-       [](const Edge<T>& a, const Edge<T>& b) { return a.cost < b.cost; });
+  std::sort(std::begin(edges), std::end(edges),
+            [](const Edge<T>& a, const Edge<T>& b) { return a.cost < b.cost; });
   UnionFind tree(V);
   T total = T();
   Edges<T> es;

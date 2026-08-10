@@ -1,5 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -11,7 +15,7 @@ struct CycleDetection : Graph<T> {
   using Graph<T>::Graph;
   using Graph<T>::g;
 
-  vector<int> used;
+  std::vector<int> used;
   Edges<T> pre, cycle;
 
   bool dfs(int idx) {
@@ -40,7 +44,7 @@ struct CycleDetection : Graph<T> {
     pre.resize(g.size());
     for (int i = 0; i < (int)g.size(); i++) {
       if (used[i] == 0 && dfs(i)) {
-        reverse(begin(cycle), end(cycle));
+        std::reverse(std::begin(cycle), std::end(cycle));
         return cycle;
       }
     }

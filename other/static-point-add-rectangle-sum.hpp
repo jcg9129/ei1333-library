@@ -1,10 +1,18 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <type_traits>
+#include <vector>
+
 #include "../structure/others/binary-indexed-tree.hpp"
 
 template <typename T, typename C>
 struct StaticPointAddRectangleSum {
   using BIT = BinaryIndexedTree<C>;
 
-  static_assert(is_integral<T>::value,
+  static_assert(std::is_integral<T>::value,
                 "template parameter T must be integral type");
 
   struct Point {
@@ -16,8 +24,8 @@ struct StaticPointAddRectangleSum {
     T l, d, r, u;
   };
 
-  vector<Point> points;
-  vector<Query> queries;
+  std::vector<Point> points;
+  std::vector<Query> queries;
 
   StaticPointAddRectangleSum() = default;
 
@@ -33,16 +41,16 @@ struct StaticPointAddRectangleSum {
     queries.emplace_back(Query{l, d, r, u});
   }
 
-  vector<C> calculate_queries() {
+  std::vector<C> calculate_queries() {
     int n = (int)points.size();
     int q = (int)queries.size();
-    vector<C> ans(q);
+    std::vector<C> ans(q);
     if (points.empty() or queries.empty()) {
       return ans;
     }
-    sort(points.begin(), points.end(),
-         [](const Point& a, const Point& b) { return a.y < b.y; });
-    vector<T> ys;
+    std::sort(points.begin(), points.end(),
+              [](const Point& a, const Point& b) { return a.y < b.y; });
+    std::vector<T> ys;
     ys.reserve(n);
     for (Point& p : points) {
       if (ys.empty() or ys.back() != p.y) ys.emplace_back(p.y);
@@ -56,7 +64,7 @@ struct StaticPointAddRectangleSum {
       bool type;
       int idx;
     };
-    vector<Q> qs;
+    std::vector<Q> qs;
     qs.reserve(q + q);
     for (int i = 0; i < q; i++) {
       auto& query = queries[i];
@@ -65,10 +73,10 @@ struct StaticPointAddRectangleSum {
       qs.emplace_back(Q{query.l, d, u, false, i});
       qs.emplace_back(Q{query.r, d, u, true, i});
     }
-    sort(points.begin(), points.end(),
-         [](const Point& a, const Point& b) { return a.x < b.x; });
-    sort(qs.begin(), qs.end(),
-         [](const Q& a, const Q& b) { return a.x < b.x; });
+    std::sort(points.begin(), points.end(),
+              [](const Point& a, const Point& b) { return a.x < b.x; });
+    std::sort(qs.begin(), qs.end(),
+              [](const Q& a, const Q& b) { return a.x < b.x; });
     int j = 0;
     BIT bit(ys.size());
     for (auto& query : qs) {
@@ -84,3 +92,4 @@ struct StaticPointAddRectangleSum {
     return ans;
   }
 };
+#pragma once

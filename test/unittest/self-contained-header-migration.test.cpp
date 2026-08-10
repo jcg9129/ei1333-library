@@ -6,6 +6,43 @@
 #include <string>
 #include <vector>
 
+#include "../../graph/mst/boruvka.hpp"
+#include "../../graph/mst/manhattan-mst.hpp"
+#include "../../graph/others/cartesian-tree.hpp"
+#include "../../graph/others/chromatic-number.hpp"
+#include "../../graph/others/cycle-detection.hpp"
+#include "../../graph/others/dominator-tree.hpp"
+#include "../../graph/others/enumerate-cliques.hpp"
+#include "../../graph/others/enumerate-triangles.hpp"
+#include "../../graph/others/eulerian-trail.hpp"
+#include "../../graph/others/extreme-vertex-set.hpp"
+#include "../../graph/others/low-link.hpp"
+#include "../../graph/others/maximum-clique.hpp"
+#include "../../graph/others/maximum-independent-set.hpp"
+#include "../../graph/others/minimum-steiner-tree.hpp"
+#include "../../graph/others/namori-graph.hpp"
+#include "../../graph/others/offline-dag-reachability.hpp"
+#include "../../graph/others/topological-sort.hpp"
+#include "../../graph/others/tree-decomposition-width-2.hpp"
+#include "../../graph/tree/centroid.hpp"
+#include "../../graph/tree/convert-rooted-tree.hpp"
+#include "../../graph/tree/heavy-light-decomposition.hpp"
+#include "../../graph/tree/rerooting.hpp"
+#include "../../graph/tree/tree-diameter.hpp"
+#include "../../math/matrix/binary-basis.hpp"
+#include "../../other/connected-grid-states.hpp"
+#include "../../other/dynamic-point-add-rectangle-sum.hpp"
+#include "../../other/dynamic-rectangle-add-point-get.hpp"
+#include "../../other/mo-rollback.hpp"
+#include "../../other/mo.hpp"
+#include "../../other/offline-dynamic-connectivity.hpp"
+#include "../../other/poyopoyo-pudding.hpp"
+#include "../../other/scanner.hpp"
+#include "../../other/static-point-add-rectangle-sum.hpp"
+#include "../../other/static-range-count-distinct.hpp"
+#include "../../other/static-rectangle-add-point-get.hpp"
+#include "../../other/static-rectangle-add-rectangle-sum.hpp"
+#include "../../other/timer.hpp"
 #include "../../dp/cumulative-sum-2d.hpp"
 #include "../../dp/cumulative-sum.hpp"
 #include "../../dp/divide-and-conquer-optimization.hpp"
@@ -254,6 +291,20 @@ int main() {
   assert(distances[0][1] == 1);
   std::vector<std::string> grid{"S.", ".#"};
   assert(grid_bfs(grid, 'S')[0][1] == 1);
+  Graph<int> dag(3);
+  dag.add_directed_edge(0, 1);
+  dag.add_directed_edge(1, 2);
+  assert(topological_sort(dag).size() == 3);
+
+  BinaryBasis<int> binary_basis;
+  assert(binary_basis.add(1) && binary_basis.add(2));
+  assert(binary_basis.check(3) && binary_basis.size() == 2);
+  assert(cartesian_tree(std::vector<int>{3, 1, 2})[0] == 1);
+  StaticRangeCountDistinct<int> distinct({1, 2, 1, 3});
+  distinct.add_query(0, 4);
+  assert(distinct.calclate_queries()[0] == 3);
+  PoyoPoyoPudding pudding;
+  assert(pudding.addLayer(50, 50) && pudding.eatTop());
 
   using geometry::Circle;
   using geometry::Line;

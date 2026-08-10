@@ -1,3 +1,11 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <limits>
+#include <utility>
+#include <vector>
+
 #include "../../structure/union-find/union-find.hpp"
 
 /**
@@ -7,12 +15,12 @@
 template <typename T>
 struct Boruvka {
  private:
-  size_t V;
+  std::size_t V;
   UnionFind uf;
   const T INF;
 
  public:
-  explicit Boruvka(size_t V, T INF = numeric_limits<T>::max())
+  explicit Boruvka(std::size_t V, T INF = std::numeric_limits<T>::std::max())
       : V(V), uf(V), INF(INF) {}
 
   inline int find(int k) { return uf.find(k); }
@@ -21,7 +29,7 @@ struct Boruvka {
   T build(const F& update) {
     T ret = T();
     while (uf.size(0) < (int)V) {
-      vector<pair<T, int> > v(V, make_pair(INF, -1));
+      std::vector<std::pair<T, int> > v(V, make_pair(INF, -1));
       update(v);
       bool con = false;
       for (int i = 0; i < (int)V; i++) {
@@ -35,3 +43,4 @@ struct Boruvka {
     return ret;
   }
 };
+#pragma once
