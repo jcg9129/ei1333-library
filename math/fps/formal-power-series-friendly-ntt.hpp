@@ -13,7 +13,7 @@
 
 template <typename T>
 struct FormalPowerSeriesFriendlyNTT : std::vector<T> {
-  using std::vector<T>::std::vector;
+  using std::vector<T>::vector;
   using P = FormalPowerSeriesFriendlyNTT;
   using NTT = NumberTheoreticTransformFriendlyModInt<T>;
 

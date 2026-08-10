@@ -18,6 +18,7 @@
 #include "../../graph/flow/primal-dual.hpp"
 #include "../../graph/flow/push-relabel.hpp"
 #include "../../graph/mst/prim-fibonacchi-heap.hpp"
+#include "../../graph/mst/boruvka.hpp"
 #include "../../graph/others/bipartite-graph-edge-coloring.hpp"
 #include "../../graph/others/two-satisfiability.hpp"
 #include "../../graph/flow/ford-fulkerson.hpp"
@@ -432,6 +433,10 @@ int main() {
   BipartiteMatching matching(2);
   matching.add_edge(0, 1);
   assert(matching.bipartite_matching() == 1);
+  Boruvka<int> boruvka(2);
+  assert(boruvka.find(0) == 0);
+  FormalPowerSeriesFriendlyNTT<modint998244353> series(2, modint998244353(1));
+  assert(series.size() == 2);
 
   using geometry::Circle;
   using geometry::Line;

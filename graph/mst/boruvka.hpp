@@ -20,7 +20,7 @@ struct Boruvka {
   const T INF;
 
  public:
-  explicit Boruvka(std::size_t V, T INF = std::numeric_limits<T>::std::max())
+  explicit Boruvka(std::size_t V, T INF = std::numeric_limits<T>::max())
       : V(V), uf(V), INF(INF) {}
 
   inline int find(int k) { return uf.find(k); }
@@ -29,7 +29,7 @@ struct Boruvka {
   T build(const F& update) {
     T ret = T();
     while (uf.size(0) < (int)V) {
-      std::vector<std::pair<T, int> > v(V, make_pair(INF, -1));
+      std::vector<std::pair<T, int> > v(V, std::make_pair(INF, -1));
       update(v);
       bool con = false;
       for (int i = 0; i < (int)V; i++) {
