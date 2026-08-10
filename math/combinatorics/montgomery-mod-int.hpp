@@ -1,13 +1,16 @@
 #pragma once
 
-template <uint32_t mod_, bool fast = false>
+#include <cstdint>
+#include <iostream>
+
+template <std::uint32_t mod_, bool fast = false>
 struct MontgomeryModInt {
  private:
   using mint = MontgomeryModInt;
-  using i32 = int32_t;
-  using i64 = int64_t;
-  using u32 = uint32_t;
-  using u64 = uint64_t;
+  using i32 = std::int32_t;
+  using i64 = std::int64_t;
+  using u32 = std::uint32_t;
+  using u64 = std::uint64_t;
 
   static constexpr u32 get_r() {
     u32 ret = mod_;
@@ -90,11 +93,11 @@ struct MontgomeryModInt {
 
   mint inv() const { return pow(mod() - 2); }
 
-  friend ostream& operator<<(ostream& os, const mint& p) {
+  friend std::ostream& operator<<(std::ostream& os, const mint& p) {
     return os << p.val();
   }
 
-  friend istream& operator>>(istream& is, mint& a) {
+  friend std::istream& operator>>(std::istream& is, mint& a) {
     i64 t;
     is >> t;
     a = mint(t);
@@ -104,7 +107,7 @@ struct MontgomeryModInt {
   static constexpr u32 mod() { return mod_; }
 };
 
-template <uint32_t mod>
+template <std::uint32_t mod>
 using modint = MontgomeryModInt<mod>;
 using modint998244353 = modint<998244353>;
 using modint1000000007 = modint<1000000007>;

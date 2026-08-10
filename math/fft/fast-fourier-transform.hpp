@@ -1,3 +1,11 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <vector>
+
 namespace FastFourierTransform {
 using real = double;
 
@@ -19,10 +27,10 @@ struct C {
   inline C conj() const { return C(x, -y); }
 };
 
-const real PI = acosl(-1);
+const real PI = std::acos(-1);
 int base = 1;
-vector<C> rts = {{0, 0}, {1, 0}};
-vector<int> rev = {0, 1};
+std::vector<C> rts = {{0, 0}, {1, 0}};
+std::vector<int> rev = {0, 1};
 
 void ensure_base(int nbase) {
   if (nbase <= base) return;
@@ -36,20 +44,20 @@ void ensure_base(int nbase) {
     for (int i = 1 << (base - 1); i < (1 << base); i++) {
       rts[i << 1] = rts[i];
       real angle_i = angle * (2 * i + 1 - (1 << base));
-      rts[(i << 1) + 1] = C(cos(angle_i), sin(angle_i));
+      rts[(i << 1) + 1] = C(std::cos(angle_i), std::sin(angle_i));
     }
     ++base;
   }
 }
 
-void fft(vector<C>& a, int n) {
+void fft(std::vector<C>& a, int n) {
   assert((n & (n - 1)) == 0);
   int zeros = __builtin_ctz(n);
   ensure_base(zeros);
   int shift = base - zeros;
   for (int i = 0; i < n; i++) {
     if (i < (rev[i] >> shift)) {
-      swap(a[i], a[rev[i] >> shift]);
+      std::swap(a[i], a[rev[i] >> shift]);
     }
   }
   for (int k = 1; k < n; k <<= 1) {
@@ -63,13 +71,14 @@ void fft(vector<C>& a, int n) {
   }
 }
 
-vector<int64_t> multiply(const vector<int>& a, const vector<int>& b) {
+std::vector<std::int64_t> multiply(const std::vector<int>& a,
+                                   const std::vector<int>& b) {
   int need = (int)a.size() + (int)b.size() - 1;
   int nbase = 1;
   while ((1 << nbase) < need) nbase++;
   ensure_base(nbase);
   int sz = 1 << nbase;
-  vector<C> fa(sz);
+  std::vector<C> fa(sz);
   for (int i = 0; i < sz; i++) {
     int x = (i < (int)a.size() ? a[i] : 0);
     int y = (i < (int)b.size() ? b[i] : 0);
@@ -89,9 +98,9 @@ vector<int64_t> multiply(const vector<int>& a, const vector<int>& b) {
     fa[i] = A0 + A1 * s;
   }
   fft(fa, sz >> 1);
-  vector<int64_t> ret(need);
+  std::vector<std::int64_t> ret(need);
   for (int i = 0; i < need; i++) {
-    ret[i] = llround(i & 1 ? fa[i >> 1].y : fa[i >> 1].x);
+    ret[i] = std::llround(i & 1 ? fa[i >> 1].y : fa[i >> 1].x);
   }
   return ret;
 }

@@ -1,10 +1,15 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 #include "fast-walsh-hadamard-transform.hpp"
 
 /**
  * @brief Bitwise Xor Convolution (Bitwise-XOR畳み込み)
  */
 template <typename T>
-vector<T> bitwise_xor_convolution(vector<T> f, vector<T> g) {
+std::vector<T> bitwise_xor_convolution(std::vector<T> f, std::vector<T> g) {
   const int n = (int)f.size();
   assert(f.size() == g.size());
   assert((n & (n - 1)) == 0);

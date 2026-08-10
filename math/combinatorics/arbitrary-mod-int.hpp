@@ -1,9 +1,15 @@
+#pragma once
+
+#include <cstdint>
+#include <iostream>
+#include <utility>
+
 struct ArbitraryModInt {
   int x;
 
   ArbitraryModInt() : x(0) {}
 
-  ArbitraryModInt(int64_t y)
+  ArbitraryModInt(std::int64_t y)
       : x(y >= 0 ? y % get_mod() : (get_mod() - (-y) % get_mod()) % get_mod()) {
   }
 
@@ -63,13 +69,13 @@ struct ArbitraryModInt {
     int a = x, b = get_mod(), u = 1, v = 0, t;
     while (b > 0) {
       t = a / b;
-      swap(a -= t * b, b);
-      swap(u -= t * v, v);
+      std::swap(a -= t * b, b);
+      std::swap(u -= t * v, v);
     }
     return ArbitraryModInt(u);
   }
 
-  ArbitraryModInt pow(int64_t n) const {
+  ArbitraryModInt pow(std::int64_t n) const {
     ArbitraryModInt ret(1), mul(x);
     while (n > 0) {
       if (n & 1) ret *= mul;
@@ -79,12 +85,12 @@ struct ArbitraryModInt {
     return ret;
   }
 
-  friend ostream& operator<<(ostream& os, const ArbitraryModInt& p) {
+  friend std::ostream& operator<<(std::ostream& os, const ArbitraryModInt& p) {
     return os << p.x;
   }
 
-  friend istream& operator>>(istream& is, ArbitraryModInt& a) {
-    int64_t t;
+  friend std::istream& operator>>(std::istream& is, ArbitraryModInt& a) {
+    std::int64_t t;
     is >> t;
     a = ArbitraryModInt(t);
     return (is);

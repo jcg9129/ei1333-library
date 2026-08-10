@@ -1,8 +1,12 @@
+#pragma once
+
+#include <utility>
+
 #include "affine.hpp"
 
 template <typename T>
 struct RangeAffineRangeSum {
-  using S = pair<T, T>;
+  using S = std::pair<T, T>;
   using F = Affine<T>;
   static constexpr S op(const S& a, const S& b) {
     return {a.first + b.first, a.second + b.second};

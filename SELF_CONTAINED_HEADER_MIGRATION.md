@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 120  |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 160  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -128,6 +128,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `string/manacher.hpp`、`string/z-algorithm.hpp`                                                                                                                                                                                                                            | 標準 include と `std::` 修飾      |
 | 2026-08-10 | geometry の基礎・距離・交差判定・多角形関連38ヘッダー                                                                                                                                                                                                                      | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `geometry/integer/point.hpp`、`geometry/convex-layers.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                  | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `math/combinatorics/` の18ヘッダー、`math/fft/` の13ヘッダー                                                                                                                                                                                                               | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `math/number-theory/` の4ヘッダー、`structure/class/` の3ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                    | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 

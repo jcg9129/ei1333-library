@@ -1,15 +1,23 @@
+#pragma once
+
+#include <algorithm>
+#include <cstdint>
+#include <iterator>
+#include <vector>
+
 /**
  * @brief Lagrange Polynomial(多項式補間, 値)
  */
 template <typename Mint, typename F>
-vector<Mint> lagrange_polynomial(const vector<Mint>& y, int64_t T, const int& m,
-                                 const F& multiply) {
+std::vector<Mint> lagrange_polynomial(const std::vector<Mint>& y,
+                                      std::int64_t T, const int& m,
+                                      const F& multiply) {
   int k = (int)y.size() - 1;
   T %= Mint::mod();
   if (T <= k) {
-    vector<Mint> ret(m);
+    std::vector<Mint> ret(m);
     int ptr = 0;
-    for (int64_t i = T; i <= k and ptr < m; i++) {
+    for (std::int64_t i = T; i <= k and ptr < m; i++) {
       ret[ptr++] = y[i];
     }
     if (k + 1 < T + m) {
@@ -23,11 +31,11 @@ vector<Mint> lagrange_polynomial(const vector<Mint>& y, int64_t T, const int& m,
   if (T + m > Mint::mod()) {
     auto pref = lagrange_polynomial(y, T, Mint::mod() - T, multiply);
     auto suf = lagrange_polynomial(y, 0, m - pref.size(), multiply);
-    copy(begin(suf), end(suf), back_inserter(pref));
+    std::copy(std::begin(suf), std::end(suf), std::back_inserter(pref));
     return pref;
   }
 
-  vector<Mint> finv(k + 1, 1), d(k + 1);
+  std::vector<Mint> finv(k + 1, 1), d(k + 1);
   for (int i = 2; i <= k; i++) finv[k] *= i;
   finv[k] = Mint(1) / finv[k];
   for (int i = k; i >= 1; i--) finv[i - 1] = finv[i] * i;
@@ -36,14 +44,14 @@ vector<Mint> lagrange_polynomial(const vector<Mint>& y, int64_t T, const int& m,
     if ((k - i) & 1) d[i] = -d[i];
   }
 
-  vector<Mint> h(m + k);
+  std::vector<Mint> h(m + k);
   for (int i = 0; i < m + k; i++) {
     h[i] = Mint(1) / (T - k + i);
   }
 
   auto dh = multiply(d, h);
 
-  vector<Mint> ret(m);
+  std::vector<Mint> ret(m);
   Mint cur = T;
   for (int i = 1; i <= k; i++) cur *= T - i;
   for (int i = 0; i < m; i++) {

@@ -65,11 +65,42 @@
 #include "../../graph/shortest-path/grid-bfs.hpp"
 #include "../../graph/shortest-path/warshall-floyd.hpp"
 #include "../../math/combinatorics/binomial-table.hpp"
+#include "../../math/combinatorics/arbitrary-mod-int.hpp"
+#include "../../math/combinatorics/bell-number.hpp"
+#include "../../math/combinatorics/binomial-prefix-sum-query.hpp"
+#include "../../math/combinatorics/binomial.hpp"
+#include "../../math/combinatorics/count-bounded-increasing-sequences.hpp"
 #include "../../math/combinatorics/enumeration.hpp"
+#include "../../math/combinatorics/factorial.hpp"
+#include "../../math/combinatorics/lagrange-polynomial-2.hpp"
+#include "../../math/combinatorics/lagrange-polynomial-3.hpp"
+#include "../../math/combinatorics/lagrange-polynomial.hpp"
+#include "../../math/combinatorics/mod-log.hpp"
+#include "../../math/combinatorics/mod-pow.hpp"
+#include "../../math/combinatorics/mod-sqrt.hpp"
+#include "../../math/combinatorics/mod-tetration.hpp"
+#include "../../math/combinatorics/modint-2-61m1.hpp"
+#include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/combinatorics/montmort.hpp"
 #include "../../math/combinatorics/partition-table.hpp"
+#include "../../math/combinatorics/sample-point-shift.hpp"
 #include "../../math/combinatorics/sum-of-arithmetic-sequence.hpp"
 #include "../../math/combinatorics/sum-of-geometric-sequence.hpp"
+#include "../../math/combinatorics/stirling-number-second.hpp"
+#include "../../math/combinatorics/vectorize-mod-int.hpp"
+#include "../../math/fft/arbitrary-mod-convolution-long.hpp"
+#include "../../math/fft/arbitrary-mod-convolution.hpp"
+#include "../../math/fft/bitwise-and-convolution.hpp"
+#include "../../math/fft/bitwise-or-convolution.hpp"
+#include "../../math/fft/bitwise-xor-convolution.hpp"
+#include "../../math/fft/fast-fourier-transform.hpp"
+#include "../../math/fft/fast-walsh-hadamard-transform.hpp"
+#include "../../math/fft/number-theoretic-transform-friendly-mod-int.hpp"
+#include "../../math/fft/number-theoretic-transform.hpp"
+#include "../../math/fft/subset-convolution.hpp"
+#include "../../math/fft/subset-zeta-moebius-transform.hpp"
+#include "../../math/fft/superset-zeta-moebius-transform-simd.hpp"
+#include "../../math/fft/superset-zeta-moebius-transform.hpp"
 #include "../../math/matrix/matrix.hpp"
 #include "../../math/matrix/square-matrix.hpp"
 #include "../../math/number-theory/convert-base.hpp"
@@ -77,11 +108,15 @@
 #include "../../math/number-theory/enumerate-quotients.hpp"
 #include "../../math/number-theory/euler-phi-table.hpp"
 #include "../../math/number-theory/euler-phi.hpp"
+#include "../../math/number-theory/enumerate-primes.hpp"
 #include "../../math/number-theory/extgcd.hpp"
+#include "../../math/number-theory/fast-prime-factorization.hpp"
 #include "../../math/number-theory/is-prime.hpp"
 #include "../../math/number-theory/kth-root-integer.hpp"
 #include "../../math/number-theory/moebius-mu-table.hpp"
 #include "../../math/number-theory/prime-factor.hpp"
+#include "../../math/number-theory/prime-count.hpp"
+#include "../../math/number-theory/prime-table.hpp"
 #include "../../math/number-theory/sum-of-floor-of-linear.hpp"
 #include "../../math/rational/rational.hpp"
 #include "../../other/ceil-div.hpp"
@@ -93,6 +128,8 @@
 #include "../../other/random-number-generator.hpp"
 #include "../../other/vector-pool.hpp"
 #include "../../other/xor-shift.hpp"
+#include "../../other/offline-rmq.hpp"
+#include "../../other/static-range-frequency.hpp"
 #include "../../string/manacher.hpp"
 #include "../../string/z-algorithm.hpp"
 #include "../../structure/class/act.hpp"
@@ -100,8 +137,11 @@
 #include "../../structure/class/affine.hpp"
 #include "../../structure/class/beats-monoid.hpp"
 #include "../../structure/class/monoid.hpp"
+#include "../../structure/class/point-add-rectangle-sum.hpp"
+#include "../../structure/class/point-set-range-composite.hpp"
 #include "../../structure/class/range-add-range-min.hpp"
 #include "../../structure/class/range-chmin-chmax-add-range-sum.hpp"
+#include "../../structure/class/range-affine-range-sum.hpp"
 #include "../../structure/others/decremental-upper-hull.hpp"
 #include "../../structure/others/slope-trick.hpp"
 #include "../../structure/others/sqrt-decomposition.hpp"
@@ -175,6 +215,25 @@ int main() {
   assert(partition_table<int>(4, 4)[4][4] == 5);
   assert(sum_of_arithmetic_sequence(1, 2, 3) == 9);
   assert(Enumeration<int>::C(0, 0) == 1);
+  assert(binomial<double>(5, 2) == 10);
+  assert(mod_pow(2, 10, 1000) == 24);
+  assert(mod_sqrt(4, 7) == 2 || mod_sqrt(4, 7) == 5);
+  assert(mod_log(2, 8, 13) == 3);
+  assert(mod_tetration(2, 3, 1000) == 16);
+  assert(prime_table(10)[7] && !prime_table(10)[9]);
+  assert(enumerate_primes(10) == std::vector<int>({2, 3, 5, 7}));
+  assert(FastPrimeFactorization::prime_factor(84) ==
+         std::vector<std::uint64_t>({2, 2, 3, 7}));
+  StaticRangeFrequency<int> frequency({1, 2, 1, 3, 1});
+  assert(frequency.query(1, 5, 1) == 2);
+
+  std::vector<double> hadamard{1, 2, 3, 4};
+  fast_walsh_hadamard_transform(hadamard);
+  fast_walsh_hadamard_transform(hadamard, true);
+  assert(hadamard == std::vector<double>({1, 2, 3, 4}));
+  assert(bitwise_and_convolution(std::vector<int>{1, 0, 0, 0},
+                                 std::vector<int>{1, 1, 1, 1})
+             .size() == 4);
 
   Matrix<double> matrix{{{1, 2}, {3, 4}}};
   assert(matrix.determinant() == -2);
