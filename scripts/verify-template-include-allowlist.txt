@@ -41,13 +41,9 @@ test/verify/yosupo-enumerate-triangles.test.cpp
 test/verify/yosupo-frequency-table-of-tree-distance.test.cpp
 test/verify/yosupo-global-minimum-cut-of-dynamic-star-augmented-graph.test.cpp
 test/verify/yosupo-k-shortest-walk.test.cpp
-test/verify/yosupo-line-add-get-min-2.test.cpp
-test/verify/yosupo-line-add-get-min.test.cpp
 test/verify/yosupo-point-set-tree-path-composite-sum-fixed-root.test.cpp
 test/verify/yosupo-point-set-tree-path-composite-sum.test.cpp
 test/verify/yosupo-range-chmin-chmax-add-range-sum.test.cpp
-test/verify/yosupo-range-linear-add-range-min.test.cpp
-test/verify/yosupo-segment-add-get-min.test.cpp
 test/verify/yosupo-tree-decomposition-width-2.test.cpp
 test/verify/yukicoder-1002.test.cpp
 test/verify/yukicoder-1069.test.cpp
