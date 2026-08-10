@@ -1,36 +1,40 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0560
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <string>
+#include <vector>
 
 #include "../../dp/cumulative-sum-2d.hpp"
 
+using namespace std;
 
 int main() {
   int N, M, Q;
   cin >> N >> M >> Q;
-  vector< CumulativeSum2D< int > > sum(3, CumulativeSum2D< int >(N, M));
+  vector<CumulativeSum2D<int> > sum(3, CumulativeSum2D<int>(N, M));
   const string P = "JOI";
-  for(int i = 0; i < N; i++) {
+  for (int i = 0; i < N; i++) {
     string s;
     cin >> s;
-    for(int j = 0; j < M; j++) {
-      for(int k = 0; k < 3; k++) {
+    for (int j = 0; j < M; j++) {
+      for (int k = 0; k < 3; k++) {
         sum[k].add(i, j, s[j] == P[k]);
       }
     }
   }
-  for(int k = 0; k < 3; k++) {
+  for (int k = 0; k < 3; k++) {
     sum[k].build();
   }
-  while(Q--) {
+  while (Q--) {
     int a, b, c, d;
     cin >> a >> b >> c >> d;
     --a, --b;
-    vector< int > v(3);
-    for(int k = 0; k < 3; k++) {
+    vector<int> v(3);
+    for (int k = 0; k < 3; k++) {
       v[k] = sum[k].query(a, b, c, d);
     }
-    cout << v << "\n";
+    cout << v[0] << ' ' << v[1] << ' ' << v[2] << "\n";
   }
-
 }

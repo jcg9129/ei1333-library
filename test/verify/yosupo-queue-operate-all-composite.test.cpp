@@ -1,21 +1,24 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/queue_operate_all_composite
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <utility>
+#include <vector>
 
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
-
-#include "../../structure/others/queue-operate-aggregation.hpp"
 #include "../../structure/class/affine.hpp"
+#include "../../structure/others/queue-operate-aggregation.hpp"
+
+using namespace std;
 
 using mint = modint998244353;
 
 int main() {
   int Q;
   cin >> Q;
-  using pi = Affine< mint >;
-  auto f = [](const pi &a, const pi &b) -> pi {
-    return pi::op(a, b);
-  };
+  using pi = Affine<mint>;
+  auto f = [](const pi& a, const pi& b) -> pi { return pi::op(a, b); };
   auto que = get_queue_operate_aggregation<pi>(f);
   while (Q--) {
     int t;
@@ -24,7 +27,7 @@ int main() {
       mint a, b;
       cin >> a >> b;
       que.push(pi(a, b));
-    } else if(t == 1) {
+    } else if (t == 1) {
       que.pop();
     } else {
       mint x;

@@ -1,16 +1,20 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=0233
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
 #include "../../math/number-theory/convert-base.hpp"
 
+using namespace std;
+
 int main() {
-  for(;;) {
+  for (;;) {
     int X;
     cin >> X;
-    if(X == 0) break;
+    if (X == 0) break;
     auto ret = convert_base(X, -10);
-    for(auto &p : ret) cout << p;
+    for (auto& p : ret) cout << p;
     cout << endl;
   }
 }

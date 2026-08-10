@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../other/vector-pool.hpp"
+
 /**
  * @brief Lazy-Weight-Balanced-Tree(遅延伝搬重み平衡木)
  */

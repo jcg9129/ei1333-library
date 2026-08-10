@@ -6,6 +6,7 @@
 #include <limits>
 #include <tuple>
 #include <utility>
+
 /**
  * @brief Generalized-Slope-Trick
  *

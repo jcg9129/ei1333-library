@@ -1,15 +1,19 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/maximum_independent_set
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
-#include "../../math/matrix/matrix.hpp"
 #include "../../graph/others/maximum-independent-set.hpp"
+#include "../../math/matrix/matrix.hpp"
+
+using namespace std;
 
 int main() {
   int N, M;
   cin >> N >> M;
-  Matrix< bool > mat(N);
-  for(int i = 0; i < M; i++) {
+  Matrix<bool> mat(N);
+  for (int i = 0; i < M; i++) {
     int a, b;
     cin >> a >> b;
     mat[a][b] = true;
@@ -17,5 +21,9 @@ int main() {
   }
   auto ret = maximum_independent_set(mat);
   cout << ret.size() << endl;
-  cout << ret << endl;
+  for (int i = 0; i < static_cast<int>(ret.size()); i++) {
+    if (i > 0) cout << " ";
+    cout << ret[i];
+  }
+  cout << endl;
 }

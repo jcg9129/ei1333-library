@@ -1,10 +1,14 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/area_of_union_of_rectangles
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <cstdio>
+#include <iostream>
 
 #include "../../other/area-of-union-of-rectangles.hpp"
-
 #include "../../other/scanner.hpp"
+
+using namespace std;
 
 int main() {
   Scanner in(stdin);
@@ -16,5 +20,5 @@ int main() {
     in.read(l, d, r, u);
     sum.add_rectangle(l, d, r, u);
   }
-  cout << sum.calc<int64>() << endl;
+  cout << sum.calc<long long>() << endl;
 }

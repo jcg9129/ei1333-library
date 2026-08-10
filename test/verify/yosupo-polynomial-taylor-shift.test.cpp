@@ -1,17 +1,34 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/polynomial_taylor_shift
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
-
 #include "../../math/fps/formal-power-series-friendly-ntt.hpp"
 
+using namespace std;
+
 using mint = modint998244353;
+
+template <typename Sequence>
+void read_sequence(Sequence& values) {
+  for (auto& value : values) cin >> value;
+}
+
+template <typename Sequence>
+void print_sequence(const Sequence& values) {
+  for (int i = 0; i < static_cast<int>(values.size()); i++) {
+    if (i > 0) cout << " ";
+    cout << values[i];
+  }
+  cout << "\n";
+}
 
 int main() {
   int N, C;
   cin >> N >> C;
-  FPS< mint > F(N);
-  cin >> F;
-  cout << F.taylor_shift(mint(C)) << "\n";
+  FPS<mint> F(N);
+  read_sequence(F);
+  print_sequence(F.taylor_shift(mint(C)));
 }

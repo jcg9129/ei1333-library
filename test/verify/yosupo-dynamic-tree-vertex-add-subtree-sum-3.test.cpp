@@ -1,39 +1,45 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/dynamic_tree_vertex_add_subtree_sum
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <vector>
 
-#include "../../structure/dynamic-tree/vertex-set-subtree-sum.hpp"
 #include "../../structure/dynamic-tree/dynamic-tree-builder-for-vertex.hpp"
+#include "../../structure/dynamic-tree/vertex-set-subtree-sum.hpp"
+
+using namespace std;
 
 int main() {
   int N, Q;
   cin >> N >> Q;
-  DynamicTreeBuilderForVertex< LinkCutTreeForSubtree,
-      VertexSetSubtreeSum< int64 > > g(N);
-  for(int i = 0; i < N; i++) {
-    int64 x;
+  DynamicTreeBuilderForVertex<LinkCutTreeForSubtree,
+                              VertexSetSubtreeSum<long long> >
+      g(N);
+  for (int i = 0; i < N; i++) {
+    long long x;
     cin >> x;
     g.set_vertex(i, {x});
   }
-  for(int i = 1; i < N; i++) {
+  for (int i = 1; i < N; i++) {
     int a, b;
     cin >> a >> b;
     g.add_edge(a, b);
   }
   g.build();
-  while(Q--) {
+  while (Q--) {
     int t;
     cin >> t;
-    if(t == 0) {
+    if (t == 0) {
       int u, v, w, x;
       cin >> u >> v >> w >> x;
       g.evert(g.vs[u]);
       g.cut(g.vs[v]);
       g.evert(g.vs[w]);
       g.link(g.vs[w], g.vs[x]);
-    } else if(t == 1) {
+    } else if (t == 1) {
       int v;
-      int64 x;
+      long long x;
       cin >> v >> x;
       g.set_key(g.vs[v], {g.vs[v]->info.v + x});
     } else {

@@ -3,6 +3,7 @@
 #include <cassert>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Binary-Trie
  *

@@ -5,6 +5,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Lazy-Reversible-Splay-Tree(遅延伝搬反転可能Splay木)
  */

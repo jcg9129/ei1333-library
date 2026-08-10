@@ -3,6 +3,7 @@
 #include <cstddef>
 
 #include "weight-balanced-tree.hpp"
+
 /**
  * @brief Persistent-Weight-Balanced-Tree(永続重み平衡木)
  */

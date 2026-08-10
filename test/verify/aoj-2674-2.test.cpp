@@ -1,24 +1,32 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=2674
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <iostream>
+#include <vector>
 
 #include "../../structure/wavelet/succinct-indexable-dictionary.hpp"
 #include "../../structure/wavelet/wavelet-tree.hpp"
 
+using namespace std;
+
 int main() {
   int N, Q;
   cin >> N;
-  vector< int > X(N);
-  for(int i = 0; i < N; i++) {
+  vector<int> X(N);
+  for (int i = 0; i < N; i++) {
     cin >> X[i];
     X[i] += 5e8;
   }
-  CompressedWaveletTree< int, 18 > matrix(X);
+  CompressedWaveletTree<int, 18> matrix(X);
   cin >> Q;
-  while(Q--) {
+  while (Q--) {
     int L, R, E;
     cin >> L >> R >> E;
     --L, --R;
-    cout << (R - L + 1) - matrix.range_freq(L, R + 1, min(X[L], X[R]) - E, max(X[L], X[R]) + E + 1) << "\n";
+    cout << (R - L + 1) - matrix.range_freq(L, R + 1, min(X[L], X[R]) - E,
+                                            max(X[L], X[R]) + E + 1)
+         << "\n";
   }
 }

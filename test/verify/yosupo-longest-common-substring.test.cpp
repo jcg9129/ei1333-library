@@ -1,8 +1,13 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/longest_common_substring
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
+#include <string>
 
 #include "../../string/longest-common-substring.hpp"
+
+using namespace std;
 
 int main() {
   string S, T;

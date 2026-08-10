@@ -5,6 +5,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+
 /**
  * @brief Reversible-Splay-Tree(反転可能Splay木)
  */

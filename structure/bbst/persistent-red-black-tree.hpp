@@ -3,6 +3,7 @@
 #include <cstddef>
 
 #include "red-black-tree.hpp"
+
 template <typename Monoid, typename F, std::size_t FULL = 1000>
 struct PersistentRedBlackTree : RedBlackTree<Monoid, F> {
   using RBT = RedBlackTree<Monoid, F>;

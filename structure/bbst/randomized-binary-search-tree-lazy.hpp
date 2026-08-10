@@ -6,6 +6,7 @@
 #include <string>
 #include <utility>
 #include <vector>
+
 template <class Monoid, class OperatorMonoid = Monoid>
 struct RandomizedBinarySearchTree {
   using F = std::function<Monoid(Monoid, Monoid)>;

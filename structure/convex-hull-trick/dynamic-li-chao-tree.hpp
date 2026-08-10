@@ -2,6 +2,7 @@
 
 #include <algorithm>
 #include <utility>
+
 /**
  * @brief Dynamic-Li-Chao-Tree
  *

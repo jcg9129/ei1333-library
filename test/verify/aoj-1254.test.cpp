@@ -1,9 +1,18 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=1254
+// clang-format on
 
-#include "../../template/template.hpp"
-#include "../../math/matrix/square-matrix.hpp"
+#include <algorithm>
+#include <cmath>
+#include <iostream>
+#include <map>
+#include <string>
+#include <vector>
 
 #include "../../graph/others/chromatic-number.hpp"
+#include "../../math/matrix/square-matrix.hpp"
+
+using namespace std;
 
 const double EPS = 1e-10;
 
@@ -24,23 +33,17 @@ struct Point {
 };
 
 typedef Point Vector;
-typedef vector< Point > Polygon;
+typedef vector<Point> Polygon;
 
-double norm(Vector a) {
-  return a.x * a.x + a.y * a.y;
-}
+double norm(Vector a) { return a.x * a.x + a.y * a.y; }
 
-double abs(Vector a) {
-  return sqrt(norm(a));
-}
+double abs(Vector a) { return sqrt(norm(a)); }
 
-double cross(Vector a, Vector b) {
-  return a.x * b.y - a.y * b.x;
-}
+double cross(Vector a, Vector b) { return a.x * b.y - a.y * b.x; }
 
 bool calc(Point a1, Point a2, Point b1, Point b2) {
-  if(abs(cross(a2 - a1, b1 - a1)) > EPS) return 0;
-  if(abs(cross(a2 - a1, b2 - a1)) > EPS) return 0;
+  if (abs(cross(a2 - a1, b1 - a1)) > EPS) return 0;
+  if (abs(cross(a2 - a1, b2 - a1)) > EPS) return 0;
   double ml = 0;
   ml = max(ml, abs(a1 - a2));
   ml = max(ml, abs(a1 - b1));
@@ -53,31 +56,31 @@ bool calc(Point a1, Point a2, Point b1, Point b2) {
 
 int main() {
   int n;
-  while(cin >> n, n) {
-    vector< Polygon > p(n);
-    vector< string > name(n);
-    map< string, int > m;
-    for(int i = 0; i < n; i++) {
+  while (cin >> n, n) {
+    vector<Polygon> p(n);
+    vector<string> name(n);
+    map<string, int> m;
+    for (int i = 0; i < n; i++) {
       cin >> name[i];
-      if(!m.count(name[i])) {
+      if (!m.count(name[i])) {
         int k = m.size();
         m[name[i]] = k;
       }
       int x, y;
-      while(cin >> x, ~x) {
+      while (cin >> x, ~x) {
         cin >> y;
         p[i].push_back(Point(x, y));
       }
     }
 
-    SquareMatrix< bool, 10 > G{};
-    for(int i = 0; i < n; i++) {
-      for(int j = i + 1; j < n; j++) {
-        if(name[i] == name[j]) continue;
-        for(int k = 0; k < (int) p[i].size(); k++) {
-          for(int l = 0; l < (int) p[j].size(); l++) {
-            if(calc(p[i][k], p[i][(k + 1) % p[i].size()],
-                    p[j][l], p[j][(l + 1) % p[j].size()])) {
+    SquareMatrix<bool, 10> G{};
+    for (int i = 0; i < n; i++) {
+      for (int j = i + 1; j < n; j++) {
+        if (name[i] == name[j]) continue;
+        for (int k = 0; k < (int)p[i].size(); k++) {
+          for (int l = 0; l < (int)p[j].size(); l++) {
+            if (calc(p[i][k], p[i][(k + 1) % p[i].size()], p[j][l],
+                     p[j][(l + 1) % p[j].size()])) {
               G[m[name[j]]][m[name[i]]] = true;
               G[m[name[i]]][m[name[j]]] = true;
             }
@@ -88,4 +91,3 @@ int main() {
     cout << chromatic_number(G) << endl;
   }
 }
-

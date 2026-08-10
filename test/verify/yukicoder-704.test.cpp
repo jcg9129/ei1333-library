@@ -1,17 +1,24 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/704
 
-#include "../../template/template.hpp"
+#include <cassert>
+#include <cstdint>
+#include <cstdlib>
+#include <functional>
+#include <iostream>
+#include <vector>
 
 #include "../../dp/online-offline-dp.hpp"
+
+using namespace std;
 
 int main() {
   int n;
   cin >> n;
-  vector< int > a(n), x(n), y(n);
-  for(int i = 0; i < n; i++) cin >> a[i];
-  for(int i = 0; i < n; i++) cin >> x[i];
-  for(int i = 0; i < n; i++) cin >> y[i];
-  function< int64_t(int, int) > dist = [&](int i, int j) {
+  vector<int> a(n), x(n), y(n);
+  for (int i = 0; i < n; i++) cin >> a[i];
+  for (int i = 0; i < n; i++) cin >> x[i];
+  for (int i = 0; i < n; i++) cin >> y[i];
+  function<int64_t(int, int)> dist = [&](int i, int j) {
     assert(0 <= i && i < j && j <= n);
     int s = abs(a[j - 1] - x[i]);
     int t = abs(y[i]);

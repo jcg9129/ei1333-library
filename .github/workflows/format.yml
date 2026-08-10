@@ -19,4 +19,5 @@ jobs:
         sudo apt-get install clang-format-22
     - name: apply formatter
       run: |
-        clang-format-22 -style=google --dry-run --Werror $(find . -name "*.hpp")
+        git ls-files -z '*.hpp' 'test/verify/*.test.cpp' \
+          | xargs -0 clang-format-22 -style=google --dry-run --Werror

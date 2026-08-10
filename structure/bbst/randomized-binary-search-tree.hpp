@@ -7,6 +7,7 @@
 #include <tuple>
 #include <utility>
 #include <vector>
+
 template <typename T>
 class RandomizedBinarySearchTree {
   using F = std::function<T(T, T)>;

@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../other/vector-pool.hpp"
+
 /**
  * @brief Weight-Balanced-Tree(重み平衡木)
  */

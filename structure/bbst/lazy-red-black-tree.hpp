@@ -8,6 +8,7 @@
 #include <vector>
 
 #include "../../other/vector-pool.hpp"
+
 /**
  * @brief Lazy-Red-Black-Tree(遅延伝搬赤黒木)
  *

@@ -3,6 +3,7 @@
 #include <algorithm>
 
 #include "randomized-binary-search-tree.hpp"
+
 template <class T>
 struct OrderedMultiSet : RandomizedBinarySearchTree<T> {
   using RBST = RandomizedBinarySearchTree<T>;

@@ -1,6 +1,7 @@
 #pragma once
 
 #include <cmath>
+
 /**
  * @brief Stirling Second(第二種スターリング数)
  */

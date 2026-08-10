@@ -5,6 +5,7 @@
 #include <numeric>
 #include <queue>
 #include <vector>
+
 class Stack {
  private:
   const int N, H;

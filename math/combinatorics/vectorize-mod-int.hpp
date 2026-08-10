@@ -3,6 +3,7 @@
 #include <immintrin.h>
 
 #include <cstdint>
+
 #pragma GCC target("avx2")
 
 struct alignas(32) VectorizeModInt {

@@ -4,6 +4,7 @@
 #include <cstdlib>
 #include <deque>
 #include <utility>
+
 template <typename T, bool isMin>
 struct ConvexHullTrickAddMonotone {
 #define F first
