@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// https://judge.yosupo.jp/problem/tree_decomposition_width_2
+// clang-format off
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/tree_decomposition_width_2
+// clang-format on
 
 #include <cstdio>
 #include <string>

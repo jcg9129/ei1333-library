@@ -1,5 +1,6 @@
-// competitive-verifier: PROBLEM
-// https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum
+// clang-format off
+// competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/range_chmin_chmax_add_range_sum
+// clang-format on
 
 #include <cstdint>
 #include <iostream>
