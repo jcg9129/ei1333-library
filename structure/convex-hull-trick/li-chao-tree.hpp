@@ -1,3 +1,9 @@
+#pragma once
+
+#include <algorithm>
+#include <iterator>
+#include <utility>
+#include <vector>
 template <typename T>
 struct LiChaoTree {
   struct Line {
@@ -12,13 +18,13 @@ struct LiChaoTree {
     }
   };
 
-  vector<T> xs;
-  vector<Line> seg;
+  std::vector<T> xs;
+  std::vector<Line> seg;
   int sz;
 
-  LiChaoTree(const vector<T>& x, T INF) : xs(x) {
-    sort(begin(xs), end(xs));
-    xs.erase(unique(begin(xs), end(xs)), end(xs));
+  LiChaoTree(const std::vector<T>& x, T INF) : xs(x) {
+    std::sort(std::begin(xs), std::end(xs));
+    xs.erase(std::unique(std::begin(xs), std::end(xs)), std::end(xs));
     sz = 1;
     while (sz < (int)xs.size()) sz <<= 1;
     while ((int)xs.size() < sz) xs.push_back(xs.back());
@@ -28,7 +34,7 @@ struct LiChaoTree {
   void update(Line& x, int k, int l, int r) {
     int mid = (l + r) >> 1;
     auto latte = x.over(seg[k], xs[l]), malta = x.over(seg[k], xs[mid]);
-    if (malta) swap(seg[k], x);
+    if (malta) std::swap(seg[k], x);
     if (l + 1 >= r)
       return;
     else if (latte != malta)
@@ -48,8 +54,9 @@ struct LiChaoTree {
     T ret = seg[k].get(x);
     while (k > 0) {
       k = (k - 1) >> 1;
-      ret = min(ret, seg[k].get(x));
+      ret = std::min(ret, seg[k].get(x));
     }
     return ret;
   }
 };
+#pragma once

@@ -1,5 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <iterator>
+#include <queue>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -10,12 +15,13 @@ struct ComplementShortestPath : Graph<T> {
   using Graph<T>::Graph;
   using Graph<T>::g;
 
-  vector<vector<T> > dists;
+  std::vector<std::vector<T> > dists;
 
   void build() {
     for (auto& es : g) {
-      sort(begin(es), end(es),
-           [&](const Edge<T>& a, const Edge<T>& b) { return a.to < b.to; });
+      std::sort(
+          std::begin(es), std::end(es),
+          [&](const Edge<T>& a, const Edge<T>& b) { return a.to < b.to; });
     }
     const int N = (int)g.size();
     dists.resize(N);
@@ -48,12 +54,12 @@ struct ComplementShortestPath : Graph<T> {
     }
   }
 
-  vector<T> complement_bfs(int s) {
-    vector<T> dist(g.size(), -1);
-    queue<int> que;
+  std::vector<T> complement_bfs(int s) {
+    std::vector<T> dist(g.size(), -1);
+    std::queue<int> que;
     dist[s] = 0;
     que.emplace(s);
-    vector<int> not_visited;
+    std::vector<int> not_visited;
     for (int i = 0; i < g.size(); i++) {
       if (s != i) {
         not_visited.emplace_back(i);
@@ -63,7 +69,7 @@ struct ComplementShortestPath : Graph<T> {
       int idx = que.front();
       que.pop();
       int ptr = 0;
-      vector<int> nxt_visited;
+      std::vector<int> nxt_visited;
       for (auto& to : not_visited) {
         while (ptr < (int)g[idx].size() and g[idx][ptr].to < to) {
           ++ptr;

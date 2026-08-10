@@ -1,5 +1,11 @@
 #pragma once
 
+#include <queue>
+#include <tuple>
+#include <utility>
+#include <vector>
+
+#include "../../structure/heap/persistent-leftist-heap.hpp"
 #include "../graph-template.hpp"
 
 /**
@@ -8,7 +14,7 @@
  * @see https://qiita.com/hotman78/items/42534a01c4bd05ed5e1e
  */
 template <typename T>
-vector<T> k_shortest_walk(const Graph<T>& g, int s, int t, int k) {
+std::vector<T> k_shortest_walk(const Graph<T>& g, int s, int t, int k) {
   int N = (int)g.size();
   Graph<T> rg(N);
   for (int i = 0; i < N; i++) {
@@ -17,16 +23,16 @@ vector<T> k_shortest_walk(const Graph<T>& g, int s, int t, int k) {
   auto dist = dijkstra(rg, t);
   if (dist.from[s] == -1) return {};
   auto& p = dist.dist;
-  vector<vector<int> > ch(N);
+  std::vector<std::vector<int> > ch(N);
   for (int i = 0; i < N; i++) {
     if (dist.from[i] >= 0) ch[dist.from[i]].emplace_back(i);
   }
   using PHeap = PersistentLeftistHeap<T>;
   using Node = typename PHeap::Node;
   PHeap heap;
-  vector<Node*> h(N, heap.make_root());
+  std::vector<Node*> h(N, heap.make_root());
   {
-    queue<int> que;
+    std::queue<int> que;
     que.emplace(t);
     while (!que.empty()) {
       int idx = que.front();
@@ -46,17 +52,17 @@ vector<T> k_shortest_walk(const Graph<T>& g, int s, int t, int k) {
       for (auto& to : ch[idx]) que.emplace(to);
     }
   }
-  using pi = pair<T, Node*>;
+  using pi = std::pair<T, Node*>;
   auto comp = [](const pi& x, const pi& y) { return x.first > y.first; };
-  priority_queue<pi, vector<pi>, decltype(comp)> que(comp);
+  std::priority_queue<pi, std::vector<pi>, decltype(comp)> que(comp);
   Node* root = heap.make_root();
   root = heap.push(root, p[s], s);
   que.emplace(p[s], root);
-  vector<T> ans;
+  std::vector<T> ans;
   while (!que.empty()) {
     T cost;
     Node* cur;
-    tie(cost, cur) = que.top();
+    std::tie(cost, cur) = que.top();
     que.pop();
     ans.emplace_back(cost);
     if ((int)ans.size() == k) break;

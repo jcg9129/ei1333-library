@@ -1,3 +1,10 @@
+#pragma once
+
+#include <algorithm>
+#include <iostream>
+#include <limits>
+#include <queue>
+#include <vector>
 /**
  * @brief Dinic(最大流)
  *
@@ -14,10 +21,11 @@ struct Dinic {
     int idx;
   };
 
-  vector<vector<edge> > graph;
-  vector<int> min_cost, iter;
+  std::vector<std::vector<edge> > graph;
+  std::vector<int> min_cost, iter;
 
-  explicit Dinic(int V) : INF(numeric_limits<flow_t>::max()), graph(V) {}
+  explicit Dinic(int V)
+      : INF(std::numeric_limits<flow_t>::std::max()), graph(V) {}
 
   void add_edge(int from, int to, flow_t cap, int idx = -1) {
     graph[from].emplace_back(
@@ -28,7 +36,7 @@ struct Dinic {
 
   bool build_augment_path(int s, int t) {
     min_cost.assign(graph.size(), -1);
-    queue<int> que;
+    std::queue<int> que;
     min_cost[s] = 0;
     que.push(s);
     while (!que.empty() && min_cost[t] == -1) {
@@ -49,7 +57,7 @@ struct Dinic {
     for (int& i = iter[idx]; i < (int)graph[idx].size(); i++) {
       edge& e = graph[idx][i];
       if (e.cap > 0 && min_cost[idx] < min_cost[e.to]) {
-        flow_t d = find_min_dist_augment_path(e.to, t, min(flow, e.cap));
+        flow_t d = find_min_dist_augment_path(e.to, t, std::min(flow, e.cap));
         if (d > 0) {
           e.cap -= d;
           graph[e.to][e.rev].cap += d;
@@ -75,15 +83,15 @@ struct Dinic {
       for (auto& e : graph[i]) {
         if (e.isrev) continue;
         auto& rev_e = graph[e.to][e.rev];
-        cout << i << "->" << e.to << " (flow: " << rev_e.cap << "/"
-             << e.cap + rev_e.cap << ")" << endl;
+        std::cout << i << "->" << e.to << " (flow: " << rev_e.cap << "/"
+                  << e.cap + rev_e.cap << ")" << std::endl;
       }
     }
   }
 
-  vector<bool> min_cut(int s) {
-    vector<bool> used(graph.size());
-    queue<int> que;
+  std::vector<bool> min_cut(int s) {
+    std::vector<bool> used(graph.size());
+    std::queue<int> que;
     que.emplace(s);
     used[s] = true;
     while (not que.empty()) {
@@ -99,3 +107,4 @@ struct Dinic {
     return used;
   }
 };
+#pragma once

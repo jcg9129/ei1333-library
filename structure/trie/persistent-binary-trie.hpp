@@ -1,3 +1,7 @@
+#pragma once
+
+#include "binary-trie.hpp"
+
 /**
  * @brief Persistent-Binary-Trie
  */
@@ -9,3 +13,4 @@ struct PersistentBinaryTrie : BinaryTrie<T, MAX_LOG, D> {
  private:
   Node* clone(Node* t) { return new Node(*t); }
 };
+#pragma once

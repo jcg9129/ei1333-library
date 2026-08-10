@@ -1,3 +1,7 @@
+#pragma once
+
+#include <algorithm>
+#include <utility>
 template <typename T, T x_low, T x_high, T id>
 struct PersistentDynamicLiChaoTree {
   struct Line {
@@ -34,7 +38,7 @@ struct PersistentDynamicLiChaoTree {
       auto t_m = t->x.get(m), x_m = x.get(m);
       t = new Node(*t);
       if (t_m > x_m) {
-        swap(t->x, x);
+        std::swap(t->x, x);
         if (x_l >= t_l)
           t->l = update(t->l, x, l, m, t_l, t_m);
         else
@@ -59,10 +63,11 @@ struct PersistentDynamicLiChaoTree {
     if (l == r) return t->x.get(x);
     T m = (l + r) / 2;
     if (x <= m)
-      return min(t->x.get(x), query(t->l, l, m, x));
+      return std::min(t->x.get(x), query(t->l, l, m, x));
     else
-      return min(t->x.get(x), query(t->r, m + 1, r, x));
+      return std::min(t->x.get(x), query(t->r, m + 1, r, x));
   }
 
   T query(const T& x) const { return query(root, x_low, x_high, x); }
 };
+#pragma once

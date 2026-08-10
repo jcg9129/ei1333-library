@@ -1,5 +1,9 @@
 #pragma once
 
+#include <functional>
+#include <queue>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -7,9 +11,9 @@
  */
 template <typename T>
 struct DisjointSetUnionOnTree : Graph<T> {
-  using F = function<void(int)>;
+  using F = std::function<void(int)>;
   using Graph<T>::g;
-  vector<int> heavy, sz, in, out, ord;
+  std::vector<int> heavy, sz, in, out, ord;
   const F expand, shrink, query;
 
   explicit DisjointSetUnionOnTree(int n, F expand, F shrink, F query)
@@ -19,7 +23,7 @@ struct DisjointSetUnionOnTree : Graph<T> {
         query(move(query)) {}
 
  private:
-  queue<int> que;
+  std::queue<int> que;
 
   int build_subtree(int idx) {
     in[idx] = ord.size();

@@ -1,16 +1,23 @@
 #pragma once
 
+#include <array>
+#include <cassert>
+#include <cstdint>
+#include <optional>
+#include <queue>
+#include <vector>
+
 #include "../class/range-add-range-min.hpp"
 #include "../segment-tree/lazy-segment-tree.hpp"
 
 template <typename T, typename Compare = std::less<T> >
 struct PartiallyRetroactivePriorityQueue {
  private:
-  enum class OperationType : uint8_t { NOOP, PUSH, POP };
+  enum class OperationType : std::uint8_t { NOOP, PUSH, POP };
 
   struct Operation {
     OperationType type = OperationType::NOOP;
-    optional<T> value;
+    std::optional<T> value;
     bool alive = false;
   };
 
@@ -24,16 +31,16 @@ struct PartiallyRetroactivePriorityQueue {
   int seg_size;
   Compare compare;
 
-  vector<Operation> operations;
-  vector<CandidateNode> candidates;
+  std::vector<Operation> operations;
+  std::vector<CandidateNode> candidates;
   // A deleted push has weight +1, a surviving push has weight 0, and a pop
   // has weight -1. Their prefix sums are nonnegative, and a zero is a bridge.
-  // Updating one operation is a suffix addition on the prefix-sum array.
+  // Updating one operation is a suffix addition on the prefix-sum std::array.
   LazySegmentTree<RangeAddRangeMin<int> > prefix;
 
   // A batch of n virtual values with lower priority than every real value is
   // inserted before the timeline. It makes every pop valid; popping one of
-  // them is exactly an ignored pop on an empty real queue.
+  // them is exactly an ignored pop on an empty real std::queue.
   int dummy_alive;
   int dummy_deleted = 0;
 
@@ -176,7 +183,7 @@ struct PartiallyRetroactivePriorityQueue {
         seg_size(1),
         compare(std::move(comparator)),
         operations(n),
-        prefix(RangeAddRangeMin<int>(), vector<int>(n + 2)),
+        prefix(RangeAddRangeMin<int>(), std::vector<int>(n + 2)),
         dummy_alive(n) {
     while (seg_size < operation_count) seg_size <<= 1;
     candidates.assign(2 * seg_size, CandidateNode{});
@@ -199,7 +206,8 @@ struct PartiallyRetroactivePriorityQueue {
     promote(range_max_deleted(bridge, operation_count));
   }
 
-  /** Replaces operation t by pop. It is ignored when the queue is empty. */
+  /** Replaces operation t by pop. It is ignored when the std::queue is empty.
+   */
   void set_pop(int t) {
     check_time(t);
     set_noop(t);

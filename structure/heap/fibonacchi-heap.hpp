@@ -1,3 +1,9 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <utility>
+#include <vector>
 /**
  * @brief Fibonacchi-Heap(フィボナッチヒープ)
  * @see https://www.cs.princeton.edu/~wayne/teaching/fibonacci-heap.pdf
@@ -23,12 +29,12 @@ struct FibonacchiHeap {
   };
 
   Node* root;
-  size_t sz;
-  vector<Node*> rank;
+  std::size_t sz;
+  std::vector<Node*> rank;
 
   FibonacchiHeap() : root(nullptr), sz(0) {}
 
-  size_t size() const { return sz; }
+  std::size_t size() const { return sz; }
 
   bool empty() const { return sz == 0; }
 
@@ -80,12 +86,12 @@ struct FibonacchiHeap {
     }
   }
 
-  pair<key_t, val_t> pop() {
+  std::pair<key_t, val_t> pop() {
     --sz;
 
     Node* rem = root;
 
-    auto ret = make_pair(rem->key, rem->val);
+    auto ret = std::make_pair(rem->key, rem->val);
 
     {
       root = root->left == root ? nullptr : root->left;
@@ -117,7 +123,7 @@ struct FibonacchiHeap {
             base = consolidate(u, base);
           }
           if (base->sz >= rank.size()) rank.resize(base->sz + 1);
-          last = max(last, base->sz);
+          last = std::max(last, base->sz);
           rank[base->sz] = base;
           base = nxt;
         } while (base != root);
@@ -164,3 +170,4 @@ struct FibonacchiHeap {
     update_min(t);
   }
 };
+#pragma once

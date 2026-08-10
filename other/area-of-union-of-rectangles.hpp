@@ -1,3 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "../structure/segment-tree/lazy-segment-tree.hpp"
 
 template <typename T>
@@ -6,7 +15,7 @@ struct AreaOfUnionOfRectangles {
   struct Rectangle {
     T l, d, r, u;
   };
-  vector<Rectangle> rectangles;
+  std::vector<Rectangle> rectangles;
 
  public:
   AreaOfUnionOfRectangles() = default;
@@ -23,8 +32,8 @@ struct AreaOfUnionOfRectangles {
     int n = (int)rectangles.size();
     if (n == 0) return 0;
 
-    vector<T> ys;
-    vector<tuple<T, int, int>> xs;
+    std::vector<T> ys;
+    std::vector<std::tuple<T, int, int>> xs;
     ys.reserve(n + n);
     xs.reserve(n + n);
     for (int i = 0; i < n; i++) {
@@ -34,16 +43,16 @@ struct AreaOfUnionOfRectangles {
       xs.emplace_back(rect.l, i, +1);
       xs.emplace_back(rect.r, i, -1);
     }
-    sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
-    sort(xs.begin(), xs.end());
-    vector<int> to_d(n), to_u(n);
+    std::sort(ys.begin(), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
+    std::sort(xs.begin(), xs.end());
+    std::vector<int> to_d(n), to_u(n);
     for (int i = 0; i < n; i++) {
       auto& rect = rectangles[i];
-      to_d[i] = lower_bound(ys.begin(), ys.end(), rect.d) - ys.begin();
-      to_u[i] = lower_bound(ys.begin(), ys.end(), rect.u) - ys.begin();
+      to_d[i] = std::lower_bound(ys.begin(), ys.end(), rect.d) - ys.begin();
+      to_u[i] = std::lower_bound(ys.begin(), ys.end(), rect.u) - ys.begin();
     }
-    using pi = pair<int, T>;
+    using pi = std::pair<int, T>;
     auto f = [](const pi& a, const pi& b) -> pi {
       if (a.first < b.first) return a;
       if (b.first < a.first) return b;
@@ -53,7 +62,7 @@ struct AreaOfUnionOfRectangles {
     auto g = [](const pi& a, int b) -> pi { return {a.first + b, a.second}; };
     auto h = [](int a, int b) -> int { return a + b; };
     auto id = []() { return 0; };
-    vector<pi> vs(ys.size() - 1);
+    std::vector<pi> vs(ys.size() - 1);
     for (int i = 0; i + 1 < ys.size(); i++) {
       vs[i] = {0, ys[i + 1] - ys[i]};
     }
@@ -65,9 +74,10 @@ struct AreaOfUnionOfRectangles {
       seg.apply(to_d[j], to_u[j], d);
       auto [v, cnt] = seg.all_prod();
       T2 dy = total - (v == 0 ? cnt : 0);
-      T2 dx = get<0>(xs[i + 1]) - k;
+      T2 dx = std::get<0>(xs[i + 1]) - k;
       ret += dy * dx;
     }
     return ret;
   }
 };
+#pragma once

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -10,9 +13,9 @@ template <typename T>
 struct DoublingLowestCommonAncestor : Graph<T> {
  public:
   using Graph<T>::g;
-  vector<int> dep;
-  vector<T> sum;
-  vector<vector<int> > table;
+  std::vector<int> dep;
+  std::vector<T> sum;
+  std::vector<std::vector<int> > table;
   const int LOG;
 
   explicit DoublingLowestCommonAncestor(int n)
@@ -24,7 +27,7 @@ struct DoublingLowestCommonAncestor : Graph<T> {
   void build(int root = 0) {
     dep.assign(g.size(), 0);
     sum.assign(g.size(), 0);
-    table.assign(LOG, vector<int>(g.size(), -1));
+    table.assign(LOG, std::vector<int>(g.size(), -1));
     dfs(root, -1, 0);
     for (int k = 0; k + 1 < LOG; k++) {
       for (int i = 0; i < (int)table[k].size(); i++) {
@@ -37,7 +40,7 @@ struct DoublingLowestCommonAncestor : Graph<T> {
   }
 
   int lca(int u, int v) {
-    if (dep[u] > dep[v]) swap(u, v);
+    if (dep[u] > dep[v]) std::swap(u, v);
     v = climb(v, dep[v] - dep[u]);
     if (u == v) return u;
     for (int i = LOG - 1; i >= 0; i--) {

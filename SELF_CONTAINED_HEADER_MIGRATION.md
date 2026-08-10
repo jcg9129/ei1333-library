@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 240  |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 280  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -134,6 +134,8 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `other/` の14ヘッダー、`math/matrix/binary-basis.hpp`                                                                                                                                                                                                                      | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `graph/connected-components/` の5ヘッダー、`graph/others/block-cut-tree.hpp`、`math/fps/` の20ヘッダー                                                                                                                                                                     | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `string/` の7ヘッダー、`structure/segment-tree/` の6ヘッダー、`structure/trie/trie.hpp`                                                                                                                                                                                    | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `graph/flow/` の2ヘッダー、`graph/shortest-path/` の7ヘッダー、`graph/tree/` の9ヘッダー                                                                                                                                                                                   | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `structure/` の20ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                                                            | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 

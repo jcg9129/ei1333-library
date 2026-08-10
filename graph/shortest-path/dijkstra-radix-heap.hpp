@@ -1,14 +1,20 @@
 #pragma once
 
+#include <algorithm>
+#include <limits>
+#include <tuple>
+#include <vector>
+
+#include "../../structure/heap/radix-heap.hpp"
 #include "../graph-template.hpp"
 
 /**
  * @brief Dijkstra-Radix-Heap(単一始点最短路)
  */
 template <typename T>
-vector<T> dijkstra_radix_heap(Graph<T>& g, int s) {
-  const auto INF = numeric_limits<T>::max();
-  vector<T> dist(g.size(), INF);
+std::vector<T> dijkstra_radix_heap(Graph<T>& g, int s) {
+  const auto INF = std::numeric_limits<T>::std::max();
+  std::vector<T> dist(g.size(), INF);
 
   RadixHeap<T, int> heap;
   dist[s] = 0;
@@ -16,7 +22,7 @@ vector<T> dijkstra_radix_heap(Graph<T>& g, int s) {
   while (!heap.empty()) {
     T cost;
     int idx;
-    tie(cost, idx) = heap.pop();
+    std::tie(cost, idx) = heap.pop();
     if (dist[idx] < cost) continue;
     for (auto& e : g.g[idx]) {
       auto next_cost = cost + e.cost;

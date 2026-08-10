@@ -1,3 +1,8 @@
+#pragma once
+
+#include <variant>
+#include <vector>
+
 #include "static-top-tree.hpp"
 
 template <typename TreeDPInfo, typename G>
@@ -22,13 +27,13 @@ struct StaticTopTreeDP {
       modify(u);
       u = g[u].p;
     }
-    return get<Path>(dp[g.root]);
+    return std::get<Path>(dp[g.root]);
   }
 
   Path update_edge(int e) { return update_vertex(g.edge_to_vs[e]); }
 
  private:
-  vector<variant<Point, Path> > dp;
+  std::vector<std::variant<Point, Path> > dp;
 
   void modify(int k) {
     switch (g[k].op) {
@@ -36,17 +41,18 @@ struct StaticTopTreeDP {
         dp[k] = info.vertex(k);
         return;
       case STT::Compress:
-        dp[k] = info.compress(get<Path>(dp[g[k].l]), get<Path>(dp[g[k].r]),
-                              g[k].e_id);
+        dp[k] = info.compress(std::get<Path>(dp[g[k].l]),
+                              std::get<Path>(dp[g[k].r]), g[k].e_id);
         return;
       case STT::Rake:
-        dp[k] = info.rake(get<Point>(dp[g[k].l]), get<Point>(dp[g[k].r]));
+        dp[k] =
+            info.rake(std::get<Point>(dp[g[k].l]), std::get<Point>(dp[g[k].r]));
         return;
       case STT::AddEdge:
-        dp[k] = info.add_edge(get<Path>(dp[g[k].l]), g[k].e_id);
+        dp[k] = info.add_edge(std::get<Path>(dp[g[k].l]), g[k].e_id);
         return;
       case STT::AddVertex:
-        dp[k] = info.add_vertex(get<Point>(dp[g[k].l]), k);
+        dp[k] = info.add_vertex(std::get<Point>(dp[g[k].l]), k);
         return;
     }
   }
@@ -64,7 +70,7 @@ struct TreeDPInfo {
   struct Point {};
   struct Path {};
 
-  vector< int > A;
+  std::vector< int > A;
 
   TreeDPInfo(int n): A(n) {}
 
@@ -75,3 +81,4 @@ struct TreeDPInfo {
   Path compress(Path p, Path c, int e) const {}
 };
 */
+#pragma once

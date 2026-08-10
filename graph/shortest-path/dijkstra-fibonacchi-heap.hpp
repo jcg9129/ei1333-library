@@ -1,5 +1,10 @@
 #pragma once
 
+#include <algorithm>
+#include <limits>
+#include <tuple>
+#include <vector>
+
 #include "../../structure/heap/fibonacchi-heap.hpp"
 #include "../graph-template.hpp"
 
@@ -8,14 +13,14 @@
  *
  */
 template <typename T>
-vector<T> dijkstra_fibonacchi_heap(Graph<T>& g, int s) {
-  const auto INF = numeric_limits<T>::max();
+std::vector<T> dijkstra_fibonacchi_heap(Graph<T>& g, int s) {
+  const auto INF = std::numeric_limits<T>::std::max();
   using Heap = FibonacchiHeap<T, int>;
   using Node = typename Heap::Node;
 
   Heap heap;
-  vector<Node*> keep(g.size(), nullptr);
-  vector<T> dist;
+  std::vector<Node*> keep(g.size(), nullptr);
+  std::vector<T> dist;
   dist.assign(g.size(), INF);
   dist[s] = 0;
   keep[s] = heap.push(dist[s], s);
@@ -23,7 +28,7 @@ vector<T> dijkstra_fibonacchi_heap(Graph<T>& g, int s) {
   while (!heap.empty()) {
     T cost;
     int idx;
-    tie(cost, idx) = heap.pop();
+    std::tie(cost, idx) = heap.pop();
     if (dist[idx] < cost) continue;
     for (auto& e : g[idx]) {
       auto next_cost = cost + e.cost;

@@ -6,6 +6,46 @@
 #include <string>
 #include <vector>
 
+#include "../../graph/flow/dinic.hpp"
+#include "../../graph/flow/ford-fulkerson.hpp"
+#include "../../graph/shortest-path/complement-shotest-path.hpp"
+#include "../../graph/shortest-path/dijkstra-fibonacchi-heap.hpp"
+#include "../../graph/shortest-path/dijkstra-radix-heap.hpp"
+#include "../../graph/shortest-path/k-shortest-path.hpp"
+#include "../../graph/shortest-path/k-shortest-walk.hpp"
+#include "../../graph/shortest-path/shortest-nonzero-path.hpp"
+#include "../../graph/shortest-path/shortest-path-faster-algorithm.hpp"
+#include "../../graph/tree/centroid-decomposition.hpp"
+#include "../../graph/tree/disjoint-set-union-on-tree.hpp"
+#include "../../graph/tree/doubling-lowest-common-ancestor.hpp"
+#include "../../graph/tree/offline-lca.hpp"
+#include "../../graph/tree/pmormq-lowest-common-ancestor.hpp"
+#include "../../graph/tree/rmq-lowest-common-ancestor.hpp"
+#include "../../graph/tree/static-top-tree-dp.hpp"
+#include "../../graph/tree/static-top-tree.hpp"
+#include "../../graph/tree/tree-isomorphism.hpp"
+#include "../../other/area-of-union-of-rectangles.hpp"
+#include "../../other/mo-tree.hpp"
+#include "../../structure/bbst/lazy-red-black-tree.hpp"
+#include "../../structure/bbst/lazy-reversible-splay-tree.hpp"
+#include "../../structure/bbst/lazy-weight-balanced-tree.hpp"
+#include "../../structure/convex-hull-trick/convex-hull-trick-add-monotone.hpp"
+#include "../../structure/convex-hull-trick/dynamic-li-chao-tree.hpp"
+#include "../../structure/convex-hull-trick/li-chao-tree.hpp"
+#include "../../structure/convex-hull-trick/persistent-dynamic-li-chao-tree.hpp"
+#include "../../structure/heap/fibonacchi-heap.hpp"
+#include "../../structure/heap/partially-retroactive-priority-queue.hpp"
+#include "../../structure/heap/radix-heap.hpp"
+#include "../../structure/others/abstract-2d-binary-indexed-tree-compressed.hpp"
+#include "../../structure/others/generalized-slope-trick.hpp"
+#include "../../structure/others/permutation-tree.hpp"
+#include "../../structure/segment-tree/segment-tree-fractional-cascading.hpp"
+#include "../../structure/segment-tree/segment-tree.hpp"
+#include "../../structure/trie/binary-trie.hpp"
+#include "../../structure/trie/persistent-binary-trie.hpp"
+#include "../../structure/wavelet/succinct-indexable-dictionary.hpp"
+#include "../../structure/wavelet/wavelet-matrix-point-add-rectangle-sum.hpp"
+#include "../../structure/wavelet/wavelet-matrix-rectangle-sum.hpp"
 #include "../../graph/connected-components/bi-connected-components.hpp"
 #include "../../graph/connected-components/incremental-bridge-connectivity.hpp"
 #include "../../graph/connected-components/strongly-connected-components.hpp"
@@ -343,6 +383,12 @@ int main() {
   assert(distinct.calclate_queries()[0] == 3);
   PoyoPoyoPudding pudding;
   assert(pudding.addLayer(50, 50) && pudding.eatTop());
+  SuccinctIndexableDictionary dictionary(8);
+  dictionary.set(2), dictionary.set(5), dictionary.build();
+  assert(dictionary.rank(6) == 2 && dictionary.rank(true, 4) == 1);
+  BinaryTrie<int, 3> binary_trie;
+  binary_trie.add(3), binary_trie.add(5);
+  assert(binary_trie.count(3) == 1 && binary_trie.min_element().first == 3);
 
   using geometry::Circle;
   using geometry::Line;

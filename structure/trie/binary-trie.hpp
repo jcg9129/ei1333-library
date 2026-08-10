@@ -1,3 +1,8 @@
+#pragma once
+
+#include <cassert>
+#include <utility>
+#include <vector>
 /**
  * @brief Binary-Trie
  *
@@ -8,7 +13,7 @@ struct BinaryTrie {
   struct Node {
     Node* nxt[2];
     D exist;
-    vector<int> accept;
+    std::vector<int> accept;
 
     Node() : nxt{nullptr, nullptr}, exist(0) {}
   };
@@ -34,17 +39,17 @@ struct BinaryTrie {
     return node ? node->exist : 0;
   }
 
-  pair<T, Node*> min_element(T xor_val = 0) {
+  std::pair<T, Node*> min_element(T xor_val = 0) {
     assert(root->exist > 0);
     return kth_element(0, xor_val);
   }
 
-  pair<T, Node*> max_element(T xor_val = 0) {
+  std::pair<T, Node*> max_element(T xor_val = 0) {
     assert(root->exist > 0);
     return kth_element(root->exist - 1, xor_val);
   }
 
-  pair<T, Node*> kth_element(D k, T xor_val = 0) {  // 0-indexed
+  std::pair<T, Node*> kth_element(D k, T xor_val = 0) {  // 0-indexed
     assert(0 <= k && k < root->exist);
     return kth_element(root, k, MAX_LOG, xor_val);
   }
@@ -82,8 +87,8 @@ struct BinaryTrie {
     }
   }
 
-  pair<T, Node*> kth_element(Node* t, D k, int bit_index,
-                             T xor_val) {  // 0-indexed
+  std::pair<T, Node*> kth_element(Node* t, D k, int bit_index,
+                                  T xor_val) {  // 0-indexed
     if (bit_index == -1) {
       return {0, t};
     } else {
@@ -111,3 +116,4 @@ struct BinaryTrie {
     return ret;
   }
 };
+#pragma once

@@ -1,9 +1,15 @@
+#pragma once
+
+#include <cassert>
+#include <cstdlib>
+#include <deque>
+#include <utility>
 template <typename T, bool isMin>
 struct ConvexHullTrickAddMonotone {
 #define F first
 #define S second
-  using P = pair<T, T>;
-  deque<P> H;
+  using P = std::pair<T, T>;
+  std::deque<P> H;
 
   ConvexHullTrickAddMonotone() = default;
 
@@ -21,11 +27,11 @@ struct ConvexHullTrickAddMonotone {
     if (b.S == a.S || c.S == b.S)
       return sgn(b.F - a.F) * sgn(c.S - b.S) >= sgn(c.F - b.F) * sgn(b.S - a.S);
     // return (b.F-a.F)*(c.S-b.S) >= (b.S-a.S)*(c.F-b.F);
-    if constexpr (is_integral<T>::value) {
+    if constexpr (std::is_integral<T>::value) {
       return floor_div(b.S - a.S, a.F - b.F) >= floor_div(c.S - b.S, b.F - c.F);
     } else {
-      return (b.F - a.F) * sgn(c.S - b.S) / abs(b.S - a.S) >=
-             (c.F - b.F) * sgn(b.S - a.S) / abs(c.S - b.S);
+      return (b.F - a.F) * sgn(c.S - b.S) / std::abs(b.S - a.S) >=
+             (c.F - b.F) * sgn(b.S - a.S) / std::abs(c.S - b.S);
     }
   }
 
@@ -90,3 +96,4 @@ struct ConvexHullTrickAddMonotone {
 #undef F
 #undef S
 };
+#pragma once
