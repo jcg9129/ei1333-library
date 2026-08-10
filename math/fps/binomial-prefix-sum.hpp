@@ -1,12 +1,17 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <vector>
+
 #include "multipoint-evaluation.hpp"
 
 /**
  * @brief Binomial Coefficient Prefix Sum
  */
 template <template <typename> class FPS, typename Mint>
-vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
+std::vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs,
+                                      const std::vector<int>& ms) {
   assert(xs.size() == ms.size());
   const int q = (int)xs.size();
   if (q == 0) return {};
@@ -14,7 +19,7 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
   int max_m = -1;
   for (auto& m : ms) {
     assert(m >= 0);
-    max_m = max(max_m, m);
+    max_m = std::max(max_m, m);
   }
 
   int size = 1;
@@ -22,7 +27,7 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
 
   // (sum, term) -> (sum + term * b, term * a) is the transition
   // over an interval of binomial coefficients.
-  vector<FPS<Mint> > a(2 * size), b(2 * size);
+  std::vector<FPS<Mint> > a(2 * size), b(2 * size);
   for (int i = 0; i < size; i++) {
     if (i <= max_m) {
       assert(Mint(i + 1) != Mint(0));
@@ -39,11 +44,11 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
     b[i] = b[i << 1] + a[i << 1] * b[i << 1 | 1];
   }
 
-  vector<vector<int> > ids(size);
+  std::vector<std::vector<int> > ids(size);
   for (int i = 0; i < q; i++) ids[ms[i] + 1].push_back(i);
 
-  vector<int> count(2 * size);
-  vector<FPS<Mint> > product(2 * size, FPS<Mint>{Mint(1)});
+  std::vector<int> count(2 * size);
+  std::vector<FPS<Mint> > product(2 * size, FPS<Mint>{Mint(1)});
   for (int i = 0; i < size; i++) {
     count[size + i] = (int)ids[i].size();
     if (ids[i].empty()) continue;
@@ -57,10 +62,10 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
     product[i] = product[i << 1] * product[i << 1 | 1];
   }
 
-  vector<Mint> ans(q);
+  std::vector<Mint> ans(q);
   // Reductions to the same child share the inverse of the reversed modulus.
   auto inverse_size = [](const FPS<Mint>& f, const FPS<Mint>& mod) {
-    return max(0, (int)f.size() - (int)mod.size() + 1);
+    return std::max(0, (int)f.size() - (int)mod.size() + 1);
   };
   auto remainder = [&](FPS<Mint> f, const FPS<Mint>& mod,
                        const FPS<Mint>& rev_inv) {
@@ -88,7 +93,7 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
     int mid = (l + r) >> 1;
     if (count[k << 1]) {
       auto& mod = product[k << 1];
-      int n = max(inverse_size(sum, mod), inverse_size(term, mod));
+      int n = std::max(inverse_size(sum, mod), inverse_size(term, mod));
       FPS<Mint> rev_inv;
       if (n) rev_inv = mod.rev().inv(n);
       self(self, k << 1, l, mid, remainder(sum, mod, rev_inv),
@@ -97,10 +102,10 @@ vector<Mint> binomial_prefix_sum(const FPS<Mint>& xs, const vector<int>& ms) {
     if (count[k << 1 | 1]) {
       auto& mod = product[k << 1 | 1];
       int n = (int)mod.size() - 2;
-      n = max(n, inverse_size(sum, mod));
-      n = max(n, inverse_size(term, mod));
-      n = max(n, inverse_size(a[k << 1], mod));
-      n = max(n, inverse_size(b[k << 1], mod));
+      n = std::max(n, inverse_size(sum, mod));
+      n = std::max(n, inverse_size(term, mod));
+      n = std::max(n, inverse_size(a[k << 1], mod));
+      n = std::max(n, inverse_size(b[k << 1], mod));
       FPS<Mint> rev_inv;
       if (n) rev_inv = mod.rev().inv(n);
 

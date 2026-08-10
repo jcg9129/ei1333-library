@@ -1,3 +1,5 @@
+#pragma once
+
 #include "affine.hpp"
 
 template <typename T>

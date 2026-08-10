@@ -1,5 +1,12 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <cstddef>
+#include <iterator>
+#include <vector>
+
 #include "formal-power-series-friendly-ntt.hpp"
 
 /**
@@ -12,7 +19,7 @@
  * transforms are kept in NTT representation between recursive levels.
  *
  * @note This implementation requires an NTT-friendly modulus.
- * @complexity O(deg log^2 deg)
+ * @complexity O(deg std::log^2 deg)
  */
 template <typename Mint>
 FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
@@ -37,14 +44,14 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
   NTT::init();
   assert(__builtin_ctz(size) + 1 <= NTT::max_base);
 
-  vector<Mint> f(size), g(size);
-  copy_n(outer.begin(), min((int)outer.size(), result_size), f.begin());
-  copy_n(inner.begin(), min((int)inner.size(), result_size), g.begin());
+  std::vector<Mint> f(size), g(size);
+  copy_n(outer.begin(), std::min((int)outer.size(), result_size), f.begin());
+  copy_n(inner.begin(), std::min((int)inner.size(), result_size), g.begin());
 
   // W is the table of powers of a primitive 2*size-th inverse root, stored in
   // the bit-reversed order used by the radix-4 NTT. inverse_w stores W^{-1}.
-  vector<Mint> w(size), inverse_w(size);
-  vector<int> bit_reverse(size);
+  std::vector<Mint> w(size), inverse_w(size);
+  std::vector<int> bit_reverse(size);
   const int lg = __builtin_ctz(size);
   for (int i = 1; i < size; i++) {
     bit_reverse[i] = (bit_reverse[i >> 1] >> 1) | ((i & 1) << (lg - 1));
@@ -60,25 +67,25 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
   }
 
   auto rec = [&](auto& self, int n, int k,
-                 vector<Mint>& denominator) -> vector<Mint> {
+                 std::vector<Mint>& denominator) -> std::vector<Mint> {
     // n * k is invariant and is equal to size.
     assert((int)denominator.size() == 4 * n * k);
 
     if (n == 1) {
-      reverse(f.begin(), f.end());
+      std::reverse(f.begin(), f.end());
       NTT::transposed_intt(f);
       const Mint coefficient = Mint(1) / Mint(k);
       for (auto& value : f) value *= coefficient;
 
-      vector<Mint> result(4 * k);
+      std::vector<Mint> result(4 * k);
       for (int i = 0; i < k; i++) result[2 * i] = f[i];
       return result;
     }
 
-    auto double_y = [&](vector<Mint>& values, int left, int right,
+    auto double_y = [&](std::vector<Mint>& values, int left, int right,
                         bool transpose) -> void {
       const Mint z = inverse_w[k / 2];
-      vector<Mint> buffer(k);
+      std::vector<Mint> buffer(k);
 
       if (!transpose) {
         for (int x = left; x < right; x++) {
@@ -115,17 +122,18 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
       }
     };
 
-    auto transform_x = [&](vector<Mint>& values, int left, int right,
+    auto transform_x = [&](std::vector<Mint>& values, int left, int right,
                            bool transpose) -> void {
-      vector<Mint> buffer(2 * n);
+      std::vector<Mint> buffer(2 * n);
       for (int y = left; y < right; y++) {
-        copy_n(values.begin() + (size_t)2 * n * y, 2 * n, buffer.begin());
+        copy_n(values.begin() + (std::size_t)2 * n * y, 2 * n, buffer.begin());
         if (transpose) {
           NTT::transposed_ntt(buffer);
         } else {
           NTT::ntt(buffer);
         }
-        copy(buffer.begin(), buffer.end(), values.begin() + (size_t)2 * n * y);
+        std::copy(buffer.begin(), buffer.end(),
+                  values.begin() + (std::size_t)2 * n * y);
       }
     };
 
@@ -144,40 +152,40 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
       denominator[i] -= Mint(1);
     }
 
-    vector<Mint> next_denominator(4 * n * k);
-    vector<Mint> reduced_row(n);
+    std::vector<Mint> next_denominator(4 * n * k);
+    std::vector<Mint> reduced_row(n);
     for (int y = 0; y < 2 * k; y++) {
-      const auto row = denominator.begin() + (size_t)2 * n * y;
+      const auto row = denominator.begin() + (std::size_t)2 * n * y;
       for (int x = 0; x < n; x++) {
         reduced_row[x] = row[2 * x] * row[2 * x + 1];
       }
       NTT::intt(reduced_row);
-      copy_n(reduced_row.begin(), n / 2,
-             next_denominator.begin() + (size_t)n * y);
+      std::copy_n(reduced_row.begin(), n / 2,
+                  next_denominator.begin() + (std::size_t)n * y);
     }
     for (int y = 0; y < 4 * k; y++) {
-      next_denominator[(size_t)n * y] = Mint(0);
+      next_denominator[(std::size_t)n * y] = Mint(0);
     }
 
     auto result = self(self, n / 2, k * 2, next_denominator);
 
-    vector<Mint> buffer(n), reconstructed(2 * n);
+    std::vector<Mint> buffer(n), reconstructed(2 * n);
     for (int y = 2 * k; y-- > 0;) {
-      copy_n(result.begin() + (size_t)n * y, n / 2, buffer.begin());
-      fill(buffer.begin() + n / 2, buffer.end(), Mint(0));
+      copy_n(result.begin() + (std::size_t)n * y, n / 2, buffer.begin());
+      std::fill(buffer.begin() + n / 2, buffer.end(), Mint(0));
       NTT::transposed_intt(buffer);
 
-      const auto row = denominator.begin() + (size_t)2 * n * y;
+      const auto row = denominator.begin() + (std::size_t)2 * n * y;
       for (int x = 0; x < n; x++) {
         buffer[x] *= w[x];
         reconstructed[2 * x] = row[2 * x + 1] * buffer[x];
         reconstructed[2 * x + 1] = -row[2 * x] * buffer[x];
       }
-      copy(reconstructed.begin(), reconstructed.end(),
-           result.begin() + (size_t)2 * n * y);
+      std::copy(reconstructed.begin(), reconstructed.end(),
+                result.begin() + (std::size_t)2 * n * y);
     }
 
-    // Apply the transposes in reverse order.
+    // Apply the transposes in std::reverse order.
     if (n <= k) {
       transform_x(result, 0, 2 * k, true);
       double_y(result, 0, n, true);
@@ -189,12 +197,12 @@ FormalPowerSeriesFriendlyNTT<Mint> composition_of_formal_power_series(
     return result;
   };
 
-  vector<Mint> denominator(4 * size);
+  std::vector<Mint> denominator(4 * size);
   for (int i = 0; i < size; i++) denominator[i] = -g[i];
 
   auto result = rec(rec, size, 1, denominator);
   result.resize(size);
-  reverse(result.begin(), result.end());
+  std::reverse(result.begin(), result.end());
   result.resize(result_size);
   return Poly(result.begin(), result.end());
 }

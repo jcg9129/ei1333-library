@@ -1,4 +1,7 @@
 #pragma once
+
+#include <vector>
+
 #include "line.hpp"
 
 namespace geometry {
@@ -8,5 +11,5 @@ struct Segment : Line {
   using Line::Line;
 };
 
-using Segments = vector<Segment>;
+using Segments = std::vector<Segment>;
 }  // namespace geometry

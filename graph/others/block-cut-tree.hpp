@@ -1,5 +1,8 @@
 #pragma once
 
+#include <utility>
+#include <vector>
+
 #include "../connected-components/bi-connected-components.hpp"
 #include "../graph-template.hpp"
 
@@ -15,8 +18,8 @@ struct BlockCutTree : BiConnectedComponents<T> {
   using BiConnectedComponents<T>::articulation;
   using BiConnectedComponents<T>::bc;
 
-  vector<int> rev;
-  vector<vector<int> > group;
+  std::vector<int> rev;
+  std::vector<std::vector<int> > group;
   Graph<T> tree;
 
   explicit BlockCutTree(const Graph<T>& g) : Graph<T>(g) {}
@@ -30,13 +33,13 @@ struct BlockCutTree : BiConnectedComponents<T> {
     for (auto& idx : articulation) {
       rev[idx] = ptr++;
     }
-    vector<int> last(ptr, -1);
+    std::vector<int> last(ptr, -1);
     tree = Graph<T>(ptr);
     for (int i = 0; i < (int)bc.size(); i++) {
       for (auto& e : bc[i]) {
         for (auto& ver : {e.from, e.to}) {
           if (rev[ver] >= (int)bc.size()) {
-            if (exchange(last[rev[ver]], i) != i) {
+            if (std::exchange(last[rev[ver]], i) != i) {
               tree.add_edge(rev[ver], i, e.cost);
             }
           } else {

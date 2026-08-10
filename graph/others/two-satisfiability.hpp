@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <vector>
+
 #include "../connected-components/strongly-connected-components.hpp"
 
 /**
@@ -11,9 +14,9 @@ struct TwoSatisfiability : StronglyConnectedComponents<bool> {
   using StronglyConnectedComponents<bool>::g;
   using StronglyConnectedComponents<bool>::comp;
   using StronglyConnectedComponents<bool>::add_edge;
-  size_t sz;
+  std::size_t sz;
 
-  explicit TwoSatisfiability(size_t v)
+  explicit TwoSatisfiability(std::size_t v)
       : StronglyConnectedComponents<bool>(v + v), sz(v) {}
 
   void add_if(int u, int v) {
@@ -47,10 +50,10 @@ struct TwoSatisfiability : StronglyConnectedComponents<bool> {
     return x + sz;
   }
 
-  vector<int> solve() {
+  std::vector<int> solve() {
     StronglyConnectedComponents<bool>::build();
-    vector<int> ret(sz);
-    for (size_t i = 0; i < sz; i++) {
+    std::vector<int> ret(sz);
+    for (std::size_t i = 0; i < sz; i++) {
       if (comp[i] == comp[rev(i)]) return {};
       ret[i] = comp[i] > comp[rev(i)];
     }

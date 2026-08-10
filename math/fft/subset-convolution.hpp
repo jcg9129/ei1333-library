@@ -1,10 +1,18 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <utility>
+#include <vector>
+
 /**
  * @brief Subset Convolution
  */
 template <typename Mint, int _s>
 struct SubsetConvolution {
-  using fps = array<Mint, _s + 1>;
-  static array<int, (1 << _s)> pop_count;
+  using fps = std::array<Mint, _s + 1>;
+  static std::array<int, (1 << _s)> pop_count;
   static constexpr int s = _s;
 
   SubsetConvolution() = default;
@@ -30,7 +38,7 @@ struct SubsetConvolution {
     }
   }
 
-  static void zeta_transform(vector<fps>& F) {
+  static void zeta_transform(std::vector<fps>& F) {
     const int n = (int)F.size();
     assert((n & (n - 1)) == 0);
     init();
@@ -43,7 +51,7 @@ struct SubsetConvolution {
     }
   }
 
-  static void moebius_transform(vector<fps>& F) {
+  static void moebius_transform(std::vector<fps>& F) {
     const int n = (int)F.size();
     assert((n & (n - 1)) == 0);
     init();
@@ -56,28 +64,28 @@ struct SubsetConvolution {
     }
   }
 
-  static vector<fps> lift(const vector<Mint>& f) {
+  static std::vector<fps> lift(const std::vector<Mint>& f) {
     const int n = (int)f.size();
     init();
-    vector<fps> F(n);
+    std::vector<fps> F(n);
     for (int i = 0; i < n; i++) {
-      fill(begin(F[i]), end(F[i]), Mint());
+      std::fill(F[i].begin(), F[i].end(), Mint());
       F[i][pop_count[i]] = f[i];
     }
     return F;
   }
 
-  static vector<Mint> unlift(const vector<fps>& F) {
+  static std::vector<Mint> unlift(const std::vector<fps>& F) {
     const int n = (int)F.size();
     init();
-    vector<Mint> f(n);
+    std::vector<Mint> f(n);
     for (int i = 0; i < (int)F.size(); i++) {
       f[i] = F[i][pop_count[i]];
     }
     return f;
   }
 
-  static void prod(vector<fps>& F, const vector<fps>& G) {
+  static void prod(std::vector<fps>& F, const std::vector<fps>& G) {
     int n = (int)F.size();
     int d = __builtin_ctz(n);
     for (int i = 0; i < n; i++) {
@@ -87,11 +95,12 @@ struct SubsetConvolution {
           h[j + k] += F[i][j] * G[i][k];
         }
       }
-      F[i] = move(h);
+      F[i] = std::move(h);
     }
   }
 
-  static vector<Mint> multiply(const vector<Mint>& f, const vector<Mint>& g) {
+  static std::vector<Mint> multiply(const std::vector<Mint>& f,
+                                    const std::vector<Mint>& g) {
     auto F = lift(f), G = lift(g);
     zeta_transform(F);
     zeta_transform(G);
@@ -102,4 +111,4 @@ struct SubsetConvolution {
 };
 
 template <typename Mint, int s>
-array<int, (1 << s)> SubsetConvolution<Mint, s>::pop_count;
+std::array<int, (1 << s)> SubsetConvolution<Mint, s>::pop_count;

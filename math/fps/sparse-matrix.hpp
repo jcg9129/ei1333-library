@@ -1,11 +1,20 @@
+#pragma once
+
+#include <cmath>
+#include <cstdint>
+#include <random>
+#include <utility>
+#include <vector>
+
+#include "formal-power-series.hpp"
 template <typename T>
-using FPSGraph = vector<vector<pair<int, T> > >;
+using FPSGraph = std::vector<std::vector<std::pair<int, T> > >;
 
 template <typename T>
 FormalPowerSeries<T> random_poly(int n) {
-  mt19937 mt(1333333);
+  std::mt19937 mt(1333333);
   FormalPowerSeries<T> res(n);
-  uniform_int_distribution<int> rand(0, T::mod() - 1);
+  std::uniform_int_distribution<int> rand(0, T::mod() - 1);
   for (int i = 0; i < n; i++) res[i] = rand(mt);
   return res;
 }
@@ -33,9 +42,9 @@ FormalPowerSeries<T> minimum_poly(const FPSGraph<T>& g) {
   return berlekamp_massey(f);
 }
 
-/* O(N(N+S) + N log N log Q) (O(S): time complexity of nex) */
+/* O(N(N+S) + N std::log N std::log Q) (O(S): time complexity of nex) */
 template <typename T>
-FormalPowerSeries<T> sparse_pow(int64_t Q, FormalPowerSeries<T> dp,
+FormalPowerSeries<T> sparse_pow(std::int64_t Q, FormalPowerSeries<T> dp,
                                 const FPSGraph<T>& g) {
   const int N = (int)dp.size();
   auto A = FormalPowerSeries<T>({0, 1}).pow_mod(Q, minimum_poly(g));

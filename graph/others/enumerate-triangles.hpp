@@ -1,5 +1,9 @@
 #pragma once
 
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -7,14 +11,14 @@
  *
  */
 template <typename T>
-vector<tuple<int, int, int> > enumerate_triangles(const Graph<T>& g) {
+std::vector<std::tuple<int, int, int> > enumerate_triangles(const Graph<T>& g) {
   int N = (int)g.size();
-  using pi = pair<int, int>;
-  vector<pi> vp(N);
+  using pi = std::pair<int, int>;
+  std::vector<pi> vp(N);
   for (int i = 0; i < N; i++) {
     vp[i] = {(int)g[i].size(), i};
   }
-  vector<vector<int> > h(N);
+  std::vector<std::vector<int> > h(N);
   for (int i = 0; i < N; i++) {
     for (auto& j : g[i]) {
       if (vp[i] > vp[j]) {
@@ -22,8 +26,8 @@ vector<tuple<int, int, int> > enumerate_triangles(const Graph<T>& g) {
       }
     }
   }
-  vector<tuple<int, int, int> > triangle;
-  vector<int> used(N);
+  std::vector<std::tuple<int, int, int> > triangle;
+  std::vector<int> used(N);
   for (int x = 0; x < N; x++) {
     for (int z : h[x]) used[z] = true;
     for (int y : h[x]) {

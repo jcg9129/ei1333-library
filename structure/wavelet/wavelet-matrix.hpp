@@ -1,3 +1,14 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
+#include <set>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "succinct-indexable-dictionary.hpp"
 
 /*
@@ -6,14 +17,14 @@
  */
 template <typename T, int MAXLOG>
 struct WaveletMatrix {
-  size_t length;
+  std::size_t length;
   SuccinctIndexableDictionary matrix[MAXLOG];
   int mid[MAXLOG];
 
   WaveletMatrix() = default;
 
-  WaveletMatrix(vector<T> v) : length(v.size()) {
-    vector<T> l(length), r(length);
+  WaveletMatrix(std::vector<T> v) : length(v.size()) {
+    std::vector<T> l(length), r(length);
     for (int level = MAXLOG - 1; level >= 0; level--) {
       matrix[level] = SuccinctIndexableDictionary(length + 1);
       int left = 0, right = 0;
@@ -34,7 +45,7 @@ struct WaveletMatrix {
     }
   }
 
-  pair<int, int> succ(bool f, int l, int r, int level) {
+  std::pair<int, int> succ(bool f, int l, int r, int level) {
     return {matrix[level].rank(f, l) + mid[level] * f,
             matrix[level].rank(f, r) + mid[level] * f};
   }
@@ -56,7 +67,7 @@ struct WaveletMatrix {
   int rank(const T& x, int r) {
     int l = 0;
     for (int level = MAXLOG - 1; level >= 0; level--) {
-      tie(l, r) = succ((x >> level) & 1, l, r, level);
+      std::tie(l, r) = succ((x >> level) & 1, l, r, level);
     }
     return r - l;
   }
@@ -72,7 +83,7 @@ struct WaveletMatrix {
         ret |= T(1) << level;
         k -= cnt;
       }
-      tie(l, r) = succ(f, l, r, level);
+      std::tie(l, r) = succ(f, l, r, level);
     }
     return ret;
   }
@@ -88,7 +99,7 @@ struct WaveletMatrix {
     for (int level = MAXLOG - 1; level >= 0; level--) {
       bool f = ((upper >> level) & 1);
       if (f) ret += matrix[level].rank(false, r) - matrix[level].rank(false, l);
-      tie(l, r) = succ(f, l, r, level);
+      std::tie(l, r) = succ(f, l, r, level);
     }
     return ret;
   }
@@ -98,13 +109,13 @@ struct WaveletMatrix {
     return range_freq(l, r, upper) - range_freq(l, r, lower);
   }
 
-  // max v[i] s.t. (l <= i < r) && (v[i] < upper)
+  // std::max v[i] s.t. (l <= i < r) && (v[i] < upper)
   T prev_value(int l, int r, T upper) {
     int cnt = range_freq(l, r, upper);
     return cnt == 0 ? T(-1) : kth_smallest(l, r, cnt - 1);
   }
 
-  // min v[i] s.t. (l <= i < r) && (lower <= v[i])
+  // std::min v[i] s.t. (l <= i < r) && (lower <= v[i])
   T next_value(int l, int r, T lower) {
     int cnt = range_freq(l, r, lower);
     return cnt == r - l ? T(-1) : kth_smallest(l, r, cnt);
@@ -114,18 +125,18 @@ struct WaveletMatrix {
 template <typename T, int MAXLOG>
 struct CompressedWaveletMatrix {
   WaveletMatrix<int, MAXLOG> mat;
-  vector<T> ys;
+  std::vector<T> ys;
 
-  CompressedWaveletMatrix(const vector<T>& v) : ys(v) {
-    sort(begin(ys), end(ys));
-    ys.erase(unique(begin(ys), end(ys)), end(ys));
-    vector<int> t(v.size());
+  CompressedWaveletMatrix(const std::vector<T>& v) : ys(v) {
+    std::sort(std::begin(ys), std::end(ys));
+    ys.erase(std::unique(std::begin(ys), std::end(ys)), std::end(ys));
+    std::vector<int> t(v.size());
     for (int i = 0; i < v.size(); i++) t[i] = get(v[i]);
     mat = WaveletMatrix<int, MAXLOG>(t);
   }
 
   inline int get(const T& x) {
-    return lower_bound(begin(ys), end(ys), x) - begin(ys);
+    return std::lower_bound(std::begin(ys), std::end(ys), x) - std::begin(ys);
   }
 
   T access(int k) { return ys[mat.access(k)]; }

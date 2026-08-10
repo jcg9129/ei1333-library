@@ -1,12 +1,16 @@
 #pragma once
+
+#include <stack>
+#include <vector>
+
 /**
  * @brief Cartesian Tree
  */
 template <typename T>
-vector<int> cartesian_tree(const vector<T>& v) {
+std::vector<int> cartesian_tree(const std::vector<T>& v) {
   int n = (int)v.size();
-  vector<int> par(n, -1);
-  stack<int> st;
+  std::vector<int> par(n, -1);
+  std::stack<int> st;
   for (int i = 0; i < n; i++) {
     int last = -1;
     while (!st.empty() && v[st.top()] >= v[i]) {

@@ -1,3 +1,8 @@
+#pragma once
+
+#include <algorithm>
+#include <complex>
+
 #include "base.hpp"
 #include "cross_point_cl.hpp"
 #include "distance_sp.hpp"
@@ -11,15 +16,15 @@ Real ca_cp_impl(const Circle& c, const Point& a, const Point& b) {
   auto va = c.p - a, vb = c.p - b;
   Real f = cross(va, vb), ret = 0;
   if (sign(f) == 0) return ret;
-  if (sign(max(abs(va), abs(vb)) - c.r) <= 0) return f;
+  if (sign(std::max(std::abs(va), std::abs(vb)) - c.r) <= 0) return f;
   if (sign(distance_sp(Segment(a, b), c.p) - c.r) >= 0)
-    return norm(c.r) * arg(vb * conj(va));
+    return std::norm(c.r) * std::arg(vb * std::conj(va));
   auto tot = cross_point_cl(c, Line(a, b));
   if (is_intersect_cs(c, Segment(a, b)) != 2 and
       dot(a - tot[0], b - tot[0]) < 0) {
-    swap(tot[0], tot[1]);
+    std::swap(tot[0], tot[1]);
   }
-  tot.emplace(begin(tot), a);
+  tot.emplace(tot.begin(), a);
   tot.emplace_back(b);
   for (int i = 1; i < (int)tot.size(); i++) {
     ret += ca_cp_impl(c, tot[i - 1], tot[i]);

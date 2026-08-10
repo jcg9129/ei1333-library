@@ -1,3 +1,6 @@
+#pragma once
+
+#include <iterator>
 /**
  * @brief Berlekamp Massey
  */
@@ -16,7 +19,7 @@ FPS<Mint> berlekamp_massey(const FPS<Mint>& s) {
     Mint freq = x / y;
     if (l < m) {
       auto tmp = c;
-      c.insert(begin(c), m - l, Mint(0));
+      c.insert(std::begin(c), m - l, Mint(0));
       for (int i = 0; i < m; i++) c[m - 1 - i] -= freq * b[m - 1 - i];
       b = tmp;
       y = x;

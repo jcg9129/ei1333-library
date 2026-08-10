@@ -1,5 +1,8 @@
 #pragma once
 
+#include <queue>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -9,9 +12,9 @@ template <typename T>
 Graph<T> convert_rooted_tree(const Graph<T>& g, int r = 0) {
   int N = (int)g.size();
   Graph<T> rg(N);
-  vector<int> v(N);
+  std::vector<int> v(N);
   v[r] = 1;
-  queue<int> que;
+  std::queue<int> que;
   que.emplace(r);
   while (!que.empty()) {
     auto p = que.front();

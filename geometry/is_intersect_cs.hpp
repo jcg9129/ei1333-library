@@ -1,3 +1,7 @@
+#pragma once
+
+#include <complex>
+
 #include "base.hpp"
 #include "circle.hpp"
 #include "point.hpp"
@@ -7,8 +11,8 @@
 namespace geometry {
 int is_intersect_cs(const Circle& c, const Segment& l) {
   Point h = projection(l, c.p);
-  if (sign(norm(h - c.p) - norm(c.r)) > 0) return 0;
-  auto d1 = abs(c.p - l.a), d2 = abs(c.p - l.b);
+  if (sign(std::norm(h - c.p) - std::norm(c.r)) > 0) return 0;
+  auto d1 = std::abs(c.p - l.a), d2 = std::abs(c.p - l.b);
   if (sign(c.r - d1) >= 0 && sign(c.r - d2) >= 0) return 0;
   if (sign(c.r - d1) < 0 && sign(d2 - c.r) > 0 ||
       sign(d1 - c.r) > 0 && sign(c.r - d2) < 0)

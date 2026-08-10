@@ -1,5 +1,10 @@
+#pragma once
+
+#include <cstddef>
+
+#include "lazy-red-black-tree.hpp"
 template <typename Monoid, typename OperatorMonoid, typename F, typename G,
-          typename H, size_t FULL = 1000>
+          typename H, std::size_t FULL = 1000>
 struct PersistentLazyRedBlackTree
     : LazyRedBlackTree<Monoid, OperatorMonoid, F, G, H> {
   using RBT = LazyRedBlackTree<Monoid, OperatorMonoid, F, G, H>;

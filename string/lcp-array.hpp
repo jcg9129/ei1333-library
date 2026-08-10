@@ -1,12 +1,16 @@
+#pragma once
+
+#include <vector>
+
 #include "suffix-array.hpp"
 
 /**
  * @brief LCP Array
  */
 template <typename T>
-vector<int> lcp_array(const SuffixArray<T>& sa) {
+std::vector<int> lcp_array(const SuffixArray<T>& sa) {
   int n = (int)sa.size() - 1;
-  vector<int> lcp(n + 1), rank(n + 1);
+  std::vector<int> lcp(n + 1), rank(n + 1);
   for (int i = 0; i <= n; i++) {
     rank[sa[i]] = i;
   }

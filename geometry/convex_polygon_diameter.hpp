@@ -1,16 +1,22 @@
+#pragma once
+
+#include <algorithm>
+#include <complex>
+#include <utility>
+
 #include "point.hpp"
 #include "polygon.hpp"
 
 namespace geometry {
 // http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=CGL_4_B
-pair<int, int> convex_polygon_diameter(const Polygon& p) {
+std::pair<int, int> convex_polygon_diameter(const Polygon& p) {
   int N = (int)p.size();
   int is = 0, js = 0;
   for (int i = 1; i < N; i++) {
-    if (imag(p[i]) > imag(p[is])) is = i;
-    if (imag(p[i]) < imag(p[js])) js = i;
+    if (std::imag(p[i]) > std::imag(p[is])) is = i;
+    if (std::imag(p[i]) < std::imag(p[js])) js = i;
   }
-  Real maxdis = norm(p[is] - p[js]);
+  Real maxdis = std::norm(p[is] - p[js]);
 
   int maxi, maxj, i, j;
   i = maxi = is;
@@ -21,12 +27,12 @@ pair<int, int> convex_polygon_diameter(const Polygon& p) {
     } else {
       i = (i + 1) % N;
     }
-    if (norm(p[i] - p[j]) > maxdis) {
-      maxdis = norm(p[i] - p[j]);
+    if (std::norm(p[i] - p[j]) > maxdis) {
+      maxdis = std::norm(p[i] - p[j]);
       maxi = i;
       maxj = j;
     }
   } while (i != is || j != js);
-  return minmax(maxi, maxj);
+  return std::minmax(maxi, maxj);
 }
 }  // namespace geometry

@@ -1,23 +1,29 @@
+#pragma once
+
+#include <cmath>
+#include <queue>
+#include <vector>
+
 /**
  * @brief Enumerate Cliques(クリーク全列挙)
  * @see https://www.slideshare.net/wata_orz/ss-12131479
  *
  */
 template <typename Matrix>
-vector<vector<int> > enumerate_cliques(Matrix& g) {
+std::vector<std::vector<int> > enumerate_cliques(Matrix& g) {
   int N = (int)g.size(), M = 0;
-  vector<int> deg(N);
-  vector<vector<int> > edge(N, vector<int>(N));
+  std::vector<int> deg(N);
+  std::vector<std::vector<int> > edge(N, std::vector<int>(N));
   for (int i = 0; i < N; i++) {
     for (auto p : g[i]) deg[i] += p;
     M += deg[i];
   }
-  int lim = (int)sqrt(M);
+  int lim = (int)std::sqrt(M);
 
-  vector<vector<int> > cliques;
+  std::vector<std::vector<int> > cliques;
 
-  auto add_clique = [&](const vector<int>& rem, bool last) {
-    vector<int> neighbor((int)rem.size() - last);
+  auto add_clique = [&](const std::vector<int>& rem, bool last) {
+    std::vector<int> neighbor((int)rem.size() - last);
     for (int i = 0; i < (int)neighbor.size(); i++) {
       for (int j = 0; j < (int)neighbor.size(); j++) {
         if (i != j && !g[rem[i]][rem[j]]) neighbor[i] |= 1 << j;
@@ -34,7 +40,7 @@ vector<vector<int> > enumerate_cliques(Matrix& g) {
         }
       }
       if (ok) {
-        vector<int> clique;
+        std::vector<int> clique;
         if (last) clique.emplace_back(rem.back());
         for (int j = 0; j < (int)neighbor.size(); j++) {
           if ((i >> j) & 1) clique.emplace_back(rem[j]);
@@ -44,8 +50,8 @@ vector<vector<int> > enumerate_cliques(Matrix& g) {
     }
   };
 
-  vector<int> used(N);
-  queue<int> que;
+  std::vector<int> used(N);
+  std::queue<int> que;
   for (int i = 0; i < N; i++) {
     if (deg[i] < lim) {
       used[i] = true;
@@ -55,7 +61,7 @@ vector<vector<int> > enumerate_cliques(Matrix& g) {
   while (!que.empty()) {
     int idx = que.front();
     que.pop();
-    vector<int> rem;
+    std::vector<int> rem;
     for (int k = 0; k < N; k++) {
       if (g[idx][k]) rem.emplace_back(k);
     }
@@ -74,7 +80,7 @@ vector<vector<int> > enumerate_cliques(Matrix& g) {
       }
     }
   }
-  vector<int> rem;
+  std::vector<int> rem;
   for (int i = 0; i < N; i++) {
     if (!used[i]) rem.emplace_back(i);
   }

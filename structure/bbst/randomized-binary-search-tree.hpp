@@ -1,11 +1,20 @@
+#pragma once
+
+#include <cstddef>
+#include <functional>
+#include <iterator>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
 template <typename T>
 class RandomizedBinarySearchTree {
-  using F = function<T(T, T)>;
+  using F = std::function<T(T, T)>;
 
  private:
   struct Node {
     Node *l, *r;
-    size_t cnt;
+    std::size_t cnt;
     T key, sum;
 
     Node() = default;
@@ -27,19 +36,19 @@ class RandomizedBinarySearchTree {
     return w = (w ^ (w >> 19)) ^ (t ^ (t >> 8));
   }
 
-  Node* build(int l, int r, const vector<T>& v) {
+  Node* build(int l, int r, const std::vector<T>& v) {
     if (l + 1 >= r) return alloc(v[l]);
     return merge(build(l, (l + r) >> 1, v), build((l + r) >> 1, r, v));
   }
 
-  void dump(Node* t, typename vector<T>::iterator& it) const {
+  void dump(Node* t, typename std::vector<T>::iterator& it) const {
     if (!t) return;
     dump(t->l, it);
     *it = t->key;
     dump(t->r, ++it);
   }
 
-  inline size_t count(const Node* t) const { return t ? t->cnt : 0; }
+  inline std::size_t count(const Node* t) const { return t ? t->cnt : 0; }
 
   inline T sum(const Node* t) const { return t ? t->sum : e; }
 
@@ -49,13 +58,13 @@ class RandomizedBinarySearchTree {
     return t;
   }
 
-  vector<Node> pool;
+  std::vector<Node> pool;
   int ptr;
   const F f;
   const T e;
 
  public:
-  RandomizedBinarySearchTree(size_t sz, const F& f, const T& e)
+  RandomizedBinarySearchTree(std::size_t sz, const F& f, const T& e)
       : pool(sz), f(f), ptr(0), e(e) {}
 
   inline Node* alloc(const T& v) { return &(pool[ptr++] = Node(v)); }
@@ -76,7 +85,7 @@ class RandomizedBinarySearchTree {
     return merge(p, merge(args...));
   }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {t, t};
     if (k <= count(t->l)) {
       auto s = split(t->l, k);
@@ -89,21 +98,21 @@ class RandomizedBinarySearchTree {
     }
   }
 
-  Node* build(const vector<T>& v) {
+  Node* build(const std::vector<T>& v) {
     ptr = 0;
     return build(0, (int)v.size(), v);
   }
 
-  vector<T> dump(Node* t) const {
-    vector<T> v(count(t));
-    auto it = begin(v);
+  std::vector<T> dump(Node* t) const {
+    std::vector<T> v(count(t));
+    auto it = std::begin(v);
     dump(t, it);
     return v;
   }
 
-  string to_string(Node* r) {
+  std::string to_string(Node* r) {
     auto s = dump(r);
-    string ret;
+    std::string ret;
     for (int i = 0; i < s.size(); i++) ret += std::to_string(s[i]) + ", ";
     return ret;
   }
@@ -142,10 +151,10 @@ class RandomizedBinarySearchTree {
     return ret;
   }
 
-  tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
+  std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   void set_element(Node*& t, int k, const T& x) {
@@ -158,7 +167,7 @@ class RandomizedBinarySearchTree {
     t = update(t);
   }
 
-  size_t size(Node* t) const { return count(t); }
+  std::size_t size(Node* t) const { return count(t); }
 
   bool empty(Node* t) const { return !t; }
 };

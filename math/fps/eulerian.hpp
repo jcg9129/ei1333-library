@@ -1,9 +1,13 @@
+#pragma once
+
+#include <cmath>
+#include <vector>
 /**
  * @brief Eulerian(オイラー数)
  */
 template <template <typename> class FPS, typename Mint>
 FPS<Mint> eulerian(int N) {
-  vector<Mint> fact(N + 2), rfact(N + 2);
+  std::vector<Mint> fact(N + 2), rfact(N + 2);
   fact[0] = rfact[N + 1] = 1;
   for (int i = 1; i <= N + 1; i++) fact[i] = fact[i - 1] * Mint(i);
   rfact[N + 1] /= fact[N + 1];

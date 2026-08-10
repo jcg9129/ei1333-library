@@ -1,7 +1,11 @@
+#pragma once
+
+#include <vector>
+
 template <class T>
 struct VectorPool {
-  vector<T> pool;
-  vector<T*> stock;
+  std::vector<T> pool;
+  std::vector<T*> stock;
   int ptr;
 
   VectorPool() = default;
@@ -14,6 +18,6 @@ struct VectorPool {
 
   void clear() {
     ptr = (int)pool.size();
-    for (int i = 0; i < pool.size(); i++) stock[i] = &pool[i];
+    for (int i = 0; i < (int)pool.size(); i++) stock[i] = &pool[i];
   }
 };

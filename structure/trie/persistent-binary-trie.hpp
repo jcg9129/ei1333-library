@@ -1,3 +1,7 @@
+#pragma once
+
+#include "binary-trie.hpp"
+
 /**
  * @brief Persistent-Binary-Trie
  */

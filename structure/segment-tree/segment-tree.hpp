@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <optional>
+#include <vector>
+
 #include "../class/monoid.hpp"
 
 template <typename Monoid>
@@ -7,7 +13,7 @@ struct SegmentTree {
  private:
   int n, sz;
 
-  vector<S> seg;
+  std::vector<S> seg;
 
   Monoid m;
 
@@ -20,12 +26,12 @@ struct SegmentTree {
     seg.assign(2 * sz, m.e());
   }
 
-  explicit SegmentTree(Monoid m, const vector<S>& v)
+  explicit SegmentTree(Monoid m, const std::vector<S>& v)
       : SegmentTree(m, (int)v.size()) {
     build(v);
   }
 
-  void build(const vector<S>& v) {
+  void build(const std::vector<S>& v) {
     assert(n == (int)v.size());
     for (int k = 0; k < n; k++) seg[k + sz] = v[k];
     for (int k = sz - 1; k > 0; k--) {
@@ -66,8 +72,8 @@ struct SegmentTree {
   S all_prod() const { return seg[1]; }
 
   template <typename C>
-  optional<int> find_first(int l, const C& check) const {
-    if (l >= n) return nullopt;
+  std::optional<int> find_first(int l, const C& check) const {
+    if (l >= n) return std::nullopt;
     l += sz;
     S sum = m.e();
     do {
@@ -85,12 +91,12 @@ struct SegmentTree {
       }
       sum = m.op(sum, seg[l++]);
     } while ((l & -l) != l);
-    return nullopt;
+    return std::nullopt;
   }
 
   template <typename C>
-  optional<int> find_last(int r, const C& check) const {
-    if (r <= 0) return nullopt;
+  std::optional<int> find_last(int r, const C& check) const {
+    if (r <= 0) return std::nullopt;
     r += sz;
     S sum = m.e();
     do {
@@ -109,6 +115,6 @@ struct SegmentTree {
       }
       sum = m.op(seg[r], sum);
     } while ((r & -r) != r);
-    return nullopt;
+    return std::nullopt;
   }
 };

@@ -1,5 +1,17 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <functional>
+#include <iterator>
+#include <limits>
+#include <numeric>
+#include <queue>
+#include <set>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -8,14 +20,15 @@
  * @see https://qiita.com/nariaki3551/items/821dc6ffdc552d3d5f22
  */
 template <typename T>
-vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
-                                               int k) {
+std::vector<std::pair<T, std::vector<int> > > k_shortest_path(const Graph<T>& g,
+                                                              int s, int t,
+                                                              int k) {
   assert(s != t);
   int N = (int)g.size();
   int M = 0;
   for (int i = 0; i < N; i++) M += (int)g[i].size();
-  vector<int> latte(M), malta(M);
-  vector<T> cost(M);
+  std::vector<int> latte(M), malta(M);
+  std::vector<T> cost(M);
   for (int i = 0; i < N; i++) {
     for (auto& e : g[i]) {
       latte[e.idx] = i;
@@ -23,18 +36,18 @@ vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
       cost[e.idx] = e.cost;
     }
   }
-  const auto INF = numeric_limits<T>::max();
-  vector<int> dame(M, -1);
+  const auto INF = std::numeric_limits<T>::max();
+  std::vector<int> dame(M, -1);
   int timestamp = 0;
-  auto shortest_path = [&](vector<T>& dist, vector<int>& from, vector<int>& id,
-                           int st) {
-    using Pi = pair<T, int>;
-    priority_queue<Pi, vector<Pi>, greater<> > que;
+  auto shortest_path = [&](std::vector<T>& dist, std::vector<int>& from,
+                           std::vector<int>& id, int st) {
+    using Pi = std::pair<T, int>;
+    std::priority_queue<Pi, std::vector<Pi>, std::greater<> > que;
     que.emplace(dist[st], st);
     while (!que.empty()) {
       T cost;
       int idx;
-      tie(cost, idx) = que.top();
+      std::tie(cost, idx) = que.top();
       que.pop();
       if (dist[idx] < cost) continue;
       if (idx == t) return;
@@ -49,25 +62,25 @@ vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
       }
     }
   };
-  auto restore = [](const vector<int>& es, const vector<int>& vs, int from,
-                    int to) {
-    vector<int> tap;
+  auto restore = [](const std::vector<int>& es, const std::vector<int>& vs,
+                    int from, int to) {
+    std::vector<int> tap;
     while (to != from) {
       tap.emplace_back(es[to]);
       to = vs[to];
     }
-    reverse(begin(tap), end(tap));
+    std::reverse(std::begin(tap), std::end(tap));
     return tap;
   };
 
-  vector<T> dist(g.size(), INF);
-  vector<int> from(g.size(), -1), id(g.size(), -1);
+  std::vector<T> dist(g.size(), INF);
+  std::vector<int> from(g.size(), -1), id(g.size(), -1);
   dist[s] = 0;
   shortest_path(dist, from, id, s);
   if (dist[t] == INF) return {};
 
-  vector<pair<T, vector<int> > > A;
-  set<pair<T, vector<int> > > B;
+  std::vector<std::pair<T, std::vector<int> > > A;
+  std::set<std::pair<T, std::vector<int> > > B;
   A.emplace_back(dist[t], restore(id, from, s, t));
 
   for (int i = 1; i < k; i++) {
@@ -75,16 +88,16 @@ vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
     from.assign(g.size(), -1);
     id.assign(g.size(), -1);
     dist[s] = 0;
-    vector<int> candidate(A.size());
-    iota(begin(candidate), end(candidate), 0);
+    std::vector<int> candidate(A.size());
+    std::iota(std::begin(candidate), std::end(candidate), 0);
     auto& last_path = A.back().second;
     int cur = s;
     for (int j = 0; j < last_path.size(); j++) {
       for (auto& k : candidate) {
         if (j < A[k].second.size()) dame[A[k].second[j]] = timestamp;
       }
-      vector<T> dist2{dist};
-      vector<int> from2{from}, id2{id};
+      std::vector<T> dist2{dist};
+      std::vector<int> from2{from}, id2{id};
       shortest_path(dist2, from2, id2, cur);
       ++timestamp;
       if (dist2[t] != INF) {
@@ -98,7 +111,7 @@ vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
         }
         if (ok) B.emplace(dist2[t], path);
       }
-      vector<int> accept;
+      std::vector<int> accept;
       for (auto& k : candidate) {
         if (j < A[k].second.size() && A[k].second[j] == last_path[j]) {
           accept.emplace_back(k);
@@ -109,7 +122,7 @@ vector<pair<T, vector<int> > > k_shortest_path(const Graph<T>& g, int s, int t,
       from[malta[last_path[j]]] = latte[last_path[j]];
       id[malta[last_path[j]]] = last_path[j];
       cur = malta[last_path[j]];
-      candidate = move(accept);
+      candidate = std::move(accept);
     }
     if (B.size()) {
       A.emplace_back(*B.begin());

@@ -1,3 +1,5 @@
+#pragma once
+
 #include "lazy-top-tree.hpp"
 
 template <typename T>

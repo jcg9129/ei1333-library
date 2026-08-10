@@ -1,4 +1,8 @@
+#pragma once
+
 #include <immintrin.h>
+
+#include <cassert>
 
 /**
  * @brief Superset Zeta/Moebius Transform SIMD (上位集合のゼータ/メビウス変換,

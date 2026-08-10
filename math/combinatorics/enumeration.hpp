@@ -1,14 +1,20 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <vector>
+
 /**
  * @brief Enumeration(組み合わせ)
  */
 template <typename T>
 struct Enumeration {
  private:
-  static vector<T> _fact, _finv, _inv;
+  static std::vector<T> _fact, _finv, _inv;
 
-  inline static void expand(size_t sz) {
+  inline static void expand(std::size_t sz) {
     if (_fact.size() < sz + 1) {
-      int pre_sz = max(1, (int)_fact.size());
+      int pre_sz = std::max(1, (int)_fact.size());
       _fact.resize(sz + 1, T(1));
       _finv.resize(sz + 1, T(1));
       _inv.resize(sz + 1, T(1));
@@ -26,7 +32,7 @@ struct Enumeration {
   }
 
  public:
-  explicit Enumeration(size_t sz = 0) { expand(sz); }
+  explicit Enumeration(std::size_t sz = 0) { expand(sz); }
 
   static inline T fact(int k) {
     expand(k);
@@ -60,8 +66,8 @@ struct Enumeration {
 };
 
 template <typename T>
-vector<T> Enumeration<T>::_fact = vector<T>();
+std::vector<T> Enumeration<T>::_fact = std::vector<T>();
 template <typename T>
-vector<T> Enumeration<T>::_finv = vector<T>();
+std::vector<T> Enumeration<T>::_finv = std::vector<T>();
 template <typename T>
-vector<T> Enumeration<T>::_inv = vector<T>();
+std::vector<T> Enumeration<T>::_inv = std::vector<T>();

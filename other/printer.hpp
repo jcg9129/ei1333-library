@@ -1,3 +1,12 @@
+#pragma once
+
+#include <charconv>
+#include <cstddef>
+#include <cstdio>
+#include <string>
+#include <type_traits>
+#include <vector>
+
 /**
  * @brief Printer(高速出力)
  */
@@ -27,8 +36,8 @@ struct Printer {
 
  private:
   FILE* fp = nullptr;
-  static constexpr size_t line_size = 1 << 16;
-  static constexpr size_t int_digits = 20;
+  static constexpr std::size_t line_size = 1 << 16;
+  static constexpr std::size_t int_digits = 20;
   char line[line_size + 1] = {};
   char* st = line;
 
@@ -40,13 +49,13 @@ struct Printer {
     *st++ = t;
   }
 
-  template <typename T, enable_if_t<is_integral<T>::value, int> = 0>
+  template <typename T, std::enable_if_t<std::is_integral<T>::value, int> = 0>
   void write_single(T s) {
     if (st + int_digits >= line + line_size) flush();
-    st += to_chars(st, st + int_digits, s).ptr - st;
+    st += std::to_chars(st, st + int_digits, s).ptr - st;
   }
 
-  void write_single(const string& s) {
+  void write_single(const std::string& s) {
     for (auto& c : s) write_single(c);
   }
 
@@ -55,8 +64,8 @@ struct Printer {
   }
 
   template <typename T>
-  void write_single(const vector<T>& s) {
-    for (size_t i = 0; i < s.size(); i++) {
+  void write_single(const std::vector<T>& s) {
+    for (std::size_t i = 0; i < s.size(); i++) {
       if (i) write_single(' ');
       write_single(s[i]);
     }

@@ -1,3 +1,14 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
+#include <numeric>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 #include "../others/binary-indexed-tree.hpp"
 #include "succinct-indexable-dictionary.hpp"
 
@@ -7,20 +18,21 @@
  */
 template <typename T, int MAXLOG, typename D>
 struct WaveletMatrixPointAddRectangleSum {
-  size_t length;
+  std::size_t length;
   SuccinctIndexableDictionary matrix[MAXLOG];
   BinaryIndexedTree<D> ds[MAXLOG];
-  vector<T> v;
+  std::vector<T> v;
   int mid[MAXLOG];
 
   WaveletMatrixPointAddRectangleSum() = default;
 
-  WaveletMatrixPointAddRectangleSum(const vector<T>& v, const vector<D>& d)
+  WaveletMatrixPointAddRectangleSum(const std::vector<T>& v,
+                                    const std::vector<D>& d)
       : length(v.size()), v(v) {
     assert(v.size() == d.size());
-    vector<int> l(length), r(length), ord(length);
-    iota(begin(ord), end(ord), 0);
-    vector<D> dd(length);
+    std::vector<int> l(length), r(length), ord(length);
+    std::iota(std::begin(ord), std::end(ord), 0);
+    std::vector<D> dd(length);
     for (int level = MAXLOG - 1; level >= 0; level--) {
       matrix[level] = SuccinctIndexableDictionary(length + 1);
       int left = 0, right = 0;
@@ -34,7 +46,7 @@ struct WaveletMatrixPointAddRectangleSum {
       }
       mid[level] = left;
       matrix[level].build();
-      ord.swap(l);
+      std::swap(ord, l);
       for (int i = 0; i < right; i++) {
         ord[left + i] = r[i];
       }
@@ -45,7 +57,7 @@ struct WaveletMatrixPointAddRectangleSum {
     }
   }
 
-  pair<int, int> succ(bool f, int l, int r, int level) {
+  std::pair<int, int> succ(bool f, int l, int r, int level) {
     return {matrix[level].rank(f, l) + mid[level] * f,
             matrix[level].rank(f, r) + mid[level] * f};
   }
@@ -60,7 +72,7 @@ struct WaveletMatrixPointAddRectangleSum {
         l = l - nxt.first + mid[level];
         r = r - nxt.second + mid[level];
       } else {
-        tie(l, r) = succ(false, l, r, level);
+        std::tie(l, r) = succ(false, l, r, level);
       }
     }
     return ret;
@@ -83,20 +95,20 @@ struct WaveletMatrixPointAddRectangleSum {
 template <typename T, int MAXLOG, typename D>
 struct CompressedWaveletMatrixPointAddRectangleSum {
   WaveletMatrixPointAddRectangleSum<int, MAXLOG, D> mat;
-  vector<T> ys;
+  std::vector<T> ys;
 
-  CompressedWaveletMatrixPointAddRectangleSum(const vector<T>& v,
-                                              const vector<D>& d)
+  CompressedWaveletMatrixPointAddRectangleSum(const std::vector<T>& v,
+                                              const std::vector<D>& d)
       : ys(v) {
-    sort(begin(ys), end(ys));
-    ys.erase(unique(begin(ys), end(ys)), end(ys));
-    vector<int> t(v.size());
+    std::sort(std::begin(ys), std::end(ys));
+    ys.erase(std::unique(std::begin(ys), std::end(ys)), std::end(ys));
+    std::vector<int> t(v.size());
     for (int i = 0; i < v.size(); i++) t[i] = get(v[i]);
     mat = WaveletMatrixPointAddRectangleSum<int, MAXLOG, D>(t, d);
   }
 
   inline int get(const T& x) {
-    return lower_bound(begin(ys), end(ys), x) - begin(ys);
+    return std::lower_bound(std::begin(ys), std::end(ys), x) - std::begin(ys);
   }
 
   D rect_sum(int l, int r, T upper) { return mat.rect_sum(l, r, get(upper)); }

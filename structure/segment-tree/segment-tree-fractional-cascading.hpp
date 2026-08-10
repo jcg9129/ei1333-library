@@ -1,8 +1,13 @@
+#pragma once
+
+#include <algorithm>
+#include <iterator>
+#include <vector>
 template <typename T>
 struct SegmentTreeFractionalCascading {
  private:
-  vector<vector<T> > seg;
-  vector<vector<int> > LL, RR;
+  std::vector<std::vector<T> > seg;
+  std::vector<std::vector<int> > LL, RR;
   int sz;
 
   int prod(int a, int b, int lower, int upper, int k, int l, int r) const {
@@ -20,7 +25,7 @@ struct SegmentTreeFractionalCascading {
  public:
   SegmentTreeFractionalCascading() = default;
 
-  explicit SegmentTreeFractionalCascading(const vector<T>& v) {
+  explicit SegmentTreeFractionalCascading(const std::vector<T>& v) {
     sz = 1;
     while (sz < v.size()) sz <<= 1;
     seg.resize(2 * sz - 1);
@@ -33,8 +38,8 @@ struct SegmentTreeFractionalCascading {
       seg[k].resize(seg[2 * k + 1].size() + seg[2 * k + 2].size());
       LL[k].resize(seg[k].size() + 1);
       RR[k].resize(seg[k].size() + 1);
-      merge(seg[2 * k + 1].begin(), seg[2 * k + 1].end(),
-            seg[2 * k + 2].begin(), seg[2 * k + 2].end(), seg[k].begin());
+      std::merge(seg[2 * k + 1].begin(), seg[2 * k + 1].end(),
+                 seg[2 * k + 2].begin(), seg[2 * k + 2].end(), seg[k].begin());
       int tail1 = 0, tail2 = 0;
       for (int i = 0; i < seg[k].size(); i++) {
         while (tail1 < seg[2 * k + 1].size() and
@@ -51,8 +56,8 @@ struct SegmentTreeFractionalCascading {
   }
 
   int prod(int a, int b, T l, T r) const {
-    l = int(lower_bound(seg[0].begin(), seg[0].end(), l) - seg[0].begin());
-    r = int(lower_bound(seg[0].begin(), seg[0].end(), r) - seg[0].begin());
+    l = int(std::lower_bound(seg[0].begin(), seg[0].end(), l) - seg[0].begin());
+    r = int(std::lower_bound(seg[0].begin(), seg[0].end(), r) - seg[0].begin());
     return prod(a, b, l, r, 0, 0, sz);
   }
 };

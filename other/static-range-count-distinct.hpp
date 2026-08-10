@@ -1,22 +1,31 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 #include "../structure/others/binary-indexed-tree.hpp"
 
 template <typename T>
 struct StaticRangeCountDistinct {
  private:
   using BIT = BinaryIndexedTree<int>;
-  size_t m;
-  vector<int> xs;
-  vector<vector<int> > mp;
-  vector<pair<int, int> > qs;
+  std::size_t m;
+  std::vector<int> xs;
+  std::vector<std::vector<int> > mp;
+  std::vector<std::pair<int, int> > qs;
 
  public:
-  explicit StaticRangeCountDistinct(const vector<T>& vs) : xs(vs.size()) {
-    vector<T> ys = vs;
-    sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
+  explicit StaticRangeCountDistinct(const std::vector<T>& vs) : xs(vs.size()) {
+    std::vector<T> ys = vs;
+    std::sort(ys.begin(), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
     m = ys.size();
     for (int i = 0; i < vs.size(); i++) {
-      int p = lower_bound(ys.begin(), ys.end(), vs[i]) - ys.begin();
+      int p = std::lower_bound(ys.begin(), ys.end(), vs[i]) - ys.begin();
       xs[i] = p;
     }
   }
@@ -26,18 +35,18 @@ struct StaticRangeCountDistinct {
     qs.emplace_back(l, r - 1);
   }
 
-  vector<size_t> calclate_queries() const {
+  std::vector<std::size_t> calclate_queries() const {
     int n = (int)xs.size();
     int q = (int)qs.size();
-    vector<vector<int> > ev(n);
+    std::vector<std::vector<int> > ev(n);
     for (int i = 0; i < q; i++) {
       if (qs[i].first <= qs[i].second) {
         ev[qs[i].second].emplace_back(i);
       }
     }
-    vector<int> pre(m, -1);
+    std::vector<int> pre(m, -1);
     BIT bit(n);
-    vector<size_t> ans(q);
+    std::vector<std::size_t> ans(q);
     for (int i = 0; i < n; i++) {
       int v = xs[i];
       if (~pre[v]) bit.apply(n - pre[v] - 1, -1);

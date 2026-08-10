@@ -1,7 +1,12 @@
+#pragma once
+
+#include <cstdint>
+#include <iostream>
+
 struct ModInt_2_61m1 {
  private:
   using mint = ModInt_2_61m1;
-  using u64 = uint64_t;
+  using u64 = std::uint64_t;
   using u128 = __uint128_t;
 
   u64 x;
@@ -61,11 +66,11 @@ struct ModInt_2_61m1 {
 
   mint inv() const { return pow(mod() - 2); }
 
-  friend ostream& operator<<(ostream& os, const mint& p) {
+  friend std::ostream& operator<<(std::ostream& os, const mint& p) {
     return os << p.val();
   }
 
-  friend istream& operator>>(istream& is, mint& a) {
+  friend std::istream& operator>>(std::istream& is, mint& a) {
     u64 t;
     is >> t;
     a = mint(t);

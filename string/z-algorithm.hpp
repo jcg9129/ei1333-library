@@ -3,14 +3,19 @@
  * @see https://heno239.hatenablog.com/entry/2020/07/07/140651
  *
  */
+#pragma once
+
+#include <queue>
+#include <vector>
+
 template <typename T = char>
 struct ZAlgorithm {
  private:
-  vector<T> s;
-  vector<int> deleted;
-  vector<vector<int> > delete_hist;
-  vector<int> z;
-  queue<int> cur;
+  std::vector<T> s;
+  std::vector<int> deleted;
+  std::vector<std::vector<int> > delete_hist;
+  std::vector<int> z;
+  std::queue<int> cur;
 
  public:
   ZAlgorithm() : delete_hist{{}} {}
@@ -64,8 +69,8 @@ struct ZAlgorithm {
 
   int operator[](int k) const { return get(k); }
 
-  vector<int> get() {
-    vector<int> ret(s.size());
+  std::vector<int> get() {
+    std::vector<int> ret(s.size());
     for (int i = 0; i < (int)s.size(); i++) {
       ret[i] = get(i);
     }

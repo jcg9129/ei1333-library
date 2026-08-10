@@ -1,10 +1,16 @@
+#pragma once
+
+#include <cstdint>
+#include <limits>
+#include <map>
+
 template <typename T>
 struct UnionRectangle {
-  map<T, T> data;
-  int64 sum;
+  std::map<T, T> data;
+  std::int64_t sum;
 
   UnionRectangle() : sum(0) {
-    const T INF = numeric_limits<T>::max();
+    const T INF = std::numeric_limits<T>::max();
     data[0] = INF;
     data[INF] = 0;
   }
@@ -22,5 +28,5 @@ struct UnionRectangle {
     data[x] = y;
   }
 
-  int64 get() { return sum; }
+  std::int64_t get() { return sum; }
 };

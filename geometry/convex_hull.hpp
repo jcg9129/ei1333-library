@@ -1,3 +1,8 @@
+#pragma once
+
+#include <algorithm>
+#include <vector>
+
 #include "base.hpp"
 #include "point.hpp"
 #include "polygon.hpp"
@@ -7,8 +12,8 @@ namespace geometry {
 Polygon convex_hull(Polygon& p, bool strict = true) {
   int n = (int)p.size(), k = 0;
   if (n <= 2) return p;
-  sort(begin(p), end(p), compare_x);
-  vector<Point> ch(2 * n);
+  std::sort(p.begin(), p.end(), compare_x);
+  std::vector<Point> ch(2 * n);
   auto check = [&](int i) {
     return sign(cross(ch[k - 1] - ch[k - 2], p[i] - ch[k - 1])) <= -1 + strict;
   };

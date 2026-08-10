@@ -15,14 +15,18 @@
 - `test/verify/*.test.cpp` が `template/template.hpp` に依存しない
 - verify に通常の clang-format include sorting を適用できる
 
+`template/template.hpp` は競技用テンプレートとして標準ライブラリの一括
+import と別名を意図的に提供する集約ヘッダーのため、自己完結ヘッダーの一覧から
+除外している。
+
 ## 現在の進捗
 
-2026-08-04 時点の進捗は次のとおり。
+2026-08-10 時点の進捗は次のとおり。
 
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 20   |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -94,32 +98,54 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 
 ## 移行履歴
 
-| 日付       | 対象                                                       | 備考                         |
-| ---------- | ---------------------------------------------------------- | ---------------------------- |
-| 2026-08-04 | `structure/others/sparse-table.hpp`                        | 標準 include と `std::` 修飾 |
-| 2026-08-04 | `structure/others/disjoint-sparse-table.hpp`               | 標準 include と `std::` 修飾 |
-| 2026-08-04 | `structure/others/plus-minus-one-rmq.hpp`                  | Sparse Table 依存を明示      |
-| 2026-08-04 | `structure/others/queue-operate-aggregation.hpp`           | 標準依存を明示               |
-| 2026-08-04 | `structure/others/deque-operate-aggregation.hpp`           | 標準依存を明示               |
-| 2026-08-04 | `structure/others/abstract-binary-indexed-tree.hpp`        | 標準依存を明示               |
-| 2026-08-04 | `structure/others/binary-indexed-tree.hpp`                 | 標準依存を明示               |
-| 2026-08-04 | `structure/others/persistent-array.hpp`                    | 標準依存を明示               |
-| 2026-08-04 | `structure/others/priority-sum-structure.hpp`              | 標準依存を明示               |
-| 2026-08-04 | `structure/others/linear-rmq.hpp`                          | 標準依存を明示               |
-| 2026-08-04 | `structure/union-find/union-find.hpp`                      | 標準依存を明示               |
-| 2026-08-04 | `structure/union-find/weighted-union-find.hpp`             | 標準依存を明示               |
-| 2026-08-04 | `structure/union-find/union-find-undo.hpp`                 | 標準依存を明示               |
-| 2026-08-04 | `structure/union-find/partially-persistent-union-find.hpp` | 標準依存を明示               |
-| 2026-08-04 | `structure/union-find/persistent-union-find.hpp`           | Persistent Array 依存を明示  |
-| 2026-08-04 | `structure/union-find/bipartite-graph.hpp`                 | Union Find 依存を明示        |
-| 2026-08-04 | `structure/heap/erasable-heap.hpp`                         | 標準依存を補完               |
-| 2026-08-04 | `structure/heap/leftist-heap.hpp`                          | 標準依存を明示               |
-| 2026-08-04 | `structure/heap/persistent-leftist-heap.hpp`               | Leftist Heap 依存を明示      |
-| 2026-08-04 | `structure/heap/skew-heap.hpp`                             | 標準依存を明示               |
+| 日付       | 対象                                                                                                                                                                                                                                                                       | 備考                                |
+| ---------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------- |
+| 2026-08-04 | `structure/others/sparse-table.hpp`                                                                                                                                                                                                                                        | 標準 include と `std::` 修飾        |
+| 2026-08-04 | `structure/others/disjoint-sparse-table.hpp`                                                                                                                                                                                                                               | 標準 include と `std::` 修飾        |
+| 2026-08-04 | `structure/others/plus-minus-one-rmq.hpp`                                                                                                                                                                                                                                  | Sparse Table 依存を明示             |
+| 2026-08-04 | `structure/others/queue-operate-aggregation.hpp`                                                                                                                                                                                                                           | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/deque-operate-aggregation.hpp`                                                                                                                                                                                                                           | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/abstract-binary-indexed-tree.hpp`                                                                                                                                                                                                                        | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/binary-indexed-tree.hpp`                                                                                                                                                                                                                                 | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/persistent-array.hpp`                                                                                                                                                                                                                                    | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/priority-sum-structure.hpp`                                                                                                                                                                                                                              | 標準依存を明示                      |
+| 2026-08-04 | `structure/others/linear-rmq.hpp`                                                                                                                                                                                                                                          | 標準依存を明示                      |
+| 2026-08-04 | `structure/union-find/union-find.hpp`                                                                                                                                                                                                                                      | 標準依存を明示                      |
+| 2026-08-04 | `structure/union-find/weighted-union-find.hpp`                                                                                                                                                                                                                             | 標準依存を明示                      |
+| 2026-08-04 | `structure/union-find/union-find-undo.hpp`                                                                                                                                                                                                                                 | 標準依存を明示                      |
+| 2026-08-04 | `structure/union-find/partially-persistent-union-find.hpp`                                                                                                                                                                                                                 | 標準依存を明示                      |
+| 2026-08-04 | `structure/union-find/persistent-union-find.hpp`                                                                                                                                                                                                                           | Persistent Array 依存を明示         |
+| 2026-08-04 | `structure/union-find/bipartite-graph.hpp`                                                                                                                                                                                                                                 | Union Find 依存を明示               |
+| 2026-08-04 | `structure/heap/erasable-heap.hpp`                                                                                                                                                                                                                                         | 標準依存を補完                      |
+| 2026-08-04 | `structure/heap/leftist-heap.hpp`                                                                                                                                                                                                                                          | 標準依存を明示                      |
+| 2026-08-04 | `structure/heap/persistent-leftist-heap.hpp`                                                                                                                                                                                                                               | Leftist Heap 依存を明示             |
+| 2026-08-04 | `structure/heap/skew-heap.hpp`                                                                                                                                                                                                                                             | 標準依存を明示                      |
+| 2026-08-10 | `dp/cumulative-sum-2d.hpp`、`dp/cumulative-sum.hpp`、`dp/edit-distance.hpp`、`dp/knapsack-01-2.hpp`、`dp/knapsack-01.hpp`、`dp/knapsack-limitations.hpp`、`dp/knapsack.hpp`、`dp/largest-rectangle.hpp`、`dp/longest-increasing-subsequence.hpp`、`dp/monotone-minima.hpp` | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `structure/class/act.hpp`、`structure/class/acted-monoid.hpp`、`structure/class/affine.hpp`、`structure/class/beats-monoid.hpp`、`structure/class/monoid.hpp`、`structure/class/range-add-range-min.hpp`、`structure/class/range-chmin-chmax-add-range-sum.hpp`            | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `structure/others/slope-trick.hpp`、`structure/others/sqrt-decomposition.hpp`、`structure/others/union-rectangle.hpp`                                                                                                                                                      | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `dp/divide-and-conquer-optimization.hpp`、`dp/knapsack-limitations-2.hpp`、`dp/online-offline-dp.hpp`                                                                                                                                                                      | 移行済みヘッダーへの依存を明示      |
+| 2026-08-10 | `graph/graph-template.hpp`、`graph/shortest-path/bellman-ford.hpp`、`graph/shortest-path/bfs.hpp`、`graph/shortest-path/dijkstra.hpp`、`graph/shortest-path/grid-bfs.hpp`、`graph/shortest-path/warshall-floyd.hpp`                                                        | グラフ共通型と標準 include を明示   |
+| 2026-08-10 | `math/combinatorics/` の6ヘッダー                                                                                                                                                                                                                                          | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `math/matrix/matrix.hpp`、`math/matrix/square-matrix.hpp`、`math/rational/rational.hpp`                                                                                                                                                                                    | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `math/number-theory/` の11ヘッダー                                                                                                                                                                                                                                         | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `other/` の9ヘッダー                                                                                                                                                                                                                                                       | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `string/manacher.hpp`、`string/z-algorithm.hpp`                                                                                                                                                                                                                            | 標準 include と `std::` 修飾        |
+| 2026-08-10 | geometry の基礎・距離・交差判定・多角形関連38ヘッダー                                                                                                                                                                                                                      | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `geometry/integer/point.hpp`、`geometry/convex-layers.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                  | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `math/combinatorics/` の18ヘッダー、`math/fft/` の13ヘッダー                                                                                                                                                                                                               | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `math/number-theory/` の4ヘッダー、`structure/class/` の3ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                    | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `graph/others/` の16ヘッダー、`graph/mst/` の5ヘッダー、`graph/tree/` の6ヘッダー                                                                                                                                                                                          | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `other/` の14ヘッダー、`math/matrix/binary-basis.hpp`                                                                                                                                                                                                                      | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `graph/connected-components/` の5ヘッダー、`graph/others/block-cut-tree.hpp`、`math/fps/` の20ヘッダー                                                                                                                                                                     | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `string/` の7ヘッダー、`structure/segment-tree/` の6ヘッダー、`structure/trie/trie.hpp`                                                                                                                                                                                    | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `graph/flow/` の2ヘッダー、`graph/shortest-path/` の7ヘッダー、`graph/tree/` の9ヘッダー                                                                                                                                                                                   | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `structure/` の20ヘッダー、`other/` の2ヘッダー                                                                                                                                                                                                                            | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `geometry/template.hpp`、`graph/flow/` の10ヘッダー、`graph/mst/` の1ヘッダー、`graph/others/` の2ヘッダー                                                                                                                                                                 | 標準 include と `std::` 修飾        |
+| 2026-08-10 | `structure/bbst/` の10ヘッダー、`structure/dynamic-tree/` の13ヘッダー、`structure/wavelet/` の2ヘッダー                                                                                                                                                                   | 標準 include と `std::` 修飾        |
+| 2026-08-10 | 移行済みヘッダー34件                                                                                                                                                                                                                                                       | 未修飾標準名と include guard を修正 |
 
 ## 次の候補
 
-次の候補として、プロジェクト内ヘッダーへの依存がない
-`structure/others/slope-trick.hpp` と
-`structure/others/generalized-slope-trick.hpp` を検討する。その後も依存関係の葉に
-近いヘッダーから進め、1コミットの変更範囲を小さく保つ。
+ヘッダーの自己完結化は `template/template.hpp` を除いて完了している。
+次は対応する verify から `template/template.hpp` 依存を段階的に削除し、
+`scripts/verify-template-include-allowlist.txt` の例外を減らす。

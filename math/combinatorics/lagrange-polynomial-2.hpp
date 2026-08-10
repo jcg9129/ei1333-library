@@ -1,11 +1,16 @@
+#pragma once
+
+#include <vector>
+
 /**
  * @brief Lagrange Polynomial(多項式補間, 係数)
  */
 template <typename Mint>
-vector<Mint> lagrange_polynomial(const vector<Mint>& x, const vector<Mint>& y) {
+std::vector<Mint> lagrange_polynomial(const std::vector<Mint>& x,
+                                      const std::vector<Mint>& y) {
   int k = (int)x.size() - 1;
 
-  vector<Mint> f(k + 1), dp(k + 2);
+  std::vector<Mint> f(k + 1), dp(k + 2);
   dp[0] = 1;
   for (int j = 0; j <= k; j++) {
     for (int l = k + 1; l > 0; l--) {

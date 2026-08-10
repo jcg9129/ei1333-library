@@ -1,10 +1,16 @@
-template <typename T, typename Compare = less<T> >
-vector<pair<int, T> > monotone_minima(int H, int W,
-                                      const function<T(int, int)>& f,
-                                      const Compare& comp = Compare()) {
-  vector<pair<int, T> > dp(H);
-  function<void(int, int, int, int)> dfs = [&](int top, int bottom, int left,
-                                               int right) {
+#pragma once
+
+#include <functional>
+#include <utility>
+#include <vector>
+
+template <typename T, typename Compare = std::less<T> >
+std::vector<std::pair<int, T> > monotone_minima(
+    int H, int W, const std::function<T(int, int)>& f,
+    const Compare& comp = Compare()) {
+  std::vector<std::pair<int, T> > dp(H);
+  std::function<void(int, int, int, int)> dfs = [&](int top, int bottom,
+                                                    int left, int right) {
     if (top > bottom) return;
     int line = (top + bottom) / 2;
     T ma;
@@ -16,7 +22,7 @@ vector<pair<int, T> > monotone_minima(int H, int W,
         mi = i;
       }
     }
-    dp[line] = make_pair(mi, ma);
+    dp[line] = std::make_pair(mi, ma);
     dfs(top, line - 1, left, mi);
     dfs(line + 1, bottom, mi, right);
   };

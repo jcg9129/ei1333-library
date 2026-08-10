@@ -1,3 +1,7 @@
+#pragma once
+
+#include <complex>
+
 #include "base.hpp"
 #include "point.hpp"
 #include "polygon.hpp"

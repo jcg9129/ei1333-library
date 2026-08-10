@@ -1,3 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstdint>
+#include <iterator>
+#include <numeric>
+#include <vector>
+
 namespace FastPrimeFactorization {
 
 template <typename word, typename dword, typename sword>
@@ -37,7 +46,7 @@ struct UnsafeMod {
     return UnsafeMod(*this) *= rhs;
   }
 
-  UnsafeMod pow(uint64_t e) const {
+  UnsafeMod pow(std::uint64_t e) const {
     UnsafeMod ret(1);
     for (UnsafeMod base = *this; e; e >>= 1, base *= base) {
       if (e & 1) ret *= base;
@@ -76,31 +85,31 @@ struct UnsafeMod {
 
 using uint128_t = __uint128_t;
 
-using Mod64 = UnsafeMod<uint64_t, uint128_t, int64_t>;
+using Mod64 = UnsafeMod<std::uint64_t, uint128_t, std::int64_t>;
 template <>
-uint64_t Mod64::mod = 0;
+std::uint64_t Mod64::mod = 0;
 template <>
-uint64_t Mod64::inv = 0;
+std::uint64_t Mod64::inv = 0;
 template <>
-uint64_t Mod64::r2 = 0;
+std::uint64_t Mod64::r2 = 0;
 
-using Mod32 = UnsafeMod<uint32_t, uint64_t, int32_t>;
+using Mod32 = UnsafeMod<std::uint32_t, std::uint64_t, std::int32_t>;
 template <>
-uint32_t Mod32::mod = 0;
+std::uint32_t Mod32::mod = 0;
 template <>
-uint32_t Mod32::inv = 0;
+std::uint32_t Mod32::inv = 0;
 template <>
-uint32_t Mod32::r2 = 0;
+std::uint32_t Mod32::r2 = 0;
 
-bool miller_rabin_primality_test_uint64(uint64_t n) {
+bool miller_rabin_primality_test_uint64(std::uint64_t n) {
   Mod64::set_mod(n);
-  uint64_t d = n - 1;
+  std::uint64_t d = n - 1;
   while (d % 2 == 0) d /= 2;
   Mod64 e{1}, rev{n - 1};
   // http://miller-rabin.appspot.com/  < 2^64
-  for (uint64_t a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
+  for (std::uint64_t a : {2, 325, 9375, 28178, 450775, 9780504, 1795265022}) {
     if (n <= a) break;
-    uint64_t t = d;
+    std::uint64_t t = d;
     Mod64 y = Mod64(a).pow(t);
     while (t != n - 1 && y != e && y != rev) {
       y *= y;
@@ -111,14 +120,14 @@ bool miller_rabin_primality_test_uint64(uint64_t n) {
   return true;
 }
 
-bool miller_rabin_primality_test_uint32(uint32_t n) {
+bool miller_rabin_primality_test_uint32(std::uint32_t n) {
   Mod32::set_mod(n);
-  uint32_t d = n - 1;
+  std::uint32_t d = n - 1;
   while (d % 2 == 0) d /= 2;
   Mod32 e{1}, rev{n - 1};
-  for (uint32_t a : {2, 7, 61}) {
+  for (std::uint32_t a : {2, 7, 61}) {
     if (n <= a) break;
-    uint32_t t = d;
+    std::uint32_t t = d;
     Mod32 y = Mod32(a).pow(t);
     while (t != n - 1 && y != e && y != rev) {
       y *= y;
@@ -129,18 +138,18 @@ bool miller_rabin_primality_test_uint32(uint32_t n) {
   return true;
 }
 
-bool is_prime(uint64_t n) {
+bool is_prime(std::uint64_t n) {
   if (n == 2) return true;
   if (n == 1 || n % 2 == 0) return false;
-  if (n < uint64_t(1) << 31) return miller_rabin_primality_test_uint32(n);
+  if (n < std::uint64_t(1) << 31) return miller_rabin_primality_test_uint32(n);
   return miller_rabin_primality_test_uint64(n);
 }
 
-uint64_t pollard_rho(uint64_t n) {
+std::uint64_t pollard_rho(std::uint64_t n) {
   if (is_prime(n)) return n;
   if (n % 2 == 0) return 2;
   Mod64::set_mod(n);
-  uint64_t d;
+  std::uint64_t d;
   Mod64 one{1};
   for (Mod64 c{one};; c += one) {
     Mod64 x{2}, y{2};
@@ -148,20 +157,20 @@ uint64_t pollard_rho(uint64_t n) {
       x = x * x + c;
       y = y * y + c;
       y = y * y + c;
-      d = __gcd((x - y).get(), n);
+      d = std::gcd((x - y).get(), n);
     } while (d == 1);
     if (d < n) return d;
   }
   assert(0);
 }
 
-vector<uint64_t> prime_factor(uint64_t n) {
+std::vector<std::uint64_t> prime_factor(std::uint64_t n) {
   if (n <= 1) return {};
-  uint64_t p = pollard_rho(n);
+  std::uint64_t p = pollard_rho(n);
   if (p == n) return {p};
   auto l = prime_factor(p);
   auto r = prime_factor(n / p);
-  copy(begin(r), end(r), back_inserter(l));
+  std::copy(r.begin(), r.end(), std::back_inserter(l));
   return l;
 }
 };  // namespace FastPrimeFactorization

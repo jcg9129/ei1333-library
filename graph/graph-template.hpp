@@ -1,5 +1,9 @@
 #pragma once
 
+#include <cstddef>
+#include <iostream>
+#include <vector>
+
 template <typename T = int>
 struct Edge {
   int from, to;
@@ -16,14 +20,14 @@ struct Edge {
 
 template <typename T = int>
 struct Graph {
-  vector<vector<Edge<T> > > g;
+  std::vector<std::vector<Edge<T> > > g;
   int es;
 
   Graph() = default;
 
   explicit Graph(int n) : g(n), es(0) {}
 
-  size_t size() const { return g.size(); }
+  std::size_t size() const { return g.size(); }
 
   void add_directed_edge(int from, int to, T cost = 1) {
     g[from].emplace_back(from, to, cost, es++);
@@ -38,11 +42,11 @@ struct Graph {
             bool directed = false) {
     for (int i = 0; i < M; i++) {
       int a, b;
-      cin >> a >> b;
+      std::cin >> a >> b;
       a += padding;
       b += padding;
       T c = T(1);
-      if (weighted) cin >> c;
+      if (weighted) std::cin >> c;
       if (directed)
         add_directed_edge(a, b, c);
       else
@@ -50,10 +54,12 @@ struct Graph {
     }
   }
 
-  inline vector<Edge<T> >& operator[](const int& k) { return g[k]; }
+  inline std::vector<Edge<T> >& operator[](const int& k) { return g[k]; }
 
-  inline const vector<Edge<T> >& operator[](const int& k) const { return g[k]; }
+  inline const std::vector<Edge<T> >& operator[](const int& k) const {
+    return g[k];
+  }
 };
 
 template <typename T = int>
-using Edges = vector<Edge<T> >;
+using Edges = std::vector<Edge<T> >;

@@ -1,7 +1,13 @@
+#pragma once
+
+#include <cassert>
+#include <iostream>
+#include <optional>
+#include <vector>
 template <typename flow_t, template <typename> class F>
 struct MaxFlowLowerBound {
   F<flow_t> flow;
-  vector<flow_t> in, up;
+  std::vector<flow_t> in, up;
   int ts_edge, st_edge;
   int X, Y, V;
   flow_t sum;
@@ -41,31 +47,31 @@ struct MaxFlowLowerBound {
     return ret >= sum;
   }
 
-  optional<flow_t> max_flow(int s, int t) {
+  std::optional<flow_t> max_flow(int s, int t) {
     if (can_flow(s, t)) {
       return flow.max_flow(s, t);
     } else {
-      return nullopt;
+      return std::nullopt;
     }
   }
 
-  optional<flow_t> min_flow(int s, int t) {
+  std::optional<flow_t> min_flow(int s, int t) {
     if (can_flow(s, t)) {
       auto ret = flow.INF - flow.graph[t][ts_edge].cap;
       flow.graph[t][ts_edge].cap = flow.graph[s][st_edge].cap = 0;
       return ret - flow.max_flow(t, s);
     } else {
-      return nullopt;
+      return std::nullopt;
     }
   }
 
   void output(int M) {
-    vector<flow_t> ans(M);
+    std::vector<flow_t> ans(M);
     for (int i = 0; i < flow.graph.size(); i++) {
       for (auto& e : flow.graph[i]) {
         if (!e.isrev && ~e.idx) ans[e.idx] = up[e.idx] - e.cap;
       }
     }
-    for (auto& p : ans) cout << p << endl;
+    for (auto& p : ans) std::cout << p << std::endl;
   }
 };

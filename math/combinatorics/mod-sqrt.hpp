@@ -1,3 +1,7 @@
+#pragma once
+
+#include "mod-pow.hpp"
+
 /**
  * @brief Mod Sqrt
  */

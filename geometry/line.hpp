@@ -1,4 +1,9 @@
 #pragma once
+
+#include <cassert>
+#include <iostream>
+#include <vector>
+
 #include "point.hpp"
 
 namespace geometry {
@@ -26,12 +31,14 @@ struct Line {
     }
   }
 
-  friend ostream& operator<<(ostream& os, Line& l) {
+  friend std::ostream& operator<<(std::ostream& os, Line& l) {
     return os << l.a << " to " << l.b;
   }
 
-  friend istream& operator>>(istream& is, Line& l) { return is >> l.a >> l.b; }
+  friend std::istream& operator>>(std::istream& is, Line& l) {
+    return is >> l.a >> l.b;
+  }
 };
 
-using Lines = vector<Line>;
+using Lines = std::vector<Line>;
 }  // namespace geometry

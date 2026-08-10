@@ -1,14 +1,18 @@
+#pragma once
+
+#include <cstddef>
+#include <vector>
 /**
  * @brief Succinct Indexable Dictionary(完備辞書)
  */
 struct SuccinctIndexableDictionary {
-  size_t length;
-  size_t blocks;
-  vector<unsigned> bit, sum;
+  std::size_t length;
+  std::size_t blocks;
+  std::vector<unsigned> bit, sum;
 
   SuccinctIndexableDictionary() = default;
 
-  SuccinctIndexableDictionary(size_t length)
+  SuccinctIndexableDictionary(std::size_t length)
       : length(length), blocks((length + 31) >> 5) {
     bit.assign(blocks, 0U);
     sum.assign(blocks, 0U);

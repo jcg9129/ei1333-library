@@ -1,5 +1,9 @@
 #pragma once
 
+#include <algorithm>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -11,8 +15,8 @@ template <typename T = int>
 struct LowLink : Graph<T> {
  public:
   using Graph<T>::Graph;
-  vector<int> ord, low, articulation;
-  vector<Edge<T> > bridge;
+  std::vector<int> ord, low, articulation;
+  std::vector<Edge<T> > bridge;
   using Graph<T>::g;
 
   virtual void build() {
@@ -28,7 +32,7 @@ struct LowLink : Graph<T> {
   explicit LowLink(const Graph<T>& g) : Graph<T>(g) {}
 
  private:
-  vector<int> used;
+  std::vector<int> used;
 
   int dfs(int idx, int k, int par) {
     used[idx] = true;
@@ -37,17 +41,17 @@ struct LowLink : Graph<T> {
     bool is_articulation = false, beet = false;
     int cnt = 0;
     for (auto& to : g[idx]) {
-      if (to == par && !exchange(beet, true)) {
+      if (to == par && !std::exchange(beet, true)) {
         continue;
       }
       if (!used[to]) {
         ++cnt;
         k = dfs(to, k, idx);
-        low[idx] = min(low[idx], low[to]);
+        low[idx] = std::min(low[idx], low[to]);
         is_articulation |= par >= 0 && low[to] >= ord[idx];
         if (ord[idx] < low[to]) bridge.emplace_back(to);
       } else {
-        low[idx] = min(low[idx], ord[to]);
+        low[idx] = std::min(low[idx], ord[to]);
       }
     }
     is_articulation |= par == -1 && cnt > 1;

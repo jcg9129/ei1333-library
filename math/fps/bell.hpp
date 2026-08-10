@@ -1,3 +1,6 @@
+#pragma once
+
+#include <cmath>
 /**
  * @brief Bell(ベル数)
  *

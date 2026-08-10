@@ -1,13 +1,23 @@
+#pragma once
+
+#include <algorithm>
+#include <functional>
+#include <map>
+#include <utility>
+#include <vector>
+
+#include "../structure/union-find/union-find-undo.hpp"
+
 struct OfflineDynamicConnectivity {
-  using edge = pair<int, int>;
+  using edge = std::pair<int, int>;
 
   UnionFindUndo uf;
   int V, Q, segsz;
-  vector<vector<edge> > seg;
+  std::vector<std::vector<edge> > seg;
   int comp;
 
-  vector<pair<pair<int, int>, edge> > pend;
-  map<edge, int> cnt, appear;
+  std::vector<std::pair<std::pair<int, int>, edge> > pend;
+  std::map<edge, int> cnt, appear;
 
   OfflineDynamicConnectivity(int V, int Q) : uf(V), V(V), Q(Q), comp(V) {
     segsz = 1;
@@ -16,13 +26,13 @@ struct OfflineDynamicConnectivity {
   }
 
   void insert(int idx, int s, int t) {
-    auto e = minmax(s, t);
+    auto e = std::minmax(s, t);
     if (cnt[e]++ == 0) appear[e] = idx;
   }
 
   void erase(int idx, int s, int t) {
-    auto e = minmax(s, t);
-    if (--cnt[e] == 0) pend.emplace_back(make_pair(appear[e], idx), e);
+    auto e = std::minmax(s, t);
+    if (--cnt[e] == 0) pend.emplace_back(std::make_pair(appear[e], idx), e);
   }
 
   void add(int a, int b, const edge& e, int k, int l, int r) {
@@ -40,14 +50,14 @@ struct OfflineDynamicConnectivity {
   void build() {
     for (auto& p : cnt) {
       if (p.second > 0)
-        pend.emplace_back(make_pair(appear[p.first], Q), p.first);
+        pend.emplace_back(std::make_pair(appear[p.first], Q), p.first);
     }
     for (auto& s : pend) {
       add(s.first.first, s.first.second, s.second);
     }
   }
 
-  void run(const function<void(int)>& f, int k = 0) {
+  void run(const std::function<void(int)>& f, int k = 0) {
     int add = 0;
     for (auto& e : seg[k]) {
       add += uf.unite(e.first, e.second);

@@ -1,9 +1,11 @@
 #pragma once
 
+#include <cmath>
+
 namespace geometry {
 using Real = double;
 const Real EPS = 1e-8;
-const Real PI = acos(static_cast<Real>(-1));
+const Real PI = std::acos(static_cast<Real>(-1));
 
 enum { OUT, ON, IN };
 

@@ -1,5 +1,8 @@
 #pragma once
 
+#include <stack>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -7,17 +10,17 @@
  *
  */
 template <typename T>
-vector<int> topological_sort(const Graph<T>& g) {
+std::vector<int> topological_sort(const Graph<T>& g) {
   const int N = (int)g.size();
-  vector<int> deg(N);
+  std::vector<int> deg(N);
   for (int i = 0; i < N; i++) {
     for (auto& to : g[i]) ++deg[to];
   }
-  stack<int> st;
+  std::stack<int> st;
   for (int i = 0; i < N; i++) {
     if (deg[i] == 0) st.emplace(i);
   }
-  vector<int> ord;
+  std::vector<int> ord;
   while (!st.empty()) {
     auto p = st.top();
     st.pop();

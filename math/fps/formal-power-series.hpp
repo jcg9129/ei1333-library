@@ -1,24 +1,34 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 #include "../fft/arbitrary-mod-convolution.hpp"
 
 /**
  * @brief Formal Power Series(形式的冪級数)
  */
 template <typename T>
-struct FormalPowerSeries : vector<T> {
-  using vector<T>::vector;
+struct FormalPowerSeries : std::vector<T> {
+  using std::vector<T>::vector;
   using P = FormalPowerSeries;
   using Conv = ArbitraryModConvolution<T>;
 
   P pre(int deg) const {
-    return P(begin(*this), begin(*this) + min((int)this->size(), deg));
+    return P(std::begin(*this),
+             std::begin(*this) + std::min((int)this->size(), deg));
   }
 
   P rev(int deg = -1) const {
     P ret(*this);
     if (deg != -1) ret.resize(deg, T(0));
-    reverse(begin(ret), end(ret));
+    std::reverse(std::begin(ret), std::end(ret));
     return ret;
   }
 
@@ -61,7 +71,7 @@ struct FormalPowerSeries : vector<T> {
       return *this;
     }
     auto ret = Conv::multiply(*this, r);
-    return *this = {begin(ret), end(ret)};
+    return *this = {std::begin(ret), std::end(ret)};
   }
 
   P& operator/=(const P& r) {
@@ -76,9 +86,9 @@ struct FormalPowerSeries : vector<T> {
   P& operator%=(const P& r) { return *this -= *this / r * r; }
 
   // https://judge.yosupo.jp/problem/division_of_polynomials
-  pair<P, P> div_mod(const P& r) {
+  std::pair<P, P> div_mod(const P& r) {
     P q = *this / r;
-    return make_pair(q, *this - q * r);
+    return std::make_pair(q, *this - q * r);
   }
 
   P operator-() const {
@@ -105,7 +115,7 @@ struct FormalPowerSeries : vector<T> {
   }
 
   P dot(P r) const {
-    P ret(min(this->size(), r.size()));
+    P ret(std::min(this->size(), r.size()));
     for (int i = 0; i < ret.size(); i++) ret[i] = (*this)[i] * r[i];
     return ret;
   }
@@ -134,7 +144,7 @@ struct FormalPowerSeries : vector<T> {
 
   P diff() const {
     const int n = (int)this->size();
-    P ret(max(0, n - 1));
+    P ret(std::max(0, n - 1));
     for (int i = 1; i < n; i++) ret[i - 1] = (*this)[i] * T(i);
     return ret;
   }
@@ -172,7 +182,7 @@ struct FormalPowerSeries : vector<T> {
   // https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
   P sqrt(
       int deg = -1,
-      const function<T(T)>& get_sqrt = [](T) { return T(1); }) const {
+      const std::function<T(T)>& get_sqrt = [](T) { return T(1); }) const {
     const int n = (int)this->size();
     if (deg == -1) deg = n;
     if ((*this)[0] == T(0)) {
@@ -199,7 +209,7 @@ struct FormalPowerSeries : vector<T> {
     return ret.pre(deg);
   }
 
-  P sqrt(const function<T(T)>& get_sqrt, int deg = -1) const {
+  P sqrt(const std::function<T(T)>& get_sqrt, int deg = -1) const {
     return sqrt(deg, get_sqrt);
   }
 
@@ -218,7 +228,7 @@ struct FormalPowerSeries : vector<T> {
   }
 
   // https://judge.yosupo.jp/problem/pow_of_formal_power_series
-  P pow(int64_t k, int deg = -1) const {
+  P pow(std::int64_t k, int deg = -1) const {
     const int n = (int)this->size();
     if (deg == -1) deg = n;
     if (k == 0) {
@@ -240,7 +250,7 @@ struct FormalPowerSeries : vector<T> {
   }
 
   // https://yukicoder.me/problems/no/215
-  P mod_pow(int64_t k, P g) const {
+  P mod_pow(std::int64_t k, P g) const {
     P modinv = g.rev().inv();
     auto get_div = [&](P base) {
       if (base.size() < g.size()) {
@@ -268,7 +278,7 @@ struct FormalPowerSeries : vector<T> {
   // https://judge.yosupo.jp/problem/polynomial_taylor_shift
   P taylor_shift(T c) const {
     int n = (int)this->size();
-    vector<T> fact(n), rfact(n);
+    std::vector<T> fact(n), rfact(n);
     fact[0] = rfact[0] = T(1);
     for (int i = 1; i < n; i++) fact[i] = fact[i - 1] * T(i);
     rfact[n - 1] = T(1) / fact[n - 1];
