@@ -1,5 +1,9 @@
 #pragma once
 
+#include <iterator>
+#include <numeric>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -29,8 +33,8 @@ struct DominatorTree : Graph<T> {
       }
     }
 
-    vector<vector<int> > bucket(N);
-    vector<int> U(N);
+    std::vector<std::vector<int> > bucket(N);
+    std::vector<int> U(N);
     for (int i = (int)ord.size() - 1; i >= 0; i--) {
       int x = ord[i];
       for (int v : rg[x]) {
@@ -59,13 +63,13 @@ struct DominatorTree : Graph<T> {
   Graph<T> rg;
 
   struct UnionFind {
-    const vector<int>& semi;
-    vector<int> par, m;
+    const std::vector<int>& semi;
+    std::vector<int> par, m;
 
-    explicit UnionFind(const vector<int>& semi)
+    explicit UnionFind(const std::vector<int>& semi)
         : semi(semi), par(semi.size()), m(semi.size()) {
-      iota(begin(par), end(par), 0);
-      iota(begin(m), end(m), 0);
+      std::iota(std::begin(par), std::end(par), 0);
+      std::iota(std::begin(m), std::end(m), 0);
     }
 
     int find(int v) {
@@ -83,8 +87,8 @@ struct DominatorTree : Graph<T> {
     void link(int p, int c) { par[c] = p; }
   };
 
-  vector<int> ord, par;
-  vector<int> idom, semi;
+  std::vector<int> ord, par;
+  std::vector<int> idom, semi;
 
   void dfs(int idx) {
     semi[idx] = (int)ord.size();

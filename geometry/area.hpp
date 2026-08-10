@@ -1,3 +1,5 @@
+#pragma once
+
 #include "point.hpp"
 #include "polygon.hpp"
 

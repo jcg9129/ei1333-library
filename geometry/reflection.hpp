@@ -1,3 +1,5 @@
+#pragma once
+
 #include "line.hpp"
 #include "point.hpp"
 #include "projection.hpp"

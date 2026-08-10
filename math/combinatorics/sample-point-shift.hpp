@@ -1,14 +1,19 @@
+#pragma once
+
+#include <iterator>
+#include <vector>
+
 #include "enumeration.hpp"
 
 /**
  * @brief Sample Point Shift(標本点シフト)
  */
 template <typename Mint, typename F>
-vector<Mint> sample_point_shift(const vector<Mint>& ys, const Mint& m,
-                                const F& multiply) {
+std::vector<Mint> sample_point_shift(const std::vector<Mint>& ys, const Mint& m,
+                                     const F& multiply) {
   Enumeration<Mint> comb;
   int d = (int)ys.size() - 1;
-  vector<Mint> f(d + 1), g(d * 2 + 1);
+  std::vector<Mint> f(d + 1), g(d * 2 + 1);
   for (int i = 0; i <= d; i++) {
     f[i] = ys[i] * comb.finv(i) * comb.finv(d - i);
     if ((d - i) & 1) f[i] = -f[i];
@@ -25,5 +30,5 @@ vector<Mint> sample_point_shift(const vector<Mint>& ys, const Mint& m,
     h[i + d] *= coef;
     coef *= (m + i + 1) * g[i];
   }
-  return vector<Mint>{begin(h) + d, begin(h) + 2 * d + 1};
+  return std::vector<Mint>{std::begin(h) + d, std::begin(h) + 2 * d + 1};
 }

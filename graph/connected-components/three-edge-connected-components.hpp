@@ -1,5 +1,8 @@
 #pragma once
 
+#include <cstddef>
+#include <vector>
+
 #include "../graph-template.hpp"
 #include "incremental-bridge-connectivity.hpp"
 
@@ -8,7 +11,7 @@ struct ThreeEdgeConnectedComponents : Graph<T> {
  public:
   using Graph<T>::Graph;
   using Graph<T>::g;
-  vector<vector<int> > group;
+  std::vector<std::vector<int> > group;
 
   void build() {
     uf = UnionFind(g.size());
@@ -18,25 +21,25 @@ struct ThreeEdgeConnectedComponents : Graph<T> {
     out.assign(g.size(), 0);
     deg.assign(g.size(), 0);
     low.assign(g.size(), g.size());
-    for (size_t from = 0; from < g.size(); from++) {
+    for (std::size_t from = 0; from < g.size(); from++) {
       for (auto& to : g[from]) {
         if ((T)from < to) bcc.add_edge(from, to);
       }
     }
     int cnt = 0;
-    for (size_t i = 0; i < g.size(); i++) {
+    for (std::size_t i = 0; i < g.size(); i++) {
       if (used[i]) continue;
-      vector<int> tmp;
+      std::vector<int> tmp;
       dfs(i, -1, tmp, cnt);
       cnt++;
     }
-    vector<int> id(g.size(), -1);
+    std::vector<int> id(g.size(), -1);
     cnt = 0;
-    for (size_t i = 0; i < g.size(); i++) {
+    for (std::size_t i = 0; i < g.size(); i++) {
       if (id[uf.find(i)] == -1) id[uf.find(i)] = cnt++;
     }
     group.resize(cnt);
-    for (size_t i = 0; i < g.size(); i++) {
+    for (std::size_t i = 0; i < g.size(); i++) {
       group[id[uf.find(i)]].emplace_back(i);
     }
   }
@@ -44,12 +47,12 @@ struct ThreeEdgeConnectedComponents : Graph<T> {
   int operator[](const int& k) { return uf.find(k); }
 
  private:
-  vector<int> used;
-  vector<int> in, out, low, deg;
+  std::vector<int> used;
+  std::vector<int> in, out, low, deg;
   IncrementalBridgeConnectivity bcc;
   UnionFind uf;
 
-  void absorb(vector<int>& path, int v, int w = -1) {
+  void absorb(std::vector<int>& path, int v, int w = -1) {
     while (!path.empty()) {
       int x = path.back();
       if (w != -1 && (in[x] > in[w] or in[w] >= out[x])) break;
@@ -59,7 +62,7 @@ struct ThreeEdgeConnectedComponents : Graph<T> {
     }
   }
 
-  void dfs(int idx, int p, vector<int>& path, int& k) {
+  void dfs(int idx, int p, std::vector<int>& path, int& k) {
     used[idx] = 1;
     in[idx] = low[idx] = k++;
     for (auto& to : g[idx]) {
@@ -80,7 +83,7 @@ struct ThreeEdgeConnectedComponents : Graph<T> {
           absorb(path, idx, to);
         }
       } else {
-        vector<int> ps;
+        std::vector<int> ps;
         dfs(to, idx, ps, k);
         if (deg[to] == 2) ps.pop_back();
         if (low[to] < low[idx]) {

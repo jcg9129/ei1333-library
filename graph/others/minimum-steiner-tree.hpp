@@ -1,29 +1,40 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <functional>
+#include <limits>
+#include <queue>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 
 template <typename T>
 struct MinimumSteinerTree {
-  using pi = pair<int, int>;
+  using pi = std::pair<int, int>;
 
-  const T infty = numeric_limits<T>::max();
+  const T infty = std::numeric_limits<T>::max();
 
-  vector<vector<T> > dp;
+  std::vector<std::vector<T> > dp;
   T cost;
 
   MinimumSteinerTree() = default;
 
-  explicit MinimumSteinerTree(const Graph<T>& g, const vector<int>& terminal)
+  explicit MinimumSteinerTree(const Graph<T>& g,
+                              const std::vector<int>& terminal)
       : g(g),
         terminal(terminal),
-        dp(1 << terminal.size(), vector<T>(g.size(), infty)),
-        pre(1 << terminal.size(), vector<pi>(g.size(), pi(-1, -1))) {
+        dp(1 << terminal.size(), std::vector<T>(g.size(), infty)),
+        pre(1 << terminal.size(), std::vector<pi>(g.size(), pi(-1, -1))) {
     assert(not terminal.empty());
     const int n = (int)g.size(), t = (int)terminal.size();
     for (int i = 0; i < t; i++) {
       assert(0 <= terminal[i] and terminal[i] < n);
       dp[1 << i][terminal[i]] = 0;
     }
-    using qt = pair<T, int>;
-    priority_queue<qt, vector<qt>, greater<> > que;
+    using qt = std::pair<T, int>;
+    std::priority_queue<qt, std::vector<qt>, std::greater<> > que;
     for (int i = 1; i < (1 << t); i++) {
       for (int j = 0; j < n; j++) {
         for (int k = i; k > 0; k = (k - 1) & i) {
@@ -62,7 +73,7 @@ struct MinimumSteinerTree {
     const int t = (int)terminal.size();
     assert(dp[(1 << t) - 1][terminal[0]] != infty);
     Edges<T> tree;
-    vector<pair<int, int> > st;
+    std::vector<std::pair<int, int> > st;
     st.emplace_back((1 << t) - 1, terminal[0]);
     while (not st.empty()) {
       auto [x, y] = st.back();
@@ -82,6 +93,6 @@ struct MinimumSteinerTree {
 
  private:
   const Graph<T>& g;
-  const vector<int>& terminal;
-  vector<vector<pi> > pre;
+  const std::vector<int>& terminal;
+  std::vector<std::vector<pi> > pre;
 };

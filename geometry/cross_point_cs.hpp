@@ -1,3 +1,7 @@
+#pragma once
+
+#include <algorithm>
+
 #include "circle.hpp"
 #include "cross_point_cl.hpp"
 #include "is_intersect_cs.hpp"
@@ -10,7 +14,7 @@ Points cross_point_cs(const Circle& c, const Segment& s) {
   if (num == 0) return {};
   if (num == 2) return cross_point_cl(c, s);
   auto ret = cross_point_cl(c, s);
-  if (dot(s.a - ret[0], s.b - ret[0]) > 0) swap(ret[0], ret[1]);
+  if (dot(s.a - ret[0], s.b - ret[0]) > 0) std::swap(ret[0], ret[1]);
   return {ret[0]};
 }
 }  // namespace geometry

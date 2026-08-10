@@ -1,3 +1,8 @@
+#pragma once
+
+#include <functional>
+#include <vector>
+
 template <typename sum_t, typename key_t>
 struct ReRooting {
   struct Edge {
@@ -6,14 +11,14 @@ struct ReRooting {
     sum_t dp, ndp;
   };
 
-  using F = function<sum_t(sum_t, sum_t)>;
-  using G = function<sum_t(sum_t, key_t)>;
+  using F = std::function<sum_t(sum_t, sum_t)>;
+  using G = std::function<sum_t(sum_t, key_t)>;
 
-  vector<vector<Edge> > g;
+  std::vector<std::vector<Edge> > g;
   const F f;
   const G gg;
   const sum_t ident;
-  vector<sum_t> subdp, dp;
+  std::vector<sum_t> subdp, dp;
 
   ReRooting(int V, const F f, const G g, const sum_t& ident)
       : g(V), f(f), gg(g), ident(ident), subdp(V, ident), dp(V, ident) {}
@@ -54,7 +59,7 @@ struct ReRooting {
     }
   }
 
-  vector<sum_t> build() {
+  std::vector<sum_t> build() {
     dfs_sub(0, -1);
     dfs_all(0, -1, ident);
     return dp;

@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Stirling First(第一種スターリング数)
  */

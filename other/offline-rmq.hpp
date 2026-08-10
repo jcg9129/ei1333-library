@@ -1,17 +1,24 @@
+#pragma once
+
+#include <algorithm>
+#include <utility>
+#include <vector>
+
 #include "../structure/union-find/union-find.hpp"
 
 /**
  * @brief Offline RMQ
  **/
 template <typename Comp>
-vector<int> offline_rmq(vector<pair<int, int> >& qs, const Comp& comp) {
+std::vector<int> offline_rmq(std::vector<std::pair<int, int> >& qs,
+                             const Comp& comp) {
   int n = 0;
-  for (auto& [l, r] : qs) n = max(n, r);
+  for (auto& [l, r] : qs) n = std::max(n, r);
   UnionFind uf(n);
-  vector<int> st(n), mark(n), ans(qs.size());
+  std::vector<int> st(n), mark(n), ans(qs.size());
   int top = -1;
   for (auto& [l, r] : qs) mark[r - 1]++;
-  vector<vector<int> > q(n);
+  std::vector<std::vector<int> > q(n);
   for (int i = 0; i < n; i++) {
     q[i].reserve(mark[i]);
   }

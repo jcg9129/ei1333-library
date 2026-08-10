@@ -1,9 +1,14 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 /**
  * @brief Number Theoretic Transform Friendly ModInt
  */
 template <typename Mint>
 struct NumberTheoreticTransformFriendlyModInt {
-  static vector<Mint> roots, iroots, rate2, irate2, rate3, irate3;
+  static std::vector<Mint> roots, iroots, rate2, irate2, rate3, irate3;
   static int max_base;
 
   NumberTheoreticTransformFriendlyModInt() = default;
@@ -55,7 +60,7 @@ struct NumberTheoreticTransformFriendlyModInt {
     }
   }
 
-  static void ntt(vector<Mint>& a) {
+  static void ntt(std::vector<Mint>& a) {
     init();
     const int n = (int)a.size();
     assert((n & (n - 1)) == 0);
@@ -114,7 +119,7 @@ struct NumberTheoreticTransformFriendlyModInt {
     }
   }
 
-  static void intt(vector<Mint>& a, bool f = true) {
+  static void intt(std::vector<Mint>& a, bool f = true) {
     init();
     const int n = (int)a.size();
     assert((n & (n - 1)) == 0);
@@ -179,7 +184,7 @@ struct NumberTheoreticTransformFriendlyModInt {
   /**
    * @brief Transpose of ntt()
    */
-  static void transposed_ntt(vector<Mint>& a) {
+  static void transposed_ntt(std::vector<Mint>& a) {
     init();
     const int n = (int)a.size();
     assert((n & (n - 1)) == 0);
@@ -231,7 +236,7 @@ struct NumberTheoreticTransformFriendlyModInt {
   /**
    * @brief Transpose of intt()
    */
-  static void transposed_intt(vector<Mint>& a, bool f = true) {
+  static void transposed_intt(std::vector<Mint>& a, bool f = true) {
     init();
     const int n = (int)a.size();
     assert((n & (n - 1)) == 0);
@@ -285,7 +290,7 @@ struct NumberTheoreticTransformFriendlyModInt {
     }
   }
 
-  static vector<Mint> multiply(vector<Mint> a, vector<Mint> b) {
+  static std::vector<Mint> multiply(std::vector<Mint> a, std::vector<Mint> b) {
     int need = a.size() + b.size() - 1;
     int nbase = 1;
     while ((1 << nbase) < need) nbase++;
@@ -303,22 +308,22 @@ struct NumberTheoreticTransformFriendlyModInt {
 };
 
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::roots =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::roots =
+    std::vector<Mint>();
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::iroots =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::iroots =
+    std::vector<Mint>();
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate2 =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate2 =
+    std::vector<Mint>();
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::irate2 =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::irate2 =
+    std::vector<Mint>();
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate3 =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::rate3 =
+    std::vector<Mint>();
 template <typename Mint>
-vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::irate3 =
-    vector<Mint>();
+std::vector<Mint> NumberTheoreticTransformFriendlyModInt<Mint>::irate3 =
+    std::vector<Mint>();
 template <typename Mint>
 int NumberTheoreticTransformFriendlyModInt<Mint>::max_base = 0;

@@ -1,3 +1,10 @@
+#pragma once
+
+#include <cstddef>
+#include <stdexcept>
+#include <utility>
+#include <variant>
+#include <vector>
 template <typename G>
 struct StaticTopTree {
   enum OpType { Vertex, AddVertex, AddEdge, Rake, Compress };
@@ -12,9 +19,9 @@ struct StaticTopTree {
     Node(OpType op, int l, int r) : op{op}, l{l}, r{r}, p{-1}, e_id{-1} {}
   };
 
-  vector<Node> vs;
+  std::vector<Node> vs;
 
-  vector<int> edge_to_vs;
+  std::vector<int> edge_to_vs;
 
   int root;
 
@@ -34,12 +41,12 @@ struct StaticTopTree {
 
   const Node& operator[](int k) const { return vs[k]; }
 
-  size_t size() const { return vs.size(); }
+  std::size_t size() const { return vs.size(); }
 
  private:
   G& g;
 
-  using P = pair<int, int>;
+  using P = std::pair<int, int>;
 
   int dfs(int u) {
     int size = 1, heavy = 0;
@@ -48,7 +55,7 @@ struct StaticTopTree {
       size += subtree_size;
       if (heavy < subtree_size) {
         heavy = subtree_size;
-        swap(v, g[u][0]);
+        std::swap(v, g[u][0]);
       }
     }
     return size;
@@ -66,13 +73,13 @@ struct StaticTopTree {
     return k;
   }
 
-  P merge_forRake(const vector<P>& a) {
+  P merge_forRake(const std::vector<P>& a) {
     if (a.size() == 1) return a[0];
     int size_sum = 0;
     for (auto& [_, size] : a) {
       size_sum += size;
     }
-    vector<P> b, c;
+    std::vector<P> b, c;
     for (auto& [it, size] : a) {
       (size_sum > size ? b : c).emplace_back(it, size);
       size_sum -= size * 2;
@@ -82,13 +89,13 @@ struct StaticTopTree {
     return {make_node(Rake, l, r), l_size + r_size};
   }
 
-  P merge_forCompress(const vector<pair<P, int>>& a) {
+  P merge_forCompress(const std::vector<std::pair<P, int>>& a) {
     if (a.size() == 1) return a[0].first;
     int size_sum = 0;
     for (auto& [it, _] : a) {
       size_sum += it.second;
     }
-    vector<pair<P, int>> b, c;
+    std::vector<std::pair<P, int>> b, c;
     for (auto& [it, _] : a) {
       (size_sum > it.second ? b : c).emplace_back(it, _);
       size_sum -= it.second * 2;
@@ -110,7 +117,7 @@ struct StaticTopTree {
   }
 
   P rake(int u) {
-    vector<P> chs;
+    std::vector<P> chs;
     for (int j = 1; j < (int)g[u].size(); j++) {
       chs.emplace_back(add_edge(g[u][j].to, g[u][j].idx));
     }
@@ -127,8 +134,8 @@ struct StaticTopTree {
   }
 
   P compress(int u) {
-    vector<pair<P, int>> chs{{add_vertex(u), -1}};
-    vector<int> ids{-1};
+    std::vector<std::pair<P, int>> chs{{add_vertex(u), -1}};
+    std::vector<int> ids{-1};
     while (not g[u].empty()) {
       int e_idx = g[u][0].idx;
       u = g[u][0];

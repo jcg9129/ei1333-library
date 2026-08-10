@@ -1,10 +1,14 @@
+#pragma once
+
+#include <vector>
+
 /**
  * @brief Montmort-Number(モンモール数)
  *
  */
 template <typename T>
-vector<T> montmort(int N) {
-  vector<T> dp(N + 1);
+std::vector<T> montmort(int N) {
+  std::vector<T> dp(N + 1);
   for (int k = 2; k <= N; k++) {
     dp[k] = dp[k - 1] * k;
     if (k & 1)

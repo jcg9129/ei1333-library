@@ -1,3 +1,16 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <chrono>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <random>
+#include <string>
+#include <utility>
+#include <vector>
+
 #include "../math/combinatorics/modint-2-61m1.hpp"
 
 template <typename T = char>
@@ -6,18 +19,19 @@ struct RollingHash {
   using mint = ModInt_2_61m1;
 
   static mint generate_base() {
-    mt19937_64 mt(chrono::steady_clock::now().time_since_epoch().count());
-    uniform_int_distribution<uint64_t> rand(1, mint::mod() - 1);
+    std::mt19937_64 mt(
+        std::chrono::steady_clock::now().time_since_epoch().count());
+    std::uniform_int_distribution<std::uint64_t> rand(1, mint::mod() - 1);
     return mint(rand(mt));
   }
 
   static mint base, base_inv;
-  static vector<mint> bases, base_invs;
+  static std::vector<mint> bases, base_invs;
 
-  vector<T> pre, suf;
-  vector<mint> PRE{mint(0)}, SUF{mint(0)};
+  std::vector<T> pre, suf;
+  std::vector<mint> PRE{mint(0)}, SUF{mint(0)};
 
-  static void expand_bases(size_t n) {
+  static void expand_bases(std::size_t n) {
     if (bases.size() < n + 1) {
       int pre_sz = (int)bases.size();
       bases.resize(n + 1);
@@ -27,7 +41,7 @@ struct RollingHash {
     }
   }
 
-  static void expand_base_invs(size_t n) {
+  static void expand_base_invs(std::size_t n) {
     if (base_invs.size() < n + 1) {
       int pre_sz = (int)base_invs.size();
       base_invs.resize(n + 1);
@@ -40,11 +54,11 @@ struct RollingHash {
  public:
   RollingHash() = default;
 
-  explicit RollingHash(const string& s) {
+  explicit RollingHash(const std::string& s) {
     for (auto& c : s) push_back(c);
   }
 
-  explicit RollingHash(const vector<T>& s) {
+  explicit RollingHash(const std::vector<T>& s) {
     for (auto& c : s) push_back(c);
   }
 
@@ -86,7 +100,7 @@ struct RollingHash {
   }
 
   int lcp(const RollingHash& b) const {
-    int len = min(size(), b.size());
+    int len = std::min(size(), b.size());
     int low = 0, high = len + 1;
     while (high - low > 1) {
       int mid = (low + high) / 2;
@@ -101,7 +115,7 @@ struct RollingHash {
   int lcp(const RollingHash& b, int l1, int l2) const {
     assert(l1 <= size());
     assert(l2 <= b.size());
-    int len = min(size() - l1, b.size() - l2);
+    int len = std::min(size() - l1, b.size() - l2);
     int low = 0, high = len + 1;
     while (high - low > 1) {
       int mid = (low + high) / 2;
@@ -135,11 +149,11 @@ struct RollingHash {
       suf.swap(b.suf);
       PRE.swap(b.PRE);
       SUF.swap(b.SUF);
-      reverse(b.suf.begin(), b.suf.end());
+      std::reverse(b.suf.begin(), b.suf.end());
       for (auto& c : b.suf) push_front(c);
       for (auto& c : b.pre) push_front(c);
     } else {
-      reverse(b.pre.begin(), b.pre.end());
+      std::reverse(b.pre.begin(), b.pre.end());
       for (auto& c : b.pre) push_back(c);
       for (auto& c : b.suf) push_back(c);
     }
@@ -152,6 +166,6 @@ ModInt_2_61m1 RollingHash<T>::base = RollingHash::generate_base();
 template <typename T>
 ModInt_2_61m1 RollingHash<T>::base_inv = base.inv();
 template <typename T>
-vector<ModInt_2_61m1> RollingHash<T>::bases = {ModInt_2_61m1(1)};
+std::vector<ModInt_2_61m1> RollingHash<T>::bases = {ModInt_2_61m1(1)};
 template <typename T>
-vector<ModInt_2_61m1> RollingHash<T>::base_invs = {ModInt_2_61m1(1)};
+std::vector<ModInt_2_61m1> RollingHash<T>::base_invs = {ModInt_2_61m1(1)};

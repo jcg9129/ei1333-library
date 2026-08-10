@@ -1,21 +1,31 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <cstdint>
+#include <functional>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 #include "../fft/number-theoretic-transform-friendly-mod-int.hpp"
 
 template <typename T>
-struct FormalPowerSeriesFriendlyNTT : vector<T> {
-  using vector<T>::vector;
+struct FormalPowerSeriesFriendlyNTT : std::vector<T> {
+  using std::vector<T>::vector;
   using P = FormalPowerSeriesFriendlyNTT;
   using NTT = NumberTheoreticTransformFriendlyModInt<T>;
 
   P pre(int deg) const {
-    return P(begin(*this), begin(*this) + min((int)this->size(), deg));
+    return P(std::begin(*this),
+             std::begin(*this) + std::min((int)this->size(), deg));
   }
 
   P rev(int deg = -1) const {
     P ret(*this);
     if (deg != -1) ret.resize(deg, T(0));
-    reverse(begin(ret), end(ret));
+    std::reverse(std::begin(ret), std::end(ret));
     return ret;
   }
 
@@ -58,7 +68,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
       return *this;
     }
     auto ret = NTT::multiply(*this, r);
-    return *this = {begin(ret), end(ret)};
+    return *this = {std::begin(ret), std::end(ret)};
   }
 
   P& operator/=(const P& r) {
@@ -77,11 +87,11 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
   }
 
   // https://judge.yosupo.jp/problem/division_of_polynomials
-  pair<P, P> div_mod(const P& r) {
+  std::pair<P, P> div_mod(const P& r) {
     P q = *this / r;
     P x = *this - q * r;
     x.shrink();
-    return make_pair(q, x);
+    return std::make_pair(q, x);
   }
 
   P operator-() const {
@@ -108,7 +118,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
   }
 
   P dot(P r) const {
-    P ret(min(this->size(), r.size()));
+    P ret(std::min(this->size(), r.size()));
     for (int i = 0; i < (int)ret.size(); i++) ret[i] = (*this)[i] * r[i];
     return ret;
   }
@@ -137,7 +147,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
 
   P diff() const {
     const int n = (int)this->size();
-    P ret(max(0, n - 1));
+    P ret(std::max(0, n - 1));
     for (int i = 1; i < n; i++) ret[i - 1] = (*this)[i] * T(i);
     return ret;
   }
@@ -160,7 +170,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
     res[0] = {T(1) / (*this)[0]};
     for (int d = 1; d < deg; d <<= 1) {
       P f(2 * d), g(2 * d);
-      for (int j = 0; j < min(n, 2 * d); j++) f[j] = (*this)[j];
+      for (int j = 0; j < std::min(n, 2 * d); j++) f[j] = (*this)[j];
       for (int j = 0; j < d; j++) g[j] = res[j];
       NTT::ntt(f);
       NTT::ntt(g);
@@ -170,7 +180,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
       NTT::ntt(f);
       for (int j = 0; j < 2 * d; j++) f[j] *= g[j];
       NTT::intt(f);
-      for (int j = d; j < min(2 * d, deg); j++) res[j] = -f[j];
+      for (int j = d; j < std::min(2 * d, deg); j++) res[j] = -f[j];
     }
     return res;
   }
@@ -187,7 +197,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
   // https://judge.yosupo.jp/problem/sqrt_of_formal_power_series
   P sqrt(
       int deg = -1,
-      const function<T(T)>& get_sqrt = [](T) { return T(1); }) const {
+      const std::function<T(T)>& get_sqrt = [](T) { return T(1); }) const {
     const int n = (int)this->size();
     if (deg == -1) deg = n;
     if ((*this)[0] == T(0)) {
@@ -214,7 +224,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
     return ret.pre(deg);
   }
 
-  P sqrt(const function<T(T)>& get_sqrt, int deg = -1) const {
+  P sqrt(const std::function<T(T)>& get_sqrt, int deg = -1) const {
     return sqrt(deg, get_sqrt);
   }
 
@@ -236,13 +246,13 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
         int i = inv.size();
         inv.push_back((-inv[mod % i]) * (mod / i));
       }
-      F.insert(begin(F), T(0));
+      F.insert(std::begin(F), T(0));
       for (int i = 1; i <= n; i++) F[i] *= inv[i];
     };
 
     auto inplace_diff = [](P& F) -> void {
       if (F.empty()) return;
-      F.erase(begin(F));
+      F.erase(std::begin(F));
       T coeff = 1, one = 1;
       for (int i = 0; i < (int)F.size(); i++) {
         F[i] *= coeff;
@@ -259,15 +269,16 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
       P z(m);
       for (int i = 0; i < m; ++i) z[i] = y[i] * z1[i];
       NTT::intt(z);
-      fill(begin(z), begin(z) + m / 2, T(0));
+      std::fill(std::begin(z), std::begin(z) + m / 2, T(0));
       NTT::ntt(z);
       for (int i = 0; i < m; ++i) z[i] *= -z1[i];
       NTT::intt(z);
-      c.insert(end(c), begin(z) + m / 2, end(z));
+      c.insert(std::end(c), std::begin(z) + m / 2, std::end(z));
       z2 = c;
       z2.resize(2 * m);
       NTT::ntt(z2);
-      P x(begin(*this), begin(*this) + min<int>(this->size(), m));
+      P x(std::begin(*this),
+          std::begin(*this) + std::min<int>(this->size(), m));
       inplace_diff(x);
       x.push_back(T(0));
       NTT::ntt(x);
@@ -281,19 +292,19 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
       NTT::intt(x);
       x.pop_back();
       inplace_integral(x);
-      for (int i = m; i < min<int>(this->size(), 2 * m); ++i)
+      for (int i = m; i < std::min<int>(this->size(), 2 * m); ++i)
         x[i] += (*this)[i];
-      fill(begin(x), begin(x) + m, T(0));
+      std::fill(std::begin(x), std::begin(x) + m, T(0));
       NTT::ntt(x);
       for (int i = 0; i < 2 * m; ++i) x[i] *= y[i];
       NTT::intt(x);
-      b.insert(end(b), begin(x) + m, end(x));
+      b.insert(std::end(b), std::begin(x) + m, std::end(x));
     }
-    return P{begin(b), begin(b) + deg};
+    return P{std::begin(b), std::begin(b) + deg};
   }
 
   // https://judge.yosupo.jp/problem/pow_of_formal_power_series
-  P pow(int64_t k, int deg = -1) const {
+  P pow(std::int64_t k, int deg = -1) const {
     const int n = (int)this->size();
     if (deg == -1) deg = n;
     if (k == 0) {
@@ -314,7 +325,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
     return *this;
   }
 
-  P mod_pow(int64_t k, P g) const {
+  P mod_pow(std::int64_t k, P g) const {
     P modinv = g.rev().inv();
     auto get_div = [&](P base) {
       if (base.size() < g.size()) {
@@ -342,7 +353,7 @@ struct FormalPowerSeriesFriendlyNTT : vector<T> {
   // https://judge.yosupo.jp/problem/polynomial_taylor_shift
   P taylor_shift(T c) const {
     int n = (int)this->size();
-    vector<T> fact(n), rfact(n);
+    std::vector<T> fact(n), rfact(n);
     fact[0] = rfact[0] = T(1);
     for (int i = 1; i < n; i++) fact[i] = fact[i - 1] * T(i);
     rfact[n - 1] = T(1) / fact[n - 1];

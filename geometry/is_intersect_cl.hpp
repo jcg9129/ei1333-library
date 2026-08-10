@@ -1,3 +1,5 @@
+#pragma once
+
 #include "base.hpp"
 #include "circle.hpp"
 #include "distance_lp.hpp"

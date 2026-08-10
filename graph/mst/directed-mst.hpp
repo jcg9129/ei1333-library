@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../../structure/heap/skew-heap.hpp"
 #include "../graph-template.hpp"
 
@@ -20,19 +22,19 @@ MinimumSpanningTree<T> directed_mst(int V, int root, Edges<T> edges) {
   }
 
   int x = 0;
-  vector<int> par(2 * V, -1), vis(par), link(par);
+  std::vector<int> par(2 * V, -1), vis(par), link(par);
 
   using Heap = SkewHeap<T, true>;
   using Node = typename Heap::Node;
 
   Heap heap;
-  vector<Node*> ins(2 * V, heap.make_root());
+  std::vector<Node*> ins(2 * V, heap.make_root());
 
   for (int i = 0; i < (int)edges.size(); i++) {
     auto& e = edges[i];
     ins[e.to] = heap.push(ins[e.to], e.cost, i);
   }
-  vector<int> st;
+  std::vector<int> st;
   auto go = [&](int x) {
     x = edges[ins[x]->idx].from;
     while (link[x] != -1) {

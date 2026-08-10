@@ -1,8 +1,17 @@
+#pragma once
+
+#include <algorithm>
+#include <array>
+#include <cassert>
+#include <iterator>
+#include <type_traits>
+#include <vector>
+
 #include "../structure/others/binary-indexed-tree.hpp"
 
 template <typename T, typename C>
 struct StaticRectangleAddRectangleSum {
-  struct Hikari : array<C, 4> {
+  struct Hikari : std::array<C, 4> {
     Hikari& operator+=(const Hikari& p) {
       for (int i = 0; i < 4; i++) {
         this->at(i) += p.at(i);
@@ -13,7 +22,7 @@ struct StaticRectangleAddRectangleSum {
 
   using BIT = BinaryIndexedTree<Hikari>;
 
-  static_assert(is_integral<T>::value,
+  static_assert(std::is_integral<T>::value,
                 "template parameter T must be integral type");
 
   struct Rectangle {
@@ -25,8 +34,8 @@ struct StaticRectangleAddRectangleSum {
     T l, d, r, u;
   };
 
-  vector<Rectangle> rectangles;
-  vector<Query> queries;
+  std::vector<Rectangle> rectangles;
+  std::vector<Query> queries;
 
   StaticRectangleAddRectangleSum() = default;
 
@@ -44,21 +53,21 @@ struct StaticRectangleAddRectangleSum {
     queries.emplace_back(Query{l, d, r, u});
   }
 
-  vector<C> calculate_queries() {
+  std::vector<C> calculate_queries() {
     int n = (int)rectangles.size();
     int q = (int)queries.size();
-    vector<C> ans(q);
+    std::vector<C> ans(q);
     if (rectangles.empty() or queries.empty()) {
       return ans;
     }
-    vector<T> ys;
+    std::vector<T> ys;
     ys.reserve(n + n);
     for (Rectangle& p : rectangles) {
       ys.emplace_back(p.d);
       ys.emplace_back(p.u);
     }
-    sort(ys.begin(), ys.end());
-    ys.erase(unique(ys.begin(), ys.end()), ys.end());
+    std::sort(ys.begin(), ys.end());
+    ys.erase(std::unique(ys.begin(), ys.end()), ys.end());
 
     struct Q {
       T x;
@@ -66,27 +75,27 @@ struct StaticRectangleAddRectangleSum {
       bool type;
       int idx;
     };
-    vector<Q> rs, qs;
+    std::vector<Q> rs, qs;
     rs.reserve(n + n);
     qs.reserve(q + q);
     for (int i = 0; i < n; i++) {
       auto& p = rectangles[i];
-      int d = lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
       rs.emplace_back(Q{p.l, d, u, false, i});
       rs.emplace_back(Q{p.r, d, u, true, i});
     }
     for (int i = 0; i < q; i++) {
       auto& p = queries[i];
-      int d = lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
-      int u = lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
+      int d = std::lower_bound(ys.begin(), ys.end(), p.d) - ys.begin();
+      int u = std::lower_bound(ys.begin(), ys.end(), p.u) - ys.begin();
       qs.emplace_back(Q{p.l, d, u, false, i});
       qs.emplace_back(Q{p.r, d, u, true, i});
     }
-    sort(rs.begin(), rs.end(),
-         [](const Q& a, const Q& b) { return a.x < b.x; });
-    sort(qs.begin(), qs.end(),
-         [](const Q& a, const Q& b) { return a.x < b.x; });
+    std::sort(rs.begin(), rs.end(),
+              [](const Q& a, const Q& b) { return a.x < b.x; });
+    std::sort(qs.begin(), qs.end(),
+              [](const Q& a, const Q& b) { return a.x < b.x; });
     int j = 0;
     BIT bit(ys.size());
     for (auto& query : qs) {

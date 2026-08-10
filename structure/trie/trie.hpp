@@ -1,18 +1,28 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <cstring>
+#include <functional>
+#include <string>
+#include <vector>
+
 template <int char_size>
 struct TrieNode {
   int nxt[char_size];
 
   int exist;
-  vector<int> accept;
+  std::vector<int> accept;
 
-  TrieNode() : exist(0) { memset(nxt, -1, sizeof(nxt)); }
+  TrieNode() : exist(0) { std::memset(nxt, -1, sizeof(nxt)); }
 };
 
 template <int char_size, int margin>
 struct Trie {
   using Node = TrieNode<char_size>;
 
-  vector<Node> nodes;
+  std::vector<Node> nodes;
   int root;
 
   Trie() : root(0) { nodes.push_back(Node()); }
@@ -21,7 +31,7 @@ struct Trie {
 
   void update_child(int node, int child, int id) { ++nodes[node].exist; }
 
-  void add(const string& str, int str_index, int node_index, int id) {
+  void add(const std::string& str, int str_index, int node_index, int id) {
     if (str_index == str.size()) {
       update_direct(node_index, id);
     } else {
@@ -35,12 +45,12 @@ struct Trie {
     }
   }
 
-  void add(const string& str, int id) { add(str, 0, 0, id); }
+  void add(const std::string& str, int id) { add(str, 0, 0, id); }
 
-  void add(const string& str) { add(str, nodes[0].exist); }
+  void add(const std::string& str) { add(str, nodes[0].exist); }
 
-  void query(const string& str, const function<void(int)>& f, int str_index,
-             int node_index) {
+  void query(const std::string& str, const std::function<void(int)>& f,
+             int str_index, int node_index) {
     for (auto& idx : nodes[node_index].accept) f(idx);
     if (str_index == str.size()) {
       return;
@@ -51,7 +61,7 @@ struct Trie {
     }
   }
 
-  void query(const string& str, const function<void(int)>& f) {
+  void query(const std::string& str, const std::function<void(int)>& f) {
     query(str, f, 0, 0);
   }
 

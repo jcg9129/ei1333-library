@@ -1,3 +1,5 @@
+#pragma once
+
 /**
  * @brief Partition(分割数)
  */

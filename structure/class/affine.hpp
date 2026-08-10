@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T>
 struct Affine {
   T a, b;  // ax+b

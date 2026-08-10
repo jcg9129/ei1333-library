@@ -1,6 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <vector>
+
 template <int mod>
 struct NumberTheoreticTransform {
-  vector<int> rev, rts;
+  std::vector<int> rev, rts;
   int base, max_base, root;
 
   NumberTheoreticTransform() : base(1), rev{0, 1}, rts{0, 1} {
@@ -54,7 +60,7 @@ struct NumberTheoreticTransform {
     }
   }
 
-  void ntt(vector<int>& a) {
+  void ntt(std::vector<int>& a) {
     const int n = (int)a.size();
     assert((n & (n - 1)) == 0);
     int zeros = __builtin_ctz(n);
@@ -62,7 +68,7 @@ struct NumberTheoreticTransform {
     int shift = base - zeros;
     for (int i = 0; i < n; i++) {
       if (i < (rev[i] >> shift)) {
-        swap(a[i], a[rev[i] >> shift]);
+        std::swap(a[i], a[rev[i] >> shift]);
       }
     }
     for (int k = 1; k < n; k <<= 1) {
@@ -76,7 +82,7 @@ struct NumberTheoreticTransform {
     }
   }
 
-  vector<int> multiply(vector<int> a, vector<int> b) {
+  std::vector<int> multiply(std::vector<int> a, std::vector<int> b) {
     int need = a.size() + b.size() - 1;
     int nbase = 1;
     while ((1 << nbase) < need) nbase++;
@@ -90,7 +96,7 @@ struct NumberTheoreticTransform {
     for (int i = 0; i < sz; i++) {
       a[i] = mul(a[i], mul(b[i], inv_sz));
     }
-    reverse(a.begin() + 1, a.end());
+    std::reverse(a.begin() + 1, a.end());
     ntt(a);
     a.resize(need);
     return a;

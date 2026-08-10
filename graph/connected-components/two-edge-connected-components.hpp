@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../graph-template.hpp"
 #include "../others/low-link.hpp"
 
@@ -12,9 +14,9 @@ struct TwoEdgeConnectedComponents : LowLink<T> {
   using LowLink<T>::low;
   using LowLink<T>::bridge;
 
-  vector<int> comp;
+  std::vector<int> comp;
   Graph<T> tree;
-  vector<vector<int> > group;
+  std::vector<std::vector<int> > group;
 
   int operator[](const int& k) const { return comp[k]; }
 

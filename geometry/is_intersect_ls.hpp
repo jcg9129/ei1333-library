@@ -1,3 +1,5 @@
+#pragma once
+
 #include "base.hpp"
 #include "line.hpp"
 #include "point.hpp"

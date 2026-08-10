@@ -1,10 +1,15 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 #include "subset-zeta-moebius-transform.hpp"
 
 /**
  * @brief Bitwise Or Convolution (Bitwise-OR畳み込み)
  */
 template <typename T>
-vector<T> bitwise_or_convolution(vector<T> f, vector<T> g) {
+std::vector<T> bitwise_or_convolution(std::vector<T> f, std::vector<T> g) {
   const int n = (int)f.size();
   assert(f.size() == g.size());
   assert((n & (n - 1)) == 0);

@@ -1,5 +1,11 @@
 #pragma once
 
+#include <cassert>
+#include <cmath>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 #include "formal-power-series-friendly-ntt.hpp"
 
 /**
@@ -10,7 +16,7 @@
  * @note This implementation requires an NTT-friendly modulus.
  * @note The implementation is based on the fast power-projection algorithm
  *       used for FPS composition/compositional inverse.
- * @complexity O(n log^2 n + m log m)
+ * @complexity O(n std::log^2 n + m std::log m)
  */
 template <typename Mint>
 FormalPowerSeriesFriendlyNTT<Mint> enumerate_coefficients_of_powers(
@@ -95,7 +101,7 @@ FormalPowerSeriesFriendlyNTT<Mint> enumerate_coefficients_of_powers(
     Poly p(2 * h), q(2 * h);
     const Mint inverse_zeta = NTT::iroots[__builtin_ctz(2 * h)];
 
-    vector<int> bit_reversal;
+    std::vector<int> bit_reversal;
     if (n & 1) {
       bit_reversal.resize(h);
       const int log_h = __builtin_ctz(h);
@@ -118,7 +124,7 @@ FormalPowerSeriesFriendlyNTT<Mint> enumerate_coefficients_of_powers(
 
       // In this radix-4 DIF ordering, changing x to -x swaps adjacent NTT
       // values.
-      for (int i = 0; i < 2 * h; i += 2) swap(q[i], q[i + 1]);
+      for (int i = 0; i < 2 * h; i += 2) std::swap(q[i], q[i + 1]);
       for (int i = 0; i < 2 * h; i++) p[i] *= q[i];
       for (int i = 0; i < h; i++) q[i] = q[2 * i] * q[2 * i + 1];
 

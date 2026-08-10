@@ -1,3 +1,5 @@
+#pragma once
+
 #include "link-cut-tree-for-subtree.hpp"
 
 template <typename T>

@@ -1,11 +1,16 @@
+#pragma once
+
+#include <chrono>
+#include <random>
+
 struct RandomNumberGenerator {
-  mt19937 mt;
+  std::mt19937 mt;
 
   RandomNumberGenerator()
-      : mt(chrono::steady_clock::now().time_since_epoch().count()) {}
+      : mt(std::chrono::steady_clock::now().time_since_epoch().count()) {}
 
   int operator()(int a, int b) {  // [a, b)
-    uniform_int_distribution<int> dist(a, b - 1);
+    std::uniform_int_distribution<int> dist(a, b - 1);
     return dist(mt);
   }
 

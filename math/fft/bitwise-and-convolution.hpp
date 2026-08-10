@@ -1,10 +1,15 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 #include "superset-zeta-moebius-transform.hpp"
 
 /**
  * @brief Bitwise And Convolution (Bitwise-AND畳み込み)
  */
 template <typename T>
-vector<T> bitwise_and_convolution(vector<T> f, vector<T> g) {
+std::vector<T> bitwise_and_convolution(std::vector<T> f, std::vector<T> g) {
   const int n = (int)f.size();
   assert(f.size() == g.size());
   assert((n & (n - 1)) == 0);

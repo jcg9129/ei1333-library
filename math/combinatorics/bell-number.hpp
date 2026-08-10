@@ -1,3 +1,8 @@
+#pragma once
+
+#include <algorithm>
+#include <vector>
+
 #include "enumeration.hpp"
 
 /**
@@ -7,10 +12,10 @@
 template <typename T>
 T bell_number(int n, int k) {
   if (n == 0) return 1;
-  k = min(k, n);
+  k = std::min(k, n);
   Enumeration<T> uku(k);
   T ret = 0;
-  vector<T> pref(k + 1);
+  std::vector<T> pref(k + 1);
   pref[0] = 1;
   for (int i = 1; i <= k; i++) {
     if (i & 1)

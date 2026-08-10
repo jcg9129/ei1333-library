@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../others/binary-indexed-tree.hpp"
 
 template <typename T>

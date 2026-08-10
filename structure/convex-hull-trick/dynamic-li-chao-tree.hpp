@@ -1,3 +1,7 @@
+#pragma once
+
+#include <algorithm>
+#include <utility>
 /**
  * @brief Dynamic-Li-Chao-Tree
  *
@@ -39,7 +43,7 @@ struct DynamicLiChaoTree {
       if (m == r) --m;
       T t_m = t->x.get(m), x_m = x.get(m);
       if (t_m > x_m) {
-        swap(t->x, x);
+        std::swap(t->x, x);
         if (x_l >= t_l)
           t->l = add_line(t->l, x, l, m, t_l, t_m);
         else
@@ -92,9 +96,9 @@ struct DynamicLiChaoTree {
     T m = (l + r) / 2;
     if (m == r) --m;
     if (x <= m)
-      return min(t->x.get(x), query(t->l, l, m, x));
+      return std::min(t->x.get(x), query(t->l, l, m, x));
     else
-      return min(t->x.get(x), query(t->r, m + 1, r, x));
+      return std::min(t->x.get(x), query(t->r, m + 1, r, x));
   }
 
   T query(const T& x) const { return query(root, x_low, x_high, x); }

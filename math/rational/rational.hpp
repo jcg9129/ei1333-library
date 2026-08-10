@@ -1,3 +1,8 @@
+#pragma once
+
+#include <iostream>
+#include <numeric>
+
 /**
  * @brief Rational (有理数型)
  */
@@ -9,7 +14,7 @@ struct Rational {
   static T gcd(T a, T b) {
     if (a < 0) a = -a;
     if (b < 0) b = -b;
-    return std::__gcd(a, b);
+    return std::gcd(a, b);
   }
 
   void normalize() {
@@ -151,7 +156,7 @@ struct Rational {
 
   Rational abs() const { return Rational{num < 0 ? -num : num, den}; }
 
-  friend ostream& operator<<(ostream& os, const Rational& r) {
+  friend std::ostream& operator<<(std::ostream& os, const Rational& r) {
     return os << r.numerator() << "/" << r.denominator();
   }
 };

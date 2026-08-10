@@ -1,5 +1,13 @@
 #pragma once
 
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <map>
+#include <stack>
+#include <utility>
+#include <vector>
+
 #include "../graph-template.hpp"
 #include "./centroid.hpp"
 
@@ -11,12 +19,12 @@ bool tree_isomorphism(const Graph<T>& a, const Graph<T>& b) {
   if (a.size() != b.size()) return false;
 
   const int N = (int)a.size();
-  using pvi = pair<vector<int>, vector<int> >;
+  using pvi = std::pair<std::vector<int>, std::vector<int> >;
 
   auto get_uku = [&](const Graph<T>& t, int e) {
-    stack<pair<int, int> > st;
+    std::stack<std::pair<int, int> > st;
     st.emplace(e, -1);
-    vector<int> dep(N, -1), par(N);
+    std::vector<int> dep(N, -1), par(N);
     while (!st.empty()) {
       auto p = st.top();
       if (dep[p.first] == -1) {
@@ -28,27 +36,28 @@ bool tree_isomorphism(const Graph<T>& a, const Graph<T>& b) {
         st.pop();
       }
     }
-    return make_pair(dep, par);
+    return std::make_pair(dep, par);
   };
 
   auto solve = [&](const pvi& latte, const pvi& malta) {
-    int d = *max_element(begin(latte.first), end(latte.first));
-    if (d != *max_element(begin(malta.first), end(malta.first))) return false;
+    int d = *std::max_element(std::begin(latte.first), std::end(latte.first));
+    if (d != *std::max_element(std::begin(malta.first), std::end(malta.first)))
+      return false;
 
-    vector<vector<int> > latte_d(d + 1), malta_d(d + 1), latte_key(N),
+    std::vector<std::vector<int> > latte_d(d + 1), malta_d(d + 1), latte_key(N),
         malta_key(N);
 
     for (int i = 0; i < N; i++) latte_d[latte.first[i]].emplace_back(i);
     for (int i = 0; i < N; i++) malta_d[malta.first[i]].emplace_back(i);
 
     for (int i = d; i >= 0; i--) {
-      map<vector<int>, int> ord;
+      std::map<std::vector<int>, int> ord;
       for (auto& idx : latte_d[i]) {
-        sort(begin(latte_key[idx]), end(latte_key[idx]));
+        std::sort(std::begin(latte_key[idx]), std::end(latte_key[idx]));
         ord[latte_key[idx]]++;
       }
       for (auto& idx : malta_d[i]) {
-        sort(begin(malta_key[idx]), end(malta_key[idx]));
+        std::sort(std::begin(malta_key[idx]), std::end(malta_key[idx]));
         if (--ord[malta_key[idx]] < 0) return false;
       }
       if (i == 0) return ord.size() == 1;

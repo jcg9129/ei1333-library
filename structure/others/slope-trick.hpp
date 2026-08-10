@@ -1,3 +1,12 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <functional>
+#include <limits>
+#include <queue>
+#include <vector>
+
 /**
  * @brief Slope-Trick
  *
@@ -5,11 +14,11 @@
  */
 template <typename T>
 struct SlopeTrick {
-  const T INF = numeric_limits<T>::max() / 3;
+  const T INF = std::numeric_limits<T>::max() / 3;
 
   T min_f;
-  priority_queue<T, vector<T>, less<> > L;
-  priority_queue<T, vector<T>, greater<> > R;
+  std::priority_queue<T, std::vector<T>, std::less<> > L;
+  std::priority_queue<T, std::vector<T>, std::greater<> > R;
   T add_l, add_r;
 
  private:
@@ -43,7 +52,7 @@ struct SlopeTrick {
     return val;
   }
 
-  size_t size() { return L.size() + R.size(); }
+  std::size_t size() { return L.size() + R.size(); }
 
  public:
   SlopeTrick() : min_f(0), add_l(0), add_r(0) {}
@@ -61,7 +70,7 @@ struct SlopeTrick {
   // add \_
   // f(x) += max(a - x, 0)
   void add_a_minus_x(const T& a) {
-    min_f += max(T(0), a - top_R());
+    min_f += std::max(T(0), a - top_R());
     push_R(a);
     push_L(pop_R());
   }
@@ -69,7 +78,7 @@ struct SlopeTrick {
   // add _/
   // f(x) += max(x - a, 0)
   void add_x_minus_a(const T& a) {
-    min_f += max(T(0), top_L() - a);
+    min_f += std::max(T(0), top_L() - a);
     push_L(a);
     push_R(pop_L());
   }
@@ -109,21 +118,21 @@ struct SlopeTrick {
   T get(const T& x) {
     T ret = min_f;
     while (not L.empty()) {
-      ret += max(T(0), pop_L() - x);
+      ret += std::max(T(0), pop_L() - x);
     }
     while (not R.empty()) {
-      ret += max(T(0), x - pop_R());
+      ret += std::max(T(0), x - pop_R());
     }
     return ret;
   }
 
   void merge(SlopeTrick& st) {
     if (st.size() > size()) {
-      swap(st.L, L);
-      swap(st.R, R);
-      swap(st.add_l, add_l);
-      swap(st.add_r, add_r);
-      swap(st.min_f, min_f);
+      std::swap(st.L, L);
+      std::swap(st.R, R);
+      std::swap(st.add_l, add_l);
+      std::swap(st.add_r, add_r);
+      std::swap(st.min_f, min_f);
     }
     while (not st.R.empty()) {
       add_x_minus_a(st.pop_R());

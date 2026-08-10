@@ -1,3 +1,5 @@
+#pragma once
+
 #include "../number-theory/euler-phi.hpp"
 #include "mod-pow.hpp"
 

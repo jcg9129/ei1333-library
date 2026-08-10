@@ -1,7 +1,17 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <iterator>
+#include <map>
+#include <queue>
+#include <utility>
+#include <vector>
+
 struct ConnectedGridStates {
  private:
-  vector<vector<vector<int> > > states;
-  vector<vector<int> > nxt_wall, nxt_ground;
+  std::vector<std::vector<std::vector<int> > > states;
+  std::vector<std::vector<int> > nxt_wall, nxt_ground;
   int width;
 
  public:
@@ -9,8 +19,8 @@ struct ConnectedGridStates {
       : width(width), states(width), nxt_wall(width), nxt_ground(width) {
     assert(width > 0);
 
-    auto modify = [&](vector<int> B) {
-      vector<int> id(width, -1);
+    auto modify = [&](std::vector<int> B) {
+      std::vector<int> id(width, -1);
       int now = 0;
       for (int i = 0; i < width; i++) {
         if (B[i] != -1) {
@@ -23,11 +33,11 @@ struct ConnectedGridStates {
       return B;
     };
 
-    vector<map<vector<int>, int> > ids(width);
-    queue<pair<int, int> > que;  // {col, state_id}
+    std::vector<std::map<std::vector<int>, int> > ids(width);
+    std::queue<std::pair<int, int> > que;  // {col, state_id}
 
     {
-      vector<int> state(width, -1);
+      std::vector<int> state(width, -1);
       states[0].emplace_back(state);
       ids[0].emplace(state, 0);
       nxt_wall[0].emplace_back(-1);
@@ -35,7 +45,7 @@ struct ConnectedGridStates {
       que.emplace(0, 0);
     }
 
-    auto push = [&](int nxt, const vector<int>& state) -> int {
+    auto push = [&](int nxt, const std::vector<int>& state) -> int {
       auto it = ids[nxt].emplace(state, states[nxt].size());
       if (it.second) {
         states[nxt].emplace_back(state);
@@ -51,7 +61,7 @@ struct ConnectedGridStates {
       que.pop();
       int j = i + 1 == width ? 0 : i + 1;
       auto& state = states[i][id];
-      int mx = *max_element(state.begin(), state.end());
+      int mx = *std::max_element(state.begin(), state.end());
       {  // '.'
         if (state[i] == -1) {
           nxt_ground[i][id] = push(j, state);
@@ -116,7 +126,7 @@ struct ConnectedGridStates {
 
   inline int set_ground(int k, int state) const { return nxt_ground[k][state]; }
 
-  inline const vector<vector<int> >& operator[](int k) const {
+  inline const std::vector<std::vector<int> >& operator[](int k) const {
     return states[k >= width ? k - width : k];
   }
 };

@@ -1,3 +1,5 @@
+#pragma once
+
 template <typename T>
 T sum_of_floor_of_linear(const T& n, const T& m, T a, T b) {
   T ret = 0;

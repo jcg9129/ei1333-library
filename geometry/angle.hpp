@@ -1,3 +1,8 @@
+#pragma once
+
+#include <algorithm>
+#include <cmath>
+
 #include "point.hpp"
 
 namespace geometry {
@@ -8,10 +13,10 @@ Real degree_to_radian(const Real& deg) { return deg * PI / 180.0; }
 // smaller angle of the a-b-c
 Real get_smaller_angle(const Point& a, const Point& b, const Point& c) {
   const Point v(a - b), w(c - b);
-  auto alpha = atan2(imag(v), real(v));
-  auto beta = atan2(imag(w), real(w));
-  if (alpha > beta) swap(alpha, beta);
+  auto alpha = std::atan2(std::imag(v), std::real(v));
+  auto beta = std::atan2(std::imag(w), std::real(w));
+  if (alpha > beta) std::swap(alpha, beta);
   Real theta = (beta - alpha);
-  return min(theta, 2 * PI - theta);
+  return std::min(theta, 2 * PI - theta);
 }
 }  // namespace geometry

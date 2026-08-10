@@ -1,25 +1,30 @@
 #pragma once
 
+#include <cstddef>
+#include <unordered_set>
+#include <utility>
+#include <vector>
+
 #include "../../structure/union-find/union-find.hpp"
 
 struct IncrementalBridgeConnectivity {
  private:
   UnionFind cc, bcc;
-  vector<int> bbf;
-  size_t bridge;
+  std::vector<int> bbf;
+  std::size_t bridge;
 
   int size() { return bbf.size(); }
 
   int par(int x) { return bbf[x] == size() ? size() : bcc.find(bbf[x]); }
 
   int lca(int x, int y) {
-    unordered_set<int> used;
+    std::unordered_set<int> used;
     for (;;) {
       if (x != size()) {
         if (!used.insert(x).second) return x;
         x = par(x);
       }
-      swap(x, y);
+      std::swap(x, y);
     }
   }
 
@@ -51,7 +56,7 @@ struct IncrementalBridgeConnectivity {
 
   int find(int k) { return bcc.find(k); }
 
-  size_t bridge_size() const { return bridge; }
+  std::size_t bridge_size() const { return bridge; }
 
   void add_edge(int x, int y) {
     x = bcc.find(x);
@@ -61,7 +66,7 @@ struct IncrementalBridgeConnectivity {
       compress(x, w);
       compress(y, w);
     } else {
-      if (cc.size(x) > cc.size(y)) swap(x, y);
+      if (cc.size(x) > cc.size(y)) std::swap(x, y);
       link(x, y);
       cc.unite(x, y);
       ++bridge;

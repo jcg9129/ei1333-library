@@ -1,3 +1,8 @@
+#pragma once
+
+#include <algorithm>
+
+#include "randomized-binary-search-tree.hpp"
 template <class T>
 struct OrderedMultiSet : RandomizedBinarySearchTree<T> {
   using RBST = RandomizedBinarySearchTree<T>;
@@ -21,7 +26,7 @@ struct OrderedMultiSet : RandomizedBinarySearchTree<T> {
   }
 
   int count(Node* t, const T& x) {
-    return upper_bound(t, x) - lower_bound(t, x);
+    return std::upper_bound(t, x) - std::lower_bound(t, x);
   }
 
   int lower_bound(Node* t, const T& x) {

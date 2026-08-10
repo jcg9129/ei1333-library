@@ -1,3 +1,11 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <limits>
+#include <tuple>
+#include <utility>
 /**
  * @brief Generalized-Slope-Trick
  *
@@ -9,7 +17,7 @@ struct LazySplayTree {
   struct Node {
     Node *l, *r, *p;
     T key, sum;
-    size_t sz;
+    std::size_t sz;
     T add;
 
     bool is_root() const { return !p || (p->l != this && p->r != this); }
@@ -26,7 +34,7 @@ struct LazySplayTree {
 
   LazySplayTree() = default;
 
-  inline size_t count(const Node* t) { return t ? t->sz : 0; }
+  inline std::size_t count(const Node* t) { return t ? t->sz : 0; }
 
   Node* alloc(const T& key, const T& add = T()) { return new Node(key, add); }
 
@@ -94,7 +102,7 @@ struct LazySplayTree {
     push(t);
   }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {nullptr, nullptr};
     push(t);
     if (k <= count(t->l)) {
@@ -112,14 +120,14 @@ struct LazySplayTree {
     }
   }
 
-  tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
+  std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     splay(t);
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
-  pair<Node*, Node*> split_lower_bound(Node* t, const T& key) {
+  std::pair<Node*, Node*> split_lower_bound(Node* t, const T& key) {
     if (!t) return {nullptr, nullptr};
     push(t);
     if (key <= t->key) {
@@ -142,7 +150,7 @@ struct LazySplayTree {
     if (!t1) return splay(t2), t2;
     if (!t2) return splay(t1), t1;
     splay(t1), splay(t2);
-    if (count(t1) < count(t2)) swap(t1, t2);
+    if (count(t1) < count(t2)) std::swap(t1, t2);
     auto [t2l, v, t2r] = split3(t2, count(t2) / 2, count(t2) / 2 + 1);
     auto [t1l, t1r] = split_lower_bound(t1, v->key);
     return merge(merge_wuh(t1l, t2l), v, merge_wuh(t1r, t2r));
@@ -225,7 +233,7 @@ struct LazySplayTree {
 
 template <typename T>
 struct GeneralizedSlopeTrick {
-  const T INF = numeric_limits<T>::max() / 3;
+  const T INF = std::numeric_limits<T>::max() / 3;
 
   T min_f;
   LazySplayTree<T> st;
@@ -266,7 +274,7 @@ struct GeneralizedSlopeTrick {
     return val;
   }
 
-  size_t size() { return st.count(L) + st.count(R); }
+  std::size_t size() { return st.count(L) + st.count(R); }
 
  public:
   GeneralizedSlopeTrick() : min_f(0), L(nullptr), R(nullptr) {}
@@ -275,24 +283,24 @@ struct GeneralizedSlopeTrick {
     T lx, rx, min_f;
   };
 
-  // return min f(x)
+  // return std::min f(x)
   Query query() { return (Query){top_L(), top_R(), min_f}; }
 
   // f(x) += a
   void add_all(const T& a) { min_f += a; }
 
   // add \_
-  // f(x) += max(a - x, 0)
+  // f(x) += std::max(a - x, 0)
   void add_a_minus_x(const T& a) {
-    min_f += max(T(0), a - top_R());
+    min_f += std::max(T(0), a - top_R());
     push_R(a);
     push_L(pop_R());
   }
 
   // add _/
-  // f(x) += max(x - a, 0)
+  // f(x) += std::max(x - a, 0)
   void add_x_minus_a(const T& a) {
-    min_f += max(T(0), top_L() - a);
+    min_f += std::max(T(0), top_L() - a);
     push_L(a);
     push_R(pop_L());
   }
@@ -305,15 +313,15 @@ struct GeneralizedSlopeTrick {
   }
 
   // \/ -> \_
-  // f_{new} (x) = min f(y) (y <= x)
+  // f_{new} (x) = std::min f(y) (y <= x)
   void clear_right() { R = nullptr; }
 
   // \/ -> _/
-  // f_{new} (x) = min f(y) (y >= x)
+  // f_{new} (x) = std::min f(y) (y >= x)
   void clear_left() { L = nullptr; }
 
   // \/ -> \_/
-  // f_{new} (x) = min f(y) (x-b <= y <= x-a)
+  // f_{new} (x) = std::min f(y) (x-b <= y <= x-a)
   void shift(const T& a, const T& b) {
     assert(a <= b);
     if (L) st.set_propagate(L, a);

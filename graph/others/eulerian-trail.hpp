@@ -1,5 +1,12 @@
 #pragma once
 
+#include <algorithm>
+#include <cstdlib>
+#include <iterator>
+#include <stack>
+#include <utility>
+#include <vector>
+
 #include "../../structure/union-find/union-find.hpp"
 
 /**
@@ -8,10 +15,10 @@
  */
 template <bool directed>
 struct EulerianTrail {
-  vector<vector<pair<int, int> > > g;
-  vector<pair<int, int> > es;
+  std::vector<std::vector<std::pair<int, int> > > g;
+  std::vector<std::pair<int, int> > es;
   int M;
-  vector<int> used_vertex, used_edge, deg;
+  std::vector<int> used_vertex, used_edge, deg;
 
   explicit EulerianTrail(int V) : g(V), M(0), used_vertex(V), deg(V) {}
 
@@ -29,9 +36,9 @@ struct EulerianTrail {
     M++;
   }
 
-  pair<int, int> get_edge(int idx) const { return es[idx]; }
+  std::pair<int, int> get_edge(int idx) const { return es[idx]; }
 
-  vector<vector<int> > enumerate_eulerian_trail() {
+  std::vector<std::vector<int> > enumerate_eulerian_trail() {
     if (directed) {
       for (auto& p : deg)
         if (p != 0) return {};
@@ -40,7 +47,7 @@ struct EulerianTrail {
         if (p & 1) return {};
     }
     used_edge.assign(M, 0);
-    vector<vector<int> > ret;
+    std::vector<std::vector<int> > ret;
     for (int i = 0; i < (int)g.size(); i++) {
       if (g[i].empty() || used_vertex[i]) continue;
       ret.emplace_back(go(i));
@@ -48,19 +55,19 @@ struct EulerianTrail {
     return ret;
   }
 
-  vector<vector<int> > enumerate_semi_eulerian_trail() {
+  std::vector<std::vector<int> > enumerate_semi_eulerian_trail() {
     UnionFind uf(g.size());
     for (auto& p : es) uf.unite(p.first, p.second);
-    vector<vector<int> > group(g.size());
+    std::vector<std::vector<int> > group(g.size());
     for (int i = 0; i < (int)g.size(); i++) group[uf.find(i)].emplace_back(i);
-    vector<vector<int> > ret;
+    std::vector<std::vector<int> > ret;
     used_edge.assign(M, 0);
     for (auto& vs : group) {
       if (vs.empty()) continue;
       int latte = -1, malta = -1;
       if (directed) {
         for (auto& p : vs) {
-          if (abs(deg[p]) > 1) {
+          if (std::abs(deg[p]) > 1) {
             return {};
           } else if (deg[p] == 1) {
             if (latte >= 0) return {};
@@ -85,9 +92,9 @@ struct EulerianTrail {
     return ret;
   }
 
-  vector<int> go(int s) {
-    stack<pair<int, int> > st;
-    vector<int> ord;
+  std::vector<int> go(int s) {
+    std::stack<std::pair<int, int> > st;
+    std::vector<int> ord;
     st.emplace(s, -1);
     while (!st.empty()) {
       int idx = st.top().first;
@@ -104,7 +111,7 @@ struct EulerianTrail {
       }
     }
     ord.pop_back();
-    reverse(ord.begin(), ord.end());
+    std::reverse(ord.begin(), ord.end());
     return ord;
   }
 };

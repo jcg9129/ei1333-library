@@ -1,3 +1,9 @@
+#pragma once
+
+#include <cassert>
+#include <cstdint>
+#include <vector>
+
 #include "../../graph/tree/heavy-light-decomposition.hpp"
 #include "../../structure/class/range-add-range-min.hpp"
 #include "../../structure/segment-tree/lazy-segment-tree.hpp"
@@ -8,7 +14,7 @@ struct GlobalMinimumCutofDynamicStarAugmentedGraph {
  private:
   int n{};
   HeavyLightDecomposition<T> hld;
-  vector<T> cur;
+  std::vector<T> cur;
 
   LazySegmentTree<RangeAddRangeMin<T> > seg;
 
@@ -22,7 +28,7 @@ struct GlobalMinimumCutofDynamicStarAugmentedGraph {
         cur(n),
         seg(RangeAddRangeMin<T>(), 2 * n - 1) {
     hld.build((int)hld.size() - 1);
-    vector<int64> vs(2 * n - 1);
+    std::vector<T> vs(2 * n - 1);
     for (int i = 0; i < 2 * n - 1; i++) {
       for (auto& e : hld[i]) {
         vs[hld.in[e.to]] = e.cost;

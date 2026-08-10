@@ -1,11 +1,18 @@
-template <typename T, typename Compare = greater<T> >
-vector<T> knapsack_limitations(const vector<int>& w, const vector<int>& m,
-                               const vector<T>& v, const int& W, const T& NG,
-                               const Compare& comp = Compare()) {
+#pragma once
+
+#include <functional>
+#include <vector>
+
+template <typename T, typename Compare = std::greater<T> >
+std::vector<T> knapsack_limitations(const std::vector<int>& w,
+                                    const std::vector<int>& m,
+                                    const std::vector<T>& v, const int& W,
+                                    const T& NG,
+                                    const Compare& comp = Compare()) {
   const int N = (int)w.size();
-  vector<T> dp(W + 1, NG), deqv(W + 1);
+  std::vector<T> dp(W + 1, NG), deqv(W + 1);
   dp[0] = T();
-  vector<int> deq(W + 1);
+  std::vector<int> deq(W + 1);
   for (int i = 0; i < N; i++) {
     if (w[i] == 0) {
       for (int j = 0; j <= W; j++) {

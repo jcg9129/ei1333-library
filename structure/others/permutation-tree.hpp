@@ -1,3 +1,10 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <iterator>
+#include <vector>
+
 #include "../class/range-add-range-min.hpp"
 #include "../segment-tree/lazy-segment-tree.hpp"
 
@@ -12,9 +19,9 @@ struct PermutationTree {
     NodeType type;
     int l, r;          // [l, r)
     int min_v, max_v;  // [min_v, max_v)
-    vector<Node*> ch;
+    std::vector<Node*> ch;
 
-    size_t size() const { return r - l; }
+    std::size_t size() const { return r - l; }
 
     bool is_join() const { return type == JOIN_ASC or type == JOIN_DESC; };
 
@@ -30,20 +37,20 @@ struct PermutationTree {
  private:
   static void add_child(NP t, NP c) {
     t->ch.emplace_back(c);
-    t->l = min(t->l, c->l);
-    t->r = max(t->r, c->r);
-    t->min_v = min(t->min_v, c->min_v);
-    t->max_v = max(t->max_v, c->max_v);
+    t->l = std::min(t->l, c->l);
+    t->r = std::max(t->r, c->r);
+    t->min_v = std::min(t->min_v, c->min_v);
+    t->max_v = std::max(t->max_v, c->max_v);
   }
 
  public:
-  static NP build(vector<int>& A) {
+  static NP build(std::vector<int>& A) {
     int n = (int)A.size();
 
-    vector<int> desc{-1};
-    vector<int> asc{-1};
-    vector<NP> st;
-    LazySegmentTree seg{RangeAddRangeMin<int>(), vector<int>(n)};
+    std::vector<int> desc{-1};
+    std::vector<int> asc{-1};
+    std::vector<NP> st;
+    LazySegmentTree seg{RangeAddRangeMin<int>(), std::vector<int>(n)};
     for (int i = 0; i < n; i++) {
       while (~desc.back() and A[i] > A[desc.back()]) {
         seg.apply(desc[desc.size() - 2] + 1, desc.back() + 1,
@@ -82,7 +89,7 @@ struct PermutationTree {
             add_child(t, st.back());
             st.pop_back();
           } while (t->max_v - t->min_v != t->size());
-          reverse(begin(t->ch), end(t->ch));
+          std::reverse(std::begin(t->ch), std::end(t->ch));
         } else {
           break;
         }

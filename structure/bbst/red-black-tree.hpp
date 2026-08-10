@@ -1,3 +1,13 @@
+#pragma once
+
+#include <cstddef>
+#include <iterator>
+#include <string>
+#include <tuple>
+#include <utility>
+#include <vector>
+
+#include "../../other/vector-pool.hpp"
 /**
  * @brief Red-Black-Tree(赤黒木)
  *
@@ -88,7 +98,7 @@ struct RedBlackTree {
     }
   }
 
-  Node* build(int l, int r, const vector<Monoid>& v) {
+  Node* build(int l, int r, const std::vector<Monoid>& v) {
     if (l + 1 >= r) return alloc(v[l]);
     return merge(build(l, (l + r) >> 1, v), build((l + r) >> 1, r, v));
   }
@@ -100,7 +110,7 @@ struct RedBlackTree {
     return t;
   }
 
-  void dump(Node* r, typename vector<Monoid>::iterator& it) {
+  void dump(Node* r, typename std::vector<Monoid>::iterator& it) {
     if (r->is_leaf()) {
       *it++ = r->key;
       return;
@@ -133,7 +143,7 @@ struct RedBlackTree {
 
   inline const Monoid& sum(const Node* t) { return t ? t->sum : M1; }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {nullptr, nullptr};
     if (k == 0) return {nullptr, t};
     if (k >= count(t)) return {t, nullptr};
@@ -151,10 +161,10 @@ struct RedBlackTree {
     return {l, r};
   }
 
-  tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
+  std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   template <typename... Args>
@@ -166,18 +176,20 @@ struct RedBlackTree {
     return c;
   }
 
-  Node* build(const vector<Monoid>& v) { return build(0, (int)v.size(), v); }
+  Node* build(const std::vector<Monoid>& v) {
+    return build(0, (int)v.size(), v);
+  }
 
-  vector<Monoid> dump(Node* r) {
-    vector<Monoid> v((size_t)count(r));
-    auto it = begin(v);
+  std::vector<Monoid> dump(Node* r) {
+    std::vector<Monoid> v((std::size_t)count(r));
+    auto it = std::begin(v);
     dump(r, it);
     return v;
   }
 
-  string to_string(Node* r) {
+  std::string to_string(Node* r) {
     auto s = dump(r);
-    string ret;
+    std::string ret;
     for (int i = 0; i < s.size(); i++) {
       ret += std::to_string(s[i]);
       ret += ", ";

@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+
 #include "../graph-template.hpp"
 
 /**
@@ -22,8 +24,8 @@ struct CentroidDecomposition : Graph<T> {
   explicit CentroidDecomposition(const Graph<T>& g) : Graph<T>(g) {}
 
  private:
-  vector<int> sub;
-  vector<int> v;
+  std::vector<int> sub;
+  std::vector<int> v;
 
   inline int build_dfs(int idx, int par) {
     sub[idx] = 1;

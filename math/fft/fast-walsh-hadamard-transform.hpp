@@ -1,8 +1,13 @@
+#pragma once
+
+#include <cassert>
+#include <vector>
+
 /**
  * @brief Fast Walsh Hadamard Transform (高速ウォルシュアダマール変換)
  */
 template <typename T>
-void fast_walsh_hadamard_transform(vector<T>& f, bool inv = false) {
+void fast_walsh_hadamard_transform(std::vector<T>& f, bool inv = false) {
   const int n = (int)f.size();
   assert((n & (n - 1)) == 0);
   for (int i = 1; i < n; i <<= 1) {

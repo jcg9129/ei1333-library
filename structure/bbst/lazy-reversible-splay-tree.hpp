@@ -1,20 +1,27 @@
+#pragma once
+
+#include <cstddef>
+#include <functional>
+#include <tuple>
+#include <utility>
+#include <vector>
 /**
  * @brief Lazy-Reversible-Splay-Tree(遅延伝搬反転可能Splay木)
  */
 template <typename Monoid = int, typename OperatorMonoid = Monoid>
 struct LazyReversibleSplayTree {
  public:
-  using F = function<Monoid(Monoid, Monoid)>;
-  using G = function<Monoid(Monoid, OperatorMonoid)>;
-  using H = function<OperatorMonoid(OperatorMonoid, OperatorMonoid)>;
-  using S = function<Monoid(Monoid)>;
+  using F = std::function<Monoid(Monoid, Monoid)>;
+  using G = std::function<Monoid(Monoid, OperatorMonoid)>;
+  using H = std::function<OperatorMonoid(OperatorMonoid, OperatorMonoid)>;
+  using S = std::function<Monoid(Monoid)>;
 
   struct Node {
     Node *l, *r, *p;
     Monoid key, sum;
     OperatorMonoid lazy;
     bool rev;
-    size_t sz;
+    std::size_t sz;
 
     bool is_root() const { return !p || (p->l != this && p->r != this); }
 
@@ -39,7 +46,7 @@ struct LazyReversibleSplayTree {
                           const Monoid& M1, const OperatorMonoid& OM0)
       : f(f), g(g), h(h), s(s), M1(M1), OM0(OM0) {}
 
-  inline size_t count(const Node* t) { return t ? t->sz : 0; }
+  inline std::size_t count(const Node* t) { return t ? t->sz : 0; }
 
   inline const Monoid& sum(const Node* t) { return t ? t->sum : M1; }
 
@@ -147,7 +154,7 @@ struct LazyReversibleSplayTree {
     push(t);
   }
 
-  pair<Node*, Node*> split(Node* t, int k) {
+  std::pair<Node*, Node*> split(Node* t, int k) {
     if (!t) return {nullptr, nullptr};
     push(t);
     if (k <= count(t->l)) {
@@ -165,11 +172,11 @@ struct LazyReversibleSplayTree {
     }
   }
 
-  tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
+  std::tuple<Node*, Node*, Node*> split3(Node* t, int a, int b) {
     splay(t);
     auto x = split(t, a);
     auto y = split(x.second, b - a);
-    return make_tuple(x.first, y.first, y.second);
+    return std::make_tuple(x.first, y.first, y.second);
   }
 
   template <typename... Args>
@@ -212,10 +219,12 @@ struct LazyReversibleSplayTree {
     return ret;
   }
 
-  Node* build(const vector<Monoid>& v) { return build(0, (int)v.size(), v); }
+  Node* build(const std::vector<Monoid>& v) {
+    return build(0, (int)v.size(), v);
+  }
 
   void toggle(Node* t) {
-    swap(t->l, t->r);
+    std::swap(t->l, t->r);
     t->sum = s(t->sum);
     t->rev ^= true;
   }
@@ -254,7 +263,7 @@ struct LazyReversibleSplayTree {
   const H h;
   const S s;
 
-  Node* build(int l, int r, const vector<Monoid>& v) {
+  Node* build(int l, int r, const std::vector<Monoid>& v) {
     if (l + 1 >= r) return alloc(v[l]);
     return merge(build(l, (l + r) >> 1, v), build((l + r) >> 1, r, v));
   }

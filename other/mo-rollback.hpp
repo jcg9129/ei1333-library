@@ -1,15 +1,25 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cmath>
+#include <functional>
+#include <iterator>
+#include <numeric>
+#include <vector>
+
 struct MoRollBack {
-  using ADD = function<void(int)>;
-  using REM = function<void(int)>;
-  using RESET = function<void()>;
-  using SNAPSHOT = function<void()>;
-  using ROLLBACK = function<void()>;
+  using ADD = std::function<void(int)>;
+  using REM = std::function<void(int)>;
+  using RESET = std::function<void()>;
+  using SNAPSHOT = std::function<void()>;
+  using ROLLBACK = std::function<void()>;
 
   int width;
-  vector<int> left, right, order;
+  std::vector<int> left, right, order;
 
-  MoRollBack(int N, int Q) : width((int)sqrt(N)), order(Q) {
-    iota(begin(order), end(order), 0);
+  MoRollBack(int N, int Q) : width((int)std::sqrt(N)), order(Q) {
+    std::iota(std::begin(order), std::end(order), 0);
   }
 
   void add(int l, int r) { /* [l, r) */
@@ -20,7 +30,7 @@ struct MoRollBack {
   int run(const ADD& add, const REM& rem, const RESET& reset,
           const SNAPSHOT& snapshot, const ROLLBACK& rollback) {
     assert(left.size() == order.size());
-    sort(begin(order), end(order), [&](int a, int b) {
+    std::sort(std::begin(order), std::end(order), [&](int a, int b) {
       int ablock = left[a] / width, bblock = left[b] / width;
       if (ablock != bblock) return ablock < bblock;
       return right[a] < right[b];

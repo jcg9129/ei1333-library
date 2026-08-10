@@ -1,3 +1,10 @@
+#pragma once
+
+#include <cstdint>
+#include <vector>
+
+#include "fast-fourier-transform.hpp"
+
 template <typename T>
 struct ArbitraryModConvolutionLong {
   using real = FastFourierTransform::real;
@@ -5,18 +12,19 @@ struct ArbitraryModConvolutionLong {
 
   ArbitraryModConvolutionLong() = default;
 
-  vector<T> multiply(const vector<T>& a, const vector<T>& b, int need = -1) {
+  std::vector<T> multiply(const std::vector<T>& a, const std::vector<T>& b,
+                          int need = -1) {
     if (need == -1) need = a.size() + b.size() - 1;
     int nbase = 0;
     while ((1 << nbase) < need) nbase++;
     FastFourierTransform::ensure_base(nbase);
     int sz = 1 << nbase;
-    vector<C> fa(sz);
+    std::vector<C> fa(sz);
     for (int i = 0; i < a.size(); i++) {
       fa[i] = C(a[i].x & ((1 << 19) - 1), a[i].x >> 19);
     }
     fft(fa, sz);
-    vector<C> fb(sz);
+    std::vector<C> fb(sz);
     if (a == b) {
       fb = fa;
     } else {
@@ -46,13 +54,13 @@ struct ArbitraryModConvolutionLong {
     }
     fft(fa, sz);
     fft(fb, sz);
-    vector<T> ret(need);
+    std::vector<T> ret(need);
     auto mul1 = T(2).pow(19);
     auto mul2 = T(2).pow(38);
     for (int i = 0; i < need; i++) {
-      int64_t aa = llround(fa[i].x);
-      int64_t bb = llround(fb[i].x);
-      int64_t cc = llround(fa[i].y);
+      std::int64_t aa = std::llround(fa[i].x);
+      std::int64_t bb = std::llround(fb[i].x);
+      std::int64_t cc = std::llround(fa[i].y);
       aa = T(aa).x, bb = T(bb).x, cc = T(cc).x;
       ret[i] = (mul1 * bb) + (mul2 * cc) + aa;
     }

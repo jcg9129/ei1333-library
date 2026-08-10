@@ -1,13 +1,22 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <cstdint>
+#include <iterator>
+#include <utility>
+#include <vector>
+
 template <typename T>
 struct BinaryBasis {
-  vector<T> basis;
+  std::vector<T> basis;
   bool update;
 
   BinaryBasis() : update(false) {}
 
   bool add(T bit) {
     for (auto& p : basis) {
-      bit = min(bit, bit ^ p);
+      bit = std::min(bit, bit ^ p);
     }
     if (bit) {
       basis.emplace_back(bit);
@@ -19,7 +28,7 @@ struct BinaryBasis {
 
   bool check(T bit) const {
     for (auto& p : basis) {
-      bit = min(bit, bit ^ p);
+      bit = std::min(bit, bit ^ p);
     }
     return bit == 0;
   }
@@ -27,13 +36,14 @@ struct BinaryBasis {
   void normalize() {
     sweep();
     for (int i = (int)basis.size() - 1; i >= 0; i--) {
-      for (int j = i - 1; j >= 0; j--) chmin(basis[i], basis[i] ^ basis[j]);
+      for (int j = i - 1; j >= 0; j--)
+        basis[i] = std::min(basis[i], basis[i] ^ basis[j]);
     }
   }
 
   void sweep() {
-    if (exchange(update, false)) {
-      sort(begin(basis), end(basis));
+    if (std::exchange(update, false)) {
+      std::sort(std::begin(basis), std::end(basis));
     }
   }
 
@@ -42,7 +52,7 @@ struct BinaryBasis {
     return basis == a.basis;
   }
 
-  T get_kth(int64_t k) { /* 0-indexed */
+  T get_kth(std::int64_t k) { /* 0-indexed */
     if ((1LL << basis.size()) <= k) {
       return -1;
     }
@@ -50,14 +60,14 @@ struct BinaryBasis {
     sweep();
     for (int i = (int)basis.size() - 1; i >= 0; i--) {
       if (k < (1LL << i)) {
-        ret = min(ret, ret ^ basis[i]);
+        ret = std::min(ret, ret ^ basis[i]);
       } else {
         k -= 1LL << i;
-        ret = max(ret, ret ^ basis[i]);
+        ret = std::max(ret, ret ^ basis[i]);
       }
     }
     return ret;
   }
 
-  size_t size() const { return basis.size(); }
+  std::size_t size() const { return basis.size(); }
 };

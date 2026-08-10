@@ -1,18 +1,27 @@
+#pragma once
+
+#include <algorithm>
+#include <functional>
+#include <limits>
+#include <queue>
+#include <tuple>
+#include <utility>
+#include <vector>
 /**
  * @brief Shortest Nonzero Path(群ラベル制約付き単一始点最短路)
  */
 template <typename T, typename S, typename F>
 struct ShortestNonzeroPath {
  private:
-  constexpr static T INF = numeric_limits<T>::max();
+  constexpr static T INF = std::numeric_limits<T>::max();
   struct edge {
     int to;
     T cost;
     S label;
   };
-  vector<vector<edge> > g;
+  std::vector<std::vector<edge> > g;
   F f;
-  vector<int> uf;
+  std::vector<int> uf;
 
   int find_uf(int k) {
     if (uf[k] == -1) return k;
@@ -34,25 +43,25 @@ struct ShortestNonzeroPath {
   }
 
   struct SP {
-    vector<T> dist;
-    vector<int> depth, parent;
-    vector<S> label;
+    std::vector<T> dist;
+    std::vector<int> depth, parent;
+    std::vector<S> label;
   };
 
   SP dijkstra(int s) {
     int n = (int)g.size();
-    using pi = pair<T, int>;
-    vector<T> dist(n, INF);
-    vector<int> depth(n, -1), parent(n, -1);
-    vector<S> label(n, S());
-    priority_queue<pi, vector<pi>, greater<> > que;
+    using pi = std::pair<T, int>;
+    std::vector<T> dist(n, INF);
+    std::vector<int> depth(n, -1), parent(n, -1);
+    std::vector<S> label(n, S());
+    std::priority_queue<pi, std::vector<pi>, std::greater<> > que;
     dist[s] = T(0);
     depth[s] = 0;
     que.emplace(0, s);
     while (not que.empty()) {
       T cost;
       int u;
-      tie(cost, u) = que.top();
+      std::tie(cost, u) = que.top();
       que.pop();
       if (dist[u] < cost) {
         continue;
@@ -70,13 +79,13 @@ struct ShortestNonzeroPath {
     return {dist, depth, parent, label};
   }
 
-  vector<T> build(int s) {
+  std::vector<T> build(int s) {
     int n = (int)g.size();
     auto sp = dijkstra(s);
 
     uf.assign(n, -1);
-    using pi = tuple<T, int, int>;
-    priority_queue<pi, vector<pi>, greater<> > que;
+    using pi = std::tuple<T, int, int>;
+    std::priority_queue<pi, std::vector<pi>, std::greater<> > que;
     for (int u = 0; u < n; u++) {
       if (sp.dist[u] != INF) {
         for (int i = 0; i < (int)g[u].size(); i++) {
@@ -87,12 +96,12 @@ struct ShortestNonzeroPath {
         }
       }
     }
-    vector<T> dist(n, INF);
-    vector<int> bs;
+    std::vector<T> dist(n, INF);
+    std::vector<int> bs;
     while (not que.empty()) {
       T cost;
       int u0, i;
-      tie(cost, u0, i) = que.top();
+      std::tie(cost, u0, i) = que.top();
       que.pop();
       int v0 = g[u0][i].to;
       int u = find_uf(u0), v = find_uf(v0);

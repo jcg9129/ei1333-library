@@ -1,13 +1,20 @@
+#pragma once
+
+#include <algorithm>
+#include <cstddef>
+#include <vector>
+
 template <typename T>
-size_t longest_increasing_subsequence(const vector<T>& a, bool strict) {
-  vector<T> lis;
+std::size_t longest_increasing_subsequence(const std::vector<T>& a,
+                                           bool strict) {
+  std::vector<T> lis;
   for (auto& p : a) {
-    typename vector<T>::iterator it;
+    typename std::vector<T>::iterator it;
     if (strict)
-      it = lower_bound(begin(lis), end(lis), p);
+      it = std::lower_bound(lis.begin(), lis.end(), p);
     else
-      it = upper_bound(begin(lis), end(lis), p);
-    if (end(lis) == it)
+      it = std::upper_bound(lis.begin(), lis.end(), p);
+    if (lis.end() == it)
       lis.emplace_back(p);
     else
       *it = p;
