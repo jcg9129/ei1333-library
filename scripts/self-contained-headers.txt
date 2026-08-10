@@ -19,6 +19,7 @@ geometry/ccw.hpp
 geometry/circle.hpp
 geometry/common_area_cp.hpp
 geometry/contains.hpp
+geometry/convex-layers.hpp
 geometry/convex_hull.hpp
 geometry/convex_polygon_contains.hpp
 geometry/convex_polygon_cut.hpp

@@ -127,7 +127,7 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `other/` の9ヘッダー                                                                                                                                                                                                                                                       | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `string/manacher.hpp`、`string/z-algorithm.hpp`                                                                                                                                                                                                                            | 標準 include と `std::` 修飾      |
 | 2026-08-10 | geometry の基礎・距離・交差判定・多角形関連38ヘッダー                                                                                                                                                                                                                      | 標準 include と `std::` 修飾      |
-| 2026-08-10 | `geometry/integer/point.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                                                | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `geometry/integer/point.hpp`、`geometry/convex-layers.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                  | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 

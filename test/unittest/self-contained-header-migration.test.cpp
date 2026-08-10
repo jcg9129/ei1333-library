@@ -26,6 +26,7 @@
 #include "../../geometry/circle.hpp"
 #include "../../geometry/common_area_cp.hpp"
 #include "../../geometry/contains.hpp"
+#include "../../geometry/convex-layers.hpp"
 #include "../../geometry/convex_hull.hpp"
 #include "../../geometry/convex_polygon_contains.hpp"
 #include "../../geometry/convex_polygon_cut.hpp"
@@ -218,4 +219,6 @@ int main() {
   DecrementalUpperHull<int, long long> upper_hull(
       std::vector<std::pair<int, int>>{{0, 0}, {1, 1}, {2, 0}});
   assert(upper_hull.size() == 3);
+  assert((convex_layers<int, long long>({{0, 0}, {1, 0}, {0, 1}}) ==
+          std::vector<int>({1, 1, 1})));
 }
