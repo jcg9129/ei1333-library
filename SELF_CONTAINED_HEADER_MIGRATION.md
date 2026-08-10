@@ -27,7 +27,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
 | 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
-| `template/template.hpp` に依存する verify | 移行待ち | 243  |
+| `template/template.hpp` に依存する verify | 移行待ち | 150  |
 
 移行済みヘッダーの正本は
 [`scripts/self-contained-headers.txt`](scripts/self-contained-headers.txt)、
@@ -55,11 +55,12 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 ### 3. 対応する verify を移行する
 
-状態: 未着手
+状態: 進行中
 
 依存先ヘッダーが自己完結した後、対応する verify から
 `template/template.hpp` を削除する。必要な標準ヘッダー、型別名、入出力処理、
-補助関数は verify 側に明示する。移行後は
+補助関数は verify 側に明示する。verify では簡潔さのため
+`using namespace std;` の使用を許可する。移行後は
 `scripts/verify-template-include-allowlist.txt` から対象を削除する。
 
 ### 4. 移行済みコードの逆戻りを防ぐ
@@ -143,6 +144,21 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `geometry/template.hpp`、`graph/flow/` の10ヘッダー、`graph/mst/` の1ヘッダー、`graph/others/` の2ヘッダー                                                                                                                                                                 | 標準 include と `std::` 修飾        |
 | 2026-08-10 | `structure/bbst/` の10ヘッダー、`structure/dynamic-tree/` の13ヘッダー、`structure/wavelet/` の2ヘッダー                                                                                                                                                                   | 標準 include と `std::` 修飾        |
 | 2026-08-10 | 移行済みヘッダー34件                                                                                                                                                                                                                                                       | 未修飾標準名と include guard を修正 |
+| 2026-08-10 | AOJ DPL の verify 7件                                                                                                                                                                                                                                                      | テンプレート依存を削除              |
+| 2026-08-10 | AOJ DPL の組合せ verify 3件                                                                                                                                                                                                                                                | テンプレート依存を削除              |
+| 2026-08-10 | AOJ DSL の verify 6件                                                                                                                                                                                                                                                      | テンプレート依存を削除              |
+| 2026-08-10 | AOJ GRL の最短路 verify 6件                                                                                                                                                                                                                                                | テンプレート依存を削除              |
+| 2026-08-10 | AOJ GRL の全域木 verify 5件                                                                                                                                                                                                                                                | テンプレート依存を削除              |
+| 2026-08-10 | AOJ GRL の連結性 verify 3件                                                                                                                                                                                                                                                | テンプレート依存を削除              |
+| 2026-08-10 | AOJ GRL の木 verify 6件                                                                                                                                                                                                                                                    | テンプレート依存を削除              |
+| 2026-08-10 | AOJ GRL のフロー verify 6件                                                                                                                                                                                                                                                | テンプレート依存を削除              |
+| 2026-08-10 | AOJ の基礎数論 verify 5件                                                                                                                                                                                                                                                  | テンプレート依存を削除              |
+| 2026-08-10 | AOJ ALDS の verify 6件                                                                                                                                                                                                                                                     | テンプレート依存を削除              |
+| 2026-08-10 | AOJ CGL の verify 16件                                                                                                                                                                                                                                                     | 出力精度を維持して依存を削除        |
+| 2026-08-10 | Library Checker Static RMQ の verify 6件                                                                                                                                                                                                                                   | テンプレート依存を削除              |
+| 2026-08-10 | Library Checker LCA の verify 4件                                                                                                                                                                                                                                          | テンプレート依存を削除              |
+| 2026-08-10 | Library Checker Range Kth Smallest の verify 3件                                                                                                                                                                                                                           | テンプレート依存を削除              |
+| 2026-08-10 | Library Checker の基礎 verify 11件                                                                                                                                                                                                                                         | テンプレート依存を削除              |
 
 ## 次の候補
 

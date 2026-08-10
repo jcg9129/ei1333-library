@@ -1,8 +1,13 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=GRL_3_A
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <iostream>
 
 #include "../../graph/others/low-link.hpp"
+
+using namespace std;
 
 int main() {
   int V, E;
@@ -10,8 +15,7 @@ int main() {
   LowLink<> g(V);
   g.read(E, 0);
   g.build();
-  auto &art = g.articulation;
+  auto& art = g.articulation;
   sort(art.begin(), art.end());
-  for(auto &v : art) cout << v << "\n";
+  for (auto& v : art) cout << v << "\n";
 }
-

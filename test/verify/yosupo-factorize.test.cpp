@@ -1,18 +1,24 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/factorize
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <iostream>
 
 #include "../../math/number-theory/fast-prime-factorization.hpp"
+
+using namespace std;
 
 int main() {
   int Q;
   cin >> Q;
-  while(Q--) {
-    int64 X;
+  while (Q--) {
+    long long X;
     cin >> X;
     auto ret = FastPrimeFactorization::prime_factor(X);
-    sort(begin(ret), end(ret));
-    cout << ret.size() << " ";
-    cout << ret << "\n";
+    sort(ret.begin(), ret.end());
+    cout << ret.size();
+    for (auto factor : ret) cout << " " << factor;
+    cout << "\n";
   }
 }

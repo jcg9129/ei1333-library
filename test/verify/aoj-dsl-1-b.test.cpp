@@ -1,21 +1,25 @@
+// clang-format off
 // competitive-verifier: PROBLEM http://judge.u-aizu.ac.jp/onlinejudge/description.jsp?id=DSL_1_B
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <iostream>
 
 #include "../../structure/union-find/weighted-union-find.hpp"
+
+using namespace std;
 
 int main() {
   int N, M;
   cin >> N >> M;
-  WeightedUnionFind< int > tree(N);
-  while(M--) {
+  WeightedUnionFind<int> tree(N);
+  while (M--) {
     int A, B, C, D;
     cin >> A >> B >> C;
-    if(A == 0) {
+    if (A == 0) {
       cin >> D;
       tree.unite(B, C, D);
     } else {
-      if(tree.find(B) == tree.find(C)) {
+      if (tree.find(B) == tree.find(C)) {
         cout << tree.diff(B, C) << endl;
       } else {
         cout << "?" << endl;

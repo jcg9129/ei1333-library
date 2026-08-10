@@ -1,27 +1,28 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/lca
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <cstdio>
 
-#include "../../graph/graph-template.hpp"
 #include "../../graph/tree/rmq-lowest-common-ancestor.hpp"
-
-#include "../../other/scanner.hpp"
 #include "../../other/printer.hpp"
+#include "../../other/scanner.hpp"
 
+using namespace std;
 
 int main() {
   Scanner in(stdin);
   Printer out(stdout);
   int N, Q;
   in.read(N, Q);
-  RMQLowestCommonAncestor< int > g(N);
-  for(int i = 1; i < N; i++) {
+  RMQLowestCommonAncestor<int> g(N);
+  for (int i = 1; i < N; i++) {
     int x;
     in.read(x);
     g.add_directed_edge(x, i);
   }
   g.build();
-  for(int i = 0; i < Q; i++) {
+  for (int i = 0; i < Q; i++) {
     int u, v;
     in.read(u, v);
     out.writeln(g.lca(u, v));
