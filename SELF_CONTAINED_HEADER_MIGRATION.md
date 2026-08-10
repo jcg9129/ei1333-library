@@ -27,7 +27,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
 | 自己完結化して継続検査しているヘッダー    | 移行済み | 319  |
-| `template/template.hpp` に依存する verify | 移行待ち | 60   |
+| `template/template.hpp` に依存する verify | 移行済み | 0    |
 
 移行済みヘッダーの正本は
 [`scripts/self-contained-headers.txt`](scripts/self-contained-headers.txt)、
@@ -47,7 +47,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 ### 2. 既存ヘッダーを自己完結化する
 
-状態: 進行中
+状態: 完了
 
 依存するプロジェクトヘッダーが少ないものから、小さなまとまりで移行する。
 移行したヘッダーは `scripts/self-contained-headers.txt` に追加し、CI で毎回
@@ -55,7 +55,7 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 ### 3. 対応する verify を移行する
 
-状態: 進行中
+状態: 完了
 
 依存先ヘッダーが自己完結した後、対応する verify から
 `template/template.hpp` を削除する。必要な標準ヘッダー、型別名、入出力処理、
@@ -65,11 +65,11 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 ### 4. 移行済みコードの逆戻りを防ぐ
 
-状態: 一部完了
+状態: 完了
 
 - 自己完結化済みヘッダーは CI で継続的に単体コンパイルしている
 - verify の例外追加は禁止している
-- 全 verify の移行後に例外リストを削除する
+- verify の例外リストは空の状態を継続検査する
 
 ### 5. 一律の検査へ切り替える
 
@@ -191,8 +191,10 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 
 | 2026-08-10 | yukicoder の verify 7件（第2バッチ） | テンプレート依存を削除 |
 
+| 2026-08-10 | yukicoder の verify 7件（最終バッチ） | テンプレート依存を削除 |
+
 ## 次の候補
 
-ヘッダーの自己完結化は `template/template.hpp` を除いて完了している。
-次は対応する verify から `template/template.hpp` 依存を段階的に削除し、
-`scripts/verify-template-include-allowlist.txt` の例外を減らす。
+ヘッダーの自己完結化と、全 verify の `template/template.hpp` 依存削除は
+完了している。次は verify の `--sort-includes=0` 例外を確認し、
+一律の検査へ切り替える。

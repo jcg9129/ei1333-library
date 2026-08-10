@@ -1,9 +1,2 @@
 # Existing verification tests that still include template/template.hpp.
 # Remove entries as tests are migrated; do not add new entries.
-test/verify/yukicoder-583.test.cpp
-test/verify/yukicoder-650.test.cpp
-test/verify/yukicoder-703.test.cpp
-test/verify/yukicoder-704.test.cpp
-test/verify/yukicoder-705.test.cpp
-test/verify/yukicoder-8046.test.cpp
-test/verify/yukicoder-952.test.cpp

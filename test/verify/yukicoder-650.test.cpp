@@ -1,6 +1,8 @@
 // competitive-verifier: PROBLEM https://yukicoder.me/problems/no/650
 
-#include "../../template/template.hpp"
+#include <algorithm>
+#include <iostream>
+#include <vector>
 
 #include "../../graph/tree/heavy-light-decomposition.hpp"
 
@@ -9,12 +11,14 @@
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/matrix/square-matrix.hpp"
 
+using namespace std;
+
 using mint = modint1000000007;
 
 int main() {
   int N;
   cin >> N;
-  vector< int > X(N), Y(N);
+  vector<int> X(N), Y(N);
   HeavyLightDecomposition<> g(N);
   for (int i = 1; i < N; i++) {
     cin >> X[i] >> Y[i];
@@ -24,9 +28,10 @@ int main() {
   for (int i = 1; i < N; i++) {
     if (g.in[X[i]] > g.in[Y[i]]) swap(X[i], Y[i]);
   }
-  using Mat = SquareMatrix< mint, 2 >;
-  auto f = [](const Mat &a, const Mat &b) { return a * b; };
-  auto seg = SegmentTree(LambdaMonoid(f, []() { return Mat::mul_identity(); }), N);
+  using Mat = SquareMatrix<mint, 2>;
+  auto f = [](const Mat& a, const Mat& b) { return a * b; };
+  auto seg =
+      SegmentTree(LambdaMonoid(f, []() { return Mat::mul_identity(); }), N);
   int Q;
   cin >> Q;
   while (Q--) {
@@ -41,8 +46,11 @@ int main() {
     } else {
       int y, z;
       cin >> y >> z;
-      auto mat = g.query(y, z, Mat::mul_identity(), [&](int a, int b) { return seg.prod(a, b); }, f, true);
-      cout << mat[0][0] << " " << mat[0][1] << " " << mat[1][0] << " " << mat[1][1] << "\n";
+      auto mat = g.query(
+          y, z, Mat::mul_identity(),
+          [&](int a, int b) { return seg.prod(a, b); }, f, true);
+      cout << mat[0][0] << " " << mat[0][1] << " " << mat[1][0] << " "
+           << mat[1][1] << "\n";
     }
   }
 }
