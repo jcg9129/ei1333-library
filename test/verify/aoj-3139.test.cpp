@@ -6,10 +6,9 @@
 #include <iostream>
 #include <vector>
 
-#include "../../structure/union-find/union-find.hpp"
-
 #include "../../graph/others/block-cut-tree.hpp"
 #include "../../graph/tree/centroid-decomposition.hpp"
+#include "../../structure/union-find/union-find.hpp"
 
 using namespace std;
 

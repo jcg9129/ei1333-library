@@ -5,11 +5,9 @@
 #include <vector>
 
 #include "../../graph/tree/heavy-light-decomposition.hpp"
-
-#include "../../structure/segment-tree/segment-tree.hpp"
-
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
 #include "../../math/matrix/square-matrix.hpp"
+#include "../../structure/segment-tree/segment-tree.hpp"
 
 using namespace std;
 

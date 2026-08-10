@@ -9,7 +9,6 @@
 #include <vector>
 
 #include "../../graph/tree/centroid-decomposition.hpp"
-
 #include "../../math/fft/fast-fourier-transform.hpp"
 
 using namespace std;

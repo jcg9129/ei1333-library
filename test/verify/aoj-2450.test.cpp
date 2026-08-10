@@ -8,9 +8,8 @@
 #include <utility>
 #include <vector>
 
-#include "../../structure/segment-tree/lazy-segment-tree.hpp"
-
 #include "../../graph/tree/heavy-light-decomposition.hpp"
+#include "../../structure/segment-tree/lazy-segment-tree.hpp"
 
 using namespace std;
 

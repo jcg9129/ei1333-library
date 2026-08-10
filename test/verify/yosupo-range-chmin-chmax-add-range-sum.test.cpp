@@ -5,8 +5,8 @@
 #include <iostream>
 #include <vector>
 
-#include "../../structure/segment-tree/segment-tree-beats.hpp"
 #include "../../structure/class/range-chmin-chmax-add-range-sum.hpp"
+#include "../../structure/segment-tree/segment-tree-beats.hpp"
 
 using namespace std;
 

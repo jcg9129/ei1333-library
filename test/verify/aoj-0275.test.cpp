@@ -4,8 +4,9 @@
 #include <iostream>
 #include <utility>
 #include <vector>
-#include "../../graph/shortest-path/dijkstra.hpp"
+
 #include "../../graph/others/offline-dag-reachability.hpp"
+#include "../../graph/shortest-path/dijkstra.hpp"
 
 using namespace std;
 

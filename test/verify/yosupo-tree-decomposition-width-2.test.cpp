@@ -5,12 +5,10 @@
 #include <string>
 #include <vector>
 
-#include "../../other/scanner.hpp"
-#include "../../other/printer.hpp"
-
-#include "../../structure/union-find/union-find.hpp"
-
 #include "../../graph/others/tree-decomposition-width-2.hpp"
+#include "../../other/printer.hpp"
+#include "../../other/scanner.hpp"
+#include "../../structure/union-find/union-find.hpp"
 
 using namespace std;
 
