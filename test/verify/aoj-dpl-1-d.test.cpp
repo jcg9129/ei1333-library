@@ -7,10 +7,12 @@
 
 #include "../../dp/longest-increasing-subsequence.hpp"
 
+using namespace std;
+
 int main() {
   int N;
-  std::cin >> N;
-  std::vector<int> A(N);
-  for (int& a : A) std::cin >> a;
-  std::cout << longest_increasing_subsequence(A, true) << std::endl;
+  cin >> N;
+  vector<int> A(N);
+  for (int& a : A) cin >> a;
+  cout << longest_increasing_subsequence(A, true) << endl;
 }

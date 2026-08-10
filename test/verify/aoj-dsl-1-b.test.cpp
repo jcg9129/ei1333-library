@@ -6,21 +6,23 @@
 
 #include "../../structure/union-find/weighted-union-find.hpp"
 
+using namespace std;
+
 int main() {
   int N, M;
-  std::cin >> N >> M;
+  cin >> N >> M;
   WeightedUnionFind<int> tree(N);
   while (M--) {
     int A, B, C, D;
-    std::cin >> A >> B >> C;
+    cin >> A >> B >> C;
     if (A == 0) {
-      std::cin >> D;
+      cin >> D;
       tree.unite(B, C, D);
     } else {
       if (tree.find(B) == tree.find(C)) {
-        std::cout << tree.diff(B, C) << std::endl;
+        cout << tree.diff(B, C) << endl;
       } else {
-        std::cout << "?" << std::endl;
+        cout << "?" << endl;
       }
     }
   }

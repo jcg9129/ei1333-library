@@ -7,14 +7,16 @@
 
 #include "../../dp/knapsack-limitations-2.hpp"
 
+using namespace std;
+
 int main() {
   int N;
   long long W;
-  std::cin >> N >> W;
-  std::vector<int> v(N);
-  std::vector<long long> w(N), m(N);
+  cin >> N >> W;
+  vector<int> v(N);
+  vector<long long> w(N), m(N);
   for (int i = 0; i < N; i++) {
-    std::cin >> v[i] >> w[i] >> m[i];
+    cin >> v[i] >> w[i] >> m[i];
   }
-  std::cout << knapsack_limitations(w, m, v, W) << std::endl;
+  cout << knapsack_limitations(w, m, v, W) << endl;
 }

@@ -7,10 +7,12 @@
 
 #include "../../dp/largest-rectangle.hpp"
 
+using namespace std;
+
 int main() {
   int N;
-  std::cin >> N;
-  std::vector<int> h(N);
-  for (int& height : h) std::cin >> height;
-  std::cout << largest_rectangle(h) << std::endl;
+  cin >> N;
+  vector<int> h(N);
+  for (int& height : h) cin >> height;
+  cout << largest_rectangle(h) << endl;
 }

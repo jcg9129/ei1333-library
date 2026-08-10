@@ -6,16 +6,18 @@
 
 #include "../../structure/union-find/union-find.hpp"
 
+using namespace std;
+
 int main() {
   int N, Q;
-  std::scanf("%d %d", &N, &Q);
+  scanf("%d %d", &N, &Q);
   UnionFind uf(N);
   while (Q--) {
     int t, x, y;
-    std::scanf("%d %d %d", &t, &x, &y);
+    scanf("%d %d %d", &t, &x, &y);
     if (t == 0)
       uf.unite(x, y);
     else
-      std::printf("%d\n", uf.find(x) == uf.find(y));
+      printf("%d\n", uf.find(x) == uf.find(y));
   }
 }

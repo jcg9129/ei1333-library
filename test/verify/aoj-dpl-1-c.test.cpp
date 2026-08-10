@@ -8,11 +8,13 @@
 
 #include "../../dp/knapsack.hpp"
 
+using namespace std;
+
 int main() {
   int N, W;
-  std::cin >> N >> W;
-  std::vector<int> v(N), w(N);
-  for (int i = 0; i < N; i++) std::cin >> v[i] >> w[i];
+  cin >> N >> W;
+  vector<int> v(N), w(N);
+  for (int i = 0; i < N; i++) cin >> v[i] >> w[i];
   auto ret = knapsack(w, v, W, -1);
-  std::cout << *std::max_element(ret.begin(), ret.end()) << std::endl;
+  cout << *max_element(ret.begin(), ret.end()) << endl;
 }

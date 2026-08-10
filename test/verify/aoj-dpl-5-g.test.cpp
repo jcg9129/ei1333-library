@@ -7,8 +7,10 @@
 #include "../../math/combinatorics/bell-number.hpp"
 #include "../../math/combinatorics/montgomery-mod-int.hpp"
 
+using namespace std;
+
 int main() {
   int N, K;
-  std::cin >> N >> K;
-  std::cout << bell_number<modint1000000007>(N, K) << std::endl;
+  cin >> N >> K;
+  cout << bell_number<modint1000000007>(N, K) << endl;
 }

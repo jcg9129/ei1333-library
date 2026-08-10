@@ -8,19 +8,20 @@
 
 #include "../../structure/segment-tree/segment-tree.hpp"
 
+using namespace std;
+
 int main() {
   int N, Q;
-  std::cin >> N >> Q;
-  auto seg =
-      SegmentTree(LambdaMonoid([](int a, int b) { return std::min(a, b); },
-                               []() { return INT_MAX; }),
-                  N);
+  cin >> N >> Q;
+  auto seg = SegmentTree(LambdaMonoid([](int a, int b) { return min(a, b); },
+                                      []() { return INT_MAX; }),
+                         N);
   while (Q--) {
     int T, X, Y;
-    std::cin >> T >> X >> Y;
+    cin >> T >> X >> Y;
     if (T == 0)
       seg.set(X, Y);
     else
-      std::cout << seg.prod(X, Y + 1) << "\n";
+      cout << seg.prod(X, Y + 1) << "\n";
   }
 }

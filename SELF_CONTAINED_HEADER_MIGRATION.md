@@ -59,7 +59,8 @@ import と別名を意図的に提供する集約ヘッダーのため、自己�
 
 依存先ヘッダーが自己完結した後、対応する verify から
 `template/template.hpp` を削除する。必要な標準ヘッダー、型別名、入出力処理、
-補助関数は verify 側に明示する。移行後は
+補助関数は verify 側に明示する。verify では簡潔さのため
+`using namespace std;` の使用を許可する。移行後は
 `scripts/verify-template-include-allowlist.txt` から対象を削除する。
 
 ### 4. 移行済みコードの逆戻りを防ぐ

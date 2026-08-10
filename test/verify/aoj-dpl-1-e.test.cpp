@@ -7,8 +7,10 @@
 
 #include "../../dp/edit-distance.hpp"
 
+using namespace std;
+
 int main() {
-  std::string S, T;
-  std::cin >> S >> T;
-  std::cout << edit_distance(S, T) << std::endl;
+  string S, T;
+  cin >> S >> T;
+  cout << edit_distance(S, T) << endl;
 }
