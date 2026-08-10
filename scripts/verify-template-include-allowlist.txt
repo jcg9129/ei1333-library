@@ -1,11 +1,5 @@
 # Existing verification tests that still include template/template.hpp.
 # Remove entries as tests are migrated; do not add new entries.
-test/verify/aoj-2450-5.test.cpp
-test/verify/aoj-2450.test.cpp
-test/verify/aoj-2603.test.cpp
-test/verify/aoj-2667.test.cpp
-test/verify/aoj-2674-2.test.cpp
-test/verify/aoj-2674-3.test.cpp
 test/verify/aoj-2674.test.cpp
 test/verify/aoj-2725.test.cpp
 test/verify/aoj-2821.test.cpp
