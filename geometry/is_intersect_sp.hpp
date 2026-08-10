@@ -1,3 +1,5 @@
+#pragma once
+
 #include "ccw.hpp"
 #include "point.hpp"
 #include "segment.hpp"

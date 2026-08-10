@@ -1,7 +1,16 @@
+#pragma once
+
+#include <algorithm>
+#include <cassert>
+#include <cstddef>
+#include <tuple>
+#include <utility>
+#include <vector>
+
 template <typename T, typename T2>
 struct DecrementalUpperHull {
  private:
-  using Point = pair<T, T>;
+  using Point = std::pair<T, T>;
 
   static constexpr T2 cross(const Point& a, const Point& b) {
     return T2(a.first) * b.second - T2(a.second) * b.first;
@@ -32,12 +41,12 @@ struct DecrementalUpperHull {
     int lch, rch;
   };
 
-  size_t n, sz;
-  vector<bool> alive;
-  vector<Node> seg;
-  vector<Link> links;
+  std::size_t n, sz;
+  std::vector<bool> alive;
+  std::vector<Node> seg;
+  std::vector<Link> links;
 
-  pair<LP, LP> find_bridge(LP l, LP r) const {
+  std::pair<LP, LP> find_bridge(LP l, LP r) const {
     while (l->next or r->next) {
       if (not r->next or (l->next and ccw(sub(l->next->p, l->p),
                                           sub(r->next->p, r->p)) <= 0)) {
@@ -57,7 +66,7 @@ struct DecrementalUpperHull {
     return {l, r};
   }
 
-  pair<LP, LP> find_bridge_rev(LP l, LP r) const {
+  std::pair<LP, LP> find_bridge_rev(LP l, LP r) const {
     while (r->prev or l->prev) {
       if (not l->prev or (r->prev and ccw(sub(r->prev->p, r->p),
                                           sub(l->prev->p, l->p)) >= 0)) {
@@ -80,9 +89,9 @@ struct DecrementalUpperHull {
   template <bool rev>
   void fix_chain(int u, LP l, LP r) {
     if (rev)
-      tie(r, l) = find_bridge_rev(l, r);
+      std::tie(r, l) = find_bridge_rev(l, r);
     else
-      tie(l, r) = find_bridge(l, r);
+      std::tie(l, r) = find_bridge(l, r);
 
     Node& l_node = seg[seg[u].lch];
     Node& r_node = seg[seg[u].rch];
@@ -163,10 +172,10 @@ struct DecrementalUpperHull {
     }
   }
 
-  size_t build(size_t& k, int l, int r) {
+  std::size_t build(std::size_t& k, int l, int r) {
     if (r - l == 1) return l + n;
     int m = (l + r) / 2;
-    size_t res = k++;
+    std::size_t res = k++;
     seg[res].lch = build(k, l, m);
     seg[res].rch = build(k, m, r);
     fix_chain<false>(res, seg[seg[res].lch].chain, seg[seg[res].rch].chain);
@@ -174,9 +183,9 @@ struct DecrementalUpperHull {
   }
 
  public:
-  explicit DecrementalUpperHull(const vector<Point>& ps)
+  explicit DecrementalUpperHull(const std::vector<Point>& ps)
       : n(ps.size()), seg(2 * n), sz(n), alive(n) {
-    assert(is_sorted(ps.begin(), ps.end()));
+    assert(std::is_sorted(ps.begin(), ps.end()));
     links.reserve(n);
     for (int k = 0; k < n; ++k) {
       links.emplace_back(Link{ps[k], nullptr, nullptr, k});
@@ -185,11 +194,11 @@ struct DecrementalUpperHull {
       seg[k + n] = {&links[k], &links[k], nullptr, -1, -1};
     }
     if (ps.size() == 1) seg[0] = seg[1];
-    size_t u = 0;
+    std::size_t u = 0;
     build(u, 0, n);
   }
 
-  size_t size() const { return sz; }
+  std::size_t size() const { return sz; }
 
   bool empty() const { return sz == 0; }
 
@@ -206,8 +215,8 @@ struct DecrementalUpperHull {
     return true;
   }
 
-  vector<int> get_hull() const {
-    vector<int> ret;
+  std::vector<int> get_hull() const {
+    std::vector<int> ret;
     for (LP u = seg[0].chain; u; u = u->next) {
       ret.push_back(u->id);
     }

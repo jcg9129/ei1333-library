@@ -1,3 +1,5 @@
+#pragma once
+
 #include "distance_lp.hpp"
 #include "is_intersect_ll.hpp"
 #include "line.hpp"

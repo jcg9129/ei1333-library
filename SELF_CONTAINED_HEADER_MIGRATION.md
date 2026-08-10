@@ -22,7 +22,7 @@
 | 項目                                      | 状態     | 件数 |
 | ----------------------------------------- | -------- | ---- |
 | リポジトリ内の `.hpp`                     | 調査済み | 320  |
-| 自己完結化して継続検査しているヘッダー    | 移行済み | 80   |
+| 自己完結化して継続検査しているヘッダー    | 移行済み | 120  |
 | `template/template.hpp` に依存する verify | 移行待ち | 243  |
 
 移行済みヘッダーの正本は
@@ -126,10 +126,12 @@ g++ -std=c++17 -fsyntax-only -x c++ -include ./path/to/header.hpp /dev/null
 | 2026-08-10 | `math/number-theory/` の11ヘッダー                                                                                                                                                                                                                                         | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `other/` の9ヘッダー                                                                                                                                                                                                                                                       | 標準 include と `std::` 修飾      |
 | 2026-08-10 | `string/manacher.hpp`、`string/z-algorithm.hpp`                                                                                                                                                                                                                            | 標準 include と `std::` 修飾      |
+| 2026-08-10 | geometry の基礎・距離・交差判定・多角形関連38ヘッダー                                                                                                                                                                                                                      | 標準 include と `std::` 修飾      |
+| 2026-08-10 | `geometry/integer/point.hpp`、`structure/others/decremental-upper-hull.hpp`                                                                                                                                                                                                | 標準 include と `std::` 修飾      |
 
 ## 次の候補
 
 次の候補として、プロジェクト内ヘッダーへの依存がない
 `structure/others/generalized-slope-trick.hpp`、`structure/others/permutation-tree.hpp`、
-および geometry の基礎ヘッダー群を検討する。その後も依存関係の葉に近い
+および graph・math の基礎ヘッダー群を検討する。その後も依存関係の葉に近い
 ヘッダーから進め、1コミットの変更範囲を小さく保つ。

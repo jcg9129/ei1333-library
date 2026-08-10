@@ -19,6 +19,44 @@
 #include "../../dp/longest-increasing-subsequence.hpp"
 #include "../../dp/monotone-minima.hpp"
 #include "../../dp/online-offline-dp.hpp"
+#include "../../geometry/angle.hpp"
+#include "../../geometry/area.hpp"
+#include "../../geometry/base.hpp"
+#include "../../geometry/ccw.hpp"
+#include "../../geometry/circle.hpp"
+#include "../../geometry/common_area_cp.hpp"
+#include "../../geometry/contains.hpp"
+#include "../../geometry/convex_hull.hpp"
+#include "../../geometry/convex_polygon_contains.hpp"
+#include "../../geometry/convex_polygon_cut.hpp"
+#include "../../geometry/convex_polygon_diameter.hpp"
+#include "../../geometry/cross_point_cc.hpp"
+#include "../../geometry/cross_point_cl.hpp"
+#include "../../geometry/cross_point_cs.hpp"
+#include "../../geometry/cross_point_ll.hpp"
+#include "../../geometry/distance_ll.hpp"
+#include "../../geometry/distance_lp.hpp"
+#include "../../geometry/distance_pp.hpp"
+#include "../../geometry/distance_sp.hpp"
+#include "../../geometry/distance_ss.hpp"
+#include "../../geometry/integer/point.hpp"
+#include "../../geometry/is_convex_polygon.hpp"
+#include "../../geometry/is_intersect_cl.hpp"
+#include "../../geometry/is_intersect_cp.hpp"
+#include "../../geometry/is_intersect_cs.hpp"
+#include "../../geometry/is_intersect_ll.hpp"
+#include "../../geometry/is_intersect_lp.hpp"
+#include "../../geometry/is_intersect_ls.hpp"
+#include "../../geometry/is_intersect_sp.hpp"
+#include "../../geometry/is_intersect_ss.hpp"
+#include "../../geometry/is_orthogonal.hpp"
+#include "../../geometry/is_parallel.hpp"
+#include "../../geometry/line.hpp"
+#include "../../geometry/point.hpp"
+#include "../../geometry/polygon.hpp"
+#include "../../geometry/projection.hpp"
+#include "../../geometry/reflection.hpp"
+#include "../../geometry/segment.hpp"
 #include "../../graph/graph-template.hpp"
 #include "../../graph/shortest-path/bellman-ford.hpp"
 #include "../../graph/shortest-path/bfs.hpp"
@@ -63,6 +101,7 @@
 #include "../../structure/class/monoid.hpp"
 #include "../../structure/class/range-add-range-min.hpp"
 #include "../../structure/class/range-chmin-chmax-add-range-sum.hpp"
+#include "../../structure/others/decremental-upper-hull.hpp"
 #include "../../structure/others/slope-trick.hpp"
 #include "../../structure/others/sqrt-decomposition.hpp"
 #include "../../structure/others/union-rectangle.hpp"
@@ -150,9 +189,33 @@ int main() {
   assert(bfs(graph, 0)[2] == 3);
   assert(dijkstra(graph, 0).dist[2] == 3);
   assert(bellman_ford(Edges<int>{{0, 1, 1}, {1, 2, 2}}, 3, 0)[2] == 3);
-  std::vector<std::vector<int> > distances{{0, 1}, {1, 0}};
+  std::vector<std::vector<int>> distances{{0, 1}, {1, 0}};
   warshall_floyd(distances, 100);
   assert(distances[0][1] == 1);
   std::vector<std::string> grid{"S.", ".#"};
   assert(grid_bfs(grid, 'S')[0][1] == 1);
+
+  using geometry::Circle;
+  using geometry::Line;
+  using geometry::Point;
+  using geometry::Polygon;
+  using geometry::Segment;
+  Point a(0, 0), b(3, 4);
+  assert(geometry::distance(a, b) == 5);
+  assert(geometry::equals(geometry::cross(a, b), 0));
+  Line line(a, b);
+  Segment segment(Point(0, 4), Point(3, 0));
+  assert(geometry::is_intersect_ls(line, segment));
+  assert(geometry::is_orthogonal(Line(Point(0, 0), Point(1, 0)),
+                                 Line(Point(0, 0), Point(0, 1))));
+  Circle circle(Point(0, 0), 1);
+  assert(geometry::is_intersect_cp(circle, Point(1, 0)));
+  Polygon polygon{Point(0, 0), Point(2, 0), Point(0, 2)};
+  assert(geometry::area(polygon) == 2);
+  assert(geometry::contains(polygon, Point(1, 1)) == geometry::ON);
+  std::vector<Point> hull = geometry::convex_hull(polygon);
+  assert(hull.size() == 3);
+  DecrementalUpperHull<int, long long> upper_hull(
+      std::vector<std::pair<int, int>>{{0, 0}, {1, 1}, {2, 0}});
+  assert(upper_hull.size() == 3);
 }

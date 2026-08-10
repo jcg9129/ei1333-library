@@ -1,8 +1,10 @@
 #pragma once
 
+#include <vector>
+
 #include "point.hpp"
 
 namespace geometry {
-using Polygon = vector<Point>;
-using Polygons = vector<Polygon>;
+using Polygon = std::vector<Point>;
+using Polygons = std::vector<Polygon>;
 }  // namespace geometry
