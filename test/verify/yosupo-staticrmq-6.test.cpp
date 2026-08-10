@@ -1,22 +1,26 @@
+// clang-format off
 // competitive-verifier: PROBLEM https://judge.yosupo.jp/problem/staticrmq
+// clang-format on
 
-#include "../../template/template.hpp"
+#include <cstdio>
+#include <utility>
+#include <vector>
 
 #include "../../other/offline-rmq.hpp"
-
-#include "../../other/scanner.hpp"
 #include "../../other/printer.hpp"
+#include "../../other/scanner.hpp"
 
+using namespace std;
 
 int main() {
   Scanner in(stdin);
   Printer out(stdout);
   int N, Q;
   in.read(N, Q);
-  vector< int > A(N);
+  vector<int> A(N);
   in.read(A);
-  vector< pair< int, int > > qs(Q);
-  for(auto&[l, r]: qs) in.read(l, r);
+  vector<pair<int, int>> qs(Q);
+  for (auto& [l, r] : qs) in.read(l, r);
   auto ans = offline_rmq(qs, [&](int a, int b) { return A[a] < A[b]; });
-  for(int i = 0; i < Q; i++) out.writeln(A[ans[i]]);
+  for (int i = 0; i < Q; i++) out.writeln(A[ans[i]]);
 }
