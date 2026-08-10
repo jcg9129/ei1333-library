@@ -114,9 +114,6 @@ test/verify/yosupo-shortest-path.test.cpp
 test/verify/yosupo-sparse-matrix-det.test.cpp
 test/verify/yosupo-sqrt-mod.test.cpp
 test/verify/yosupo-sqrt-of-formal-power-series.test.cpp
-test/verify/yosupo-static-range-count-distinct.test.cpp
-test/verify/yosupo-static-range-frequency.test.cpp
-test/verify/yosupo-static-range-inversions-query.test.cpp
 test/verify/yosupo-static-rectangle-add-rectangle-sum.test.cpp
 test/verify/yosupo-stirling-number-of-the-first-kind.test.cpp
 test/verify/yosupo-stirling-number-of-the-second-kind.test.cpp
