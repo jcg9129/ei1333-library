@@ -35,10 +35,6 @@ test/verify/aoj-3139.test.cpp
 test/verify/aoj-3198.test.cpp
 test/verify/yosupo-assignment.test.cpp
 test/verify/yosupo-bipartite-edge-coloring.test.cpp
-test/verify/yosupo-bitwise-and-convolution-2.test.cpp
-test/verify/yosupo-bitwise-and-convolution-3.test.cpp
-test/verify/yosupo-bitwise-and-convolution.test.cpp
-test/verify/yosupo-bitwise-xor-convolution.test.cpp
 test/verify/yosupo-deque-operate-all-composite.test.cpp
 test/verify/yosupo-division-of-polynomials.test.cpp
 test/verify/yosupo-dynamic-tree-subtree-add-subtree-sum-2.test.cpp
