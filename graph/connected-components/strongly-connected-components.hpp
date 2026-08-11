@@ -9,7 +9,6 @@
 
 template <typename T = int>
 struct StronglyConnectedComponents : Graph<T> {
- public:
   using Graph<T>::Graph;
   using Graph<T>::g;
   std::vector<int> comp;
@@ -48,10 +47,8 @@ struct StronglyConnectedComponents : Graph<T> {
   int operator[](int k) const { return comp[k]; }
 
  private:
-  std::vector<int> order, low;
-  std::vector<unsigned char> in_stack;
+  std::vector<int> order, low, in_stack, vertex_stack;
   std::vector<std::pair<int, std::size_t>> dfs_stack;
-  std::vector<int> vertex_stack;
 
   void dfs(int root, int& now, int& component_count) {
     dfs_stack.clear();
