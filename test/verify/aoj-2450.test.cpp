@@ -14,7 +14,7 @@
 
 using namespace std;
 
-constexpr int64_t kInfinity = numeric_limits<int64_t>::max();
+constexpr int64_t kInfinity = (1LL << 62) - 1;
 
 int main() {
   int N, Q;
