@@ -2,7 +2,6 @@
 
 #include <algorithm>
 #include <cstddef>
-#include <iterator>
 #include <utility>
 #include <vector>
 
@@ -18,25 +17,20 @@ struct StronglyConnectedComponents : Graph<T> {
   std::vector<std::vector<int>> group;
 
   void build() {
-    order.clear();
-    order.reserve(g.size());
+    comp.assign(g.size(), -1);
+    order.assign(g.size(), -1);
+    low.resize(g.size());
+    in_stack.assign(g.size(), false);
     dfs_stack.clear();
     dfs_stack.reserve(g.size());
-    rdfs_stack.clear();
-    rdfs_stack.reserve(g.size());
-    rg = Graph<T>(g.size());
+    vertex_stack.clear();
+    vertex_stack.reserve(g.size());
+    int now = 0, ptr = 0;
     for (std::size_t i = 0; i < g.size(); i++) {
-      for (auto& e : g[i]) {
-        rg.add_directed_edge(e.to, e.from, e.cost);
-      }
+      if (order[i] == -1) dfs(static_cast<int>(i), now, ptr);
     }
-    comp.assign(g.size(), -1);
-    used.assign(g.size(), 0);
-    for (std::size_t i = 0; i < g.size(); i++) dfs(static_cast<int>(i));
-    std::reverse(std::begin(order), std::end(order));
-    int ptr = 0;
-    for (int i : order)
-      if (comp[i] == -1) rdfs(i, ptr), ptr++;
+    for (int& component : comp) component = ptr - 1 - component;
+
     dag = Graph<T>(ptr);
     for (std::size_t i = 0; i < g.size(); i++) {
       for (auto& e : g[i]) {
@@ -54,45 +48,46 @@ struct StronglyConnectedComponents : Graph<T> {
   int operator[](int k) const { return comp[k]; }
 
  private:
-  std::vector<int> order, used;
+  std::vector<int> order, low;
+  std::vector<unsigned char> in_stack;
   std::vector<std::pair<int, std::size_t>> dfs_stack;
-  std::vector<int> rdfs_stack;
-  Graph<T> rg;
+  std::vector<int> vertex_stack;
 
-  void dfs(int idx) {
-    if (used[idx]) return;
-    used[idx] = true;
+  void dfs(int root, int& now, int& component_count) {
     dfs_stack.clear();
-    dfs_stack.emplace_back(idx, 0);
+    order[root] = low[root] = now++;
+    in_stack[root] = true;
+    vertex_stack.push_back(root);
+    dfs_stack.emplace_back(root, 0);
     while (!dfs_stack.empty()) {
       auto& [v, edge_index] = dfs_stack.back();
-      if (edge_index == g[v].size()) {
-        order.push_back(v);
-        dfs_stack.pop_back();
+      if (edge_index < g[v].size()) {
+        int to = g[v][edge_index++].to;
+        if (order[to] == -1) {
+          order[to] = low[to] = now++;
+          in_stack[to] = true;
+          vertex_stack.push_back(to);
+          dfs_stack.emplace_back(to, 0);
+        } else if (in_stack[to]) {
+          low[v] = std::min(low[v], order[to]);
+        }
         continue;
       }
-      int to = g[v][edge_index++].to;
-      if (!used[to]) {
-        used[to] = true;
-        dfs_stack.emplace_back(to, 0);
-      }
-    }
-  }
 
-  void rdfs(int idx, int cnt) {
-    if (comp[idx] != -1) return;
-    comp[idx] = cnt;
-    rdfs_stack.clear();
-    rdfs_stack.push_back(idx);
-    while (!rdfs_stack.empty()) {
-      int v = rdfs_stack.back();
-      rdfs_stack.pop_back();
-      for (const auto& edge : rg.g[v]) {
-        if (comp[edge.to] == -1) {
-          comp[edge.to] = cnt;
-          rdfs_stack.push_back(edge.to);
-        }
+      dfs_stack.pop_back();
+      if (!dfs_stack.empty()) {
+        int parent = dfs_stack.back().first;
+        low[parent] = std::min(low[parent], low[v]);
       }
+      if (low[v] != order[v]) continue;
+      while (true) {
+        int u = vertex_stack.back();
+        vertex_stack.pop_back();
+        in_stack[u] = false;
+        comp[u] = component_count;
+        if (u == v) break;
+      }
+      component_count++;
     }
   }
 };
